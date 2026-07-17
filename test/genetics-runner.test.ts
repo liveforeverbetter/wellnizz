@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { buildGeneticsPipelineArgs } from '../src/core/genetics-runner.js';
+import { buildGeneticsPipelineArgs, geneticsPipelineTimeoutMs } from '../src/core/genetics-runner.js';
 import { createId, HealthApiStore } from '../src/store.js';
 import type { GeneticAnalysisJob } from '../src/types.js';
 
@@ -28,6 +28,33 @@ test('compact worker does not pass a full-dbSNP reference', () => {
   );
 
   assert.ok(!args.some(arg => arg.startsWith('--dbsnp=')));
+});
+
+test('full-dbSNP jobs use a dedicated long timeout', () => {
+  assert.equal(
+    geneticsPipelineTimeoutMs(
+      { HEALTH_ANALYSIS_TIMEOUT_MS: '1800000' },
+      { annotation_depth: 'full_dbsnp' },
+    ),
+    14_400_000,
+  );
+  assert.equal(
+    geneticsPipelineTimeoutMs(
+      { HEALTH_ANALYSIS_FULL_DBSNP_TIMEOUT_MS: '21600000' },
+      { annotation_depth: 'full_dbsnp' },
+    ),
+    21_600_000,
+  );
+});
+
+test('compact jobs retain the standard timeout', () => {
+  assert.equal(
+    geneticsPipelineTimeoutMs(
+      { HEALTH_ANALYSIS_TIMEOUT_MS: '1800000' },
+      { annotation_depth: 'compact' },
+    ),
+    1_800_000,
+  );
 });
 
 test('claiming a genetic retry clears the previous attempt error', async () => {
