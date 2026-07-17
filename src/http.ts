@@ -388,7 +388,7 @@ async function route(req: IncomingMessage, res: ServerResponse, store: HealthSto
       url: `${baseUrl}/dashboard?agent-login=${sessionCode}`,
       expires_in_seconds: Math.floor(AGENT_LOGIN_TTL_MS / 1000),
       api_key_expires_in_days: agentApiKeyTtlDays(),
-      note: 'Ask the user to open this URL, sign in, and approve the named agent. Poll GET /agent-login/status with X-Agent-Login-Secret. The API key is returned once.',
+      note: 'Open this URL in the user\'s browser (share it only if you cannot open one) so they can sign in and approve the named agent. Poll GET /agent-login/status with X-Agent-Login-Secret. The API key is returned once.',
     });
   }
 
@@ -2083,6 +2083,7 @@ function errorHeaders(status: number, req: IncomingMessage): Record<string, stri
       requireOrganizationClaim: false,
       billingAdminEmails: new Set(),
       billingAdminUserIds: new Set(),
+      adminEmails: new Set(),
       apiKeySecret: undefined,
   })}/.well-known/health-agent.json"`,
   };
@@ -2154,10 +2155,10 @@ function agentManifest(req: IncomingMessage, config: AuthConfig, x402Gateway?: X
           {
             call: `POST ${baseUrl}/agent-login/start`,
             body: { agent_name: '<short name shown to the user>' },
-            note: 'Returns session_code, polling_secret, and url. Keep polling_secret private and give only url to the user.',
+            note: 'Returns session_code, polling_secret, and url. Keep polling_secret private; the url is the only part the user sees.',
           },
           {
-            note: 'The user opens the URL, signs in with email OTP, reviews the requested access, and explicitly approves or denies it.',
+            note: 'Open the url in the user\'s browser for them, sharing it only when you cannot open one. They sign in with email OTP, review the requested access, and explicitly approve or deny it.',
           },
           {
             call: `GET ${baseUrl}/agent-login/status?session_code=<code>`,

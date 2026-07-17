@@ -74,16 +74,17 @@ test('dashboard is agent-first with a first-party OTP flow behind a toggle', asy
   assert.doesNotMatch(app, /access_token=/);
   assert.doesNotMatch(app, /sessionFromHash/);
 
-  // The wearable UI is a Meridian-style dark performance system. Its hero is
-  // driven by actual connection readiness, never fabricated health metrics.
-  assert.match(html, /meridian-topbar/);
-  assert.match(html, /meridian-healthspan-orb/);
+  // The account dashboard uses the ForeverBetter warm-light identity; the
+  // Meridian skin ships only as the pinned design-system implementation
+  // snapshot. The hero remains driven by actual connection readiness, never
+  // fabricated health metrics.
+  assert.doesNotMatch(html, /meridian-/);
+  assert.match(html, /pipe-hub/);
+  assert.match(html, /ws-key/);
   assert.match(html, /source-card-whoop/);
-  assert.match(html, /meridian-whoop-card/);
-  assert.match(html, /whoop-channel-row/);
-  assert.match(styles, /--surface-page: #07090c/);
-  assert.match(styles, /--brand: #12d982/);
-  assert.match(styles, /--recovery: #34e08a/);
-  assert.match(styles, /@font-face \{ font-family: "Metropolis"/);
+  assert.match(styles, /--bg: #f6f3ee/);
+  assert.match(styles, /--accent: #df1e39/);
+  assert.doesNotMatch(styles, /--brand: #12d982/);
+  assert.doesNotMatch(styles, /Metropolis/);
   assert.match(app, /connectedCount \/ 3/);
 });

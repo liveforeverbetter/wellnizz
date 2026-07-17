@@ -85,6 +85,8 @@ export const DEFAULT_API_KEY_ENDPOINTS: EndpointId[] = [
   'biomarkers.derive',
   'biomarkers.analyze',
   'wearables.analyze',
+  'genetics.uploads.create',
+  'genetics.uploads.complete',
   'genetics.analyze',
   'genetics.ancestry.create',
   'genetics.jobs.read',

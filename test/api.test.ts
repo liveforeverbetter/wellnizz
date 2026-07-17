@@ -913,7 +913,9 @@ test('serves readiness and agent discovery metadata', async () => {
   assert.match(skill.headers.get('content-type') ?? '', /text\/markdown/);
   const skillMarkdown = await skill.text();
   assert.match(skillMarkdown, /Agent operating contract/i);
-  assert.match(skillMarkdown, /cloud, self-hosted, or local pipeline/i);
+  assert.match(skillMarkdown, /Execution mode \(default to cloud\)/i);
+  assert.match(skillMarkdown, /Cloud is the default/i);
+  assert.match(skillMarkdown, /Open that URL in the user's default browser/i);
   assert.match(skillMarkdown, /Optimize everything/i);
   assert.match(skillMarkdown, /recurring daily plan/i);
   assert.match(skillMarkdown, /Do not assume the user wants a\s+dashboard/i);
@@ -1234,6 +1236,7 @@ test('OIDC auth requires tokens, scopes, and same-user access', async () => {
       requireOrganizationClaim: false,
       billingAdminEmails: new Set(),
       billingAdminUserIds: new Set(),
+      adminEmails: new Set(['owner@example.com']),
       apiKeySecret: 'api-key-secret',
     },
   });
@@ -1290,6 +1293,13 @@ test('OIDC auth requires tokens, scopes, and same-user access', async () => {
     const adminReadyDetails = await fetch(`${secureBase}/ready/details`, { headers: { authorization: `Bearer ${admin}` } });
     assert.equal(adminReadyDetails.status, 200);
     assert.equal((await adminReadyDetails.json()).storage.checks.store, 'memory');
+
+    const adminByEmail = await token('user_owner', '', { email: 'Owner@Example.com' });
+    const emailAdminReadyDetails = await fetch(`${secureBase}/ready/details`, { headers: { authorization: `Bearer ${adminByEmail}` } });
+    assert.equal(emailAdminReadyDetails.status, 200);
+    const nonAdminEmail = await token('user_d', '', { email: 'someone-else@example.com' });
+    const nonAdminEmailReadyDetails = await fetch(`${secureBase}/ready/details`, { headers: { authorization: `Bearer ${nonAdminEmail}` } });
+    assert.equal(nonAdminEmailReadyDetails.status, 403);
 
     const missingScope = await fetch(`${secureBase}/imports/file`, {
       method: 'POST',

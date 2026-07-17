@@ -57,9 +57,12 @@ Treat this as an execution workflow, not a page to summarize.
 - Finish by delivering the requested artifact or result, its coverage and provenance,
   and one optional next step. A setup checklist alone is not a completed run.
 
-## Step 1: Choose cloud, self-hosted, or local pipeline
+## Step 1: Execution mode (default to cloud)
 
-Choose the execution mode first, then continue with the same outcome-driven flow.
+Cloud is the default and the recommendation for every user who has not asked for
+something else. Do not ask the user to pick a mode. Switch to self-hosted or the
+local pipeline only when the user explicitly requests one, then continue with the
+same outcome-driven flow.
 
 Three ways to run, all driven by this skill:
 
@@ -80,9 +83,10 @@ Three ways to run, all driven by this skill:
   subset of the outcomes. This is the "just run the skill files" path. See "Local
   pipeline mode" near the end of this file.
 
-Decision rule: use cloud for the least setup; self-hosted when the data must stay on
-the user's own infrastructure but they still want the full API and every playbook;
-the local pipeline when they want the lightest offline path with no server at all.
+Decision rule: cloud, unless the user explicitly asks to run it themselves.
+Self-hosted fits a user who wants the data on their own infrastructure with the
+full API and every playbook; the local pipeline fits a user who wants the
+lightest offline path with no server at all.
 Cloud and self-hosted are identical to drive after authentication: same endpoints
 and playbooks, with a different base URL. Cloud sign-in accepts the terms of use
 that cover data processing; a self-hoster controls their own deployment and policy.
@@ -109,8 +113,8 @@ stuck, read `docs_url` and the full docs before retrying.
 
 ## The onboarding arc
 
-1. **Choose how to run** (cloud, self-hosted, or local pipeline) using the decision
-   rule above, then say once, plainly, which mode is processing the data.
+1. **Start in cloud mode** unless the user explicitly asked for self-hosted or the
+   local pipeline, then say once, plainly, which mode is processing the data.
 2. **Authenticate** from the deployment's live manifest. Cloud supports agent login
    or x402 per-call payment; self-hosted uses the operator's configured auth and does
    not require hosted billing.
@@ -153,8 +157,11 @@ When `auth.agent_login` is advertised, follow these steps:
 
 1. Call `POST /agent-login/start` with `{"agent_name":"<short recognizable name>"}`.
    Save `session_code` and `polling_secret`; give only the returned `url` to the user.
-2. Tell the user to open that URL, sign in with their email, review the requested
-   access, and approve or deny the named agent. The key never passes through chat.
+2. Open that URL in the user's default browser for them (`open <url>` on macOS,
+   `xdg-open <url>` on Linux, `start "" <url>` on Windows) and say what just
+   opened. If the environment cannot open a browser, give them the URL instead.
+   They sign in with their email, review the requested access, and approve or
+   deny the named agent. The key never passes through chat.
 3. Poll `GET /agent-login/status?session_code=<code>` every 2 seconds with
    `X-Agent-Login-Secret: <polling_secret>` until the response returns
    `"status": "confirmed"` or `"status": "denied"`.
@@ -283,8 +290,10 @@ multimodal analysis will re-queue the WGS worker redundantly.
 3. `GET /dashboard-specs/{analysis_id}` for the render-ready spec (cards, values,
    targets, sections, coverage, freshness, provenance).
 4. `GET /analyses/{id}/recommendations` for tiered core, optimize, and maintain items.
-5. `GET /design/systems` then `GET /design/systems/{design_id}`: recommend at most two
-   designs for the user's goal and let them pick. When the user asks to build the
+5. `GET /design/systems` then `GET /design/systems/{design_id}`: show the user every
+   design the deployment returns (name, one-line vibe, `best_for`), highlight up to
+   two that fit their goal, and let them pick. The catalog grows over time; always
+   offer from the live list, never from memory. When the user asks to build the
    WHOOP-inspired Meridian wearable app rather than merely style a new UI, call
    `GET /design/systems/meridian/implementation` (or MCP
    `get_design_implementation`). It returns the exact production HTML, CSS, JS,
@@ -348,8 +357,9 @@ Wearables are always last unless the user explicitly asks to connect one first.
 
 1. `POST /connections/wearables/start` with the user's IDs and `source_provider`
    (`whoop` or `oura`). On first-party deployments no client credentials are needed.
-2. Give the returned `authorization_url` to the user. Do not ask them to copy `code` or
-   `state` back into chat.
+2. Open the returned `authorization_url` in the user's default browser for them,
+   falling back to sharing the URL when the environment cannot open one. Do not
+   ask them to copy `code` or `state` back into chat.
 3. Poll `GET /connections/wearables/status` until the provider reports `active`.
 4. If a manual refresh is needed, use `POST /connections/oura/sync` for Oura or
    `POST /connections/whoop/sync` for WHOOP, then call `POST /wearables/analyze`.
@@ -369,7 +379,9 @@ offer wearables last. Never onboard a modality the user left off. If the user ar
 specifically to connect a wearable, honor that but still avoid asking for unrelated data
 first.
 
-**Genetics.** For any VCF/VCF.GZ or large SNP-array export (including 23andMe or AncestryDNA
+**Genetics.** If `GET /sources` already shows a completed genetics source for this
+user, reuse it and skip the upload entirely. For any new VCF/VCF.GZ or large SNP-array
+export (including 23andMe or AncestryDNA
 `.txt`, `.tsv`, `.csv`, `.snp`, or `.raw`, optionally gzipped), do not base64 encode it,
 do not use `upload_health_data`, and do not send it to `/imports/file` (including
 multipart). Create a session with `POST /genetics/uploads` using `user_id`,
@@ -433,8 +445,8 @@ connected.
 
 The first useful deliverable is the result the user asked for, which is not always a
 dashboard. When the chosen outcome includes a dashboard, call `GET /design/systems`,
-recommend at most two designs for the user's goal (name, vibe, and `best_for`), and let
-them pick before rendering. Run the chosen playbook and show the result before asking for
+list every returned design (name, vibe, and `best_for`) with up to two highlighted
+for the user's goal, and let them pick before rendering. Run the chosen playbook and show the result before asking for
 more data. Missing modalities appear as optional context, never as errors.
 
 In cloud mode, create the dashboard link after the user chooses a design. Over MCP call
@@ -484,8 +496,9 @@ If the repository already exists, reuse it and pull only with the user's permiss
 local changes are present. Confirm the sample report opened, then follow the repository's
 `SKILL.md` to inventory the files the user already has and run the first real analysis
 with only those modalities. If the requested outcome includes a dashboard, run
-`npm run design:list`, suggest at most two designs that fit the user's goal, and pass
-the chosen ID as `--design=<id>`; skip design selection for plan-only outcomes.
+`npm run design:list`, show the full list with up to two suggestions that fit the
+user's goal, and pass the chosen ID as `--design=<id>`; skip design selection for
+plan-only outcomes.
 Local mode produces the dashboard, action plan, and genomic interpretation outcomes on
 disk; ancestry proportions, provider discovery, live wearable OAuth, goals, and retest
 reminders come from the API, so offer to switch that specific step to cloud or a

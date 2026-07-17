@@ -31,6 +31,12 @@ export interface AuthConfig {
   /** Narrow hosted billing bypass; does not grant health:admin or data access. */
   billingAdminEmails: Set<string>;
   billingAdminUserIds: Set<string>;
+  /**
+   * Full administrative grant. Any authenticated token whose verified email
+   * claim matches receives the health:admin scope, including API keys minted
+   * from that identity. Operator emails only; keep it a deployment secret.
+   */
+  adminEmails: Set<string>;
   testToken?: string;
   serviceAccountSecret?: string;
   apiKeySecret?: string;
@@ -132,6 +138,7 @@ export function loadAuthConfig(env: NodeJS.ProcessEnv = process.env): AuthConfig
     requireOrganizationClaim: env.REQUIRE_ORGANIZATION_CLAIM === 'true',
     billingAdminEmails: normalizeEmailSet(env.HEALTH_API_BILLING_ADMIN_EMAILS),
     billingAdminUserIds: parseStringSet(env.HEALTH_API_BILLING_ADMIN_USER_IDS),
+    adminEmails: normalizeEmailSet(env.HEALTH_API_ADMIN_EMAILS),
     testToken: env.TEST_BEARER_TOKEN,
     serviceAccountSecret: env.SERVICE_ACCOUNT_JWT_SECRET,
     apiKeySecret: env.API_KEY_JWT_SECRET ?? env.SERVICE_ACCOUNT_JWT_SECRET,
@@ -250,7 +257,7 @@ export async function authenticate(req: IncomingMessage, config: AuthConfig): Pr
   }
   const subject = verified.payload.sub;
   if (!subject) throw new AuthError(401, 'Token is missing sub claim.');
-  return {
+  return withAdminEmailGrant({
     subject,
     userId: userIdFromClaims(verified.payload, subject),
     scopes: scopesFromClaims(verified.payload),
@@ -258,7 +265,19 @@ export async function authenticate(req: IncomingMessage, config: AuthConfig): Pr
     organizationIds: organizationIdsFromClaims(verified.payload),
     claims: verified.payload,
     mode: config.mode,
-  };
+  }, config);
+}
+
+/**
+ * The email claim is trusted here because every accepted token is either
+ * issued by the configured identity provider after an email sign-in or signed
+ * by this deployment with the minting identity's email embedded.
+ */
+function withAdminEmailGrant(auth: AuthContext, config: Pick<AuthConfig, 'adminEmails'>): AuthContext {
+  if (config.adminEmails.size === 0) return auth;
+  const email = typeof auth.claims.email === 'string' ? auth.claims.email.trim().toLowerCase() : '';
+  if (email && config.adminEmails.has(email)) auth.scopes.add('health:admin');
+  return auth;
 }
 
 async function authenticateApiKey(token: string, config: AuthConfig): Promise<AuthContext | undefined> {
@@ -271,7 +290,7 @@ async function authenticateApiKey(token: string, config: AuthConfig): Promise<Au
     if ((verified.payload as Record<string, unknown>).token_type !== 'api_key') return undefined;
     const subject = verified.payload.sub;
     if (!subject) throw new AuthError(401, 'API key is missing sub claim.');
-    return {
+    return withAdminEmailGrant({
       subject,
       userId: userIdFromClaims(verified.payload, subject),
       scopes: scopesFromClaims(verified.payload),
@@ -279,7 +298,7 @@ async function authenticateApiKey(token: string, config: AuthConfig): Promise<Au
       organizationIds: organizationIdsFromClaims(verified.payload),
       claims: verified.payload,
       mode: 'api_key',
-    };
+    }, config);
   } catch {
     return undefined;
   }

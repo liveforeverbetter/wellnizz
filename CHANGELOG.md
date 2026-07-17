@@ -2,6 +2,26 @@
 
 ## [0.5.0] - 2026-07-17
 
+- Restore the ForeverBetter warm-light identity on the account dashboard. The
+  Meridian dark mint theme no longer overrides the brand palette;
+  `GET /design/systems/meridian/implementation` now serves a pinned snapshot of
+  the Meridian-skinned dashboard instead of the live dashboard files.
+- Redesign the sign-in screen's right panel around the product story: on the
+  agent path, modalities feed the analysis pipeline and come out as
+  prompt-ready agent context; on the dashboard path, the workspace shows an
+  API key and per-modality connection status.
+- Default agent onboarding to cloud mode. The copyable dashboard prompt and
+  the hosted skill no longer ask the user to choose local or cloud, and the
+  skill now opens authentication and wearable authorization links in the
+  user's browser directly instead of only pasting them.
+- Teach the hosted skill to present every design system from the live catalog
+  before a dashboard render, and to reuse already-uploaded genetics sources
+  and completed interpretations instead of starting a second WGS run.
+- Add `HEALTH_API_ADMIN_EMAILS`: listed operator emails receive the
+  `health:admin` scope on any token carrying that verified email, including
+  agent API keys minted from that identity.
+- Include the direct genetics upload endpoints in the default agent API key
+  grant so browser-approved agent keys can run the documented WGS upload flow.
 - Standardize the public product name as ForeverBetter API and the service
   identifier as `foreverbetter-api`, while continuing to accept legacy JWT
   audiences for compatibility.

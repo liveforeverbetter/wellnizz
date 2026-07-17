@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Forever Better Dashboard</title>
-    <link rel="stylesheet" href="/dashboard/styles.css?v=warm-3">
+    <link rel="stylesheet" href="/dashboard/styles.css?v=agent-approval-1">
     <link rel="icon" href="/dashboard/favicon.svg" type="image/svg+xml">
   </head>
   <body>
@@ -15,37 +15,36 @@
       <div class="auth-card" data-auth-mode="agent">
           <div class="auth-right" aria-hidden="true">
             <div class="mode-visual mode-visual-agent">
-              <p class="visual-kicker">Modalities in &middot; agent prompts out</p>
-              <div class="pipe">
-                <div class="pipe-sources" aria-hidden="true">
-                  <span>Genome</span><span>Labs</span><span>WHOOP</span><span>Oura</span><span>Journal</span>
+              <p class="visual-kicker">One API · everything your agent needs</p>
+              <div class="agent-flow">
+                <div class="agent-flow-sources">
+                  <span>Wearables</span><span>Genetics</span><span>Biomarkers</span>
                 </div>
-                <div class="pipe-lines" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-                <div class="pipe-hub"><b>forever<span>better</span></b><small>normalize &middot; analyze &middot; cite</small></div>
-                <div class="pipe-lines pipe-lines-out" aria-hidden="true"><i></i></div>
-                <div class="pipe-output">
-                  <div class="pipe-output-head"><span class="pipe-dot" aria-hidden="true"></span>Prompt-ready context for your agent</div>
-                  <pre class="pipe-prompt">ApoB 78 mg/dL, improving across 3 retests.
-Deep sleep down 48 min this week; HRV followed.
-Priorities: lipids, recovery. Every line cited.</pre>
-                  <div class="pipe-tools" aria-hidden="true"><code>query_health_context</code><code>get_action_plan</code></div>
+                <div class="agent-flow-lines" aria-hidden="true"><i></i><i></i><i></i></div>
+                <div class="agent-flow-hub"><b>forever<span>better</span></b><small>One API · MCP</small></div>
+                <div class="agent-flow-lines agent-flow-lines--out" aria-hidden="true"><i></i><i></i><i></i></div>
+                <div class="agent-flow-outcomes">
+                  <div><b>Health agents</b><span>Answer from real observations.</span></div>
+                  <div><b>Action plans</b><span>Personal next steps with context.</span></div>
+                  <div><b>Dashboards</b><span>Bring the complete picture together.</span></div>
+                  <div><b>Research</b><span>Start with your own data.</span></div>
                 </div>
               </div>
-              <p class="visual-caption">Every modality you approve is distilled into one health context your agent can prompt against, over REST or MCP.</p>
+              <p class="visual-caption">Your data stays in your control. Nothing is connected until you approve it.</p>
             </div>
 
           <div class="mode-visual mode-visual-dashboard">
-            <p class="visual-kicker">Your workspace</p>
-            <div class="ws-illustration">
-              <div class="ws-key">
-                <div><small>API key</small><code>fb_live_&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;7c2f</code></div>
-                <span class="ws-key-badge">Active</span>
+            <p class="visual-kicker">Your health dashboard</p>
+            <div class="dashboard-illustration">
+              <div class="dashboard-hero-metric"><b>82</b><span>recovery</span></div>
+              <div class="dashboard-mini-metrics">
+                <div><b>91%</b><span>sleep</span></div>
+                <div><b>12.4</b><span>strain</span></div>
               </div>
-              <div class="ws-row"><span class="ws-mark">W</span><div><b>WHOOP</b><small>Recovery, strain, sleep</small></div><em class="ws-status ws-on">Connected</em></div>
-              <div class="ws-row"><span class="ws-mark">DNA</span><div><b>Whole genome</b><small>Uploaded and interpreted</small></div><em class="ws-status ws-on">Ready</em></div>
-              <div class="ws-row"><span class="ws-mark">LAB</span><div><b>Lab biomarkers</b><small>ApoB, HbA1c, hs-CRP</small></div><em class="ws-status">Add panel</em></div>
+              <div class="dashboard-chart" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <div class="dashboard-action"><span class="dashboard-action-dot"></span>Build a lighter training day</div>
             </div>
-            <p class="visual-caption">Sign in, create a key, and connect the modalities you choose. Your agent works with the rest.</p>
+            <p class="visual-caption">Connect data, see the pattern, choose a next step.</p>
           </div>
 
           <div class="mode-visual mode-visual-agent-login hidden">
@@ -189,6 +188,10 @@ Priorities: lipids, recovery. Every line cited.</pre>
       </aside>
 
       <main class="main-content">
+        <div class="meridian-topbar" aria-label="Dashboard context">
+          <div class="meridian-topbar-title"><span class="meridian-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>HEALTH CONTEXT</span></div>
+          <span class="meridian-topbar-status"><b></b>PRIVATE WORKSPACE</span>
+        </div>
         <div id="page-overview" class="page hidden">
           <div class="page-header overview-header">
             <div>
@@ -199,8 +202,8 @@ Priorities: lipids, recovery. Every line cited.</pre>
             <a href="#connect" class="quiet-link">Connect data <span aria-hidden="true">→</span></a>
           </div>
 
-          <section class="readiness-card" aria-labelledby="readiness-title">
-            <div class="readiness-gauge" aria-hidden="true"><div><strong id="overview-ready-percent">0%</strong><span>context ready</span></div></div>
+          <section class="readiness-card meridian-readiness-card" aria-labelledby="readiness-title">
+            <div class="readiness-gauge meridian-healthspan-orb" aria-hidden="true"><div><strong id="overview-ready-percent">0%</strong><span>context ready</span></div></div>
             <div class="readiness-copy">
               <p class="page-eyebrow">Your starting point</p>
               <h2 id="readiness-title">Build a clearer picture, one signal at a time.</h2>
@@ -301,12 +304,14 @@ Priorities: lipids, recovery. Every line cited.</pre>
             </section>
 
             <div class="provider-grid" id="provider-grid">
-              <div class="provider-card whoop-card">
+              <div class="provider-card whoop-card meridian-whoop-card">
                 <div class="provider-logo whoop-logo">
                   <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2"/><path d="M10 22c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="11" r="3" stroke="currentColor" stroke-width="2"/></svg>
                 </div>
+                <p class="provider-kicker">Wearable performance</p>
                 <h3>WHOOP</h3>
                 <p class="provider-desc">Recovery, strain, sleep, HRV, and respiratory rate - ready for your daily context.</p>
+                <div class="whoop-channel-row" aria-hidden="true"><span class="whoop-channel recovery"></span><span class="whoop-channel strain"></span><span class="whoop-channel sleep"></span></div>
                 <div id="whoop-status" class="provider-status">
                   <span class="status muted">Not connected</span>
                 </div>
@@ -479,6 +484,6 @@ Priorities: lipids, recovery. Every line cited.</pre>
       </div>
     </section>
 
-    <script src="/dashboard/app.js?v=warm-3" type="module"></script>
+    <script src="/dashboard/app.js?v=agent-approval-1" type="module"></script>
   </body>
 </html>

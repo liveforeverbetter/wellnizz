@@ -3,9 +3,13 @@
   "theme": "mint",
   "name": "ForeverBetter API",
   "colors": {
-    "primary": "#256E5B",
-    "light": "#F7FAF8",
-    "dark": "#173B34"
+    "primary": "#DF1E39",
+    "light": "#FF6A7C",
+    "dark": "#B3122B"
+  },
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
   },
   "favicon": "/favicon.svg",
   "navbar": {

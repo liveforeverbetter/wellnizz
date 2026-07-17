@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
-const DASHBOARD_ROOT = join(process.cwd(), 'public', 'dashboard');
+const MERIDIAN_ROOT = join(process.cwd(), 'public', 'design-systems', 'meridian');
 
 type DesignFile = {
   path: string;
@@ -12,18 +12,19 @@ type DesignFile = {
 };
 
 /**
- * The exact production dashboard source, packaged for coding agents. This is
+ * The Meridian-skinned dashboard source, packaged for coding agents. This is
  * deliberately files rather than generated React or opaque component JSON: an
  * agent can write the files, serve them at /dashboard, and obtain the same UI
- * and connection behaviour as the hosted dashboard.
+ * and connection behaviour. The files are a pinned snapshot; the hosted
+ * account dashboard itself uses the ForeverBetter brand identity.
  */
 export async function getDesignImplementation(id: string, baseUrl: string) {
   if (id !== 'meridian') return undefined;
 
   const [html, css, javascript] = await Promise.all([
-    readFile(join(DASHBOARD_ROOT, 'index.html'), 'utf8'),
-    readFile(join(DASHBOARD_ROOT, 'styles.css'), 'utf8'),
-    readFile(join(DASHBOARD_ROOT, 'app.js'), 'utf8'),
+    readFile(join(MERIDIAN_ROOT, 'index.html'), 'utf8'),
+    readFile(join(MERIDIAN_ROOT, 'styles.css'), 'utf8'),
+    readFile(join(MERIDIAN_ROOT, 'app.js'), 'utf8'),
   ]);
   const sourceBase = `${baseUrl.replace(/\/$/, '')}/dashboard`;
   const files = [
