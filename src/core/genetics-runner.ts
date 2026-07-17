@@ -35,6 +35,7 @@ export interface GeneticsPipelineOptions {
 }
 
 const DEFAULT_TIMEOUT_MS = 120_000;
+const DEFAULT_FULL_DBSNP_TIMEOUT_MS = 14_400_000;
 const DEFAULT_BUNDLED_SKILL_DIR = 'vendor/health-analysis-skill';
 const LEGACY_SKILL_DIR = '../open-source/skills/genomic-analysis';
 
@@ -72,7 +73,7 @@ export async function runGeneticsPipelineWithWriter(
     };
   }
 
-  const timeoutMs = Number(env.HEALTH_ANALYSIS_TIMEOUT_MS ?? env.GENOMIC_ANALYSIS_TIMEOUT_MS ?? DEFAULT_TIMEOUT_MS);
+  const timeoutMs = geneticsPipelineTimeoutMs(env, options);
   const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'health-api-genetics-'));
   const safeName = safeFilename(source.filename ?? `${source.id}.vcf`);
   const inputPath = path.join(tempDir, safeName);
@@ -136,6 +137,20 @@ export async function runGeneticsPipelineWithWriter(
     dashboard_html_path: path.join(outputDir, 'index.html'),
     raw,
   };
+}
+
+export function geneticsPipelineTimeoutMs(
+  env: NodeJS.ProcessEnv,
+  options: GeneticsPipelineOptions,
+): number {
+  const fallback = options.annotation_depth === 'full_dbsnp'
+    ? DEFAULT_FULL_DBSNP_TIMEOUT_MS
+    : DEFAULT_TIMEOUT_MS;
+  const configured = options.annotation_depth === 'full_dbsnp'
+    ? env.HEALTH_ANALYSIS_FULL_DBSNP_TIMEOUT_MS
+    : env.HEALTH_ANALYSIS_TIMEOUT_MS ?? env.GENOMIC_ANALYSIS_TIMEOUT_MS;
+  const value = Number(configured ?? fallback);
+  return Number.isFinite(value) && value > 0 ? value : fallback;
 }
 
 export function buildGeneticsPipelineArgs(

@@ -136,6 +136,11 @@ the same source after the WGS worker has been repaired. A failed full-dbSNP
 annotation itself is still retried by the queue rather than silently relabeled
 as a successful full analysis.
 
+Full dbSNP jobs use `HEALTH_ANALYSIS_FULL_DBSNP_TIMEOUT_MS` independently of
+the compact analysis timeout. The hosted WGS worker defaults this to four hours
+so multi-million-variant annotation is not killed by the 30-minute compact-job
+limit.
+
 ## Ancestry
 
 `POST /genetics/ancestry` validates source readiness and returns reference-panel
