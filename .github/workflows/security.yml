@@ -66,7 +66,7 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Build release image
-        run: docker build --tag foreverbetter-wellness-api:security-scan .
+        run: docker build --tag foreverbetter-api:security-scan .
 
       - name: Scan fixed high and critical vulnerabilities
         run: |
@@ -74,4 +74,4 @@ jobs:
             -v /var/run/docker.sock:/var/run/docker.sock \
             aquasec/trivy@sha256:cffe3f5161a47a6823fbd23d985795b3ed72a4c806da4c4df16266c02accdd6f \
             image --scanners vuln --exit-code 1 --severity HIGH,CRITICAL \
-            --ignore-unfixed --no-progress foreverbetter-wellness-api:security-scan
+            --ignore-unfixed --no-progress foreverbetter-api:security-scan

@@ -612,7 +612,7 @@ export function endpointCatalog(enabledEndpointIds?: Set<string>) {
     }));
 
   return {
-    service: 'foreverbetter-longevity-api',
+    service: 'foreverbetter-api',
     public: [
       'GET /health',
       'GET /ready',

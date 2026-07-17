@@ -1,4 +1,4 @@
-# Self-hosted Wellness API stack.
+# Self-hosted ForeverBetter API stack.
 #
 #   cp .env.example .env      # then set the secrets it tells you to
 #   docker compose up -d      # postgres + api + workers
@@ -34,7 +34,7 @@ services:
       retries: 20
 
   api:
-    image: ${IMAGE:-ghcr.io/liveforeverbetter/foreverbetter-api}:${IMAGE_TAG:-latest}
+    image: ${IMAGE:-ghcr.io/liveforeverbetter/foreverbetter}:${IMAGE_TAG:-latest}
     build: .
     restart: unless-stopped
     env_file: .env
@@ -57,7 +57,7 @@ services:
       start_period: 30s
 
   genetics-worker:
-    image: ${IMAGE:-ghcr.io/liveforeverbetter/foreverbetter-api}:${IMAGE_TAG:-latest}
+    image: ${IMAGE:-ghcr.io/liveforeverbetter/foreverbetter}:${IMAGE_TAG:-latest}
     build: .
     restart: unless-stopped
     env_file: .env
@@ -72,7 +72,7 @@ services:
         condition: service_healthy
 
   wearables-worker:
-    image: ${IMAGE:-ghcr.io/liveforeverbetter/foreverbetter-api}:${IMAGE_TAG:-latest}
+    image: ${IMAGE:-ghcr.io/liveforeverbetter/foreverbetter}:${IMAGE_TAG:-latest}
     build: .
     restart: unless-stopped
     env_file: .env

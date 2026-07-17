@@ -478,7 +478,7 @@ export function buildActionPlan(analysis: AnalysisResult, options: ActionPlanOpt
         } : {}),
         dose_guidance: options.includeSupplementDoses
           ? 'This reference range is educational and still requires review against age, pregnancy status, conditions, medications, kidney/liver function, and measured deficiency.'
-          : 'Exact dose and timing are withheld in the wellness API. Confirm need, product, dose, timing, interactions, and a retest plan with a qualified clinician or pharmacist.',
+          : 'Exact dose and timing are withheld by the API. Confirm need, product, dose, timing, interactions, and a retest plan with a qualified clinician or pharmacist.',
         evidence: entry.ref.evidence,
         evidence_note: entry.ref.evidence_note,
         mechanism: entry.ref.mechanism,

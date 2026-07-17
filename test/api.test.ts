@@ -13,6 +13,10 @@ import { HealthApiStore } from '../src/store.js';
 
 // Enables /api-keys issuance on the default (auth-disabled) server.
 process.env.API_KEY_JWT_SECRET ??= 'test-api-key-secret';
+// This file intentionally exercises the shared server with more than the
+// production per-window request budget. Keep rate-limit behavior covered by
+// the dedicated quota server below instead of making test order significant.
+process.env.RATE_LIMIT_MAX ??= '1000';
 
 const server = createHealthApiServer();
 let baseUrl = '';
@@ -503,7 +507,7 @@ test('returns Quest and SYNLAB lab locator handoffs', async () => {
 
 test('serves MCP-style tool calls', async () => {
   const initialized = await post('/mcp', { jsonrpc: '2.0', id: 0, method: 'initialize', params: {} });
-  assert.equal(initialized.result.serverInfo.name, 'foreverbetter-longevity-api');
+  assert.equal(initialized.result.serverInfo.name, 'foreverbetter-api');
 
   const listed = await post('/mcp', { id: 1, method: 'tools/list', params: {} });
   assert.ok(listed.result.tools.some((tool: any) => tool.name === 'upload_health_data' && tool.inputSchema?.type === 'object'));
@@ -782,16 +786,28 @@ test('queues WGS genetics data when queue execution mode is enabled', async () =
 });
 
 test('serves readiness and agent discovery metadata', async () => {
+  const health = await get('/health');
+  assert.deepEqual(health, { ok: true, service: 'foreverbetter-api' });
+
   const ready = await get('/ready');
   assert.equal(ready.ok, true);
+  assert.equal(ready.service, 'foreverbetter-api');
+  assert.equal(ready.version, '0.5.0');
   assert.deepEqual(Object.keys(ready).sort(), ['ok', 'service', 'version']);
 
+  const version = await get('/version');
+  assert.deepEqual(version, { service: 'foreverbetter-api', version: '0.5.0' });
+
   const readyDetails = await get('/ready/details');
+  assert.equal(readyDetails.service, 'foreverbetter-api');
+  assert.equal(readyDetails.version, '0.5.0');
   assert.equal(readyDetails.storage.checks.store, 'memory');
   assert.ok(readyDetails.enabled_endpoints.includes('imports.file'));
 
   const manifest = await get('/.well-known/health-agent.json');
-  assert.equal(manifest.service, 'foreverbetter-longevity-api');
+  assert.equal(manifest.name, 'ForeverBetter API');
+  assert.equal(manifest.service, 'foreverbetter-api');
+  assert.equal(manifest.version, '0.5.0');
   assert.ok(manifest.auth.token_requirements.endpoint_claims.includes('enabled_endpoints'));
   assert.equal(manifest.auth.token_requirements.full_user_data_reads_by_default, true);
   assert.ok(manifest.auth.token_requirements.default_user_data_read_endpoints.includes('sources.read'));
@@ -807,6 +823,8 @@ test('serves readiness and agent discovery metadata', async () => {
 
   const openApi = await get('/openapi.json');
   assert.equal(openApi.openapi, '3.1.0');
+  assert.equal(openApi.info.title, 'ForeverBetter API');
+  assert.equal(openApi.info.version, '0.5.0');
   assert.ok(openApi.paths['/mcp']);
   assert.ok(openApi.paths['/capabilities']);
   assert.ok(openApi.paths['/pricing']);
@@ -854,12 +872,14 @@ test('serves readiness and agent discovery metadata', async () => {
   assert.ok(openApi.paths['/users/{user_id}/data/export']);
 
   const capabilities = await get('/capabilities');
+  assert.equal(capabilities.service, 'foreverbetter-api');
   assert.ok(capabilities.capabilities.some((item: any) => item.id === 'genetics.wgs' && item.notes.join(' ').includes('dbSNP')));
   assert.ok(capabilities.capabilities.some((item: any) => item.id === 'health_context.summary'));
   const pricingResponse = await fetch(`${baseUrl}/pricing`);
   assert.equal(pricingResponse.status, 200);
   assert.match(pricingResponse.headers.get('cache-control') ?? '', /public/);
   const pricing = await pricingResponse.json();
+  assert.equal(pricing.service, 'foreverbetter-api');
   assert.ok(pricing.tiers.some((tier: any) => tier.id === 'free' && tier.monthly_usd === 0));
   const standard = pricing.tiers.find((tier: any) => tier.id === 'standard');
   assert.equal(standard?.monthly_usd, 9.99);
@@ -886,7 +906,7 @@ test('serves readiness and agent discovery metadata', async () => {
   assert.match(dashboard.headers.get('content-type') ?? '', /text\/html/);
   const dashboardHtml = await dashboard.text();
   assert.match(dashboardHtml, /Connect your longevity data/);
-  assert.match(dashboardHtml, /github\.com\/liveforeverbetter\/longevity-api/);
+  assert.match(dashboardHtml, /github\.com\/liveforeverbetter\/foreverbetter/);
 
   const skill = await fetch(`${baseUrl}/SKILL.md`);
   assert.equal(skill.status, 200);
@@ -1239,6 +1259,8 @@ test('OIDC auth requires tokens, scopes, and same-user access', async () => {
       body: JSON.stringify({ user_id: 'user_a', category: 'biomarkers', text: 'marker,value,unit\nApoB,100,mg/dL\n' }),
     });
     assert.equal(denied.status, 401);
+    assert.match(denied.headers.get('www-authenticate') ?? '', /Bearer realm="foreverbetter-api"/);
+    assert.equal((await denied.json()).type, 'urn:foreverbetter-api:problem:unauthorized');
 
     const now = Math.floor(Date.now() / 1000);
     const expired = await new SignJWT({ scope: '' })
@@ -1275,6 +1297,7 @@ test('OIDC auth requires tokens, scopes, and same-user access', async () => {
       body: JSON.stringify({ user_id: 'user_a', category: 'biomarkers', text: 'marker,value,unit\nApoB,100,mg/dL\n' }),
     });
     assert.equal(missingScope.status, 403);
+    assert.equal((await missingScope.json()).type, 'urn:foreverbetter-api:problem:forbidden');
 
     const bareUser = await token('user_c', '');
     const selfServeKey = await postTo(secureBase, '/api-keys', {

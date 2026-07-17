@@ -196,7 +196,7 @@
           <div class="page-header overview-header">
             <div>
               <p class="page-eyebrow">Your healthspan workspace</p>
-              <h1 id="overview-greeting">Your wellness-data workspace</h1>
+              <h1 id="overview-greeting">Your health data workspace</h1>
               <p class="page-lede">Your signals stay in your control. Connect what you choose, then let your agent work with the resulting context.</p>
             </div>
             <a href="#connect" class="quiet-link">Connect data <span aria-hidden="true">→</span></a>
@@ -220,7 +220,7 @@
             <h2>Signals that shape your context</h2>
             <a href="#connect" class="quiet-link">Manage <span aria-hidden="true">→</span></a>
           </div>
-          <section class="source-grid" aria-label="Wellness data source status">
+          <section class="source-grid" aria-label="Health data source status">
             <article class="source-card source-card-whoop" data-overview-source="whoop">
               <div class="source-card-top"><span class="source-mark source-mark-whoop">W</span><span id="overview-whoop-status" class="status muted">Not connected</span></div>
               <h3>WHOOP</h3><p>Recovery, HRV, strain, sleep, and respiratory rate.</p><small id="overview-whoop-meta">Connect when you are ready.</small>
@@ -239,19 +239,19 @@
             </article>
             <article class="source-card">
               <div class="source-card-top"><span class="source-mark">LAB</span><span class="status muted">Agent-ready</span></div>
-              <h3>Lab biomarkers</h3><p>Upload a supported panel through your agent for normalized health context.</p><small>No panel is connected yet.</small>
+              <h3>Lab biomarkers</h3><p>Upload a supported lab panel through your agent and see the results alongside your other health data.</p><small>No panel is connected yet.</small>
             </article>
           </section>
 
           <div class="section-heading-row"><h2>Analysis pipeline</h2></div>
           <section class="pipeline-card" aria-label="Analysis pipeline status">
             <div class="pipeline-row"><div><strong>Wearable connection</strong><span>Connect WHOOP, Oura, or Health Connect to start syncing the metrics you approve.</span></div><em id="overview-wearable-pipeline" class="status muted">Waiting</em></div>
-            <div class="pipeline-row"><div><strong>Health analysis</strong><span>Your agent can analyze genetics, biomarkers, and wearable context with scoped access.</span></div><em class="status muted">Available</em></div>
+            <div class="pipeline-row"><div><strong>Health analysis</strong><span>Your agent can analyze only the genetics, biomarkers, and wearable data you approve.</span></div><em class="status muted">Available</em></div>
             <div class="pipeline-row"><div><strong>Personal action plan</strong><span>Generated only after there is enough connected context to support it.</span></div><em class="status muted">Waiting</em></div>
           </section>
 
           <section class="agent-context-card">
-            <div><p class="page-eyebrow">MCP connected · scoped access</p><h2>Your agent is ready for the context you choose to share.</h2></div>
+            <div><p class="page-eyebrow">Agent connected · you control access</p><h2>Your agent is ready for the health data you choose to share.</h2></div>
             <div class="agent-tool-list"><code>query_health_context</code><code>analyze_biomarkers</code><code>analyze_wearables</code><code>analyze_genetics</code><code>get_dashboard_spec</code></div>
           </section>
         </div>
@@ -260,7 +260,7 @@
           <div class="page-header">
             <div>
               <h1>API Keys</h1>
-              <p class="page-lede">Create keys to call the wellness data API. Upload biomarkers, analyze genetics, sync wearables.</p>
+              <p class="page-lede">Create keys for the ForeverBetter API. Upload biomarkers, analyze genetics, and sync wearables.</p>
             </div>
             <div class="page-header-actions">
               <span id="session-status" class="status">Signed in</span>
@@ -446,8 +446,8 @@
           <section id="pricing-cards" class="pricing-grid" aria-label="Hosted plan options"></section>
           <section class="card self-host-card">
             <h2>Prefer to run it yourself?</h2>
-            <p>ForeverBetter Wellness API is open source. You can self-host the API, workers, storage, and your wellness data without a hosted subscription.</p>
-            <a class="quiet-link" href="https://github.com/liveforeverbetter/longevity-api/blob/main/SELF_HOSTING.md" target="_blank" rel="noopener">Read the self-hosting guide <span aria-hidden="true">→</span></a>
+            <p>ForeverBetter API is open source. You can self-host the API, workers, storage, and your health data without a hosted subscription.</p>
+            <a class="quiet-link" href="https://github.com/liveforeverbetter/foreverbetter/blob/main/SELF_HOSTING.md" target="_blank" rel="noopener">Read the self-hosting guide <span aria-hidden="true">→</span></a>
           </section>
         </div>
 

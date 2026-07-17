@@ -16,7 +16,7 @@ export interface Capability {
 
 export function capabilitiesCatalog(options: { whoopFirstParty?: boolean; ouraFirstParty?: boolean; fullDbsnpConfigured?: boolean } = {}): { service: string; generated_at: string; capabilities: Capability[] } {
   return {
-    service: 'foreverbetter-longevity-api',
+    service: 'foreverbetter-api',
     generated_at: new Date().toISOString(),
     capabilities: [
       {

@@ -57,7 +57,7 @@ async function handleRpc(method: string, params: Record<string, unknown>, store:
   if (method === 'initialize') {
     return {
       protocolVersion: '2024-11-05',
-      serverInfo: { name: 'foreverbetter-longevity-api', version: SERVICE_VERSION },
+      serverInfo: { name: 'foreverbetter-api', version: SERVICE_VERSION },
       capabilities: { tools: {} },
     };
   }

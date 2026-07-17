@@ -168,7 +168,7 @@ export const PRICING_TIERS: PricingTier[] = [
     name: 'Standard',
     monthly_usd: 9.99,
     included: ['Everything in Free', 'Personal agent and MCP access', 'WHOOP and Oura connections', 'Larger hosted quotas for personal wellness context', 'Managed cloud storage and queued genetics processing'],
-    intended_use: ['Individual wellness-data workspace', 'Personal agent or automation', 'Non-commercial personal use'],
+    intended_use: ['Individual health data workspace', 'Personal agent or automation', 'Non-commercial personal use'],
     rate_limit: { requests_per_minute: 120 },
     monthly_quotas: {
       health_context_reads: 5000,
@@ -265,7 +265,7 @@ export const PRICING_TIERS: PricingTier[] = [
 
 export function pricingCatalog() {
   return {
-    service: 'foreverbetter-longevity-api',
+    service: 'foreverbetter-api',
     generated_at: new Date().toISOString(),
     currency: 'USD',
     hosted_introductory_allowance: {

@@ -1,22 +1,29 @@
 # Changelog
 
-## Unreleased
+## [0.5.0] - 2026-07-17
 
+- Standardize the public product name as ForeverBetter API and the service
+  identifier as `foreverbetter-api`, while continuing to accept legacy JWT
+  audiences for compatibility.
+- Rename machine-readable service, MCP, package, authentication-realm, and
+  Problem Details identifiers to the ForeverBetter API identity. Clients that
+  compare those identifiers literally must update for `0.5.0`; legacy JWT
+  audiences remain accepted during the migration.
+- Rewrite the README and docs around developer outcomes, simplify
+  consumer-facing language, and remove public demo-recording instructions.
 - Add the Aperture design system to the curated `GET /design/systems` catalog:
   a calm, light daily-overview contract with a day brief, energy signal,
   activity and sleep, five health pillars, health-record detail, and an
   action step.
-- Re-render every README demo from the design tokens the running API returns
-  on `GET /design/systems`, so the recordings match the shipped ForeverBetter,
-  Aperture, and Meridian contracts. Add a fifth demo showing an agent
-  delivering the daily priority plan in a chat conversation.
 - Add an agent quickstart to the README that points agents at the hosted
   `SKILL.md` and walks through the browser-approved onboarding flow.
 - Trim the README: cloud deployment runbooks, the production checklist, and
   the security boundary list now live in the self-hosting and security docs,
   and payment options are stated in one line.
 - Remove workstation-specific absolute paths from the bundled health-analysis
-  skill validation artifacts.
+  skill validation artifacts, record portable bundle provenance, and keep WGS
+  readiness outputs scoped to each analysis request instead of modifying the
+  installed skill.
 - Make agent onboarding outcome-first across the hosted and bundled skills. The
   agent now distinguishes managed cloud, the full self-hosted API, and the
   serverless local pipeline; supports "optimize everything" and recurring

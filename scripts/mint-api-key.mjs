@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Mint a long-lived API-key JWT the Wellness API accepts via its API-key auth path
+// Mint a long-lived API-key JWT the ForeverBetter API accepts via its API-key auth path
 // (src/auth.ts → authenticateApiKey). The token is HS256-signed with
 // API_KEY_JWT_SECRET and carries token_type=api_key plus scope / enabled_endpoints
 // / organization_id claims, so it works regardless of AUTH_MODE and satisfies the
@@ -42,7 +42,7 @@ const sub = arg('sub', 'agent-admin-01');
 const userId = arg('user', sub);
 const org = arg('org', 'foreverbetter');
 const scope = arg('scope', 'health:admin');
-const audience = arg('aud', process.env.AUTH_AUDIENCE ?? 'authenticated');
+const audience = arg('aud', (process.env.AUTH_AUDIENCE ?? 'foreverbetter-api').split(',')[0].trim());
 const issuer = arg('iss', process.env.AUTH_ISSUER ?? undefined);
 const days = Number(arg('days', '365'));
 

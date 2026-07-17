@@ -1,6 +1,6 @@
 # Self-hosting guide
 
-This guide covers running the Wellness API on your own infrastructure with Docker
+This guide covers running the ForeverBetter API on your own infrastructure with Docker
 Compose. For an overview and the API reference, see the [README](README.md).
 
 ## Prerequisites
@@ -14,8 +14,8 @@ Compose. For an overview and the API reference, see the [README](README.md).
 ## First run
 
 ```bash
-git clone https://github.com/liveforeverbetter/foreverbetter-api.git
-cd foreverbetter-api
+git clone https://github.com/liveforeverbetter/foreverbetter.git
+cd foreverbetter
 cp .env.example .env
 ```
 
@@ -42,7 +42,7 @@ Confirm the deployment is healthy:
 
 ```bash
 curl http://localhost:8787/ready
-# {"ok": true, "service": "foreverbetter-longevity-api", "version": "..."}
+# {"ok": true, "service": "foreverbetter-api", "version": "..."}
 ```
 
 ## Getting an API key
@@ -171,9 +171,10 @@ referenced by database rows.
 # Database
 docker compose exec -T postgres pg_dump -U health -d health -Fc > backup.dump
 
-# Filesystem payloads (default driver)
-docker run --rm -v health-api_payloads:/data -v "$PWD":/backup alpine \
-  tar czf /backup/payloads.tgz -C /data .
+# Filesystem payloads (default driver). `docker compose run` resolves the
+# actual Compose volume name, even when the checkout directory is renamed.
+docker compose run --rm --no-deps -v "$PWD":/backup api \
+  tar czf /backup/payloads.tgz -C /data/payloads .
 ```
 
 Restore into a fresh stack by loading the dump with `pg_restore` and extracting
@@ -186,8 +187,8 @@ Pin to a released image tag in `.env` and update deliberately:
 
 ```bash
 # in .env
-IMAGE=ghcr.io/liveforeverbetter/foreverbetter-api
-IMAGE_TAG=v1.2.3
+IMAGE=ghcr.io/liveforeverbetter/foreverbetter
+IMAGE_TAG=1.2.3
 ```
 
 ```bash
@@ -205,7 +206,7 @@ npm ci
 npm run build
 DATABASE_URL=postgres://user:pass@host:5432/health \
 API_KEY_JWT_SECRET=... AUTH_MODE=service_account \
-SERVICE_ACCOUNT_JWT_SECRET=... AUTH_AUDIENCE=longevity-api,health-api \
+SERVICE_ACCOUNT_JWT_SECRET=... AUTH_AUDIENCE=foreverbetter-api,longevity-api,health-api \
 node dist/db/migrate.js        # apply migrations
 # then start the API and workers
 STORE_MODE=postgres node dist/index.js

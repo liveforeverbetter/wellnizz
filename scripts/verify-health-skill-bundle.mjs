@@ -51,7 +51,10 @@ if (manifest.source_subdir !== 'skills/longevity-analysis') {
   process.exit(1);
 }
 
-const sourceRepo = resolve(process.env.HEALTH_ANALYSIS_SKILL_SOURCE ?? manifest.source_repo ?? '');
+// The manifest records a portable repository origin for provenance. Freshness
+// comparison uses the explicitly configured checkout or the sibling source
+// repository, never a developer-specific absolute path from the bundle.
+const sourceRepo = resolve(process.env.HEALTH_ANALYSIS_SKILL_SOURCE ?? resolve(root, '../open-source'));
 if (!requireSource) {
   console.log(`Health analysis skill bundle verified internally at ${skillDir}. Run with --require-source to compare it with the separate source checkout.`);
   process.exit(0);

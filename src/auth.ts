@@ -174,8 +174,8 @@ export function securityHeaders(config: AuthConfig, origin?: string): Record<str
 }
 
 export function primaryAuthAudience(config: Pick<AuthConfig, 'audience'>): string {
-  if (Array.isArray(config.audience)) return config.audience[0] ?? 'longevity-api';
-  return config.audience ?? 'longevity-api';
+  if (Array.isArray(config.audience)) return config.audience[0] ?? 'foreverbetter-api';
+  return config.audience ?? 'foreverbetter-api';
 }
 
 export function isAllowedOrigin(config: AuthConfig, origin: string): boolean {

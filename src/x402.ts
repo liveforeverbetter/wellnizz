@@ -475,7 +475,7 @@ function buildRouteConfig(config: X402Config): Record<string, RouteConfig> {
       })),
       description: route.description,
       mimeType: 'application/json',
-      serviceName: 'ForeverBetter Wellness API',
+      serviceName: 'ForeverBetter API',
       tags: route.tags.slice(0, 5),
       extensions: declareDiscoveryExtension(route.discovery),
       unpaidResponseBody: async () => ({

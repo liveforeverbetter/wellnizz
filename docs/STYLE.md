@@ -1,6 +1,6 @@
 # Documentation voice and structure
 
-Use this guide when adding or revising ForeverBetter Wellness API docs.
+Use this guide when adding or revising ForeverBetter API docs.
 
 ## Voice
 
@@ -8,7 +8,7 @@ Use this guide when adding or revising ForeverBetter Wellness API docs.
 - Use direct, active sentences: "Upload a VCF" instead of "A VCF can be uploaded."
 - Lead with the result, then explain constraints and implementation details.
 - Prefer concrete endpoint names, response fields, and next steps over broad claims.
-- Use "ForeverBetter Wellness API" on first mention and "the API" afterward.
+- Use "ForeverBetter API" on first mention and "the API" afterward.
 - Use generic modality names in public copy. Mention provider brands only when a
   provider-specific setup step requires them.
 - Keep wellness guidance source-backed and avoid diagnostic or treatment claims.

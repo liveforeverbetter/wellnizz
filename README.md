@@ -1,12 +1,12 @@
-<h1 align="center">ForeverBetter Wellness API</h1>
+<h1 align="center">ForeverBetter API</h1>
 
 <p align="center">
-  <strong>One self-hostable developer platform for biomarkers, wearables, genetics, wellness context, dashboards, and wellness-aware agents.</strong>
+  <strong>Turn health data into personalized results and a clear action plan.</strong>
 </p>
 
 <p align="center">
-  Ingest wellness data, normalize it into one provenance-rich model, run analysis locally or in workers,<br />
-  and return action plans, ancestry, trends, health context, and renderer-neutral dashboard contracts.
+  Upload biomarkers, genetics, and wearable observations. Analyze one source or combine them,<br />
+  rank the next steps, and return results for your app, agent, or a ready-made ForeverBetter dashboard.
 </p>
 
 <p align="center">
@@ -26,9 +26,9 @@
 
 ## What can you build?
 
-### Turn wellness data into a custom dashboard and action plan
+### Turn health data into a personalized dashboard and action plan
 
-Upload biomarkers and wearable observations, run a multimodal analysis, request a ranked action plan, and render the same versioned dashboard contract in your own product language.
+Upload biomarkers, genetics, or wearable observations. Analyze one source or combine them, get ranked next steps, and render the results in your own UI or with a ready-made ForeverBetter design.
 
 <p align="center">
   <a href="assets/demos/multimodal-dashboard.mp4">
@@ -40,7 +40,7 @@ Upload biomarkers and wearable observations, run a multimodal analysis, request 
 
 ### Deliver a daily priority plan in chat
 
-Give a scheduled agent a scoped key. It reads the latest health context and the ranked action plan, then posts the day's brief wherever your runtime delivers messages: Telegram, WhatsApp, Slack, or your own app.
+Give a scheduled agent a key limited to the user's approved data. It reads the latest health context and ranked action plan, then posts the day's brief to Telegram, WhatsApp, Slack, or your own app.
 
 <p align="center">
   <a href="assets/demos/agent-daily-brief.mp4">
@@ -50,13 +50,13 @@ Give a scheduled agent a scoped key. It reads the latest health context and the 
 
 <p align="center"><a href="assets/demos/agent-daily-brief.mp4"><strong>Watch the full-quality chat delivery flow</strong></a></p>
 
-### Map ancestry from a VCF
+### Explore ancestry from genetic data
 
-Accept WGS VCF/VCF.GZ or supported SNP-array data and return continental or regional ancestry, coverage, confidence, reference-panel metadata, and method disclosure.
+Upload whole-genome VCF/VCF.GZ or supported DNA test data. Return continental or regional ancestry with confidence, data coverage, and a plain explanation of how the result was produced.
 
 <p align="center">
   <a href="assets/demos/ancestry-from-vcf.mp4">
-    <img src="assets/demos/ancestry-from-vcf.gif" alt="Real VCF import and provenance-aware regional ancestry result rendered as an editorial dossier" width="760" />
+    <img src="assets/demos/ancestry-from-vcf.gif" alt="Real VCF import and regional ancestry result with sources and confidence" width="760" />
   </a>
 </p>
 
@@ -64,29 +64,27 @@ Accept WGS VCF/VCF.GZ or supported SNP-array data and return continental or regi
 
 ### Sync Google Health Connect readings directly
 
-Use the stable mobile SDK envelope to send user-authorized Android readings directly into ForeverBetter. The API preserves observation timestamps, ownership, source IDs, and provider provenance.
+Send user-approved Android health readings directly into ForeverBetter with the mobile SDK. The API keeps when each reading happened, who it belongs to, and where it came from.
 
 <p align="center">
   <a href="assets/demos/wearable-mobile-sync.mp4">
-    <img src="assets/demos/wearable-mobile-sync.gif" alt="Health Connect mobile readings normalized and stored through the SDK sync endpoint, styled with the Aperture design system" width="760" />
+    <img src="assets/demos/wearable-mobile-sync.gif" alt="Health Connect readings imported through the mobile SDK and shown in the Aperture design system" width="760" />
   </a>
 </p>
 
 <p align="center"><a href="assets/demos/wearable-mobile-sync.mp4"><strong>Watch the full-quality mobile sync flow</strong></a></p>
 
-### Give apps and agents one complete developer surface
+### Give apps and agents one health-data API
 
-Combine REST, MCP, scoped API keys, provider connections, webhook events, design-system contracts, Stripe subscriptions, and x402 pay-per-request access without coupling your product to an internal connector implementation.
+Use REST or MCP to upload data, connect providers, run analysis, create dashboards, and return action plans. Scoped keys limit what each app or agent can access. Hosted billing supports subscriptions and pay-per-request access.
 
 <p align="center">
   <a href="assets/demos/wearable-data-console.mp4">
-    <img src="assets/demos/wearable-data-console.gif" alt="ForeverBetter developer console with modalities, agents, payments, and design contracts in the Meridian design system" width="760" />
+    <img src="assets/demos/wearable-data-console.gif" alt="ForeverBetter developer console with health data, agents, payments, and ready-made designs" width="760" />
   </a>
 </p>
 
 <p align="center"><a href="assets/demos/wearable-data-console.mp4"><strong>Watch the full-quality developer surface</strong></a></p>
-
-The media is reproducible. Run `npm run build && npm run demos:record` to boot a temporary in-memory API, execute real endpoint calls, record all five flows with Playwright, and encode MP4 and GIF assets with FFmpeg. Every scene is styled from the design tokens the running API returns on `GET /design/systems`, so the recordings always match the shipped design contracts.
 
 ## Agent quickstart
 
@@ -170,17 +168,17 @@ curl -s "$FB_API/dashboard-specs/$ANALYSIS_ID" \
   -H "authorization: Bearer $FB_KEY" | jq .
 ```
 
-## One pipeline across every modality
+## One flow across every data type
 
 ```mermaid
 flowchart LR
     A[Files and connected sources] --> B[Owned source records]
     B --> C[Normalized observations]
-    C --> D[Direct and derived interpretations]
-    D --> E[Modality or multimodal analysis]
+    C --> D[Measured and calculated results]
+    D --> E[Single-source or combined analysis]
     E --> F[Action plans]
     E --> G[Dashboard specs]
-    E --> H[Bounded health context]
+    E --> H[Health context with clear limits]
     H --> I[Apps and AI agents]
 
     J[Biomarkers] --> A
@@ -189,34 +187,34 @@ flowchart LR
     M[Goals and lifestyle] --> A
 ```
 
-| Primitive | What it represents |
+| Building block | What it represents |
 | --- | --- |
-| **Source** | An owned raw upload or provider sync with storage mode, timestamp, and provenance. |
-| **Observation** | A normalized lab value, wearable metric, supplement, symptom, or other direct reading. |
-| **Interpretation** | A scored status, derived metric, genetic result, or combined finding. |
-| **Analysis** | A modality-specific or multimodal run over one or more source IDs. |
-| **Dashboard spec** | Versioned, renderer-neutral JSON for cards, sections, quality, freshness, coverage, and provenance. |
-| **Action plan** | Ranked actions tied back to findings, evidence boundaries, and cadence. |
+| **Source** | A user-owned upload or provider sync, including when it was collected and where it came from. |
+| **Observation** | A lab value, wearable metric, supplement, symptom, or other direct reading in a consistent format. |
+| **Interpretation** | A scored status, calculated metric, genetic result, or combined finding. |
+| **Analysis** | A run over one or more sources, from one data type or several together. |
+| **Dashboard spec** | Versioned JSON your frontend can render into cards and sections, with freshness, data quality, coverage, and sources. |
+| **Action plan** | Ranked next steps tied to the findings, supporting evidence, and suggested timing. |
 
-One modality is still useful. Responses report what is present, what is missing, and which results are direct, derived, combined, queued, failed, or waiting for setup.
+One data type is still useful. Every response says what data was used, what is missing, and whether a result was measured, calculated, or combined.
 
 ## Supported capabilities
 
-| Modality | Inputs and connections | Outputs |
+| Data type | Inputs and connections | Outputs |
 | --- | --- | --- |
 | **Biomarkers** | CSV, JSON, plain text, and supported lab PDFs | Direct values, unit-aware ranges, derived biomarkers, interpretations, trends, and action priorities |
 | **Wearables** | WHOOP OAuth, Oura OAuth, Google Health Connect mobile bridge, and normalized file import | Sleep, HRV, heart rate, readiness, activity, SpO2, energy, body composition, and other normalized observations |
-| **Genetics** | Private VCF/VCF.GZ direct upload and supported SNP-array exports | Wellness interpretation, ancestry, haplogroups, pharmacogenomic context, job status, and reference metadata |
-| **Health context** | Goals, symptoms, medications, supplements, lifestyle, user notes, and existing analyses | Bounded cross-modality context for products and agents |
+| **Genetics** | Private whole-genome VCF/VCF.GZ upload and supported DNA test exports | Health and trait context, ancestry, maternal and paternal lineages, medication-response context, job status, and reference details |
+| **Health context** | Goals, symptoms, medications, supplements, lifestyle, user notes, and existing analyses | Combined context with clear safety limits for products and agents |
 | **Provider discovery** | Modality, provider type, and region filters | Lab locator handoffs, wearable capabilities, and genetic testing or WGS provider records |
 
 Use `GET /capabilities` as the runtime source of truth. Full dbSNP analysis is an advanced worker mode that requires a persistent 30 to 40 GB reference cache per genome build. The API reports `available` or `requires_setup` instead of pretending it is configured.
 
-## Built for bounded agents
+## Built for agents with clear permissions
 
-ForeverBetter exposes the same health contract through REST and 21 MCP tools. Agent identities carry user, organization, scope, and optional endpoint grants. The browser approval flow names the requesting agent, keeps the polling secret out of the URL, requires explicit approve or deny, and returns the API key only once.
+ForeverBetter exposes the same health data and actions through REST and 21 MCP tools. Each agent is tied to a user and workspace, with explicit limits on the data and endpoints it can access. The browser approval flow names the requesting agent, requires an explicit approve or deny, and returns the API key only once.
 
-Examples of bounded agent questions:
+Examples of questions an agent can answer:
 
 ```text
 What changed since my last biomarker panel?
@@ -228,13 +226,13 @@ Add to OpenClaw or Hermes Agent to ping me on a daily basis with my dashboard an
 Export everything this agent is allowed to access for this user.
 ```
 
-For daily delivery, the agent should use a user-approved scoped key, read the latest health context and action plan, generate or reuse a private dashboard link, and schedule the notification in the user's OpenClaw or Hermes environment. ForeverBetter supplies the data contract and bounded credentials. The agent runtime owns the schedule and delivery channel.
+For daily delivery, the agent should use a user-approved scoped key, read the latest health context and action plan, generate or reuse a private dashboard link, and schedule the notification in the user's OpenClaw or Hermes environment. ForeverBetter supplies the health data and scoped key. The agent runtime owns the schedule and delivery channel.
 
 Start with [Connect your agent](https://foreverbetter.mintlify.app/connect-your-agent), inspect the [agent manifest](https://api.foreverbetter.xyz/.well-known/health-agent.json), or call `POST /mcp` with `tools/list`.
 
 ## Design systems are API features
 
-`GET /design/systems` is a public catalog of three curated, production-ready wellness-product design contracts. Each includes colors, typography, spacing, radii, elevation, motion, signature components, responsive behavior, full modality sections, action-plan structure, data-capture requirements, layout identity, and a ready-to-paste `DESIGN.md`.
+`GET /design/systems` returns three ready-made UI systems for health products. Each includes colors, type, spacing, motion, responsive layouts, dashboard sections, action-plan structure, data requirements, and a ready-to-use `DESIGN.md`.
 
 | ID | Structure | Best for |
 | --- | --- | --- |
@@ -247,7 +245,7 @@ curl -s "$FB_API/design/systems/aperture" | jq .
 curl -s "$FB_API/design/systems/meridian/implementation" > meridian-dashboard.json
 ```
 
-The Meridian implementation endpoint returns the exact production HTML, CSS, JavaScript, asset map, checksums, selectors, and API bindings. ForeverBetter and Aperture return reproducible token and layout contracts so a client can build a distinct UI without losing modalities, provenance, or action-plan fields. The README videos above are rendered from these same contracts.
+The Meridian implementation endpoint returns production HTML, CSS, JavaScript, assets, and API bindings. ForeverBetter and Aperture return reusable colors, type, spacing, layouts, and required data fields, so a client can build a distinct UI without losing source details or action-plan content.
 
 ## API structure
 
@@ -292,8 +290,8 @@ Stripe subscriptions and x402 pay-per-use payments are available.
 ### Local Docker Compose
 
 ```bash
-git clone https://github.com/liveforeverbetter/foreverbetter-api.git
-cd foreverbetter-api
+git clone https://github.com/liveforeverbetter/foreverbetter.git
+cd foreverbetter
 cp .env.example .env
 ```
 
@@ -371,7 +369,6 @@ npm run skill:verify
 npm run package:verify
 npm audit --omit=dev
 docker compose config --quiet
-npm run demos:record
 ```
 
 PostgreSQL store tests run when `TEST_DATABASE_URL` is set. The scheduled readiness workflow runs the build, tests, skill verification, package verification, docs validation, dependency audit, and Compose validation. GitHub Actions are pinned to reviewed full commit SHAs.
@@ -383,7 +380,7 @@ AGPL-3.0-only. See [`LICENSE`](LICENSE).
 ---
 
 <p align="center">
-  <strong>Build wellness products around the whole person, with source boundaries that agents and users can inspect.</strong>
+  <strong>Build personalized health products with results users can understand and sources they can inspect.</strong>
 </p>
 
 <p align="center">
@@ -392,4 +389,4 @@ AGPL-3.0-only. See [`LICENSE`](LICENSE).
   <a href="https://api.foreverbetter.xyz/openapi.json">Download OpenAPI</a>
 </p>
 
-<sub>ForeverBetter provides wellness and educational infrastructure. It is not medical advice and is not intended for diagnosis, treatment, or emergencies.</sub>
+<sub>ForeverBetter provides health-data and educational infrastructure. It is not medical advice and is not intended for diagnosis, treatment, or emergencies.</sub>

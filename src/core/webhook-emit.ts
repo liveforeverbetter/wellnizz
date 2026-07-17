@@ -39,7 +39,7 @@ export async function deliverWebhookEvent(event: WebhookEvent): Promise<void> {
   const secret = process.env.HEALTH_API_WEBHOOK_SECRET;
   const headers: Record<string, string> = {
     'content-type': 'application/json',
-    'user-agent': `foreverbetter-longevity-api-webhooks/${SERVICE_VERSION}`,
+    'user-agent': `foreverbetter-api-webhooks/${SERVICE_VERSION}`,
     'x-foreverbetter-event-id': event.id,
     'x-foreverbetter-event-type': event.type,
   };

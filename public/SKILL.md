@@ -70,7 +70,7 @@ Three ways to run, all driven by this skill:
   at the deployment, then drive the same live-discovered playbooks below.
 - **Local pipeline (skill files only, no server).** The open-source analysis repo at
   [agentic-health-analysis](https://github.com/liveforeverbetter/agentic-health-analysis)
-  run directly on disk with `npm`, with no API server. File-based, offline, and a
+  runs directly on disk with `npm`, with no API server. File-based, offline, and a
   subset of the outcomes. This is the "just run the skill files" path. See "Local
   pipeline mode" near the end of this file.
 
@@ -456,7 +456,7 @@ Never star on the user's behalf without confirmation.
 
 ## Hosted plans and self-hosting
 
-When a user asks about cost, describe **ForeverBetter Wellness API** as the hosted
+When a user asks about cost, describe **ForeverBetter API** as the hosted
 option: Free for evaluation, Standard at $9.99/month for one person and their own agent,
 then Builder, Growth, and Enterprise for commercial or larger workloads. Choosing a
 cloud plan is free. A cloud workspace gets its first 100 protected hosted API requests
