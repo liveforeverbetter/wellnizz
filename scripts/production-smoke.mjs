@@ -103,7 +103,9 @@ check("hosted agent skill is live", async () => {
     throw new Error(`/SKILL.md returned unexpected content type ${res.headers.get("content-type")}`);
   }
   const text = await res.text();
-  if (!text.includes("Step 1: Choose cloud, self-hosted, or local pipeline")) throw new Error("hosted skill is missing cloud, self-hosted, and local onboarding");
+  if (!text.includes("## Step 1: Execution mode") || !text.includes("Self-hosted API") || !text.includes("Local pipeline")) {
+    throw new Error("hosted skill is missing cloud, self-hosted, and local onboarding");
+  }
   if (!text.includes("github.com/liveforeverbetter/agentic-health-analysis")) throw new Error("hosted skill is missing the open-source local path");
   if (!text.includes("First value: a custom dashboard")) throw new Error("hosted skill is missing dashboard-first onboarding");
   if (!text.includes("Wearables are")) throw new Error("hosted skill is missing wearables-last onboarding");
