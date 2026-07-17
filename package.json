@@ -1,6 +1,6 @@
 {
   "name": "@foreverbetter/api",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Self-hostable API and MCP service for genetics, biomarkers, wearables, personalized action plans, and health-data apps.",
   "type": "module",
   "license": "AGPL-3.0-only",

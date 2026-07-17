@@ -35,6 +35,16 @@ test('dashboard is agent-first with a first-party OTP flow behind a toggle', asy
   assert.match(html, /aria-label="Use dashboard"/);
   assert.match(html, /mode-visual-agent/);
   assert.match(html, /mode-visual-dashboard/);
+  const modalityFlow = html.match(/<div class="pipe-sources"[^>]*>([\s\S]*?)<\/div>/)?.[1];
+  assert.ok(modalityFlow, 'the public modality flow is present');
+  assert.deepEqual(
+    [...modalityFlow.matchAll(/<span>([^<]+)<\/span>/g)].map((match) => match[1]),
+    ['Genetics', 'Biomarkers', 'Wearables'],
+  );
+  assert.match(html, /class="outcome-bento"/);
+  assert.match(html, /bento-context/);
+  assert.match(html, /bento-dashboard/);
+  assert.match(html, /bento-plan/);
   assert.match(html, /id="page-overview"/);
   assert.match(html, /data-route="overview"/);
   assert.match(html, /id="overview-connected-count"/);

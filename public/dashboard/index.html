@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Forever Better Dashboard</title>
-    <link rel="stylesheet" href="/dashboard/styles.css?v=warm-3">
+    <link rel="stylesheet" href="/dashboard/styles.css?v=warm-5">
     <link rel="icon" href="/dashboard/favicon.svg" type="image/svg+xml">
   </head>
   <body>
@@ -15,23 +15,32 @@
       <div class="auth-card" data-auth-mode="agent">
           <div class="auth-right" aria-hidden="true">
             <div class="mode-visual mode-visual-agent">
-              <p class="visual-kicker">Modalities in &middot; agent prompts out</p>
+              <p class="visual-kicker">Three modalities &middot; one health context</p>
               <div class="pipe">
                 <div class="pipe-sources" aria-hidden="true">
-                  <span>Genome</span><span>Labs</span><span>WHOOP</span><span>Oura</span><span>Journal</span>
+                  <span>Genetics</span><span>Biomarkers</span><span>Wearables</span>
                 </div>
-                <div class="pipe-lines" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-                <div class="pipe-hub"><b>forever<span>better</span></b><small>normalize &middot; analyze &middot; cite</small></div>
+                <div class="pipe-lines" aria-hidden="true"><i></i><i></i><i></i></div>
+                <div class="pipe-hub"><b>forever<span>better</span></b><small>connect &middot; analyze &middot; explain</small></div>
                 <div class="pipe-lines pipe-lines-out" aria-hidden="true"><i></i></div>
-                <div class="pipe-output">
-                  <div class="pipe-output-head"><span class="pipe-dot" aria-hidden="true"></span>Prompt-ready context for your agent</div>
-                  <pre class="pipe-prompt">ApoB 78 mg/dL, improving across 3 retests.
-Deep sleep down 48 min this week; HRV followed.
-Priorities: lipids, recovery. Every line cited.</pre>
-                  <div class="pipe-tools" aria-hidden="true"><code>query_health_context</code><code>get_action_plan</code></div>
+                <div class="outcome-bento">
+                  <div class="bento-card bento-context">
+                    <div class="bento-label"><span class="pipe-dot" aria-hidden="true"></span>Health context</div>
+                    <strong>Every signal, connected.</strong>
+                    <div class="signal-row" aria-hidden="true"><span>ApoB <b>&darr;</b></span><span>HRV <b>&uarr;</b></span><span>Sleep <b>&minus;48m</b></span></div>
+                  </div>
+                  <div class="bento-card bento-dashboard">
+                    <div class="bento-label">Dashboard</div>
+                    <strong>86<small>/100</small></strong>
+                    <div class="mini-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+                  </div>
+                  <div class="bento-card bento-plan">
+                    <div class="bento-label">Action plan</div>
+                    <ol><li><b>01</b>Recovery</li><li><b>02</b>Lipids</li><li><b>03</b>Strength</li></ol>
+                  </div>
                 </div>
               </div>
-              <p class="visual-caption">Every modality you approve is distilled into one health context your agent can prompt against, over REST or MCP.</p>
+              <p class="visual-caption">ForeverBetter turns the data you approve into clear health context, a useful dashboard, and a ranked action plan.</p>
             </div>
 
           <div class="mode-visual mode-visual-dashboard">
@@ -69,8 +78,8 @@ Priorities: lipids, recovery. Every line cited.</pre>
 
             <div id="agent-panel" role="tabpanel" aria-labelledby="mode-agent-btn">
               <h1 class="auth-title">Set up through your agent</h1>
-              <p class="auth-lede">Your agent signs you in, creates its own key, and connects your wearables. You only read one code from your email.</p>
-              <pre id="agent-setup-prompt" class="code agent-prompt" tabindex="0"></pre>
+              <p class="auth-lede">Your agent signs you in and connects the genetics, biomarkers, and wearable data you approve. ForeverBetter turns it into health context, a dashboard, and an action plan. You only read one code from your email.</p>
+              <pre id="agent-setup-prompt" class="code agent-prompt" tabindex="0" role="button" title="Tap to copy" aria-label="Agent setup prompt. Tap to copy."></pre>
               <button id="copy-agent-setup" type="button" class="wide">Copy prompt for your agent</button>
               <p class="auth-hint">Works with Claude and any agent that can call an HTTP API or connect over MCP.</p>
             </div>
@@ -479,6 +488,6 @@ Priorities: lipids, recovery. Every line cited.</pre>
       </div>
     </section>
 
-    <script src="/dashboard/app.js?v=warm-3" type="module"></script>
+    <script src="/dashboard/app.js?v=warm-5" type="module"></script>
   </body>
 </html>

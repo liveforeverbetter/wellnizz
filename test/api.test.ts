@@ -792,22 +792,22 @@ test('serves readiness and agent discovery metadata', async () => {
   const ready = await get('/ready');
   assert.equal(ready.ok, true);
   assert.equal(ready.service, 'foreverbetter-api');
-  assert.equal(ready.version, '0.5.0');
+  assert.equal(ready.version, '0.5.1');
   assert.deepEqual(Object.keys(ready).sort(), ['ok', 'service', 'version']);
 
   const version = await get('/version');
-  assert.deepEqual(version, { service: 'foreverbetter-api', version: '0.5.0' });
+  assert.deepEqual(version, { service: 'foreverbetter-api', version: '0.5.1' });
 
   const readyDetails = await get('/ready/details');
   assert.equal(readyDetails.service, 'foreverbetter-api');
-  assert.equal(readyDetails.version, '0.5.0');
+  assert.equal(readyDetails.version, '0.5.1');
   assert.equal(readyDetails.storage.checks.store, 'memory');
   assert.ok(readyDetails.enabled_endpoints.includes('imports.file'));
 
   const manifest = await get('/.well-known/health-agent.json');
   assert.equal(manifest.name, 'ForeverBetter API');
   assert.equal(manifest.service, 'foreverbetter-api');
-  assert.equal(manifest.version, '0.5.0');
+  assert.equal(manifest.version, '0.5.1');
   assert.ok(manifest.auth.token_requirements.endpoint_claims.includes('enabled_endpoints'));
   assert.equal(manifest.auth.token_requirements.full_user_data_reads_by_default, true);
   assert.ok(manifest.auth.token_requirements.default_user_data_read_endpoints.includes('sources.read'));
@@ -824,7 +824,7 @@ test('serves readiness and agent discovery metadata', async () => {
   const openApi = await get('/openapi.json');
   assert.equal(openApi.openapi, '3.1.0');
   assert.equal(openApi.info.title, 'ForeverBetter API');
-  assert.equal(openApi.info.version, '0.5.0');
+  assert.equal(openApi.info.version, '0.5.1');
   assert.ok(openApi.paths['/mcp']);
   assert.ok(openApi.paths['/capabilities']);
   assert.ok(openApi.paths['/pricing']);

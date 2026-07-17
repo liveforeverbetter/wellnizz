@@ -12,7 +12,7 @@ test('package, container workflow, and Compose defaults share one release identi
   const openApi = JSON.parse(await readFile(new URL('../docs/openapi.json', import.meta.url), 'utf8'));
 
   assert.equal(packageJson.name, '@foreverbetter/api');
-  assert.equal(packageJson.version, '0.5.0');
+  assert.equal(packageJson.version, '0.5.1');
   assert.equal(packageLock.name, packageJson.name);
   assert.equal(packageLock.version, packageJson.version);
   assert.equal(SERVICE_VERSION, packageJson.version);

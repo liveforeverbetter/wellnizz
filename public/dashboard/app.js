@@ -198,6 +198,16 @@ copyAgentSetupBtn?.addEventListener('click', async () => {
   }
 });
 
+// The prompt block itself is a copy target so a tap anywhere on it works on
+// phones; it delegates to the button, which owns the confirmation state.
+const agentSetupPromptEl = $('#agent-setup-prompt');
+agentSetupPromptEl?.addEventListener('click', () => copyAgentSetupBtn?.click());
+agentSetupPromptEl?.addEventListener('keydown', (event) => {
+  if (event.key !== 'Enter' && event.key !== ' ') return;
+  event.preventDefault();
+  copyAgentSetupBtn?.click();
+});
+
 $('#copy-oauth-code')?.addEventListener('click', async () => {
   const code = $('#oauth-code-display')?.textContent || '';
   await navigator.clipboard.writeText(code);

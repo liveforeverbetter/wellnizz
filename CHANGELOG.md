@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.5.1] - 2026-07-17
+
+- Refocus the dashboard sign-in illustration on ForeverBetter's three public
+  modalities: Genetics, Biomarkers, and Wearables. The new flow sends them into
+  ForeverBetter and presents the resulting health context, dashboard, and
+  ranked action plan in a responsive bento layout.
+- Make the agent setup prompt reliably copyable from the full prompt surface on
+  desktop and mobile, and restore the intended single-column auth layout at
+  smaller screen sizes.
+
 ## [0.5.0] - 2026-07-17
 
 - Restore the ForeverBetter warm-light identity on the account dashboard. The

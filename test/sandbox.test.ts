@@ -41,7 +41,7 @@ test('creates a short-lived, non-persistent synthetic hero session end to end', 
   assert.match(result.session.access_token, /^[^.]+\.[^.]+\.[^.]+$/);
   assert.equal(result.hero.synthetic, true);
   assert.equal(result.hero.persisted, false);
-  assert.equal(result.hero.contract_version, '0.5.0');
+  assert.equal(result.hero.contract_version, '0.5.1');
   assert.equal(result.hero.coverage.find((item: any) => item.modality === 'biomarkers').status, 'connected');
   assert.equal(result.hero.coverage.find((item: any) => item.modality === 'wearables').status, 'connected');
   assert.ok(result.hero.analysis.dashboard_spec.cards.length > 0);
