@@ -115,6 +115,27 @@ provenance. Do not describe compact annotation as exhaustive genome
 interpretation: full dbSNP improves rsID recovery, but it does not make every
 variant medically interpretable.
 
+### Query fallback and reanalysis
+
+The WGS worker uses `bcftools` first. If the final annotated VCF is readable but
+that rsID query fails, the worker records the original bcftools error and uses a
+single-pass text parser so the job can still return interpreted results. Poll
+`GET /genetics/jobs/:id` and inspect `result_summary.raw`:
+
+- `annotation_depth_requested` and `annotation_depth_used` identify the selected
+  reference mode.
+- `rsid_extraction_method` is `bcftools` or `text_fallback`.
+- `rsid_extraction_fallback_reason` retains the original query failure when a
+  fallback was required.
+
+A valid VCF with zero rsIDs is not treated as corrupt. The configured compact or
+full reference annotation runs before extraction; zero matches in the parser
+remain a valid count. If `text_fallback` appears, the current interpreted result
+remains available, and a caller can submit a new `/genetics/analyze` request for
+the same source after the WGS worker has been repaired. A failed full-dbSNP
+annotation itself is still retried by the queue rather than silently relabeled
+as a successful full analysis.
+
 ## Ancestry
 
 `POST /genetics/ancestry` validates source readiness and returns reference-panel
