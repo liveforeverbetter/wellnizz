@@ -192,8 +192,11 @@ test('failed genetic job requeues until attempts are exhausted', opts, async () 
   const first = await store.claimNextGeneticAnalysisJob('w'); // attempts -> 1
   await store.failGeneticAnalysisJob(first!.id, 'boom');
   assert.equal((await store.getGeneticAnalysisJob(job.id))?.status, 'queued');
+  assert.equal((await store.getGeneticAnalysisJob(job.id))?.error, 'boom');
 
   const second = await store.claimNextGeneticAnalysisJob('w'); // attempts -> 2
+  assert.equal(second?.status, 'running');
+  assert.equal(second?.error, undefined, 'a running retry must not expose the previous attempt error');
   await store.failGeneticAnalysisJob(second!.id, 'boom again');
   assert.equal((await store.getGeneticAnalysisJob(job.id))?.status, 'failed');
 });

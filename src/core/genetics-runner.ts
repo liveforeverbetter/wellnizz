@@ -22,6 +22,11 @@ export interface GeneticsPipelineResult {
     prs_count?: number;
     cpic_actionable?: number;
     clinvar_pathogenic?: number;
+    annotation_depth_requested?: GeneticsAnnotationDepth;
+    annotation_depth_used?: GeneticsAnnotationDepth;
+    rsid_annotation_source?: string;
+    rsid_extraction_method?: 'bcftools' | 'text_fallback';
+    rsid_extraction_fallback_reason?: string;
   };
 }
 
@@ -81,15 +86,17 @@ export async function runGeneticsPipelineWithWriter(
     };
   }
 
-  const commandArgs = [
-    'scripts/pipeline/index.ts',
-    `--genetics=${inputPath}`,
-    `--user=${userId}`,
-    `--out=${outputDir}`,
-  ];
-  if (options.annotation_depth) commandArgs.push(`--annotation-depth=${options.annotation_depth}`);
-  const dbsnpPath = env.HEALTH_ANALYSIS_DBSNP_GRCH37_PATH;
-  if (options.annotation_depth === 'full_dbsnp' && dbsnpPath) commandArgs.push(`--dbsnp-path=${dbsnpPath}`);
+  if (options.annotation_depth === 'full_dbsnp' && !env.HEALTH_ANALYSIS_DBSNP_GRCH37_PATH) {
+    return {
+      status: 'setup_required',
+      summary: 'Full dbSNP analysis was requested, but HEALTH_ANALYSIS_DBSNP_GRCH37_PATH is not configured. Configure the indexed GRCh37 reference, then submit a new analysis for this source.',
+      raw: {
+        annotation_depth_requested: 'full_dbsnp',
+      },
+    };
+  }
+
+  const commandArgs = buildGeneticsPipelineArgs(userId, inputPath, outputDir, env, options);
   const tsxCommand = env.TSX_BIN ?? path.resolve(process.cwd(), 'node_modules/.bin/tsx');
   const result = await runCommand(tsxCommand, commandArgs, skillDir, timeoutMs);
   if (result.exitCode !== 0) {
@@ -102,14 +109,55 @@ export async function runGeneticsPipelineWithWriter(
 
   const dashboardJsonPath = path.join(outputDir, `${userId}_dashboard.json`);
   const dashboard = await readJson(dashboardJsonPath);
+  const raw = summarizeDashboard(dashboard);
+  const fallback = rsidExtractionFallback(result.stderr);
+  if (fallback) {
+    raw.rsid_extraction_method = 'text_fallback';
+    raw.rsid_extraction_fallback_reason = fallback;
+    console.warn(JSON.stringify({
+      ts: new Date().toISOString(),
+      event: 'wgs_rsid_extraction_fallback',
+      user_id: userId,
+      source_id: source.id,
+      bcftools_error: fallback,
+    }));
+  } else {
+    raw.rsid_extraction_method ??= 'bcftools';
+  }
+  raw.annotation_depth_requested = options.annotation_depth ?? 'compact';
+  raw.annotation_depth_used = options.annotation_depth === 'full_dbsnp' ? 'full_dbsnp' : 'compact';
   return {
     status: 'complete',
-    summary: 'Health analysis completed using the bundled analyze-health pipeline.',
+    summary: fallback
+      ? 'Health analysis completed with the text VCF parser after the bcftools rsID query failed. Interpreted results are available now; the original query error is recorded so this source can be reanalyzed after the worker is repaired.'
+      : 'Health analysis completed using the bundled analyze-health pipeline.',
     dashboard,
     dashboard_json_path: dashboardJsonPath,
     dashboard_html_path: path.join(outputDir, 'index.html'),
-    raw: summarizeDashboard(dashboard),
+    raw,
   };
+}
+
+export function buildGeneticsPipelineArgs(
+  userId: string,
+  inputPath: string,
+  outputDir: string,
+  env: NodeJS.ProcessEnv,
+  options: GeneticsPipelineOptions,
+): string[] {
+  const args = [
+    'scripts/pipeline/index.ts',
+    `--genetics=${inputPath}`,
+    `--user=${userId}`,
+    `--out=${outputDir}`,
+  ];
+  const dbsnpPath = env.HEALTH_ANALYSIS_DBSNP_GRCH37_PATH;
+  if (options.annotation_depth === 'full_dbsnp' && dbsnpPath) {
+    // The bundled CLI contract is --dbsnp. Passing --annotation-depth or
+    // --dbsnp-path causes it to reject the job before analysis starts.
+    args.push(`--dbsnp=${dbsnpPath}`);
+  }
+  return args;
 }
 
 async function resolveHealthAnalysisSkillDir(env: NodeJS.ProcessEnv): Promise<string> {
@@ -157,7 +205,7 @@ async function readJson(filePath: string): Promise<unknown> {
   return JSON.parse(await fs.readFile(filePath, 'utf8')) as unknown;
 }
 
-function summarizeDashboard(dashboard: unknown): GeneticsPipelineResult['raw'] {
+function summarizeDashboard(dashboard: unknown): NonNullable<GeneticsPipelineResult['raw']> {
   if (!dashboard || typeof dashboard !== 'object') return {};
   const record = dashboard as Record<string, unknown>;
   const metadata = record.metadata && typeof record.metadata === 'object' ? record.metadata as Record<string, unknown> : {};
@@ -173,7 +221,27 @@ function summarizeDashboard(dashboard: unknown): GeneticsPipelineResult['raw'] {
     prs_count: Array.isArray(metadata.prs_scores) ? metadata.prs_scores.length : undefined,
     cpic_actionable: numberValue(metadata.cpic_actionable),
     clinvar_pathogenic: numberValue(metadata.clinvar_pathogenic),
+    rsid_annotation_source: stringValue(metadata.rsid_annotation_source),
+    rsid_extraction_method: extractionMethodValue(metadata.rsid_extraction_method),
+    rsid_extraction_fallback_reason: stringValue(metadata.rsid_extraction_fallback_reason),
   };
+}
+
+function rsidExtractionFallback(stderr: string): string | undefined {
+  const prefix = '[vcf-rsid-extraction-fallback] ';
+  for (const line of stderr.split(/\r?\n/)) {
+    const start = line.indexOf(prefix);
+    if (start < 0) continue;
+    try {
+      const payload = JSON.parse(line.slice(start + prefix.length)) as { reason?: unknown };
+      if (typeof payload.reason === 'string' && payload.reason.trim()) return payload.reason;
+    } catch {
+      // Preserve the raw marker text if a future bundled parser changes shape.
+      const raw = line.slice(start + prefix.length).trim();
+      if (raw) return raw;
+    }
+  }
+  return undefined;
 }
 
 function numberValue(value: unknown): number | undefined {
@@ -182,6 +250,10 @@ function numberValue(value: unknown): number | undefined {
 
 function stringValue(value: unknown): string | undefined {
   return typeof value === 'string' ? value : undefined;
+}
+
+function extractionMethodValue(value: unknown): 'bcftools' | 'text_fallback' | undefined {
+  return value === 'bcftools' || value === 'text_fallback' ? value : undefined;
 }
 
 function safeFilename(filename: string): string {

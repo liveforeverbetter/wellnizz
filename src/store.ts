@@ -207,6 +207,7 @@ export class HealthApiStore implements HealthStore {
       attempts: job.attempts + 1,
       worker_id: workerId,
       locked_at: now,
+      error: undefined,
       started_at: job.started_at ?? now,
       updated_at: now,
     };

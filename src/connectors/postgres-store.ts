@@ -240,7 +240,7 @@ export class PostgresHealthStore implements HealthStore {
        )
        update ${SCHEMA}.genetic_analysis_jobs job
        set status='running', attempts=job.attempts+1, worker_id=$1, locked_at=now(),
-           started_at=coalesce(job.started_at, now()), updated_at=now()
+           started_at=coalesce(job.started_at, now()), updated_at=now(), error=null
        from candidate where job.id=candidate.id returning job.*`,
       [workerId],
     );

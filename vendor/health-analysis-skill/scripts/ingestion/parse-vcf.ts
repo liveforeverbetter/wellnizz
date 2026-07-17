@@ -69,6 +69,8 @@ export interface LongevityProtocol {
     matchedMarkerCount?: number;
     rsidAnnotationSource?: string;
     rsidAnnotationLimitation?: string;
+    rsidExtractionMethod?: "bcftools" | "text_fallback";
+    rsidExtractionFallbackReason?: string;
   };
   biologicalDossier: {
     name?: string;
@@ -411,22 +413,38 @@ function loadInterpretations(
  * Uses grep for efficient line filtering — avoids loading all 3.7M
  * variants into memory (previously OOM'd at ~750MB heap per parse).
  */
-function parseVCFWithRSIDs(
+export interface VcfRsidExtractionResult {
+  variants: Variant[];
+  totalVariants: number;
+  annotatedCount: number;
+  extractionMethod: "bcftools" | "text_fallback";
+  fallbackReason?: string;
+}
+
+export function parseVCFWithRSIDs(
   vcfPath: string,
   targetRSIDs: string[]
-): { variants: Variant[]; totalVariants: number; annotatedCount: number } {
+): VcfRsidExtractionResult {
   // Single-pass extraction via bcftools query — avoids repeated full decompression.
   // Outputs CHROM,POS,ID,REF,ALT,GT for every rs-annotated variant in one pass.
   const targetSet = new Set(targetRSIDs);
   const variants: Variant[] = [];
   let totalVariants = 0;
   let annotatedCount = 0;
+  let extractionMethod: VcfRsidExtractionResult["extractionMethod"] =
+    "bcftools";
+  let fallbackReason: string | undefined;
 
   try {
     // bcftools query -f outputs a TSV; filtering to rs* lines is fast on the plain-text stream
     const result = execSync(
-      `bcftools query -f '%CHROM\\t%POS\\t%ID\\t%REF\\t%ALT[\\t%GT]\\n' "${vcfPath}" | awk -F'\\t' '$3 ~ /^rs/'`,
-      { encoding: "utf8", maxBuffer: 500 * 1024 * 1024, timeout: 120000 }
+      `set -o pipefail; bcftools query -f '%CHROM\\t%POS\\t%ID\\t%REF\\t%ALT[\\t%GT]\\n' "${vcfPath}" | awk -F'\\t' '$3 ~ /^rs/'`,
+      {
+        encoding: "utf8",
+        maxBuffer: 500 * 1024 * 1024,
+        timeout: 120000,
+        shell: "/bin/bash",
+      }
     );
 
     for (const line of result.trim().split("\n")) {
@@ -451,36 +469,54 @@ function parseVCFWithRSIDs(
       }
     }
 
-    // Total variant count: use bcftools index -n (instant for indexed BGZip) with fallback
+    // Total variant count: use bcftools index -n (instant for indexed BGZip).
+    // A valid, unindexed VCF still needs an exact count rather than being reported
+    // as though its rsID count were its total variant count.
     try {
       const nResult = execSync(`bcftools index -n "${vcfPath}" 2>/dev/null`, {
         encoding: "utf8",
       });
       totalVariants = parseInt(nResult.trim(), 10) || annotatedCount;
     } catch {
-      totalVariants = annotatedCount;
+      const nResult = execSync(
+        `set -o pipefail; bcftools view -H "${vcfPath}" | wc -l`,
+        { encoding: "utf8", timeout: 300000, shell: "/bin/bash" }
+      );
+      totalVariants = parseInt(nResult.trim(), 10) || 0;
     }
-  } catch {
-    // bcftools unavailable — fall back to single zcat pass writing to temp file
+  } catch (error) {
+    // A bcftools query error must remain observable, but it does not make a
+    // readable VCF invalid. Fall back to one text pass and preserve the reason
+    // in both worker logs and the returned analysis provenance.
+    extractionMethod = "text_fallback";
+    fallbackReason = commandFailureSummary(error);
+    console.warn(
+      `[vcf-rsid-extraction-fallback] ${JSON.stringify({ reason: fallbackReason })}`
+    );
     const tmp = `${vcfPath}.lines.tmp`;
     try {
-      execSync(`zcat -f "${vcfPath}" | grep -v "^#" > "${tmp}"`, {
-        timeout: 300000,
-      });
+      execSync(
+        `set -o pipefail; gzip -cdf "${vcfPath}" | grep -v "^#" > "${tmp}"`,
+        { timeout: 300000, shell: "/bin/bash" }
+      );
       const countResult = execSync(`wc -l < "${tmp}"`, { encoding: "utf8" });
       totalVariants = parseInt(countResult.trim(), 10) || 0;
-      const rsCountResult = execSync(`cut -f3 "${tmp}" | grep -c "^rs"`, {
-        encoding: "utf8",
-      });
+      // awk prints zero and exits successfully when the VCF has no rsIDs.
+      // grep -c also prints zero but exits 1, which previously made a valid WGS
+      // VCF look corrupt and exhausted every queued retry.
+      const rsCountResult = execSync(
+        `awk -F'\\t' '$3 ~ /^rs/ {n++} END{print n+0}' "${tmp}"`,
+        { encoding: "utf8" }
+      );
       annotatedCount = parseInt(rsCountResult.trim(), 10) || 0;
       if (targetRSIDs.length > 0) {
         const rsidFile = `${vcfPath}.target_rsids.txt`;
         fs.writeFileSync(rsidFile, targetRSIDs.join("\n"));
         try {
-          const matched = execSync(`grep -F -f "${rsidFile}" "${tmp}"`, {
-            encoding: "utf8",
-            maxBuffer: 10 * 1024 * 1024,
-          });
+          const matched = execSync(
+            `awk -F'\\t' 'NR==FNR {wanted[$1]=1; next} ($3 in wanted)' "${rsidFile}" "${tmp}"`,
+            { encoding: "utf8", maxBuffer: 10 * 1024 * 1024 }
+          );
           for (const line of matched.trim().split("\n")) {
             if (!line.trim()) continue;
             const variant = parseVCFLine(line);
@@ -500,7 +536,29 @@ function parseVCFWithRSIDs(
     }
   }
 
-  return { variants, totalVariants, annotatedCount };
+  return {
+    variants,
+    totalVariants,
+    annotatedCount,
+    extractionMethod,
+    ...(fallbackReason ? { fallbackReason } : {}),
+  };
+}
+
+function commandFailureSummary(error: unknown): string {
+  if (!error || typeof error !== "object") return String(error);
+  const record = error as { message?: unknown; stderr?: unknown; status?: unknown };
+  const stderr = Buffer.isBuffer(record.stderr)
+    ? record.stderr.toString("utf8")
+    : typeof record.stderr === "string"
+      ? record.stderr
+      : "";
+  const message = typeof record.message === "string" ? record.message : "";
+  const status = typeof record.status === "number" ? `exit ${record.status}: ` : "";
+  const detail = (stderr.trim() || message.trim() || String(error))
+    .replace(/\s+/g, " ")
+    .slice(0, 800);
+  return `${status}${detail}`;
 }
 
 /**
@@ -807,6 +865,10 @@ export interface AnalyzeVCFResult {
   rsidAnnotationSource?: string;
   /** User-facing limitation for the rsID annotation source */
   rsidAnnotationLimitation?: string;
+  /** Parser used to extract rsIDs and genotypes from the final VCF. */
+  rsidExtractionMethod?: "bcftools" | "text_fallback";
+  /** Original bcftools failure retained when text extraction was required. */
+  rsidExtractionFallbackReason?: string;
 }
 
 /**
@@ -1215,10 +1277,8 @@ export async function analyzeVCF(
 
   // Step 3: Parse VCF (only extract variants matching our interpretation DB rsIDs)
   console.log("\n📖 Step 3: Extracting relevant variants from VCF...");
-  const { variants, totalVariants, annotatedCount } = parseVCFWithRSIDs(
-    finalVCFPath,
-    targetRSIDs
-  );
+  const extraction = parseVCFWithRSIDs(finalVCFPath, targetRSIDs);
+  const { variants, totalVariants, annotatedCount } = extraction;
   console.log(`   Total variants in VCF: ${totalVariants.toLocaleString()}`);
   console.log(`   Variants matched: ${variants.length}`);
 
@@ -1250,8 +1310,13 @@ export async function analyzeVCF(
   const allRSIDs: string[] = [];
   try {
     const genotypeLines = execSync(
-      `bcftools query -f '%ID\\t%REF\\t%ALT[\\t%GT]\\n' "${finalVCFPath}" | awk -F'\\t' '$1 ~ /^rs/'`,
-      { encoding: "utf8", maxBuffer: 500 * 1024 * 1024, timeout: 180000 }
+      `set -o pipefail; bcftools query -f '%ID\\t%REF\\t%ALT[\\t%GT]\\n' "${finalVCFPath}" | awk -F'\\t' '$1 ~ /^rs/'`,
+      {
+        encoding: "utf8",
+        maxBuffer: 500 * 1024 * 1024,
+        timeout: 180000,
+        shell: "/bin/bash",
+      }
     );
     for (const line of genotypeLines.trim().split("\n")) {
       if (!line.trim()) continue;
@@ -1271,11 +1336,23 @@ export async function analyzeVCF(
       `   ${allRSIDs.length.toLocaleString()} unique rsIDs, ${allGenotypes.size.toLocaleString()} with genotypes`
     );
   } catch (err) {
+    const fallbackReason = commandFailureSummary(err);
+    extraction.extractionMethod = "text_fallback";
+    extraction.fallbackReason = extraction.fallbackReason
+      ? `${extraction.fallbackReason}; genotype query: ${fallbackReason}`
+      : `genotype query: ${fallbackReason}`;
+    console.warn(
+      `[vcf-rsid-extraction-fallback] ${JSON.stringify({ reason: extraction.fallbackReason })}`
+    );
     // bcftools unavailable — fall back to zcat single pass
     try {
       const genotypeLines = execSync(
-        `zcat -f "${finalVCFPath}" | grep -v "^#" | awk -F'\\t' '{if($3 ~ /^rs/) print $3"\\t"$4"\\t"$5"\\t"$10}'`,
-        { encoding: "utf8", maxBuffer: 200 * 1024 * 1024 }
+        `set -o pipefail; gzip -cdf "${finalVCFPath}" | grep -v "^#" | awk -F'\\t' '{if($3 ~ /^rs/) print $3"\\t"$4"\\t"$5"\\t"$10}'`,
+        {
+          encoding: "utf8",
+          maxBuffer: 200 * 1024 * 1024,
+          shell: "/bin/bash",
+        }
       );
       for (const line of genotypeLines.trim().split("\n")) {
         if (!line.trim()) continue;
@@ -1352,6 +1429,8 @@ export async function analyzeVCF(
       matchedMarkerCount: variants.length,
       rsidAnnotationSource,
       rsidAnnotationLimitation,
+      rsidExtractionMethod: extraction.extractionMethod,
+      rsidExtractionFallbackReason: extraction.fallbackReason,
     },
     biologicalDossier: {},
     genomicProfile: {
@@ -1471,6 +1550,8 @@ export async function analyzeVCF(
     totalVariants,
     rsidAnnotationSource,
     rsidAnnotationLimitation,
+    rsidExtractionMethod: extraction.extractionMethod,
+    rsidExtractionFallbackReason: extraction.fallbackReason,
   };
 }
 
