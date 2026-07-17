@@ -14,7 +14,7 @@ import { dirname, resolve } from 'node:path';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const DATA_DIR = resolve(ROOT, 'src/data');
 const SUPP_AI = 'https://supp.ai/api';
-const UA = 'foreverbetter-longevity-api KB builder (contact: dev@foreverbetter.xyz)';
+const UA = 'foreverbetter-api KB builder (contact: dev@foreverbetter.xyz)';
 
 // Catalog supplement id -> the ingredient name to resolve on SUPP.AI. Kept in
 // sync with the SUPPLEMENTS catalog in src/core/action-plan.ts.

@@ -81,9 +81,9 @@ await step('public metadata endpoints are available', async () => {
     request('GET', '/capabilities', { auth: false }),
     request('GET', '/pricing', { auth: false }),
   ]);
-  assert(version.body.service === 'foreverbetter-longevity-api', 'unexpected /version service');
-  assert(openapi.body.info?.title === 'ForeverBetter Wellness API', 'OpenAPI title is not current');
-  assert(manifest.body.name === 'ForeverBetter Wellness API', 'agent manifest name is not current');
+  assert(version.body.service === 'foreverbetter-api', 'unexpected /version service');
+  assert(openapi.body.info?.title === 'ForeverBetter API', 'OpenAPI title is not current');
+  assert(manifest.body.name === 'ForeverBetter API', 'agent manifest name is not current');
   assert(Array.isArray(endpoints.body.protected) && endpoints.body.protected.length > 0, '/endpoints did not return protected endpoint metadata');
   assert(
     Array.isArray(capabilities.body.capabilities)
@@ -543,7 +543,7 @@ async function maybeMintAdminToken() {
   const apiKeySecret = process.env.API_KEY_JWT_SECRET;
   const secret = serviceAccountSecret ?? apiKeySecret;
   if (!secret) return '';
-  const audience = (process.env.AUTH_AUDIENCE ?? 'foreverbetter-health-api').split(',')[0].trim();
+  const audience = (process.env.AUTH_AUDIENCE ?? 'foreverbetter-api').split(',')[0].trim();
   const payload = {
     user_id: serviceAccountSecret ? 'e2e-admin' : userId,
     scope: `${serviceAccountSecret ? 'health:admin ' : ''}health:data:read health:data:write health:connections:write health:labs:read`,

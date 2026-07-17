@@ -6,8 +6,29 @@
       "name": "Ring Data",
       "scheme": "dark",
       "best_for": ["sleep & readiness", "circular score visuals"],
-      "colors": { "background": "#0d0e12", "surface": "#16181f", "surface_alt": "#1e212b", "border": "rgba(255,255,255,0.08)", "text": "#f2f0ea", "text_muted": "#9a978d", "primary": "#d4b483", "on_primary": "#1a1408", "accent": "#4ecdc4", "positive": "#5ec98c", "warning": "#e6b450", "negative": "#e06c6c", "data_viz": ["#d4b483", "#4ecdc4", "#e28f6b", "#9b8cce", "#6ea8d8"] },
-      "typography": { "font_display": "\"Fraunces\", Georgia, serif", "font_body": "\"Inter\", system-ui, sans-serif", "google_fonts": ["Fraunces:opsz,wght@9..144,400;9..144,600", "Inter:wght@400;500;600"] },
+      "colors": {
+        "background": "#0d0e12",
+        "surface": "#16181f",
+        "surface_alt": "#1e212b",
+        "border": "rgba(255,255,255,0.08)",
+        "text": "#f2f0ea",
+        "text_muted": "#9a978d",
+        "primary": "#d4b483",
+        "on_primary": "#1a1408",
+        "accent": "#4ecdc4",
+        "positive": "#5ec98c",
+        "warning": "#e6b450",
+        "negative": "#e06c6c",
+        "data_viz": ["#d4b483", "#4ecdc4", "#e28f6b", "#9b8cce", "#6ea8d8"]
+      },
+      "typography": {
+        "font_display": "\"Fraunces\", Georgia, serif",
+        "font_body": "\"Inter\", system-ui, sans-serif",
+        "google_fonts": [
+          "Fraunces:opsz,wght@9..144,400;9..144,600",
+          "Inter:wght@400;500;600"
+        ]
+      },
       "radii": { "sm": "8px", "md": "16px", "lg": "24px", "pill": "999px" },
       "shadow": "0 8px 24px -12px rgba(0,0,0,0.6)"
     },
@@ -16,85 +37,1017 @@
       "name": "Performance",
       "scheme": "dark",
       "best_for": ["strain & recovery", "training load"],
-      "colors": { "background": "#0a0a0a", "surface": "#151515", "surface_alt": "#1f1f1f", "border": "rgba(255,255,255,0.10)", "text": "#ffffff", "text_muted": "#8a8a8a", "primary": "#16ec8f", "on_primary": "#04180f", "accent": "#0093e9", "positive": "#16ec8f", "warning": "#ffde5a", "negative": "#ff4d4d", "data_viz": ["#16ec8f", "#ffde5a", "#ff4d4d", "#0093e9", "#b06cff"] },
-      "typography": { "font_display": "\"Archivo\", Arial, sans-serif", "font_body": "\"Inter\", system-ui, sans-serif", "google_fonts": ["Archivo:wght@600;700;800", "Inter:wght@400;500;600"] },
+      "colors": {
+        "background": "#0a0a0a",
+        "surface": "#151515",
+        "surface_alt": "#1f1f1f",
+        "border": "rgba(255,255,255,0.10)",
+        "text": "#ffffff",
+        "text_muted": "#8a8a8a",
+        "primary": "#16ec8f",
+        "on_primary": "#04180f",
+        "accent": "#0093e9",
+        "positive": "#16ec8f",
+        "warning": "#ffde5a",
+        "negative": "#ff4d4d",
+        "data_viz": ["#16ec8f", "#ffde5a", "#ff4d4d", "#0093e9", "#b06cff"]
+      },
+      "typography": {
+        "font_display": "\"Archivo\", Arial, sans-serif",
+        "font_body": "\"Inter\", system-ui, sans-serif",
+        "google_fonts": ["Archivo:wght@600;700;800", "Inter:wght@400;500;600"]
+      },
       "radii": { "sm": "4px", "md": "8px", "lg": "14px", "pill": "999px" },
       "shadow": "0 4px 16px -8px rgba(0,0,0,0.7)",
       "layout": {
         "hero": "dual-gauge",
         "score_word": "Recovery",
         "voice": "coach",
-        "sections": ["today-hero", "recovery-strain-gauges", "sleep-performance", "health-monitor", "stress-monitor", "activity-load", "biomarker-context", "genetic-context", "health-context", "action-plan", "data-provenance"],
+        "sections": [
+          "today-hero",
+          "recovery-strain-gauges",
+          "sleep-performance",
+          "health-monitor",
+          "stress-monitor",
+          "activity-load",
+          "biomarker-context",
+          "genetic-context",
+          "health-context",
+          "action-plan",
+          "data-provenance"
+        ],
         "summary": "A WHOOP-style training board: recovery, sleep, and strain lead the day; health-monitor and stress signals explain the score; biomarkers, genetics, and health context add slower-moving context; FOCUS turns the signal into an actionable plan."
       },
       "responsive": {
-        "breakpoints": ["<=720px mobile", "721-1024px tablet", ">1024px desktop"],
+        "breakpoints": [
+          "<=720px mobile",
+          "721-1024px tablet",
+          ">1024px desktop"
+        ],
         "desktop": "Three hero gauges in one row; health-monitor metrics in a 2–3 column grid; slower biomarker and genetic context follows the live wearable signal; action plan stays visible below the hero.",
         "tablet": "Keep gauges in two rows, use two-column monitor cards, and keep source chips visible beside section headers.",
         "mobile": "Stack recovery, sleep, and strain in that order; use one-column monitor cards with values left and sparklines right; collapse optional genetics behind disclosure rows."
       },
       "metrics": [
-        { "id": "recovery_score", "label": "Recovery", "modality": "wearables", "priority": "hero", "format": "0–100 score", "preferred_visual": "recovery_gauge", "highlight_reason": "Sets the day’s available capacity and safest training posture.", "states": ["green available", "yellow caution", "red depleted"] },
-        { "id": "sleep_performance", "label": "Sleep performance", "modality": "wearables", "priority": "hero", "format": "percentage + duration", "preferred_visual": "sleep_gauge", "highlight_reason": "Explains recovery through sleep need coverage, debt, and consistency.", "states": ["complete", "partial", "insufficient", "missing"] },
-        { "id": "strain", "label": "Strain", "modality": "wearables", "priority": "hero", "format": "0–21 load score", "preferred_visual": "strain_gauge", "highlight_reason": "Shows training load in context of current recovery, not as a standalone goal.", "states": ["easy", "productive", "high", "unavailable"] },
-        { "id": "hrv", "label": "HRV", "modality": "wearables", "priority": "primary", "format": "ms vs personal baseline", "preferred_visual": "trend_sparkline", "highlight_reason": "A baseline-relative recovery signal; avoid population ranking.", "states": ["above baseline", "within baseline", "below baseline", "missing"] },
-        { "id": "resting_heart_rate", "label": "Resting heart rate", "modality": "wearables", "priority": "primary", "format": "bpm vs personal baseline", "preferred_visual": "monitor_tile", "highlight_reason": "Adds cardiovascular recovery and illness-load context.", "states": ["within baseline", "elevated", "low", "missing"] },
-        { "id": "respiratory_rate", "label": "Respiratory rate", "modality": "wearables", "priority": "primary", "format": "breaths/min vs baseline", "preferred_visual": "monitor_tile", "highlight_reason": "Useful when it moves away from personal baseline.", "states": ["within baseline", "elevated", "low", "missing"] },
-        { "id": "blood_oxygen", "label": "Blood oxygen", "modality": "wearables", "priority": "secondary", "format": "percentage", "preferred_visual": "monitor_tile", "highlight_reason": "A context signal with source and measurement-quality note.", "states": ["within range", "watch", "missing"] },
-        { "id": "skin_temperature", "label": "Skin temperature", "modality": "wearables", "priority": "secondary", "format": "delta from baseline", "preferred_visual": "monitor_tile", "highlight_reason": "Highlights deviation from personal baseline rather than a universal target.", "states": ["near baseline", "above baseline", "below baseline", "missing"] },
-        { "id": "blood_pressure", "label": "Blood pressure", "modality": "wearables", "priority": "secondary", "format": "systolic/diastolic", "preferred_visual": "monitor_tile", "highlight_reason": "Only show when source and measurement context are explicit.", "states": ["within target", "watch", "missing"] },
-        { "id": "apo_b", "label": "ApoB", "modality": "biomarkers", "priority": "context", "format": "value + unit + lab range", "preferred_visual": "range_bar", "highlight_reason": "A slower-moving cardiovascular context signal.", "states": ["in range", "watch", "out of range", "missing"] },
-        { "id": "hba1c", "label": "HbA1c", "modality": "biomarkers", "priority": "context", "format": "percentage + lab range", "preferred_visual": "range_bar", "highlight_reason": "Metabolic context with collection date visible.", "states": ["in range", "watch", "out of range", "missing"] },
-        { "id": "inflammation", "label": "Inflammation", "modality": "biomarkers", "priority": "context", "format": "marker set + trend", "preferred_visual": "metric_table", "highlight_reason": "A retestable explanation for persistent low recovery without turning one marker into a diagnosis.", "states": ["quiet", "watch", "elevated", "missing"] },
-        { "id": "training_response", "label": "Training response", "modality": "genetics", "priority": "context", "format": "evidence-graded context", "preferred_visual": "context_card", "highlight_reason": "Tunes training questions but never overrides observed data.", "states": ["supportive context", "mixed evidence", "no signal", "not provided"] },
-        { "id": "daily_context", "label": "Daily context", "modality": "health-context", "priority": "primary", "format": "structured note + tags", "preferred_visual": "context_strip", "highlight_reason": "Captures illness, travel, alcohol, stress, pain, and goals sensors cannot infer.", "states": ["captured", "partial", "not captured"] }
+        {
+          "id": "recovery_score",
+          "label": "Recovery",
+          "modality": "wearables",
+          "priority": "hero",
+          "format": "0–100 score",
+          "preferred_visual": "recovery_gauge",
+          "highlight_reason": "Sets the day’s available capacity and safest training posture.",
+          "states": ["green available", "yellow caution", "red depleted"]
+        },
+        {
+          "id": "sleep_performance",
+          "label": "Sleep performance",
+          "modality": "wearables",
+          "priority": "hero",
+          "format": "percentage + duration",
+          "preferred_visual": "sleep_gauge",
+          "highlight_reason": "Explains recovery through sleep need coverage, debt, and consistency.",
+          "states": ["complete", "partial", "insufficient", "missing"]
+        },
+        {
+          "id": "strain",
+          "label": "Strain",
+          "modality": "wearables",
+          "priority": "hero",
+          "format": "0–21 load score",
+          "preferred_visual": "strain_gauge",
+          "highlight_reason": "Shows training load in context of current recovery, not as a standalone goal.",
+          "states": ["easy", "productive", "high", "unavailable"]
+        },
+        {
+          "id": "hrv",
+          "label": "HRV",
+          "modality": "wearables",
+          "priority": "primary",
+          "format": "ms vs personal baseline",
+          "preferred_visual": "trend_sparkline",
+          "highlight_reason": "A baseline-relative recovery signal; avoid population ranking.",
+          "states": [
+            "above baseline",
+            "within baseline",
+            "below baseline",
+            "missing"
+          ]
+        },
+        {
+          "id": "resting_heart_rate",
+          "label": "Resting heart rate",
+          "modality": "wearables",
+          "priority": "primary",
+          "format": "bpm vs personal baseline",
+          "preferred_visual": "monitor_tile",
+          "highlight_reason": "Adds cardiovascular recovery and illness-load context.",
+          "states": ["within baseline", "elevated", "low", "missing"]
+        },
+        {
+          "id": "respiratory_rate",
+          "label": "Respiratory rate",
+          "modality": "wearables",
+          "priority": "primary",
+          "format": "breaths/min vs baseline",
+          "preferred_visual": "monitor_tile",
+          "highlight_reason": "Useful when it moves away from personal baseline.",
+          "states": ["within baseline", "elevated", "low", "missing"]
+        },
+        {
+          "id": "blood_oxygen",
+          "label": "Blood oxygen",
+          "modality": "wearables",
+          "priority": "secondary",
+          "format": "percentage",
+          "preferred_visual": "monitor_tile",
+          "highlight_reason": "A context signal with source and measurement-quality note.",
+          "states": ["within range", "watch", "missing"]
+        },
+        {
+          "id": "skin_temperature",
+          "label": "Skin temperature",
+          "modality": "wearables",
+          "priority": "secondary",
+          "format": "delta from baseline",
+          "preferred_visual": "monitor_tile",
+          "highlight_reason": "Highlights deviation from personal baseline rather than a universal target.",
+          "states": [
+            "near baseline",
+            "above baseline",
+            "below baseline",
+            "missing"
+          ]
+        },
+        {
+          "id": "blood_pressure",
+          "label": "Blood pressure",
+          "modality": "wearables",
+          "priority": "secondary",
+          "format": "systolic/diastolic",
+          "preferred_visual": "monitor_tile",
+          "highlight_reason": "Only show when source and measurement context are explicit.",
+          "states": ["within target", "watch", "missing"]
+        },
+        {
+          "id": "apo_b",
+          "label": "ApoB",
+          "modality": "biomarkers",
+          "priority": "context",
+          "format": "value + unit + lab range",
+          "preferred_visual": "range_bar",
+          "highlight_reason": "A slower-moving cardiovascular context signal.",
+          "states": ["in range", "watch", "out of range", "missing"]
+        },
+        {
+          "id": "hba1c",
+          "label": "HbA1c",
+          "modality": "biomarkers",
+          "priority": "context",
+          "format": "percentage + lab range",
+          "preferred_visual": "range_bar",
+          "highlight_reason": "Metabolic context with collection date visible.",
+          "states": ["in range", "watch", "out of range", "missing"]
+        },
+        {
+          "id": "inflammation",
+          "label": "Inflammation",
+          "modality": "biomarkers",
+          "priority": "context",
+          "format": "marker set + trend",
+          "preferred_visual": "metric_table",
+          "highlight_reason": "A retestable explanation for persistent low recovery without turning one marker into a diagnosis.",
+          "states": ["quiet", "watch", "elevated", "missing"]
+        },
+        {
+          "id": "training_response",
+          "label": "Training response",
+          "modality": "genetics",
+          "priority": "context",
+          "format": "evidence-graded context",
+          "preferred_visual": "context_card",
+          "highlight_reason": "Tunes training questions but never overrides observed data.",
+          "states": [
+            "supportive context",
+            "mixed evidence",
+            "no signal",
+            "not provided"
+          ]
+        },
+        {
+          "id": "daily_context",
+          "label": "Daily context",
+          "modality": "health-context",
+          "priority": "primary",
+          "format": "structured note + tags",
+          "preferred_visual": "context_strip",
+          "highlight_reason": "Captures illness, travel, alcohol, stress, pain, and goals sensors cannot infer.",
+          "states": ["captured", "partial", "not captured"]
+        }
       ],
       "modality_sections": [
-        { "id": "wearables-live", "label": "Live wearable signal", "modality": "wearables", "purpose": "Lead with what the person can safely do today using recovery, sleep, strain, and baseline-relative monitor signals.", "component": "recovery_gauge + health_monitor + activity_timeline", "required_fields": ["source_provider", "observed_at", "recovery_score", "sleep_performance", "strain", "sync_status"], "optional_fields": ["hrv", "resting_heart_rate", "respiratory_rate", "blood_oxygen", "skin_temperature", "blood_pressure", "stress", "activities"], "empty_state": "Connect a wearable to unlock recovery, sleep, strain, and baseline trends. Do not fabricate a readiness score.", "responsive_behavior": "Desktop uses gauges plus a monitor grid; mobile stacks the three headline scores then exposes monitor tiles in priority order." },
-        { "id": "biomarker-context", "label": "Biomarker context", "modality": "biomarkers", "purpose": "Add slower-moving physiological context and retestable markers beneath the live signal.", "component": "range_bar + biomarker_table + trend_sparkline", "required_fields": ["marker_id", "value", "unit", "collected_at", "reference_range", "provenance"], "optional_fields": ["previous_value", "optimal_range", "interpretation", "lab_name"], "empty_state": "No blood panel is connected. Wearable guidance still works; add biomarkers for deeper context.", "responsive_behavior": "Desktop shows a compact table with ranges; mobile turns each marker into a stacked card." },
-        { "id": "genetic-context", "label": "Genetic context", "modality": "genetics", "purpose": "Use evidence-graded findings as background context for training response and longevity questions.", "component": "context_card + evidence_badge", "required_fields": ["finding_id", "trait", "evidence_tier", "source", "disclosure"], "optional_fields": ["gene", "rsid", "direction", "recommended_question"], "empty_state": "Genetic context is optional and does not block a wearable-first dashboard.", "responsive_behavior": "Keep genetics below observed signals; collapse long evidence text on mobile." },
-        { "id": "health-context", "label": "Daily context", "modality": "health-context", "purpose": "Capture symptoms, illness, travel, alcohol, stress, pain, schedule, goals, and perceived exertion.", "component": "context_strip + check_in_form", "required_fields": ["recorded_at", "context_type", "value_or_note", "source"], "optional_fields": ["severity", "duration", "goal_id", "related_activity_id"], "empty_state": "Add a short check-in when the dashboard misses the why behind a score.", "responsive_behavior": "Use quick tags on mobile and a timeline/filterable context rail on desktop." }
+        {
+          "id": "wearables-live",
+          "label": "Live wearable signal",
+          "modality": "wearables",
+          "purpose": "Lead with what the person can safely do today using recovery, sleep, strain, and baseline-relative monitor signals.",
+          "component": "recovery_gauge + health_monitor + activity_timeline",
+          "required_fields": [
+            "source_provider",
+            "observed_at",
+            "recovery_score",
+            "sleep_performance",
+            "strain",
+            "sync_status"
+          ],
+          "optional_fields": [
+            "hrv",
+            "resting_heart_rate",
+            "respiratory_rate",
+            "blood_oxygen",
+            "skin_temperature",
+            "blood_pressure",
+            "stress",
+            "activities"
+          ],
+          "empty_state": "Connect a wearable to unlock recovery, sleep, strain, and baseline trends. Do not fabricate a readiness score.",
+          "responsive_behavior": "Desktop uses gauges plus a monitor grid; mobile stacks the three headline scores then exposes monitor tiles in priority order."
+        },
+        {
+          "id": "biomarker-context",
+          "label": "Biomarker context",
+          "modality": "biomarkers",
+          "purpose": "Add slower-moving physiological context and retestable markers beneath the live signal.",
+          "component": "range_bar + biomarker_table + trend_sparkline",
+          "required_fields": [
+            "marker_id",
+            "value",
+            "unit",
+            "collected_at",
+            "reference_range",
+            "provenance"
+          ],
+          "optional_fields": [
+            "previous_value",
+            "optimal_range",
+            "interpretation",
+            "lab_name"
+          ],
+          "empty_state": "No blood panel is connected. Wearable guidance still works; add biomarkers for deeper context.",
+          "responsive_behavior": "Desktop shows a compact table with ranges; mobile turns each marker into a stacked card."
+        },
+        {
+          "id": "genetic-context",
+          "label": "Genetic context",
+          "modality": "genetics",
+          "purpose": "Use evidence-graded findings as background context for training response and longevity questions.",
+          "component": "context_card + evidence_badge",
+          "required_fields": [
+            "finding_id",
+            "trait",
+            "evidence_tier",
+            "source",
+            "disclosure"
+          ],
+          "optional_fields": [
+            "gene",
+            "rsid",
+            "direction",
+            "recommended_question"
+          ],
+          "empty_state": "Genetic context is optional and does not block a wearable-first dashboard.",
+          "responsive_behavior": "Keep genetics below observed signals; collapse long evidence text on mobile."
+        },
+        {
+          "id": "health-context",
+          "label": "Daily context",
+          "modality": "health-context",
+          "purpose": "Capture symptoms, illness, travel, alcohol, stress, pain, schedule, goals, and perceived exertion.",
+          "component": "context_strip + check_in_form",
+          "required_fields": [
+            "recorded_at",
+            "context_type",
+            "value_or_note",
+            "source"
+          ],
+          "optional_fields": [
+            "severity",
+            "duration",
+            "goal_id",
+            "related_activity_id"
+          ],
+          "empty_state": "Add a short check-in when the dashboard misses the why behind a score.",
+          "responsive_behavior": "Use quick tags on mobile and a timeline/filterable context rail on desktop."
+        }
       ],
       "animations": [
-        { "id": "hero-gauge-sweep", "trigger": "page load or date change", "motion": "Animate each semicircular gauge from empty to value with a 60ms stagger.", "duration": "1200ms entrance + 60ms stagger", "reduced_motion": "Render the final arc immediately." },
-        { "id": "healthspan-particle-orb", "trigger": "hero visible and long-horizon insight is present", "motion": "Slow, low-opacity particles orbit a green radial orb.", "duration": "12–18s ambient loop", "reduced_motion": "Use a static radial glow." },
-        { "id": "metric-count-in", "trigger": "metric card enters viewport", "motion": "Count numeric values once, then reveal baseline delta and freshness.", "duration": "360ms", "reduced_motion": "Show final value immediately." },
-        { "id": "bar-growth", "trigger": "section enters viewport", "motion": "Grow status-colored load, sleep, stress, and range bars from zero.", "duration": "480ms", "reduced_motion": "Show final width immediately." },
-        { "id": "focus-reveal", "trigger": "action plan enters viewport", "motion": "Reveal FOCUS items in priority order with a short vertical slide.", "duration": "240ms per item", "reduced_motion": "Render all actions immediately." },
-        { "id": "source-refresh", "trigger": "sync completes", "motion": "Pulse the source chip once, update freshness, and crossfade changed values.", "duration": "200ms", "reduced_motion": "Update values without pulsing." }
+        {
+          "id": "hero-gauge-sweep",
+          "trigger": "page load or date change",
+          "motion": "Animate each semicircular gauge from empty to value with a 60ms stagger.",
+          "duration": "1200ms entrance + 60ms stagger",
+          "reduced_motion": "Render the final arc immediately."
+        },
+        {
+          "id": "healthspan-particle-orb",
+          "trigger": "hero visible and long-horizon insight is present",
+          "motion": "Slow, low-opacity particles orbit a green radial orb.",
+          "duration": "12–18s ambient loop",
+          "reduced_motion": "Use a static radial glow."
+        },
+        {
+          "id": "metric-count-in",
+          "trigger": "metric card enters viewport",
+          "motion": "Count numeric values once, then reveal baseline delta and freshness.",
+          "duration": "360ms",
+          "reduced_motion": "Show final value immediately."
+        },
+        {
+          "id": "bar-growth",
+          "trigger": "section enters viewport",
+          "motion": "Grow status-colored load, sleep, stress, and range bars from zero.",
+          "duration": "480ms",
+          "reduced_motion": "Show final width immediately."
+        },
+        {
+          "id": "focus-reveal",
+          "trigger": "action plan enters viewport",
+          "motion": "Reveal FOCUS items in priority order with a short vertical slide.",
+          "duration": "240ms per item",
+          "reduced_motion": "Render all actions immediately."
+        },
+        {
+          "id": "source-refresh",
+          "trigger": "sync completes",
+          "motion": "Pulse the source chip once, update freshness, and crossfade changed values.",
+          "duration": "200ms",
+          "reduced_motion": "Update values without pulsing."
+        }
       ],
       "action_plan": {
         "title": "FOCUS",
         "voice": "Direct coach: specific, calm, and non-judgmental. Say what to do next and why it matters today.",
         "ranking": "Rank by immediate safety and expected recovery impact, then confidence and ease. Recovery constrains strain recommendations; observed data outranks genetic context.",
         "cadence": ["Now", "Today", "Tonight", "This week", "Retest"],
-        "item_fields": ["priority", "title", "why_now", "steps", "target_metric", "expected_check_in", "source_ids", "confidence", "safety_note", "status"],
-        "stages": ["FOCUS: one to three next actions", "MAINTAIN: habits supporting the signal", "WATCH: what changes the recommendation", "RETEST: when to measure again"],
+        "item_fields": [
+          "priority",
+          "title",
+          "why_now",
+          "steps",
+          "target_metric",
+          "expected_check_in",
+          "source_ids",
+          "confidence",
+          "safety_note",
+          "status"
+        ],
+        "stages": [
+          "FOCUS: one to three next actions",
+          "MAINTAIN: habits supporting the signal",
+          "WATCH: what changes the recommendation",
+          "RETEST: when to measure again"
+        ],
         "safety_boundary": "Wellness education only. Do not diagnose, prescribe, or tell someone to train through concerning symptoms; route high-stakes findings to a qualified clinician."
       },
       "data_capture": {
-        "identity_fields": ["user_id", "display_name", "timezone", "age_band (optional)", "goals"],
-        "provenance_fields": ["source_id", "source_provider", "integration_type", "observed_at", "collected_at", "synced_at", "freshness", "coverage", "confidence"],
+        "identity_fields": [
+          "user_id",
+          "display_name",
+          "timezone",
+          "age_band (optional)",
+          "goals"
+        ],
+        "provenance_fields": [
+          "source_id",
+          "source_provider",
+          "integration_type",
+          "observed_at",
+          "collected_at",
+          "synced_at",
+          "freshness",
+          "coverage",
+          "confidence"
+        ],
         "modality_fields": {
-          "wearables": ["recovery_score", "sleep_performance", "sleep_duration", "sleep_need", "sleep_debt", "strain", "hrv", "resting_heart_rate", "respiratory_rate", "blood_oxygen", "skin_temperature", "blood_pressure", "stress", "activities"],
-          "biomarkers": ["marker_id", "value", "unit", "collected_at", "reference_range", "optimal_range", "previous_value", "lab_name"],
-          "genetics": ["finding_id", "trait", "direction", "evidence_tier", "source", "recommended_question"],
-          "health-context": ["recorded_at", "context_type", "value_or_note", "severity", "duration", "goal_id", "source"]
+          "wearables": [
+            "recovery_score",
+            "sleep_performance",
+            "sleep_duration",
+            "sleep_need",
+            "sleep_debt",
+            "strain",
+            "hrv",
+            "resting_heart_rate",
+            "respiratory_rate",
+            "blood_oxygen",
+            "skin_temperature",
+            "blood_pressure",
+            "stress",
+            "activities"
+          ],
+          "biomarkers": [
+            "marker_id",
+            "value",
+            "unit",
+            "collected_at",
+            "reference_range",
+            "optimal_range",
+            "previous_value",
+            "lab_name"
+          ],
+          "genetics": [
+            "finding_id",
+            "trait",
+            "direction",
+            "evidence_tier",
+            "source",
+            "recommended_question"
+          ],
+          "health-context": [
+            "recorded_at",
+            "context_type",
+            "value_or_note",
+            "severity",
+            "duration",
+            "goal_id",
+            "source"
+          ]
         },
         "freshness_rule": "Show observation window and last sync beside every live score; never imply a current score when the source is stale.",
         "missing_data_rule": "Use an explicit not-connected or not-provided state and preserve section order as modalities are added."
       },
       "components": {
-        "recovery_gauge": { "description": "Semicircular tick-marked recovery/readiness gauge.", "css": { "stroke-width": "15px", "stroke-linecap": "round", "value-gradient": "linear-gradient(90deg,#ff4d4d,#ffde5a,#16ec8f)" } },
-        "strain_gauge": { "description": "Semicircular blue-to-violet training-load gauge.", "css": { "stroke-width": "15px", "stroke-linecap": "round", "value-gradient": "linear-gradient(90deg,#0093e9,#b06cff)" } },
-        "sleep_gauge": { "description": "Sleep performance gauge with need, duration, debt, and consistency beneath.", "css": { "stroke-width": "15px", "stroke-linecap": "round", "value-gradient": "linear-gradient(90deg,#6ea8d8,#16ec8f)" } },
-        "healthspan_orb": { "description": "Optional green particle orb for a long-horizon pace-of-aging insight.", "css": { "border-radius": "50%", "background": "radial-gradient(circle,rgba(22,236,143,.25),transparent 70%)" } },
-        "monitor_tile": { "description": "Dense baseline-relative physiological metric tile.", "css": { "background": "#151515", "border-radius": "8px", "padding": "16px" } },
-        "trend_sparkline": { "description": "Small baseline-relative trend line with an explicit time window.", "css": { "width": "92px", "height": "28px", "stroke": "#0093e9", "stroke-width": "2px", "fill": "none" } },
-        "stress_band": { "description": "Low/moderate/high stress band with time-of-day marker and contributor.", "css": { "height": "8px", "border-radius": "4px", "background": "linear-gradient(90deg,#16ec8f 0 33%,#ffde5a 33% 66%,#ff4d4d 66%)" } },
-        "activity_timeline": { "description": "Chronological activity strip showing duration, strain contribution, and recovery cost.", "css": { "border": "1px solid rgba(255,255,255,.10)", "border-radius": "8px", "padding": "14px 16px" } },
-        "focus_item": { "description": "Numbered action with why-now, steps, target, and check-in.", "css": { "border-left": "3px solid #16ec8f", "padding": "12px 0 12px 16px" } },
-        "source_chip": { "description": "Freshness and provenance chip.", "css": { "border": "1px solid rgba(255,255,255,.10)", "border-radius": "999px", "padding": "6px 12px" } }
+        "recovery_gauge": {
+          "description": "Semicircular tick-marked recovery/readiness gauge.",
+          "css": {
+            "stroke-width": "15px",
+            "stroke-linecap": "round",
+            "value-gradient": "linear-gradient(90deg,#ff4d4d,#ffde5a,#16ec8f)"
+          }
+        },
+        "strain_gauge": {
+          "description": "Semicircular blue-to-violet training-load gauge.",
+          "css": {
+            "stroke-width": "15px",
+            "stroke-linecap": "round",
+            "value-gradient": "linear-gradient(90deg,#0093e9,#b06cff)"
+          }
+        },
+        "sleep_gauge": {
+          "description": "Sleep performance gauge with need, duration, debt, and consistency beneath.",
+          "css": {
+            "stroke-width": "15px",
+            "stroke-linecap": "round",
+            "value-gradient": "linear-gradient(90deg,#6ea8d8,#16ec8f)"
+          }
+        },
+        "healthspan_orb": {
+          "description": "Optional green particle orb for a long-horizon pace-of-aging insight.",
+          "css": {
+            "border-radius": "50%",
+            "background": "radial-gradient(circle,rgba(22,236,143,.25),transparent 70%)"
+          }
+        },
+        "monitor_tile": {
+          "description": "Dense baseline-relative physiological metric tile.",
+          "css": {
+            "background": "#151515",
+            "border-radius": "8px",
+            "padding": "16px"
+          }
+        },
+        "trend_sparkline": {
+          "description": "Small baseline-relative trend line with an explicit time window.",
+          "css": {
+            "width": "92px",
+            "height": "28px",
+            "stroke": "#0093e9",
+            "stroke-width": "2px",
+            "fill": "none"
+          }
+        },
+        "stress_band": {
+          "description": "Low/moderate/high stress band with time-of-day marker and contributor.",
+          "css": {
+            "height": "8px",
+            "border-radius": "4px",
+            "background": "linear-gradient(90deg,#16ec8f 0 33%,#ffde5a 33% 66%,#ff4d4d 66%)"
+          }
+        },
+        "activity_timeline": {
+          "description": "Chronological activity strip showing duration, strain contribution, and recovery cost.",
+          "css": {
+            "border": "1px solid rgba(255,255,255,.10)",
+            "border-radius": "8px",
+            "padding": "14px 16px"
+          }
+        },
+        "focus_item": {
+          "description": "Numbered action with why-now, steps, target, and check-in.",
+          "css": {
+            "border-left": "3px solid #16ec8f",
+            "padding": "12px 0 12px 16px"
+          }
+        },
+        "source_chip": {
+          "description": "Freshness and provenance chip.",
+          "css": {
+            "border": "1px solid rgba(255,255,255,.10)",
+            "border-radius": "999px",
+            "padding": "6px 12px"
+          }
+        }
+      }
+    },
+    {
+      "id": "apex",
+      "name": "APEX",
+      "scheme": "dark",
+      "best_for": [
+        "full multimodal healthspan dashboards",
+        "readiness and recovery coaching",
+        "source-aware consumer health"
+      ],
+      "colors": {
+        "background": "#07100C",
+        "surface": "#14181A",
+        "surface_alt": "#1C2124",
+        "border": "rgba(255,255,255,0.08)",
+        "text": "#F2F5F3",
+        "text_muted": "#8A938E",
+        "primary": "#16EC8F",
+        "on_primary": "#04180F",
+        "accent": "#4ECDC4",
+        "positive": "#16EC8F",
+        "warning": "#E6B450",
+        "negative": "#E8615F",
+        "data_viz": [
+          "#16EC8F",
+          "#E6B450",
+          "#E8615F",
+          "#4ECDC4",
+          "#5AA9E6",
+          "#A78BFA"
+        ],
+        "gradient": "radial-gradient(900px 440px at 50% -160px, #0D1F16 0%, #07100C 72%)"
+      },
+      "typography": {
+        "font_display": "\"Archivo\", Arial, sans-serif",
+        "font_body": "\"Archivo\", Arial, sans-serif",
+        "font_mono": "\"JetBrains Mono\", ui-monospace, monospace",
+        "google_fonts": [
+          "Archivo:wght@400;500;600;700;800;900",
+          "JetBrains+Mono:wght@400;500;700"
+        ]
+      },
+      "radii": { "sm": "8px", "md": "14px", "lg": "22px", "pill": "999px" },
+      "shadow": "0 8px 30px -8px rgba(0,0,0,0.70)",
+      "layout": {
+        "hero": "apex-readiness",
+        "score_word": "Readiness",
+        "voice": "coach",
+        "sections": [
+          "apex-header",
+          "readiness-hero",
+          "insight-banner",
+          "health-monitor",
+          "daily-outlook",
+          "action-plan",
+          "genomic-index",
+          "wearable-detail",
+          "biomarker-age",
+          "data-provenance"
+        ],
+        "summary": "Dark healthspan command centre: a three-ring readiness hero (sleep, recovery, strain), an observation-led insight and monitor grid, then focused actions and expandable genomics, wearable, and biomarker context. The information hierarchy stays stable as more modalities connect."
+      },
+      "responsive": {
+        "breakpoints": [
+          "<=720px mobile",
+          "721-1024px tablet",
+          ">1024px desktop"
+        ],
+        "desktop": "Sticky slim header and a keyboard-operable tablist switch Overview, Action plan, Genomic, Wearable, and Biomarker panels. Keep the three readiness rings, a three-column health-monitor grid, and a two-column long-horizon context region inside their respective panels; keep source chips beside the signal they qualify.",
+        "tablet": "Allow the readiness rings to wrap, use two monitor columns, and scroll the tablist horizontally without hiding labels or keyboard focus.",
+        "mobile": "Keep the header compact, let the tablist scroll horizontally, stack Sleep → Recovery → Strain, then use single-column monitor and action cards with source freshness visible."
+      },
+      "metrics": [
+        {
+          "id": "sleep_performance",
+          "label": "Sleep",
+          "modality": "wearables",
+          "priority": "hero",
+          "format": "percentage + duration",
+          "preferred_visual": "apex_readiness_ring",
+          "highlight_reason": "Sleep leads the daily readiness trio and explains recovery through need coverage, debt, and consistency.",
+          "states": ["optimal", "monitor", "act", "missing"]
+        },
+        {
+          "id": "recovery_score",
+          "label": "Recovery",
+          "modality": "wearables",
+          "priority": "hero",
+          "format": "0–100 score",
+          "preferred_visual": "apex_readiness_ring",
+          "highlight_reason": "Shows current capacity only when the wearable observation is fresh.",
+          "states": ["optimal", "monitor", "act", "missing"]
+        },
+        {
+          "id": "strain",
+          "label": "Strain",
+          "modality": "wearables",
+          "priority": "hero",
+          "format": "0–21 load score",
+          "preferred_visual": "apex_readiness_ring",
+          "highlight_reason": "Presents load in recovery context, never as a universal health grade.",
+          "states": ["easy", "productive", "high", "missing"]
+        },
+        {
+          "id": "hrv",
+          "label": "HRV",
+          "modality": "wearables",
+          "priority": "primary",
+          "format": "ms vs personal baseline",
+          "preferred_visual": "apex_monitor_tile",
+          "highlight_reason": "A baseline-relative recovery signal.",
+          "states": [
+            "above baseline",
+            "within baseline",
+            "below baseline",
+            "missing"
+          ]
+        },
+        {
+          "id": "resting_heart_rate",
+          "label": "Resting heart rate",
+          "modality": "wearables",
+          "priority": "primary",
+          "format": "bpm vs personal baseline",
+          "preferred_visual": "apex_monitor_tile",
+          "highlight_reason": "Provides cardiovascular and illness-load context.",
+          "states": ["within baseline", "elevated", "low", "missing"]
+        },
+        {
+          "id": "stress",
+          "label": "Stress",
+          "modality": "wearables",
+          "priority": "primary",
+          "format": "state + contributor",
+          "preferred_visual": "apex_monitor_tile",
+          "highlight_reason": "Turns a score movement into an observation and next question.",
+          "states": ["low", "moderate", "high", "missing"]
+        },
+        {
+          "id": "biological_age",
+          "label": "Biological age",
+          "modality": "biomarkers",
+          "priority": "context",
+          "format": "age + method + collection date",
+          "preferred_visual": "apex_bio_age_orb",
+          "highlight_reason": "A long-horizon indicator shown only with method and source provenance.",
+          "states": ["available", "unavailable"]
+        },
+        {
+          "id": "biomarker_panel",
+          "label": "Blood panel",
+          "modality": "biomarkers",
+          "priority": "context",
+          "format": "value + unit + range + date",
+          "preferred_visual": "apex_range_bar",
+          "highlight_reason": "Adds measured, retestable physiological context beneath daily readiness.",
+          "states": ["optimal", "monitor", "act", "missing"]
+        },
+        {
+          "id": "genetic_context",
+          "label": "Genetic context",
+          "modality": "genetics",
+          "priority": "context",
+          "format": "evidence-tiered finding",
+          "preferred_visual": "apex_status_badge",
+          "highlight_reason": "Keeps inherited context visible without outranking observed signals.",
+          "states": ["supportive", "mixed", "not provided"]
+        },
+        {
+          "id": "daily_context",
+          "label": "Daily context",
+          "modality": "health-context",
+          "priority": "primary",
+          "format": "structured note + tags",
+          "preferred_visual": "apex_insight_banner",
+          "highlight_reason": "Records the human explanation sensors cannot infer.",
+          "states": ["captured", "partial", "missing"]
+        }
+      ],
+      "modality_sections": [
+        {
+          "id": "wearable-readiness",
+          "label": "Wearable readiness",
+          "modality": "wearables",
+          "purpose": "Lead with sleep, recovery, strain, and baseline-relative health monitor readings with explicit source freshness.",
+          "component": "apex_readiness_ring + apex_monitor_tile",
+          "required_fields": [
+            "source_provider",
+            "observed_at",
+            "synced_at",
+            "sleep_performance",
+            "recovery_score",
+            "strain"
+          ],
+          "optional_fields": [
+            "hrv",
+            "resting_heart_rate",
+            "respiratory_rate",
+            "blood_oxygen",
+            "skin_temperature",
+            "stress",
+            "activities"
+          ],
+          "empty_state": "Connect a wearable to unlock live readiness. Do not create a readiness score from missing data.",
+          "responsive_behavior": "Desktop uses three rings and a monitor grid; mobile keeps the supplied Sleep → Recovery → Strain order and one-column tiles."
+        },
+        {
+          "id": "biomarker-age",
+          "label": "Biomarker context",
+          "modality": "biomarkers",
+          "purpose": "Show biological-age context, measured values, range bars, dates, and derived values as clearly separate from raw labs.",
+          "component": "apex_bio_age_orb + apex_range_bar",
+          "required_fields": [
+            "marker_id",
+            "value",
+            "unit",
+            "collected_at",
+            "reference_range",
+            "provenance"
+          ],
+          "optional_fields": [
+            "previous_value",
+            "optimal_range",
+            "interpretation",
+            "lab_name",
+            "biological_age_method"
+          ],
+          "empty_state": "No blood panel is connected. Daily wearable guidance can still be useful.",
+          "responsive_behavior": "Desktop pairs the long-horizon orb with domain bars; mobile puts the orb first then stacks named value/range cards."
+        },
+        {
+          "id": "genomic-index",
+          "label": "Genetic context",
+          "modality": "genetics",
+          "purpose": "Keep evidence-tiered gene and trait context behind the live signals, with source and disclosure visible.",
+          "component": "apex_status_badge + context_card",
+          "required_fields": [
+            "finding_id",
+            "trait",
+            "evidence_tier",
+            "source",
+            "disclosure"
+          ],
+          "optional_fields": [
+            "gene",
+            "rsid",
+            "direction",
+            "recommended_question"
+          ],
+          "empty_state": "Genetic context is optional and never blocks a readiness or action plan.",
+          "responsive_behavior": "Show concise gene cards on wide screens and disclosure rows on mobile."
+        },
+        {
+          "id": "daily-outlook",
+          "label": "Daily context",
+          "modality": "health-context",
+          "purpose": "Capture illness, travel, alcohol, stress, symptoms, schedule, goals, and perceived exertion that may explain a signal.",
+          "component": "apex_insight_banner + check_in_strip",
+          "required_fields": [
+            "recorded_at",
+            "context_type",
+            "value_or_note",
+            "source"
+          ],
+          "optional_fields": [
+            "severity",
+            "duration",
+            "goal_id",
+            "related_activity_id"
+          ],
+          "empty_state": "Add a short check-in when the dashboard misses the why behind a score.",
+          "responsive_behavior": "Use quick tags and one visible most-recent note on mobile; expand the timeline on desktop."
+        }
+      ],
+      "animations": [
+        {
+          "id": "apex-tab-transition",
+          "trigger": "a dashboard tab is selected with pointer or keyboard",
+          "motion": "Change the selected tab state immediately, then fade and raise the active panel by 8px with a 55ms stagger for its tiles and actions. Do not delay the first datum or action.",
+          "duration": "500ms panel + 55ms item stagger",
+          "reduced_motion": "Switch panels immediately while preserving keyboard focus; do not fade or translate."
+        },
+        {
+          "id": "apex-ring-sweep",
+          "trigger": "page load or date change",
+          "motion": "Sweep the three readiness rings to their supplied values with an 80ms stagger; leave value text stable and readable.",
+          "duration": "1300ms entrance + 80ms stagger",
+          "reduced_motion": "Render final arcs and values immediately."
+        },
+        {
+          "id": "apex-bar-growth",
+          "trigger": "section enters viewport",
+          "motion": "Grow range and progress bars from their left baseline once.",
+          "duration": "900ms",
+          "reduced_motion": "Render completed bars immediately."
+        },
+        {
+          "id": "apex-section-reveal",
+          "trigger": "page load",
+          "motion": "Fade and lift sections in reading order without delaying the first action.",
+          "duration": "500ms + 80ms stagger",
+          "reduced_motion": "Render all sections immediately."
+        },
+        {
+          "id": "apex-orb-ambient",
+          "trigger": "biological age or healthspan context is present",
+          "motion": "Use a slow, low-opacity green orb glow only; no competing shimmer.",
+          "duration": "5s ambient loop",
+          "reduced_motion": "Use a static radial glow."
+        },
+        {
+          "id": "apex-source-refresh",
+          "trigger": "sync completes",
+          "motion": "Pulse the affected source chip once and crossfade only the changed metric.",
+          "duration": "200ms",
+          "reduced_motion": "Update text without pulse or crossfade."
+        }
+      ],
+      "action_plan": {
+        "title": "FOCUS",
+        "voice": "Direct, calm, observation-led, and non-judgmental. State what to do next, why it matters now, and which measured signal supports it.",
+        "ranking": "Rank by immediate safety, recovery constraint, expected impact, evidence confidence, and ease. Observed wearable and biomarker data outrank inherited context.",
+        "cadence": ["Now", "Today", "Tonight", "This week", "Retest"],
+        "item_fields": [
+          "priority",
+          "cadence",
+          "title",
+          "why_now",
+          "steps",
+          "target_metric",
+          "expected_check_in",
+          "source_ids",
+          "confidence",
+          "safety_note",
+          "status"
+        ],
+        "stages": [
+          "FOCUS: one to three next actions",
+          "MAINTAIN: habits supporting the signal",
+          "WATCH: conditions that change the recommendation",
+          "RETEST: when and what to measure again"
+        ],
+        "safety_boundary": "Wellness education only. Do not diagnose, prescribe, or tell someone to train through concerning symptoms; route high-stakes findings to a qualified clinician."
+      },
+      "data_capture": {
+        "identity_fields": [
+          "user_id",
+          "display_name",
+          "timezone",
+          "age_band (optional)",
+          "goals"
+        ],
+        "provenance_fields": [
+          "source_id",
+          "source_provider",
+          "integration_type",
+          "observed_at",
+          "collected_at",
+          "synced_at",
+          "freshness",
+          "coverage",
+          "confidence"
+        ],
+        "modality_fields": {
+          "wearables": [
+            "sleep_performance",
+            "sleep_duration",
+            "sleep_need",
+            "sleep_debt",
+            "recovery_score",
+            "strain",
+            "hrv",
+            "resting_heart_rate",
+            "respiratory_rate",
+            "blood_oxygen",
+            "skin_temperature",
+            "stress",
+            "activities"
+          ],
+          "biomarkers": [
+            "marker_id",
+            "value",
+            "unit",
+            "collected_at",
+            "reference_range",
+            "optimal_range",
+            "previous_value",
+            "lab_name",
+            "biological_age_method"
+          ],
+          "genetics": [
+            "finding_id",
+            "trait",
+            "direction",
+            "evidence_tier",
+            "source",
+            "recommended_question"
+          ],
+          "health-context": [
+            "recorded_at",
+            "context_type",
+            "value_or_note",
+            "severity",
+            "duration",
+            "goal_id",
+            "source"
+          ]
+        },
+        "freshness_rule": "Show the observation window and last sync beside every readiness or monitor signal; never make a stale score appear current.",
+        "missing_data_rule": "Use an explicit not-connected or not-provided state. Keep the APEX section order stable as a person adds modalities."
+      },
+      "components": {
+        "apex_tab_nav": {
+          "description": "Keyboard-operable tablist for Overview, Action plan, Genomic, Wearable, and Biomarker panels. Only the selected modality panel is visible; arrow keys, Home, and End move selection and preserve focus.",
+          "css": {
+            "display": "flex",
+            "gap": "20px",
+            "overflow": "auto",
+            "border-bottom": "1px solid rgba(255,255,255,.08)",
+            "active-indicator": "2px solid #16EC8F"
+          }
+        },
+        "apex_readiness_ring": {
+          "description": "150px circular Sleep, Recovery, or Strain progress ring with faint track, tabular score, tracked label, and source/status sublabel. Sleep is cyan, recovery amber, strain blue.",
+          "css": {
+            "width": "150px",
+            "stroke-width": "8px",
+            "track-color": "rgba(255,255,255,.06)",
+            "stroke-linecap": "round"
+          }
+        },
+        "apex_status_badge": {
+          "description": "Uppercase status badge: green optimal, amber monitor, red act, plus cyan evidence-tier and blue drug-response variants.",
+          "css": {
+            "border-radius": "999px",
+            "padding": "4px 8px",
+            "font-size": "9px",
+            "letter-spacing": ".12em"
+          }
+        },
+        "apex_source_chip": {
+          "description": "Compact monospace provenance chip naming source, observation window or collection date, and sync freshness.",
+          "css": {
+            "background": "rgba(255,255,255,.04)",
+            "border": "1px solid rgba(255,255,255,.08)",
+            "border-radius": "6px",
+            "padding": "6px 8px"
+          }
+        },
+        "apex_monitor_tile": {
+          "description": "Dense dark tile with tracked label, mono value, baseline/context line, and a colored indicator.",
+          "css": {
+            "background": "#14181A",
+            "border-radius": "14px",
+            "padding": "16px",
+            "min-height": "112px"
+          }
+        },
+        "apex_insight_banner": {
+          "description": "Observation-led insight with a 3px status rule and cited measured signal or source.",
+          "css": {
+            "background": "#0E2018",
+            "border-left": "3px solid #16EC8F",
+            "border-radius": "8px",
+            "padding": "16px 18px"
+          }
+        },
+        "apex_range_bar": {
+          "description": "Reference-range bar with ideal wash and current-value marker; show unit and collection date.",
+          "css": {
+            "height": "8px",
+            "border-radius": "999px",
+            "background": "#1C2124"
+          }
+        },
+        "apex_bio_age_orb": {
+          "description": "One legible biological-age or healthspan value over a low-motion green radial glow; only with method and source.",
+          "css": {
+            "aspect-ratio": "1",
+            "border-radius": "50%",
+            "background": "radial-gradient(circle,rgba(22,236,143,.24),transparent 70%)"
+          }
+        },
+        "apex_focus_card": {
+          "description": "Numbered FOCUS action with priority/cadence, why-now, source chips, and up to three steps.",
+          "css": {
+            "border-left": "3px solid #16EC8F",
+            "padding": "16px 0 16px 18px"
+          }
+        }
       }
     },
     {
@@ -102,8 +1055,26 @@
       "name": "Clinical Modern",
       "scheme": "light",
       "best_for": ["biomarker panels", "lab memberships"],
-      "colors": { "background": "#fbfcfd", "surface": "#ffffff", "surface_alt": "#f3f6f9", "border": "rgba(12,17,22,0.10)", "text": "#0c1116", "text_muted": "#5b6672", "primary": "#1d6ef2", "on_primary": "#ffffff", "accent": "#12b3a6", "positive": "#16a34a", "warning": "#d97706", "negative": "#dc2626", "data_viz": ["#1d6ef2", "#12b3a6", "#8b5cf6", "#f59e0b", "#ef4444"] },
-      "typography": { "font_display": "\"Inter\", system-ui, sans-serif", "font_body": "\"Inter\", system-ui, sans-serif", "google_fonts": ["Inter:wght@400;500;600;700"] },
+      "colors": {
+        "background": "#fbfcfd",
+        "surface": "#ffffff",
+        "surface_alt": "#f3f6f9",
+        "border": "rgba(12,17,22,0.10)",
+        "text": "#0c1116",
+        "text_muted": "#5b6672",
+        "primary": "#1d6ef2",
+        "on_primary": "#ffffff",
+        "accent": "#12b3a6",
+        "positive": "#16a34a",
+        "warning": "#d97706",
+        "negative": "#dc2626",
+        "data_viz": ["#1d6ef2", "#12b3a6", "#8b5cf6", "#f59e0b", "#ef4444"]
+      },
+      "typography": {
+        "font_display": "\"Inter\", system-ui, sans-serif",
+        "font_body": "\"Inter\", system-ui, sans-serif",
+        "google_fonts": ["Inter:wght@400;500;600;700"]
+      },
       "radii": { "sm": "8px", "md": "12px", "lg": "18px", "pill": "999px" },
       "shadow": "0 12px 32px -16px rgba(12,17,22,0.18)"
     },
@@ -112,8 +1083,26 @@
       "name": "Metabolic",
       "scheme": "light",
       "best_for": ["CGM & glucose", "nutrition"],
-      "colors": { "background": "#faf9f6", "surface": "#ffffff", "surface_alt": "#f2efe9", "border": "rgba(26,26,26,0.10)", "text": "#1a1a1a", "text_muted": "#6b665c", "primary": "#ff5c39", "on_primary": "#ffffff", "accent": "#3aa76d", "positive": "#4caf50", "warning": "#ffb020", "negative": "#f44336", "data_viz": ["#4caf50", "#ffb020", "#f44336", "#ff5c39", "#3aa76d"] },
-      "typography": { "font_display": "\"Poppins\", system-ui, sans-serif", "font_body": "\"Inter\", system-ui, sans-serif", "google_fonts": ["Poppins:wght@500;600;700", "Inter:wght@400;500;600"] },
+      "colors": {
+        "background": "#faf9f6",
+        "surface": "#ffffff",
+        "surface_alt": "#f2efe9",
+        "border": "rgba(26,26,26,0.10)",
+        "text": "#1a1a1a",
+        "text_muted": "#6b665c",
+        "primary": "#ff5c39",
+        "on_primary": "#ffffff",
+        "accent": "#3aa76d",
+        "positive": "#4caf50",
+        "warning": "#ffb020",
+        "negative": "#f44336",
+        "data_viz": ["#4caf50", "#ffb020", "#f44336", "#ff5c39", "#3aa76d"]
+      },
+      "typography": {
+        "font_display": "\"Poppins\", system-ui, sans-serif",
+        "font_body": "\"Inter\", system-ui, sans-serif",
+        "google_fonts": ["Poppins:wght@500;600;700", "Inter:wght@400;500;600"]
+      },
       "radii": { "sm": "10px", "md": "16px", "lg": "24px", "pill": "999px" },
       "shadow": "0 14px 34px -18px rgba(26,26,26,0.2)"
     },
@@ -122,8 +1111,26 @@
       "name": "System Cards",
       "scheme": "light",
       "best_for": ["multi-metric summaries", "native-app feel"],
-      "colors": { "background": "#f2f2f7", "surface": "#ffffff", "surface_alt": "#e9e9ef", "border": "rgba(60,60,67,0.12)", "text": "#000000", "text_muted": "#6c6c70", "primary": "#0a84ff", "on_primary": "#ffffff", "accent": "#ff375f", "positive": "#34c759", "warning": "#ff9f0a", "negative": "#ff3b30", "data_viz": ["#ff375f", "#92d64d", "#5e5ce6", "#00b9d4", "#ff9f0a"] },
-      "typography": { "font_display": "-apple-system, \"SF Pro Display\", system-ui, sans-serif", "font_body": "-apple-system, \"SF Pro Text\", system-ui, sans-serif", "google_fonts": [] },
+      "colors": {
+        "background": "#f2f2f7",
+        "surface": "#ffffff",
+        "surface_alt": "#e9e9ef",
+        "border": "rgba(60,60,67,0.12)",
+        "text": "#000000",
+        "text_muted": "#6c6c70",
+        "primary": "#0a84ff",
+        "on_primary": "#ffffff",
+        "accent": "#ff375f",
+        "positive": "#34c759",
+        "warning": "#ff9f0a",
+        "negative": "#ff3b30",
+        "data_viz": ["#ff375f", "#92d64d", "#5e5ce6", "#00b9d4", "#ff9f0a"]
+      },
+      "typography": {
+        "font_display": "-apple-system, \"SF Pro Display\", system-ui, sans-serif",
+        "font_body": "-apple-system, \"SF Pro Text\", system-ui, sans-serif",
+        "google_fonts": []
+      },
       "radii": { "sm": "10px", "md": "16px", "lg": "20px", "pill": "999px" },
       "shadow": "0 8px 24px -12px rgba(0,0,0,0.16)"
     },
@@ -132,18 +1139,63 @@
       "name": "Serene",
       "scheme": "dark",
       "best_for": ["mood & recovery", "mindfulness"],
-      "colors": { "background": "#141d33", "surface": "#1e2942", "surface_alt": "#27324f", "border": "rgba(255,255,255,0.10)", "text": "#eef1f8", "text_muted": "#9aa4c0", "primary": "#a78bfa", "on_primary": "#1a1333", "accent": "#7ec8e3", "positive": "#7fd1ae", "warning": "#f0c987", "negative": "#e79a9a", "data_viz": ["#a78bfa", "#7ec8e3", "#f0a6c0", "#7fd1ae", "#b6a4e8"] },
-      "typography": { "font_display": "\"Newsreader\", Georgia, serif", "font_body": "\"Inter\", system-ui, sans-serif", "google_fonts": ["Newsreader:opsz,wght@6..72,400;6..72,500", "Inter:wght@400;500"] },
+      "colors": {
+        "background": "#141d33",
+        "surface": "#1e2942",
+        "surface_alt": "#27324f",
+        "border": "rgba(255,255,255,0.10)",
+        "text": "#eef1f8",
+        "text_muted": "#9aa4c0",
+        "primary": "#a78bfa",
+        "on_primary": "#1a1333",
+        "accent": "#7ec8e3",
+        "positive": "#7fd1ae",
+        "warning": "#f0c987",
+        "negative": "#e79a9a",
+        "data_viz": ["#a78bfa", "#7ec8e3", "#f0a6c0", "#7fd1ae", "#b6a4e8"]
+      },
+      "typography": {
+        "font_display": "\"Newsreader\", Georgia, serif",
+        "font_body": "\"Inter\", system-ui, sans-serif",
+        "google_fonts": [
+          "Newsreader:opsz,wght@6..72,400;6..72,500",
+          "Inter:wght@400;500"
+        ]
+      },
       "radii": { "sm": "12px", "md": "20px", "lg": "28px", "pill": "999px" },
       "shadow": "0 24px 60px -24px rgba(0,0,0,0.6)"
     },
     {
-      "id": "dossier",
-      "name": "Healthspan Dossier",
+      "id": "foreverbetter",
+      "name": "ForeverBetter",
       "scheme": "light",
-      "best_for": ["full multimodal reports", "editorial/print-style health dossiers"],
-      "colors": { "background": "#f6f3ee", "surface": "#fbf9f5", "surface_alt": "#f1ede5", "border": "#e6e1d8", "text": "#0e0e0e", "text_muted": "#7a7770", "primary": "#df1e39", "on_primary": "#ffffff", "accent": "#2f5b9e", "positive": "#1e7a52", "warning": "#b0791f", "negative": "#c0223a", "data_viz": ["#df1e39", "#2f5b9e", "#1e7a52", "#b0791f", "#6d4aa8"] },
-      "typography": { "font_display": "\"Fraunces\", Georgia, \"Times New Roman\", serif", "font_body": "\"DM Sans\", system-ui, -apple-system, sans-serif", "google_fonts": ["Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700", "DM+Sans:wght@400;500;600;700"] },
+      "best_for": [
+        "full multimodal reports",
+        "editorial/print-style health dossiers"
+      ],
+      "colors": {
+        "background": "#f6f3ee",
+        "surface": "#fbf9f5",
+        "surface_alt": "#f1ede5",
+        "border": "#e6e1d8",
+        "text": "#0e0e0e",
+        "text_muted": "#7a7770",
+        "primary": "#df1e39",
+        "on_primary": "#ffffff",
+        "accent": "#2f5b9e",
+        "positive": "#1e7a52",
+        "warning": "#b0791f",
+        "negative": "#c0223a",
+        "data_viz": ["#df1e39", "#2f5b9e", "#1e7a52", "#b0791f", "#6d4aa8"]
+      },
+      "typography": {
+        "font_display": "\"Fraunces\", Georgia, \"Times New Roman\", serif",
+        "font_body": "\"DM Sans\", system-ui, -apple-system, sans-serif",
+        "google_fonts": [
+          "Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700",
+          "DM+Sans:wght@400;500;600;700"
+        ]
+      },
       "radii": { "sm": "6px", "md": "12px", "lg": "20px", "pill": "999px" },
       "shadow": "0 24px 60px -28px rgba(20,16,10,0.30)"
     }

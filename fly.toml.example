@@ -1,4 +1,4 @@
-# Example Fly.io deployment for the Wellness API.
+# Example Fly.io deployment for the ForeverBetter API.
 #   cp fly.toml.example fly.toml   # then set app + PUBLIC_BASE_URL
 #   fly postgres create --name <db-app> && fly postgres attach <db-app>
 #   fly storage create             # Tigris S3 bucket (payloads); sets AWS_* + BUCKET_NAME
@@ -40,7 +40,8 @@ primary_region = "fra"
   STORE_MODE = "postgres"
   STORAGE_DRIVER = "s3"
   AUTH_MODE = "service_account"
-  AUTH_AUDIENCE = "health-api"
+  # Mint new keys for foreverbetter-api while accepting existing keys.
+  AUTH_AUDIENCE = "foreverbetter-api,longevity-api,health-api"
   REQUIRE_HTTPS = "true"
   DOCS_URL = "https://foreverbetter.mintlify.app"
   EMAIL_DRIVER = "none"

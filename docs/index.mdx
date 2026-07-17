@@ -1,18 +1,18 @@
 ---
-title: "ForeverBetter Wellness API"
-description: "One API for building wellness products on wearables, genetics, biomarkers, and agent-ready health context."
+title: "ForeverBetter API"
+description: "Turn biomarkers, genetics, wearables, and health context into personalized results, action plans, and product-ready dashboards."
 ---
 
-Build a source-backed wellness product without spending months rebuilding
-ingestion, normalization, and analysis infrastructure.
+Build personalized health experiences without spending months on uploads,
+provider connections, data cleanup, and separate analysis pipelines.
 
-ForeverBetter Wellness API turns wearable signals, genetic uploads, and lab biomarkers into
-application-ready health context with source provenance, queued analysis jobs,
-dashboard JSON, and agent endpoints.
+ForeverBetter API turns biomarkers, genetic uploads, wearable observations, and
+health context into ranked action plans, trends, ancestry results, agent-ready
+answers, and JSON your frontend can render.
 
 <CardGroup cols={2}>
   <Card title="Try the synthetic API" icon="flask" href="/quickstart">
-    Get analysis, action-plan, modality-coverage, and dashboard JSON in one request. No account or real wellness data.
+    Get a combined analysis, action plan, data coverage, and dashboard JSON in one request. No account or personal data.
   </Card>
   <Card title="Get a free API key" icon="key" href="https://api.foreverbetter.xyz/dashboard">
     Sign in with an 8-digit email code and copy a personal key you keep. No credit card.
@@ -33,14 +33,18 @@ dashboard JSON, and agent endpoints.
 Self-hosting is always available; hosted plans pay for managed cloud capacity,
 not access to the open-source software. See [Self-hosting](/self-hosting).
 
-## Data modalities
+## Health data you can use
 
-| Modality | Input path | Processing path |
+| Data type | What you send | What the API returns |
 | --- | --- | --- |
-| [Biomarkers](/biomarkers) | `POST /imports/file` with `category: "biomarkers"` | Unit-converted, sex/age-aware scoring via `/biomarkers/derive` and `/biomarkers/analyze` |
-| [Wearables](/wearables) | WHOOP OAuth, Google Health Connect bridge, or uploaded files | `POST /wearables/analyze` |
-| [Genetics](/genetics) | Small exports: `POST /imports/file`; VCF/WGS: `POST /genetics/uploads` direct to private storage | Queued pipeline via `POST /genetics/analyze` |
-| [Behavioral & lifestyle](/behavioral) | `POST /imports/file` with `category: "behavioral"` | Structured supplements, medications, nutrition, and symptoms, scored and cross-referenced |
+| [Biomarkers](/biomarkers) | Lab values as CSV, JSON, text, or supported PDFs | Consistent units, ranges that account for available age and sex context, calculated markers, trends, and ranked priorities |
+| [Wearables](/wearables) | WHOOP OAuth, Google Health Connect bridge, or uploaded files | Sleep, recovery, heart rate, activity, and other trends the user has approved |
+| [Genetics](/genetics) | DNA test exports or whole-genome VCF/VCF.GZ files uploaded directly to private storage | Health and trait context, ancestry, medication-response context, coverage, confidence, and job status |
+| [Behavioral and lifestyle](/behavioral) | Supplements, medications, nutrition, symptoms, and goals | Structured context the API can compare with biomarkers, genetics, and wearables |
+
+One data type is enough to produce a useful first result. Every response says
+what data was used, what is missing, and which conclusions were measured,
+calculated, or combined.
 
 ## Discover, trend, act
 
@@ -56,5 +60,5 @@ Every upload and result is listable, with no ID bookkeeping on your side:
 - Customer dashboards with traceable health observations
 - Focused lab, wearable, or genetic analysis
 - "Better every year" progress views from longitudinal trends
-- Multimodal health context for wellness agents
+- Combined health context for AI agents
 - Privacy-aware export and deletion workflows

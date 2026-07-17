@@ -78,7 +78,7 @@ outcome needs; do not require every modality for a first result. Named flags onl
 | AI health agent | Point the agent at generated `output/{user}_health_analysis.json`, `_action_plan.json`, and `_dashboard.json` | Consolidated health context, `POST /query`, and MCP tools |
 | Ancestry breakdown | `npm run pipeline -- --genetics=<vcf> ...`; ancestry markers and haplogroups render in the genomics report | 1000-Genomes proportions, geographic map, per-chromosome breakdown via `POST /genetics/ancestry` |
 | Get better every year | Re-run with `--biomarkers=<new> --biomarkers-previous=<old>` for panel-over-panel trends | Goals and retest reminders (`/users/{id}/goals`, `/retest-reminders`) |
-| Find providers first | Cloud only: no local provider catalog | Genome kits, nearby blood draws, and wearables via `GET /providers` |
+| Find providers first | API only: no local provider catalog | Genome kits, nearby blood draws, and wearables via `GET /providers` |
 | Connect a wearable | Upload an exported WHOOP/Oura CSV/JSON with `--wearables=<file>` | Live OAuth and webhook sync via `POST /connections/wearables/start` |
 
 For full dbSNP annotation locally, add `--dbsnp=<ref>`
@@ -117,19 +117,19 @@ Run `npm run reference:wellness` to refresh the compact GWAS Catalog + PGS Catal
 
 ### Enrichment Layer Summary
 
-| Engine | Source | What it does | Runs in |
-|--------|--------|--------------|---------|
-| `clinvar_enrichment.ts` | Bundled compressed ClinVar rsID index | Pathogenic/likely-pathogenic variant detection, drug response, risk/protective, VUS, benign, conflicting classifications, ACMG SF v3.2 gene flagging, population frequency, review status | Phase 1 Step 3 + Phase 2 Step 6b/7 |
-| `cpic_enrichment.ts` | CPIC Level A/B guidelines, PharmGKB | Drug-gene pair matching (clopidogrel, warfarin, statins, etc.), genotype → phenotype → clinical recommendation | Phase 1 Step 4 + Phase 2 Step 6c |
-| `interpretation_depth_metrics.ts` | Compact local source slices | Internal benchmark for ClinVar/CPIC/PGS/WGS interpretation depth and no-large-DB default policy | Evaluation layer |
-| `vep_annotation.ts` | Ensembl VEP (cache/offline) | Consequence prediction (missense, stop_gained, etc.), SIFT/PolyPhen, gnomAD AF, IMPACT rating. Optional — skips if VEP not installed | Phase 1 Step 1a + Phase 2 Step 6d |
-| `hallmark_engine.ts` | Lopez-Otin aging hallmarks | Maps matched genes against 9 aging hallmark pathways, computes pathway-level scores | Phase 2 Step 13 |
-| `prs_engine.ts` | PGS Catalog compact wellness weights + curated fallback | PGS/PRS scores for disease, longevity, and wellness traits with source ID, ancestry/build disclosure, and marker coverage confidence | Phase 2 Step 7 |
-| `gwas_engine.ts` | GWAS Catalog compact wellness associations | Trait-level GWAS association context across longevity, performance, sleep, cardiometabolic, immune, nutrition, and cognitive domains; not diagnostic | Phase 2 Step 7 |
-| `vep_missense_enrichment.ts` | Ensembl VEP + longevity gene set | Annotates missense variants in 150+ longevity pathway genes (FOXO3, SIRT1-7, MTOR, AMPK, KL, TP53, etc.) with SIFT/PolyPhen/CADD functional impact scoring | Phase 2 Step 6d |
-| `biomarker_engine.ts` | Normalized lab readings | Independent blood marker analysis across cardiometabolic, glucose/insulin, inflammation, nutrient, hormone/thyroid, organ-function, and hematology domains | Multi-modal layer |
-| `wearable_engine.ts` | Normalized wearable readings | Independent behavior analysis across sleep/recovery, cardiovascular recovery, activity/training, and rhythm consistency | Multi-modal layer |
-| `multimodal_engine.ts` | Genomics + biomarkers + wearables | Cautious fusion layer that chooses the next upload and emits cross-modal actions only when modalities change the next step | Multi-modal layer |
+| Engine                            | Source                                                  | What it does                                                                                                                                                                              | Runs in                            |
+| --------------------------------- | ------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| `clinvar_enrichment.ts`           | Bundled compressed ClinVar rsID index                   | Pathogenic/likely-pathogenic variant detection, drug response, risk/protective, VUS, benign, conflicting classifications, ACMG SF v3.2 gene flagging, population frequency, review status | Phase 1 Step 3 + Phase 2 Step 6b/7 |
+| `cpic_enrichment.ts`              | CPIC Level A/B guidelines, PharmGKB                     | Drug-gene pair matching (clopidogrel, warfarin, statins, etc.), genotype → phenotype → clinical recommendation                                                                            | Phase 1 Step 4 + Phase 2 Step 6c   |
+| `interpretation_depth_metrics.ts` | Compact local source slices                             | Internal benchmark for ClinVar/CPIC/PGS/WGS interpretation depth and no-large-DB default policy                                                                                           | Evaluation layer                   |
+| `vep_annotation.ts`               | Ensembl VEP (cache/offline)                             | Consequence prediction (missense, stop_gained, etc.), SIFT/PolyPhen, gnomAD AF, IMPACT rating. Optional — skips if VEP not installed                                                      | Phase 1 Step 1a + Phase 2 Step 6d  |
+| `hallmark_engine.ts`              | Lopez-Otin aging hallmarks                              | Maps matched genes against 9 aging hallmark pathways, computes pathway-level scores                                                                                                       | Phase 2 Step 13                    |
+| `prs_engine.ts`                   | PGS Catalog compact wellness weights + curated fallback | PGS/PRS scores for disease, longevity, and wellness traits with source ID, ancestry/build disclosure, and marker coverage confidence                                                      | Phase 2 Step 7                     |
+| `gwas_engine.ts`                  | GWAS Catalog compact wellness associations              | Trait-level GWAS association context across longevity, performance, sleep, cardiometabolic, immune, nutrition, and cognitive domains; not diagnostic                                      | Phase 2 Step 7                     |
+| `vep_missense_enrichment.ts`      | Ensembl VEP + longevity gene set                        | Annotates missense variants in 150+ longevity pathway genes (FOXO3, SIRT1-7, MTOR, AMPK, KL, TP53, etc.) with SIFT/PolyPhen/CADD functional impact scoring                                | Phase 2 Step 6d                    |
+| `biomarker_engine.ts`             | Normalized lab readings                                 | Independent blood marker analysis across cardiometabolic, glucose/insulin, inflammation, nutrient, hormone/thyroid, organ-function, and hematology domains                                | Multi-modal layer                  |
+| `wearable_engine.ts`              | Normalized wearable readings                            | Independent behavior analysis across sleep/recovery, cardiovascular recovery, activity/training, and rhythm consistency                                                                   | Multi-modal layer                  |
+| `multimodal_engine.ts`            | Genomics + biomarkers + wearables                       | Cautious fusion layer that chooses the next upload and emits cross-modal actions only when modalities change the next step                                                                | Multi-modal layer                  |
 
 `biomarker_engine.ts` also computes a dashboard-native derived-marker layer from
 standard lab panels. Keep measured `lab_data` separate from
@@ -144,13 +144,14 @@ CBC immune ratios, Mentzer index, estimated MCHC, and TSH/free T4.
 
 The renderer contract now includes `multimodal_plan`, which lets a genomics-only report show the next upload path instead of ending at DNA interpretation.
 
-| Modality | Inputs | Dashboard role | Implementation status |
-|----------|--------|----------------|-----------------------|
-| Genomics | VCF/VCF.GZ, WGS export, SNP-array raw text | Stable predisposition, ClinVar/CPIC flags, PRS, aging hallmarks, trait context | VCF/WGS implemented |
-| Biomarkers | Lab PDF/text export, CSV, manual marker table, optional previous panel | Current physiology, retestable baseline, annual trend target | Normalized CSV/JSON and plain-text lab export importer + independent scoring engine implemented; target labels and previous-panel trend display implemented; direct PDF table extraction next |
-| Wearables | WHOOP, Oura, Apple Health, Garmin, OHealth CSV/API export | Sleep, recovery, activity, HRV, RHR, adherence between lab draws | WHOOP-style daily CSV/API JSON importer + independent scoring engine implemented; target/status labels and prioritized behavior actions implemented; authenticated sync next |
+| Modality   | Inputs                                                                 | Dashboard role                                                                 | Implementation status                                                                                                                                                                         |
+| ---------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Genomics   | VCF/VCF.GZ, WGS export, SNP-array raw text                             | Stable predisposition, ClinVar/CPIC flags, PRS, aging hallmarks, trait context | VCF/WGS implemented                                                                                                                                                                           |
+| Biomarkers | Lab PDF/text export, CSV, manual marker table, optional previous panel | Current physiology, retestable baseline, annual trend target                   | Normalized CSV/JSON and plain-text lab export importer + independent scoring engine implemented; target labels and previous-panel trend display implemented; direct PDF table extraction next |
+| Wearables  | WHOOP, Oura, Apple Health, Garmin, OHealth CSV/API export              | Sleep, recovery, activity, HRV, RHR, adherence between lab draws               | WHOOP-style daily CSV/API JSON importer + independent scoring engine implemented; target/status labels and prioritized behavior actions implemented; authenticated sync next                  |
 
 Biomarker domains to support first:
+
 - Cardiometabolic: ApoB, LDL-C, HDL-C, triglycerides, total cholesterol, non-HDL-C, Lp(a).
 - Glucose and insulin: fasting glucose, fasting insulin, HbA1c, HOMA-IR.
 - Inflammation and immune: hs-CRP, ferritin, homocysteine, WBC, neutrophils, lymphocytes.
@@ -160,6 +161,7 @@ Biomarker domains to support first:
 - Hematology: hemoglobin, hematocrit, platelets, RDW, MCV.
 
 Wearable domains to support first:
+
 - Sleep and recovery: sleep duration, sleep efficiency, deep sleep, REM sleep, recovery/readiness score.
 - Cardiovascular recovery: HRV, resting heart rate, respiratory rate, SpO2.
 - Activity and training load: steps, zone 2 minutes, vigorous minutes, strength sessions, VO2max estimate, strain.
@@ -181,6 +183,7 @@ When `reference/wellness/pgs_wellness_weights.json.gz` is present, PRS uses PGS 
 ### VEP Missense Coverage
 
 150+ longevity pathway genes across 11 functional categories:
+
 - Core longevity pathways (FOXO3, SIRT1-7, MTOR, IGF1R, KL, AKT1/2)
 - AMPK & energy sensing (PRKAA1/2, PRKAB1/2, PRKAG1/2/3)
 - DNA repair & genome stability (TP53, ATM, BRCA1/2, WRN, OGG1, PARP1)
@@ -248,8 +251,8 @@ Default to simplified analysis unless the user explicitly chooses full dbSNP cov
 
 Follow the selected branch explicitly:
 
-- Simplified: run `npm run doctor:vcf -- <vcf>`, use the bundled ClinVar-derived rsID reference if annotation is needed, and continue to the dashboard pipeline.
-- Full dbSNP: run `npm run doctor:vcf -- <vcf>`, infer the build from the file or provider metadata, identify only the matching dbSNP reference, report its exact estimated download and storage requirement, and obtain confirmation before downloading anything. Download and index that matching reference, annotate the VCF, then run the dashboard pipeline against the annotated VCF.
+- Simplified: run `npm run doctor:vcf -- <vcf>`, use the bundled ClinVar-derived rsID reference if annotation is needed, and continue to the dashboard pipeline. The annotation step normalizes `chr1` / `1` / `NC_000001.10` naming to the bundled table's numeric GRCh37 form before matching.
+- Full dbSNP: run `npm run doctor:vcf -- <vcf>`, infer the build from the file or provider metadata, identify only the matching dbSNP reference, report its exact estimated download and storage requirement, and obtain confirmation before downloading anything. Download and index that matching reference, then run the dashboard pipeline with `--dbsnp=<reference>`; the annotation step normalizes standard human contigs to the GRCh37 NCBI accessions expected by dbSNP.
 - If the build cannot be inferred safely, explain that full dbSNP annotation cannot proceed reliably and offer simplified analysis instead. Do not make the consumer choose between GRCh37 and GRCh38.
 
 Tailor the next step to the answers:
@@ -289,7 +292,7 @@ npm run annotate:vcf -- /absolute/path/to/user.vcf.gz ./output/user.annotated.vc
 npm run setup:rsids
 ```
 
-`annotate:vcf` uses the bundled ClinVar-derived `reference/clinvar/clinvar_rsid_annotation.tsv.gz`. This is ClinVar-only rsID recovery, not full dbSNP annotation. It improves unannotated WGS clinical/wellness interpretation while still missing many non-ClinVar rsIDs used by GWAS, PRS, and consumer marker databases. Use full dbSNP only when broad rsID recovery is needed.
+`annotate:vcf` uses the bundled ClinVar-derived `reference/clinvar/clinvar_rsid_annotation.tsv.gz`. This is ClinVar-only rsID recovery, not full dbSNP annotation. It normalizes standard human contigs to numeric GRCh37 names before matching, then fails closed if zero rsIDs are added. It improves unannotated WGS clinical/wellness interpretation while still missing many non-ClinVar rsIDs used by GWAS, PRS, and consumer marker databases. Use full dbSNP only when broad rsID recovery is needed.
 
 ```bash
 # Render a sample wellness report before processing sensitive data
@@ -340,6 +343,7 @@ npm run analyze -- /absolute/path/to/your.vcf.gz
 ```
 
 **Recommended flow:**
+
 1. Install `analyze-longevity` and run `npm install` from `skills/longevity-analysis`.
 2. If no user data is available, run `npm run sample:report`.
 3. To verify the installed skill without large references, run `npm run smoke:wgs`.
@@ -367,16 +371,18 @@ npm run pipeline -- --genetics=../../example-data/snps.vcf.gz --user=smoke_user 
 #### Step 1: Data Type Detection & rsID Annotation
 
 The pipeline inspects the VCF to determine WGS vs. SNP array:
-- **WGS:** Millions of variants (~3.7M), NC_ format contigs, GATK-style headers.
+
+- **WGS:** Millions of variants (~3.7M), NC\_ format contigs, GATK-style headers.
   Needs rsID annotation. The default path uses bundled ClinVar GRCh37 rsID recovery; full dbSNP GRCh37 remains optional for broader coverage.
 - **SNP arrays:** Hundreds of thousands, chr prefix, provider-specific format.
   May already have rsIDs. ClinVar/CPIC/VEP enrichment skipped for < 100K variants.
 
-`doctor:vcf` reports rsID density. `annotate:vcf` runs `bcftools annotate` against the bundled ClinVar-derived TSV. If full dbSNP is used instead, chromosome names may need normalization for GRCh37 compatibility.
+`doctor:vcf` reports rsID density. `annotate:vcf` runs `bcftools annotate` against the bundled ClinVar-derived TSV after normalizing standard human contigs to numeric GRCh37 names. With `npm run pipeline -- --genetics=<vcf> --dbsnp=<reference>`, the full dbSNP path instead normalizes standard human contigs to GRCh37 NCBI accessions. Neither path silently accepts a generated annotation with zero rsIDs.
 
 #### Step 1a: VEP Functional Annotation (Optional)
 
 `vep_annotation.ts` shells out to Ensembl VEP with `--cache --offline --everything`:
+
 - Consequence type (missense, stop_gained, frameshift, splice, etc.)
 - SIFT and PolyPhen pathogenicity scores
 - gnomAD allele frequency
@@ -395,6 +401,7 @@ personality, hereditary, longevity, ancestry).
 
 `clinvar_enrichment.ts` cross-references **ALL annotated rsIDs** (not just the 784 curated markers)
 against a pre-built ClinVar index:
+
 - Clinical significance (pathogenic, likely-pathogenic, VUS, benign, protective)
 - Disease/gene mapping with review status
 - ACMG SF v3.2 gene set flags (BRCA1/2, TP53, LDLR, FBN1, etc.)
@@ -407,6 +414,7 @@ Results are merged into the LongevityProtocol as alerts, risk mitigations, and s
 
 `cpic_enrichment.ts` matches the **full VCF genotype map** (all rsIDs, not just targets)
 against hardcoded CPIC Level A/B drug-gene pairs:
+
 - CYP2C19-clopidogrel, VKORC1-warfarin, CYP2D6-codeine, SLCO1B1-statins,
   DPYD-fluorouracil, TPMT-thiopurines, UGT1A1-irinotecan, HLA-abacavir, etc.
 - Genotype → phenotype → clinical recommendation
@@ -428,12 +436,12 @@ Output: `longevity-protocol.json`.
 
 Four independent scoring streams are merged via `mergeTraitScores()` (lower score wins):
 
-| Stream | Source | Scope | Example trait IDs produced |
-|--------|--------|-------|---------------------------|
-| 6a. `mapProtocolToTraits()` | Interpretation DB (784 markers) | 200+ gene→trait lookup | `methylation`, `inflammation`, `neuroplasticity`, `dna_repair` |
-| 6b. `mapClinVarToTraits()` | ClinVar annotations (from Phase 1 Step 3) | Pathogenic only | `cancer_susceptibility`, `cardiomyopathy_risk`, `neurodegeneration_risk`, `lipid_disorder`, `thrombosis_risk`, `iron_overload` |
-| 6c. `mapCPICToTraits()` | CPIC matches (re-evaluated) | Level A/B drug-gene pairs | `cyp2d6_metabolism`, `cyp2c19_metabolism`, `warfarin_sensitivity`, `statin_myopathy`, `drug_hypersensitivity` |
-| 6d. `mapVEPToTraits()` | VEP rare HIGH/MODERATE (AF < 0.01) | Loss-of-function + missense | `cancer_susceptibility`, `cardiomyopathy_risk`, `arrhythmia_risk`, `aortopathy_risk`, `lipid_disorder`, `monogenic_diabetes` |
+| Stream                      | Source                                    | Scope                       | Example trait IDs produced                                                                                                     |
+| --------------------------- | ----------------------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| 6a. `mapProtocolToTraits()` | Interpretation DB (784 markers)           | 200+ gene→trait lookup      | `methylation`, `inflammation`, `neuroplasticity`, `dna_repair`                                                                 |
+| 6b. `mapClinVarToTraits()`  | ClinVar annotations (from Phase 1 Step 3) | Pathogenic only             | `cancer_susceptibility`, `cardiomyopathy_risk`, `neurodegeneration_risk`, `lipid_disorder`, `thrombosis_risk`, `iron_overload` |
+| 6c. `mapCPICToTraits()`     | CPIC matches (re-evaluated)               | Level A/B drug-gene pairs   | `cyp2d6_metabolism`, `cyp2c19_metabolism`, `warfarin_sensitivity`, `statin_myopathy`, `drug_hypersensitivity`                  |
+| 6d. `mapVEPToTraits()`      | VEP rare HIGH/MODERATE (AF < 0.01)        | Loss-of-function + missense | `cancer_susceptibility`, `cardiomyopathy_risk`, `arrhythmia_risk`, `aortopathy_risk`, `lipid_disorder`, `monogenic_diabetes`   |
 
 Score assignment: pathogenic = 25-45 (concerning), protective = 85, CPIC Level A = 40 (actionable).
 All trait IDs resolve against the knowledge graph (134 traits). Unmatched IDs get a
@@ -477,12 +485,12 @@ Maintenance (moderate traits, 40-70), and Wellness Maintenance protocols with di
 Higher-severity traits (e.g., thrombosis risk 0.7) influence the score more than
 lower-severity traits (e.g., lipid composition 0.3). Also computes per-category GLI.
 
-| GLI Range | Rating | Description |
-|-----------|--------|-------------|
-| 800–1000 | Excellent | Outstanding genomic longevity profile |
-| 600–799 | Good | Good profile with room for optimization |
-| 400–599 | Moderate | Targeted interventions recommended |
-| 0–399 | Needs Work | Significant optimization opportunities |
+| GLI Range | Rating     | Description                             |
+| --------- | ---------- | --------------------------------------- |
+| 800–1000  | Excellent  | Outstanding genomic longevity profile   |
+| 600–799   | Good       | Good profile with room for optimization |
+| 400–599   | Moderate   | Targeted interventions recommended      |
+| 0–399     | Needs Work | Significant optimization opportunities  |
 
 #### Step 13: Hallmark Pathway Analysis
 
@@ -499,6 +507,7 @@ Top 5 traits by priority score are extracted for the dashboard hero section.
 #### Step 15: Dashboard Rendering
 
 `src/renderer/render.ts` renders a complete self-contained HTML dashboard via Nunjucks:
+
 - GLI hero ring with conic gradient and score badge
 - Provenance bar (data source, coverage, markers, pipeline version, ClinVar/CPIC/VEP counts)
 - Multi-modal upload path showing connected data, next best upload, biomarker domains, and wearable domains
@@ -536,6 +545,26 @@ The performance renderer is white-label and responsive. A custom React, native,
 or agent-generated surface can use the same contract while replacing the HTML
 components.
 
+### APEX design-system contract
+
+`--design=apex` selects the source-faithful APEX dashboard implementation. It
+uses the same full multimodal pipeline object as the ForeverBetter dashboard and
+the API's `GET /design/systems/apex` response, so the design can be recreated
+without shipping the original handoff prototype.
+
+- Use the APEX near-black canvas, Archivo UI hierarchy, and JetBrains Mono for
+  values; do not substitute an inspiration brand in white-label output.
+- Keep the fixed information order and tabs: sticky header → keyboard-operable
+  Overview, Action plan, Genomic, Wearable, and Biomarker tabs → Sleep,
+  Recovery, and Strain readiness rings → observation / monitor → FOCUS →
+  genomic context → biomarker / biological-age context. Tab transitions may
+  stagger panels and tiles briefly, but must switch instantly with reduced
+  motion and preserve keyboard focus.
+- Keep source chips and freshness beside live signals; never create readiness,
+  streak, or biological-age values from absent data.
+- Preserve the APEX token, layout, modality, action-plan, and reduced-motion
+  contract in `shared/design/systems.json` when generating another surface.
+
 ---
 
 ## Interpretation Database
@@ -567,6 +596,7 @@ npx tsx skills/longevity-analysis/scripts/pipeline/expand_interpretations.ts
 This reads `example-data/clinvar_matches.json` and generates genotype-agnostic
 interpretations (`*` wildcard key) for all clinically actionable variants not
 already in the curated set. Entries are classified as:
+
 - **pharmacology** — drug response variants (tramadol, statins, levothyroxine, etc.)
 - **hereditary** — pathogenic/likely-pathogenic variants (disease genes)
 - **vulnerability** — risk factor variants (CAD, macular degeneration, autoimmune)
@@ -578,17 +608,17 @@ found, the wildcard interpretation is used as a fallback (`parse-vcf.ts:442`).
 
 ## Scripts Reference
 
-| Script | Purpose | Command |
-|--------|---------|---------|
-| `scripts/ingestion/parse-vcf.ts` | VCF parsing, rsID annotation, ClinVar/CPIC/VEP enrichment, interpretation matching → `longevity-protocol.json` | `npx tsx scripts/ingestion/parse-vcf.ts <vcf> [--annotated]` |
-| `scripts/pipeline/index.ts` | Full end-to-end pipeline → `{user}_action_plan.json` + `{user}_health_analysis.json` + `index.html` (+ `{user}_dashboard.json` when genetics supplied) | `npx tsx scripts/pipeline/index.ts --genetics=<vcf> --biomarkers=<csv> --wearables=<json> --user=<id> --out=<dir>` |
-| `scripts/pipeline/health_analysis.ts` | Modality-optional orchestrator. Runs genetics/biomarker/wearable engines, normalizes observations, composes the canonical plan. | `runHealthAnalysis({ geneticsPath?, biomarkersPath?, wearablesPath?, userProfile? })` |
-| `scripts/pipeline/action_plan_composer.ts` | Single composer over `NormalizedObservation[]` + curated `InterventionRule[]`. Emits 0-3 qualified priorities, review items, maintenance, optional next-context. | `composePersonalizedActionPlan(observations, options)` |
-| `scripts/pipeline/intervention_rules.ts` | Typed curated rule catalog. Versioned; deduped by `intervention_id`. | n/a — imported by composer |
-| `scripts/pipeline/input_doctor.ts` | Unified preflight for any combination of genetics/biomarkers/wearables. Reports problem + cause + fix + example. | `npm run pipeline -- --doctor --biomarkers=path ...` |
-| `scripts/pipeline/audit-pipeline.ts` | Quantitative diagnostic audit → `output/pipeline-audit.json` + `.md` | `npm run audit:pipeline` |
-| `scripts/pipeline/pipeline.test.ts` | Test suite | `npx tsx --test scripts/pipeline/pipeline.test.ts` |
-| `scripts/pipeline/expand_interpretations.ts` | ClinVar → interpretation DB expansion engine | `npx tsx scripts/pipeline/expand_interpretations.ts` |
+| Script                                       | Purpose                                                                                                                                                          | Command                                                                                                            |
+| -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `scripts/ingestion/parse-vcf.ts`             | VCF parsing, rsID annotation, ClinVar/CPIC/VEP enrichment, interpretation matching → `longevity-protocol.json`                                                   | `npx tsx scripts/ingestion/parse-vcf.ts <vcf> [--annotated]`                                                       |
+| `scripts/pipeline/index.ts`                  | Full end-to-end pipeline → `{user}_action_plan.json` + `{user}_health_analysis.json` + `index.html` (+ `{user}_dashboard.json` when genetics supplied)           | `npx tsx scripts/pipeline/index.ts --genetics=<vcf> --biomarkers=<csv> --wearables=<json> --user=<id> --out=<dir>` |
+| `scripts/pipeline/health_analysis.ts`        | Modality-optional orchestrator. Runs genetics/biomarker/wearable engines, normalizes observations, composes the canonical plan.                                  | `runHealthAnalysis({ geneticsPath?, biomarkersPath?, wearablesPath?, userProfile? })`                              |
+| `scripts/pipeline/action_plan_composer.ts`   | Single composer over `NormalizedObservation[]` + curated `InterventionRule[]`. Emits 0-3 qualified priorities, review items, maintenance, optional next-context. | `composePersonalizedActionPlan(observations, options)`                                                             |
+| `scripts/pipeline/intervention_rules.ts`     | Typed curated rule catalog. Versioned; deduped by `intervention_id`.                                                                                             | n/a — imported by composer                                                                                         |
+| `scripts/pipeline/input_doctor.ts`           | Unified preflight for any combination of genetics/biomarkers/wearables. Reports problem + cause + fix + example.                                                 | `npm run pipeline -- --doctor --biomarkers=path ...`                                                               |
+| `scripts/pipeline/audit-pipeline.ts`         | Quantitative diagnostic audit → `output/pipeline-audit.json` + `.md`                                                                                             | `npm run audit:pipeline`                                                                                           |
+| `scripts/pipeline/pipeline.test.ts`          | Test suite                                                                                                                                                       | `npx tsx --test scripts/pipeline/pipeline.test.ts`                                                                 |
+| `scripts/pipeline/expand_interpretations.ts` | ClinVar → interpretation DB expansion engine                                                                                                                     | `npx tsx scripts/pipeline/expand_interpretations.ts`                                                               |
 
 For the module-level step map and audit outputs, read `PIPELINE.md`.
 For the best-available WGS interpretation process, read `references/wgs-process.md`.
@@ -619,4 +649,4 @@ Bundled compact references live under `reference/clinvar/` and `reference/wellne
 
 Primary external sources represented in the pipeline are ClinVar, CPIC, PharmGKB, ACMG secondary findings, GWAS Catalog, PGS Catalog, Ensembl VEP, and peer-reviewed variant literature.
 
-Condition-centric scope and editorial blocks for the six consumer modalities (hereditary, pharmacology, genetic-vulnerability, personality, wellness, ancestry) live under `skills/longevity-analysis/{folder}/catalog/` and are consumed via `scripts/pipeline/catalog_loader.ts` to wrap the rsID-level interpretation layer with condition-level context whenever a user uploads a VCF. See `PIPELINE.md` § *Condition Catalog Layer* for the schema and consumption pattern.
+Condition-centric scope and editorial blocks for the six consumer modalities (hereditary, pharmacology, genetic-vulnerability, personality, wellness, ancestry) live under `skills/longevity-analysis/{folder}/catalog/` and are consumed via `scripts/pipeline/catalog_loader.ts` to wrap the rsID-level interpretation layer with condition-level context whenever a user uploads a VCF. See `PIPELINE.md` § _Condition Catalog Layer_ for the schema and consumption pattern.

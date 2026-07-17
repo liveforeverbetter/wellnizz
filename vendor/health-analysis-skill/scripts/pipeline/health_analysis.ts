@@ -7,24 +7,30 @@
  * required; the WGS pipeline only runs when a genetics file is supplied.
  */
 
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from "fs";
+import * as path from "path";
 
-import { runPipelineFromVCF } from './index.js';
-import type { DashboardOutput } from './index.js';
-import { analyzeBiomarkers } from './biomarker_engine.js';
-import type { UserProfile } from './biomarker_engine.js';
-import { analyzeWearables } from './wearable_engine.js';
-import type { BiomarkerAnalysisSummary, WearableAnalysisSummary } from '../../shared/dashboard-types.js';
-import { parseBiomarkerFile, parseWearableFile } from './health_data_import.js';
+import { runPipelineFromVCF } from "./index.js";
+import type { DashboardOutput } from "./index.js";
+import { analyzeBiomarkers } from "./biomarker_engine.js";
+import type { UserProfile } from "./biomarker_engine.js";
+import { analyzeWearables } from "./wearable_engine.js";
+import type {
+  BiomarkerAnalysisSummary,
+  WearableAnalysisSummary,
+} from "../../shared/dashboard-types.js";
+import { parseBiomarkerFile, parseWearableFile } from "./health_data_import.js";
 import {
   buildNormalizedObservations,
   type GeneticInputView,
-} from './observation_adapters.js';
-import { composePersonalizedActionPlan } from './action_plan_composer.js';
-import type { ComposerOptions } from './action_plan_composer.js';
-import type { NormalizedObservation, ObservationModality } from './observation_types.js';
-import type { PersonalizedActionPlan } from '../../shared/dashboard-types.js';
+} from "./observation_adapters.js";
+import { composePersonalizedActionPlan } from "./action_plan_composer.js";
+import type { ComposerOptions } from "./action_plan_composer.js";
+import type {
+  NormalizedObservation,
+  ObservationModality,
+} from "./observation_types.js";
+import type { PersonalizedActionPlan } from "../../shared/dashboard-types.js";
 
 export interface HealthAnalysisInput {
   user_id?: string;
@@ -32,10 +38,11 @@ export interface HealthAnalysisInput {
   biomarkersPath?: string;
   previousBiomarkersPath?: string;
   wearablesPath?: string;
+  /** Optional full GRCh37 dbSNP VCF; selecting it opts out of the lean default. */
+  dbsnpPath?: string;
   userProfile?: UserProfile;
   logDir?: string;
-  annotation_depth?: 'compact' | 'full_dbsnp';
-  dbsnpPath?: string;
+  wgsArtifactsDir?: string;
   /** Deterministic timestamp for tests. */
   generated_at?: string;
 }
@@ -63,27 +70,36 @@ function nowISO(): string {
  * Adapter that lifts a DashboardOutput into the genetics adapter input view.
  * Kept inline so callers do not have to know the genomic schema.
  */
-function genomicViewFromOutput(output: DashboardOutput | undefined): GeneticInputView | undefined {
+function genomicViewFromOutput(
+  output: DashboardOutput | undefined
+): GeneticInputView | undefined {
   if (!output) return undefined;
   return { variant_cards: output.metadata?.variant_cards };
 }
 
-export async function runHealthAnalysis(input: HealthAnalysisInput): Promise<HealthAnalysisResult> {
-  const user_id = input.user_id ?? 'user_001';
+export async function runHealthAnalysis(
+  input: HealthAnalysisInput
+): Promise<HealthAnalysisResult> {
+  const user_id = input.user_id ?? "user_001";
   const generated_at = input.generated_at ?? nowISO();
 
   const supplied: ObservationModality[] = [];
-  if (input.geneticsPath) supplied.push('genetics');
-  if (input.biomarkersPath) supplied.push('biomarkers');
-  if (input.wearablesPath) supplied.push('wearables');
+  if (input.geneticsPath) supplied.push("genetics");
+  if (input.biomarkersPath) supplied.push("biomarkers");
+  if (input.wearablesPath) supplied.push("wearables");
 
   // Genetics: run the existing WGS pipeline only when a file is supplied.
   let genomic_output: DashboardOutput | undefined;
   if (input.geneticsPath) {
-    genomic_output = await runPipelineFromVCF(input.geneticsPath, user_id, input.logDir, {
-      annotationDepth: input.annotation_depth,
-      dbsnpPath: input.dbsnpPath,
-    });
+    genomic_output = await runPipelineFromVCF(
+      input.geneticsPath,
+      user_id,
+      input.logDir,
+      {
+        dbsnpPath: input.dbsnpPath,
+        wgsArtifactsDir: input.wgsArtifactsDir,
+      }
+    );
   }
 
   // Biomarkers: parse + analyze (current + optional previous panel).
@@ -95,7 +111,10 @@ export async function runHealthAnalysis(input: HealthAnalysisInput): Promise<Hea
   }
   if (input.previousBiomarkersPath) {
     const previous = parseBiomarkerFile(input.previousBiomarkersPath);
-    previous_biomarker_analysis = analyzeBiomarkers(previous, input.userProfile);
+    previous_biomarker_analysis = analyzeBiomarkers(
+      previous,
+      input.userProfile
+    );
   }
 
   // Wearables: parse + analyze.
@@ -146,12 +165,25 @@ export interface SavedHealthAnalysisPaths {
   analysis_path: string;
 }
 
-export function saveHealthAnalysisOutput(result: HealthAnalysisResult, options: SaveHealthAnalysisOptions): SavedHealthAnalysisPaths {
+export function saveHealthAnalysisOutput(
+  result: HealthAnalysisResult,
+  options: SaveHealthAnalysisOptions
+): SavedHealthAnalysisPaths {
   fs.mkdirSync(options.outputDir, { recursive: true });
-  const planPath = path.join(options.outputDir, `${result.user_id}_action_plan.json`);
-  const analysisPath = path.join(options.outputDir, `${result.user_id}_health_analysis.json`);
+  const planPath = path.join(
+    options.outputDir,
+    `${result.user_id}_action_plan.json`
+  );
+  const analysisPath = path.join(
+    options.outputDir,
+    `${result.user_id}_health_analysis.json`
+  );
   const indent = options.pretty === false ? undefined : 2;
-  fs.writeFileSync(planPath, `${JSON.stringify(result.plan, null, indent)}\n`, 'utf8');
+  fs.writeFileSync(
+    planPath,
+    `${JSON.stringify(result.plan, null, indent)}\n`,
+    "utf8"
+  );
   // Persist a summary that the dashboard renderer (M4) and audit tools can read.
   const analysisSummary = {
     user_id: result.user_id,
@@ -167,7 +199,11 @@ export function saveHealthAnalysisOutput(result: HealthAnalysisResult, options: 
     has_wearable_analysis: Boolean(result.wearable_analysis),
     observations: result.observations,
   };
-  fs.writeFileSync(analysisPath, `${JSON.stringify(analysisSummary, null, indent)}\n`, 'utf8');
+  fs.writeFileSync(
+    analysisPath,
+    `${JSON.stringify(analysisSummary, null, indent)}\n`,
+    "utf8"
+  );
   return { plan_path: planPath, analysis_path: analysisPath };
 }
 
@@ -179,7 +215,7 @@ export function saveHealthAnalysisOutput(result: HealthAnalysisResult, options: 
 export function emptyGenomicOutput(user_id: string): DashboardOutput {
   return {
     gli: 0,
-    gli_rating: 'Not connected',
+    gli_rating: "Not connected",
     category_gli: {},
     top_traits: [],
     traits: [],
@@ -190,7 +226,7 @@ export function emptyGenomicOutput(user_id: string): DashboardOutput {
       hallmarks: [],
       total_genes_hit: 0,
       hallmarks_affected: 0,
-      summary: 'Genetics not connected.',
+      summary: "Genetics not connected.",
     },
     metadata: {
       user_id,
@@ -219,20 +255,36 @@ export function emptyGenomicOutput(user_id: string): DashboardOutput {
 export function summarizeRunForConsole(result: HealthAnalysisResult): string {
   const lines: string[] = [];
   const labels: Record<ObservationModality, string> = {
-    genetics: 'genetics',
-    biomarkers: 'blood test',
-    wearables: 'wearable',
+    genetics: "genetics",
+    biomarkers: "blood test",
+    wearables: "wearable",
   };
-  const supplied = result.modalities_supplied.map(m => labels[m]).join(' + ') || 'no data';
+  const supplied =
+    result.modalities_supplied.map((m) => labels[m]).join(" + ") || "no data";
   lines.push(`Analyzed: ${supplied}`);
-  if (result.biomarker_analysis) lines.push(`  blood: ${result.biomarker_analysis.measured_count} lab values`);
-  if (result.wearable_analysis) lines.push(`  wearable: ${result.wearable_analysis.measured_count} signals`);
+  if (result.biomarker_analysis)
+    lines.push(
+      `  blood: ${result.biomarker_analysis.measured_count} lab values`
+    );
+  if (result.wearable_analysis)
+    lines.push(
+      `  wearable: ${result.wearable_analysis.measured_count} signals`
+    );
   if (result.genomic_output) {
     const variantCount = result.genomic_output.metadata.variant_count ?? 0;
     lines.push(`  genetics: ${variantCount.toLocaleString()} variants`);
   }
   const priorityCount = result.plan.priorities.length;
   const reviewCount = result.plan.review_items.length;
-  lines.push(`Created: ${priorityCount} personalized priorit${priorityCount === 1 ? 'y' : 'ies'}` + (reviewCount > 0 ? `; ${reviewCount} item${reviewCount === 1 ? '' : 's'} need${reviewCount === 1 ? 's' : ''} review` : ''));
-  return lines.join('\n');
+  lines.push(
+    `Created: ${priorityCount} personalized priorit${
+      priorityCount === 1 ? "y" : "ies"
+    }` +
+      (reviewCount > 0
+        ? `; ${reviewCount} item${reviewCount === 1 ? "" : "s"} need${
+            reviewCount === 1 ? "s" : ""
+          } review`
+        : "")
+  );
+  return lines.join("\n");
 }

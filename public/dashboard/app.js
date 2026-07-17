@@ -916,7 +916,7 @@ function renderKey(issued) {
 
 function agentHandoffPrompt(baseUrl, key, userId, orgId) {
   return [
-    'You now have access to my ForeverBetter wellness API.',
+    'You now have access to my ForeverBetter API.',
     `Base URL: ${baseUrl}`,
     `API key (keep it secret): ${key}`,
     'Send it on every call as: Authorization: Bearer <key>',

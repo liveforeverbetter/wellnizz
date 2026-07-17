@@ -14,21 +14,25 @@
  * 4. Outputs Longevity Protocol JSON for dashboard rendering
  */
 
-import * as fs from 'fs';
-import * as path from 'path';
-import { execSync } from 'child_process';
-import { fileURLToPath } from 'url';
-import { queryClinVarForRSIDs, generateClinVarAlerts } from '../pipeline/clinvar_enrichment.js';
-import type { ClinVarAnnotation } from '../pipeline/clinvar_enrichment.js';
-import { matchCPIC, generateCPICAlerts } from '../pipeline/cpic_enrichment.js';
-import { annotateWithVEP } from '../pipeline/vep_annotation.js';
-import type { VEPAnnotation, VEPResult } from '../pipeline/vep_annotation.js';
+import * as fs from "fs";
+import * as path from "path";
+import { execSync } from "child_process";
+import { fileURLToPath } from "url";
+import {
+  queryClinVarForRSIDs,
+  generateClinVarAlerts,
+} from "../pipeline/clinvar_enrichment.js";
+import type { ClinVarAnnotation } from "../pipeline/clinvar_enrichment.js";
+import { matchCPIC, generateCPICAlerts } from "../pipeline/cpic_enrichment.js";
+import { annotateWithVEP } from "../pipeline/vep_annotation.js";
+import type { VEPAnnotation, VEPResult } from "../pipeline/vep_annotation.js";
 import {
   findClinVarAnnotationReference,
   getClinVarDisclosure,
   getPackageDir,
-} from '../pipeline/clinvar_reference.js';
-import { runVcfDoctor } from '../pipeline/vcf_doctor.js';
+} from "../pipeline/clinvar_reference.js";
+import { runVcfDoctor } from "../pipeline/vcf_doctor.js";
+import { writeVcfContigRenameMap } from "./vcf-contigs.js";
 
 // ============================================================================
 // Types
@@ -100,7 +104,7 @@ interface Alert {
 
 interface Superpower {
   itemName: string;
-  tag: '🟢 Superpower';
+  tag: "🟢 Superpower";
   evidence: string;
   advantage: string;
   rsid?: string;
@@ -121,13 +125,13 @@ interface Risk {
 interface Supplement {
   compound: string;
   dosage: string;
-  timing: 'morning' | 'prePerformance' | 'night';
+  timing: "morning" | "prePerformance" | "night";
   theWhy: string;
   brands: string[];
   reason: string;
 }
 
-type SupplementTiming = 'morning' | 'prePerformance' | 'night';
+type SupplementTiming = "morning" | "prePerformance" | "night";
 type SupplementInput = {
   compound: string;
   dosage: string;
@@ -166,66 +170,141 @@ interface MarkerInterpretation {
 
 // Default tags based on category
 const CATEGORY_TAGS: Record<string, string> = {
-  vulnerability: '🛑 Risk Mitigation',
-  wellness: 'ℹ️ Dietary Rule',
-  pharmacology: '⚠️ Medical Alert',
-  performance: '🟢 Superpower',
-  personality: '🟢 Superpower',
-  hereditary: '⚠️ Medical Alert',
-  ancestry: '🟢 Superpower',
-  longevity: '⏳ Longevity Signal',
+  vulnerability: "🛑 Risk Mitigation",
+  wellness: "ℹ️ Dietary Rule",
+  pharmacology: "⚠️ Medical Alert",
+  performance: "🟢 Superpower",
+  personality: "🟢 Superpower",
+  hereditary: "⚠️ Medical Alert",
+  ancestry: "🟢 Superpower",
+  longevity: "⏳ Longevity Signal",
 };
 
 // Default supplements for common genes
-const DEFAULT_SUPPLEMENTS: Record<string, { timing: 'morning' | 'prePerformance' | 'night'; compound: string; dosage: string; brands: string[] }[]> = {
+const DEFAULT_SUPPLEMENTS: Record<
+  string,
+  {
+    timing: "morning" | "prePerformance" | "night";
+    compound: string;
+    dosage: string;
+    brands: string[];
+  }[]
+> = {
   MTHFR: [
-    { timing: 'morning', compound: 'Methylfolate', dosage: '400-800mcg', brands: ['Thorne', 'Pure Encapsulations', 'Life Extension'] },
-    { timing: 'morning', compound: 'B12', dosage: '1000mcg', brands: ['Pure Encapsulations', 'Thorne'] },
+    {
+      timing: "morning",
+      compound: "Methylfolate",
+      dosage: "400-800mcg",
+      brands: ["Thorne", "Pure Encapsulations", "Life Extension"],
+    },
+    {
+      timing: "morning",
+      compound: "B12",
+      dosage: "1000mcg",
+      brands: ["Pure Encapsulations", "Thorne"],
+    },
   ],
   COMT: [
-    { timing: 'morning', compound: 'Magnesium Glycinate', dosage: '400mg', brands: ['Thorne', 'Pure Encapsulations'] },
-    { timing: 'night', compound: 'L-Theanine', dosage: '200mg', brands: ['NOW Foods', 'Thorne'] },
+    {
+      timing: "morning",
+      compound: "Magnesium Glycinate",
+      dosage: "400mg",
+      brands: ["Thorne", "Pure Encapsulations"],
+    },
+    {
+      timing: "night",
+      compound: "L-Theanine",
+      dosage: "200mg",
+      brands: ["NOW Foods", "Thorne"],
+    },
   ],
   CYP1A2: [
-    { timing: 'morning', compound: 'Milk Thistle', dosage: '250mg', brands: ['Pure Encapsulations', 'Thorne'] },
+    {
+      timing: "morning",
+      compound: "Milk Thistle",
+      dosage: "250mg",
+      brands: ["Pure Encapsulations", "Thorne"],
+    },
   ],
   SOD2: [
-    { timing: 'morning', compound: 'CoQ10', dosage: '100mg', brands: ['Qunol', 'Thorne'] },
-    { timing: 'morning', compound: 'Alpha Lipoic Acid', dosage: '300mg', brands: ['Pure Encapsulations', 'Thorne'] },
+    {
+      timing: "morning",
+      compound: "CoQ10",
+      dosage: "100mg",
+      brands: ["Qunol", "Thorne"],
+    },
+    {
+      timing: "morning",
+      compound: "Alpha Lipoic Acid",
+      dosage: "300mg",
+      brands: ["Pure Encapsulations", "Thorne"],
+    },
   ],
   XPC: [
-    { timing: 'night', compound: 'Curcumin', dosage: '500mg', brands: ['Thorne', 'Life Extension'] },
+    {
+      timing: "night",
+      compound: "Curcumin",
+      dosage: "500mg",
+      brands: ["Thorne", "Life Extension"],
+    },
   ],
   APOE: [
-    { timing: 'morning', compound: 'Omega-3', dosage: '2g', brands: ['Nordic Naturals', 'Life Extension'] },
-    { timing: 'night', compound: 'Vitamin D3', dosage: '2000IU', brands: ['Thorne', 'Pure Encapsulations'] },
+    {
+      timing: "morning",
+      compound: "Omega-3",
+      dosage: "2g",
+      brands: ["Nordic Naturals", "Life Extension"],
+    },
+    {
+      timing: "night",
+      compound: "Vitamin D3",
+      dosage: "2000IU",
+      brands: ["Thorne", "Pure Encapsulations"],
+    },
   ],
   SIRT1: [
-    { timing: 'morning', compound: 'Resveratrol', dosage: '250mg', brands: ['Life Extension', 'Thorne'] },
+    {
+      timing: "morning",
+      compound: "Resveratrol",
+      dosage: "250mg",
+      brands: ["Life Extension", "Thorne"],
+    },
   ],
   IL6: [
-    { timing: 'morning', compound: 'Omega-3', dosage: '2g', brands: ['Nordic Naturals', 'Life Extension'] },
+    {
+      timing: "morning",
+      compound: "Omega-3",
+      dosage: "2g",
+      brands: ["Nordic Naturals", "Life Extension"],
+    },
   ],
 };
 
-function getDefaultSupplements(gene: string): Array<{ compound: string; dosage: string; brands: string[]; timing: 'morning' | 'prePerformance' | 'night' }> {
+function getDefaultSupplements(gene: string): Array<{
+  compound: string;
+  dosage: string;
+  brands: string[];
+  timing: "morning" | "prePerformance" | "night";
+}> {
   return DEFAULT_SUPPLEMENTS[gene] || [];
 }
 
-function normalizeSupplementBuckets(source?: SupplementSource): SupplementBuckets {
+function normalizeSupplementBuckets(
+  source?: SupplementSource
+): SupplementBuckets {
   const buckets: SupplementBuckets = {};
   if (!source) return buckets;
 
   if (Array.isArray(source)) {
     for (const supp of source) {
-      const timing = supp.timing ?? 'morning';
+      const timing = supp.timing ?? "morning";
       buckets[timing] = buckets[timing] ?? [];
       buckets[timing]?.push(supp);
     }
     return buckets;
   }
 
-  for (const timing of ['morning', 'prePerformance', 'night'] as const) {
+  for (const timing of ["morning", "prePerformance", "night"] as const) {
     const supplements = source[timing];
     if (Array.isArray(supplements)) buckets[timing] = supplements;
   }
@@ -239,21 +318,21 @@ function normalizeSupplementBuckets(source?: SupplementSource): SupplementBucket
 
 function normalizeChrom(chrom: string): string {
   // NC_000001.10 format → "1"
-  if (chrom.startsWith('NC_0000') && chrom.includes('.')) {
-    const num = parseInt(chrom.split('.')[0].slice(-4), 10);
+  if (chrom.startsWith("NC_0000") && chrom.includes(".")) {
+    const num = parseInt(chrom.split(".")[0].slice(-4), 10);
     return String(num);
   }
-  if (chrom.startsWith('NC_000') && chrom.includes('.')) {
-    const num = parseInt(chrom.split('.')[0].slice(-3), 10);
+  if (chrom.startsWith("NC_000") && chrom.includes(".")) {
+    const num = parseInt(chrom.split(".")[0].slice(-3), 10);
     return String(num);
   }
   // chr1 → 1, chrM → M
-  return chrom.replace(/^chr/i, '').toUpperCase();
+  return chrom.replace(/^chr/i, "").toUpperCase();
 }
 
 function parseVCFLine(line: string): Variant | null {
-  if (line.startsWith('#')) return null;
-  const parts = line.split('\t');
+  if (line.startsWith("#")) return null;
+  const parts = line.split("\t");
   if (parts.length < 5) return null;
 
   return {
@@ -271,26 +350,37 @@ function parseVCFLine(line: string): Variant | null {
 }
 
 function convertGT(gt: string, ref: string, alt: string): string | null {
-  if (!gt || gt === '.' || gt === './.' || gt === '.|.') return null;
+  if (!gt || gt === "." || gt === "./." || gt === ".|.") return null;
   const parts = gt.split(/\/|\|/);
   if (parts.length !== 2) return null;
-  const get = (n: number) => n === 0 ? ref.toUpperCase() : alt.toUpperCase();
+  const get = (n: number) => (n === 0 ? ref.toUpperCase() : alt.toUpperCase());
   const a1 = get(parseInt(parts[0], 10));
   const a2 = get(parseInt(parts[1], 10));
   if (!a1 || !a2) return null;
   return a1 + a2;
 }
 
-function loadInterpretations(interpretationsDir: string): Map<string, MarkerInterpretation> {
+function loadInterpretations(
+  interpretationsDir: string
+): Map<string, MarkerInterpretation> {
   const markers = new Map<string, MarkerInterpretation>();
-  const files = ['wellness.json', 'pharmacology.json', 'personality.json', 'performance.json', 'vulnerability.json', 'hereditary.json', 'ancestry.json', 'longevity.json'];
+  const files = [
+    "wellness.json",
+    "pharmacology.json",
+    "personality.json",
+    "performance.json",
+    "vulnerability.json",
+    "hereditary.json",
+    "ancestry.json",
+    "longevity.json",
+  ];
 
   for (const file of files) {
     const filePath = path.join(interpretationsDir, file);
     if (!fs.existsSync(filePath)) continue;
 
     try {
-      const content = fs.readFileSync(filePath, 'utf-8');
+      const content = fs.readFileSync(filePath, "utf-8");
       const data = JSON.parse(content);
 
       if (data.markers) {
@@ -321,7 +411,10 @@ function loadInterpretations(interpretationsDir: string): Map<string, MarkerInte
  * Uses grep for efficient line filtering — avoids loading all 3.7M
  * variants into memory (previously OOM'd at ~750MB heap per parse).
  */
-function parseVCFWithRSIDs(vcfPath: string, targetRSIDs: string[]): { variants: Variant[]; totalVariants: number; annotatedCount: number } {
+function parseVCFWithRSIDs(
+  vcfPath: string,
+  targetRSIDs: string[]
+): { variants: Variant[]; totalVariants: number; annotatedCount: number } {
   // Single-pass extraction via bcftools query — avoids repeated full decompression.
   // Outputs CHROM,POS,ID,REF,ALT,GT for every rs-annotated variant in one pass.
   const targetSet = new Set(targetRSIDs);
@@ -333,24 +426,36 @@ function parseVCFWithRSIDs(vcfPath: string, targetRSIDs: string[]): { variants: 
     // bcftools query -f outputs a TSV; filtering to rs* lines is fast on the plain-text stream
     const result = execSync(
       `bcftools query -f '%CHROM\\t%POS\\t%ID\\t%REF\\t%ALT[\\t%GT]\\n' "${vcfPath}" | awk -F'\\t' '$3 ~ /^rs/'`,
-      { encoding: 'utf8', maxBuffer: 500 * 1024 * 1024, timeout: 120000 }
+      { encoding: "utf8", maxBuffer: 500 * 1024 * 1024, timeout: 120000 }
     );
 
-    for (const line of result.trim().split('\n')) {
+    for (const line of result.trim().split("\n")) {
       if (!line.trim()) continue;
       annotatedCount++;
-      const parts = line.split('\t');
+      const parts = line.split("\t");
       const [chrom, posStr, id, ref, alt, gtRaw] = parts;
       if (!chrom || !posStr || !id || !ref || !alt) continue;
       const gt = gtRaw ? convertGT(gtRaw.trim(), ref, alt) : undefined;
       if (targetSet.has(id)) {
-        variants.push({ chrom, pos: parseInt(posStr, 10), id, ref, alt, qual: '.', filter: '.', info: '.', samples: gtRaw ? [gtRaw] : [] });
+        variants.push({
+          chrom,
+          pos: parseInt(posStr, 10),
+          id,
+          ref,
+          alt,
+          qual: ".",
+          filter: ".",
+          info: ".",
+          samples: gtRaw ? [gtRaw] : [],
+        });
       }
     }
 
     // Total variant count: use bcftools index -n (instant for indexed BGZip) with fallback
     try {
-      const nResult = execSync(`bcftools index -n "${vcfPath}" 2>/dev/null`, { encoding: 'utf8' });
+      const nResult = execSync(`bcftools index -n "${vcfPath}" 2>/dev/null`, {
+        encoding: "utf8",
+      });
       totalVariants = parseInt(nResult.trim(), 10) || annotatedCount;
     } catch {
       totalVariants = annotatedCount;
@@ -359,26 +464,39 @@ function parseVCFWithRSIDs(vcfPath: string, targetRSIDs: string[]): { variants: 
     // bcftools unavailable — fall back to single zcat pass writing to temp file
     const tmp = `${vcfPath}.lines.tmp`;
     try {
-      execSync(`zcat -f "${vcfPath}" | grep -v "^#" > "${tmp}"`, { timeout: 300000 });
-      const countResult = execSync(`wc -l < "${tmp}"`, { encoding: 'utf8' });
+      execSync(`zcat -f "${vcfPath}" | grep -v "^#" > "${tmp}"`, {
+        timeout: 300000,
+      });
+      const countResult = execSync(`wc -l < "${tmp}"`, { encoding: "utf8" });
       totalVariants = parseInt(countResult.trim(), 10) || 0;
-      const rsCountResult = execSync(`cut -f3 "${tmp}" | grep -c "^rs"`, { encoding: 'utf8' });
+      const rsCountResult = execSync(`cut -f3 "${tmp}" | grep -c "^rs"`, {
+        encoding: "utf8",
+      });
       annotatedCount = parseInt(rsCountResult.trim(), 10) || 0;
       if (targetRSIDs.length > 0) {
         const rsidFile = `${vcfPath}.target_rsids.txt`;
-        fs.writeFileSync(rsidFile, targetRSIDs.join('\n'));
+        fs.writeFileSync(rsidFile, targetRSIDs.join("\n"));
         try {
-          const matched = execSync(`grep -F -f "${rsidFile}" "${tmp}"`, { encoding: 'utf8', maxBuffer: 10 * 1024 * 1024 });
-          for (const line of matched.trim().split('\n')) {
+          const matched = execSync(`grep -F -f "${rsidFile}" "${tmp}"`, {
+            encoding: "utf8",
+            maxBuffer: 10 * 1024 * 1024,
+          });
+          for (const line of matched.trim().split("\n")) {
             if (!line.trim()) continue;
             const variant = parseVCFLine(line);
             if (variant) variants.push(variant);
           }
-        } catch { /* no matches */ }
-        try { fs.unlinkSync(rsidFile); } catch {}
+        } catch {
+          /* no matches */
+        }
+        try {
+          fs.unlinkSync(rsidFile);
+        } catch {}
       }
     } finally {
-      try { fs.unlinkSync(tmp); } catch {}
+      try {
+        fs.unlinkSync(tmp);
+      } catch {}
     }
   }
 
@@ -392,7 +510,10 @@ function parseVCFWithRSIDs(vcfPath: string, targetRSIDs: string[]): { variants: 
 function parseVCF(vcfPath: string): Variant[] {
   // Quick check: read just the first data line to determine format
   try {
-    const firstLine = execSync(`zcat -f "${vcfPath}" 2>/dev/null | grep -v "^#" | head -1`, { encoding: 'utf8' }).trim();
+    const firstLine = execSync(
+      `zcat -f "${vcfPath}" 2>/dev/null | grep -v "^#" | head -1`,
+      { encoding: "utf8" }
+    ).trim();
     if (firstLine) {
       const variant = parseVCFLine(firstLine);
       return variant ? [variant] : [];
@@ -405,7 +526,7 @@ function buildRSIDMap(variants: Variant[]): Map<string, VariantMapEntry[]> {
   const rsidMap = new Map<string, VariantMapEntry[]>();
 
   for (const v of variants) {
-    if (!v.id || !v.id.startsWith('rs')) continue;
+    if (!v.id || !v.id.startsWith("rs")) continue;
 
     const normalizedChrom = normalizeChrom(v.chrom);
     const entry: VariantMapEntry = {
@@ -413,7 +534,7 @@ function buildRSIDMap(variants: Variant[]): Map<string, VariantMapEntry[]> {
       pos: v.pos,
       ref: v.ref,
       alt: v.alt,
-      gt: v.samples?.[0]?.split(':')[0],
+      gt: v.samples?.[0]?.split(":")[0],
     };
 
     const existing = rsidMap.get(v.id) || [];
@@ -462,26 +583,35 @@ function analyzeVariants(
   const found = new Set<string>();
 
   for (const variant of variants) {
-    if (!variant.id || !variant.id.startsWith('rs')) continue;
+    if (!variant.id || !variant.id.startsWith("rs")) continue;
     if (found.has(variant.id)) continue; // Skip duplicates
 
     const interpretation = interpretations.get(variant.id);
     if (!interpretation) continue;
 
     const normalizedChrom = normalizeChrom(variant.chrom);
-    const variantData = findVariantByRSID(rsidMap, variant.id, normalizedChrom, variant.pos);
+    const variantData = findVariantByRSID(
+      rsidMap,
+      variant.id,
+      normalizedChrom,
+      variant.pos
+    );
     if (!variantData) continue;
 
     found.add(variant.id);
 
     // Get genotype from VCF data
-    let genotype = 'unknown';
+    let genotype = "unknown";
     if (variantData.gt) {
-      const converted = convertGT(variantData.gt, variantData.ref, variantData.alt);
+      const converted = convertGT(
+        variantData.gt,
+        variantData.ref,
+        variantData.alt
+      );
       if (converted) genotype = converted;
     } else if (variant.samples?.[0]) {
       // Try to get from original variant
-      const parts = variant.samples[0].split(':');
+      const parts = variant.samples[0].split(":");
       const gt = parts[0];
       const converted = convertGT(gt, variant.ref, variant.alt);
       if (converted) genotype = converted;
@@ -489,28 +619,40 @@ function analyzeVariants(
 
     // Look up genotype-specific interpretation, fall back to '*' wildcard
     // (used by ClinVar-expanded entries where per-genotype data isn't available)
-    const genotypeData = interpretation.genotypes[genotype] || interpretation.genotypes['*'];
+    const genotypeData =
+      interpretation.genotypes[genotype] || interpretation.genotypes["*"];
     if (!genotypeData) continue;
 
     const priority = genotypeData.priority;
-    const isRisk = priority === 'high' || priority === 'medium';
+    const isRisk = priority === "high" || priority === "medium";
 
     // Infer tag from category if not present
-    const tag = interpretation.tag || CATEGORY_TAGS[interpretation.category] || 'ℹ️ Dietary Rule';
-    const isSuperpower = tag.includes('Superpower');
+    const tag =
+      interpretation.tag ||
+      CATEGORY_TAGS[interpretation.category] ||
+      "ℹ️ Dietary Rule";
+    const isSuperpower = tag.includes("Superpower");
 
     // Build evidence string
-    const evidence = `${interpretation.display || interpretation.name} (${genotype}) - ${genotypeData.effect || genotypeData.interpretation}`;
+    const evidence = `${
+      interpretation.display || interpretation.name
+    } (${genotype}) - ${genotypeData.effect || genotypeData.interpretation}`;
 
     // Build theWhy and scienceSimplified from available data
-    const theWhy = interpretation.theWhy || genotypeData.theWhy || `${interpretation.gene} ${interpretation.name} variant affects ${interpretation.category}`;
-    const scienceSimplified = genotypeData.scienceSimplified || interpretation.scienceSimplified || genotypeData.interpretation;
+    const theWhy =
+      interpretation.theWhy ||
+      genotypeData.theWhy ||
+      `${interpretation.gene} ${interpretation.name} variant affects ${interpretation.category}`;
+    const scienceSimplified =
+      genotypeData.scienceSimplified ||
+      interpretation.scienceSimplified ||
+      genotypeData.interpretation;
 
     // Create superpower items
     if (isSuperpower) {
       superpowers.push({
         itemName: interpretation.name,
-        tag: tag as '🟢 Superpower',
+        tag: tag as "🟢 Superpower",
         evidence: `${interpretation.gene} ${interpretation.name}`,
         advantage: genotypeData.interpretation,
         rsid: variant.id,
@@ -527,20 +669,21 @@ function analyzeVariants(
 
       topRisks.push({
         itemName: `${interpretation.gene} ${interpretation.name}`,
-        tag: tag as '🛑 Risk Mitigation',
+        tag: tag as "🛑 Risk Mitigation",
         priority: riskPriority,
         evidence: `${interpretation.gene} ${interpretation.name} (${variant.id})`,
         scienceSimplified: scienceSimplified,
-        supplementation: genotypeData.recommendations?.join(', '),
+        supplementation: genotypeData.recommendations?.join(", "),
         evidenceTier: interpretation.evidenceTier,
       });
 
       // Add alerts for medical or dietary variants
-      if (tag.includes('Medical Alert') || tag.includes('Dietary Rule')) {
-        const action = genotypeData.action || generateAction(interpretation.gene, genotype);
+      if (tag.includes("Medical Alert") || tag.includes("Dietary Rule")) {
+        const action =
+          genotypeData.action || generateAction(interpretation.gene, genotype);
         alerts.push({
           itemName: interpretation.gene,
-          tag: tag as '⚠️ Medical Alert' | 'ℹ️ Dietary Rule',
+          tag: tag as "⚠️ Medical Alert" | "ℹ️ Dietary Rule",
           evidence,
           action,
           gene: interpretation.gene,
@@ -552,9 +695,9 @@ function analyzeVariants(
 
     // Collect supplements - use genotypeData.supplements or interpretation.supplements or fall back to defaults
     const geneSupplements = normalizeSupplementBuckets(
-      genotypeData.supplements
-        || interpretation.supplements
-        || getDefaultSupplements(interpretation.gene)
+      genotypeData.supplements ||
+        interpretation.supplements ||
+        getDefaultSupplements(interpretation.gene)
     );
 
     for (const [timing, supps] of Object.entries(geneSupplements)) {
@@ -577,14 +720,18 @@ function analyzeVariants(
 
 function generateAction(gene: string, genotype: string): string {
   switch (gene) {
-    case 'CYP1A2':
-      return genotype === 'CC' ? 'Limit caffeine, avoid after 12:00 PM' : 'Moderate caffeine intake';
-    case 'LCT':
-      return genotype === 'GG' ? 'Avoid dairy or use lactase supplements' : 'Monitor dairy tolerance';
-    case 'HLA':
-      return 'Consider gluten-free diet, test for celiac';
+    case "CYP1A2":
+      return genotype === "CC"
+        ? "Limit caffeine, avoid after 12:00 PM"
+        : "Moderate caffeine intake";
+    case "LCT":
+      return genotype === "GG"
+        ? "Avoid dairy or use lactase supplements"
+        : "Monitor dairy tolerance";
+    case "HLA":
+      return "Consider gluten-free diet, test for celiac";
     default:
-      return 'Monitor and follow up with healthcare provider';
+      return "Monitor and follow up with healthcare provider";
   }
 }
 
@@ -614,13 +761,13 @@ function categorizeSupplements(supplements: Supplement[]): {
 
   for (const supp of supplements) {
     switch (supp.timing) {
-      case 'morning':
+      case "morning":
         morning.push(supp);
         break;
-      case 'prePerformance':
+      case "prePerformance":
         prePerformance.push(supp);
         break;
-      case 'night':
+      case "night":
         night.push(supp);
         break;
     }
@@ -635,7 +782,6 @@ function categorizeSupplements(supplements: Supplement[]): {
 
 export interface AnalyzeVCFOptions {
   annotated?: boolean;
-  annotationDepth?: 'compact' | 'full_dbsnp';
   save?: boolean;
   outputDir?: string;
   interpretationsDir?: string;
@@ -666,7 +812,7 @@ export interface AnalyzeVCFResult {
 /**
  * Detected file formats.
  */
-export type GenomicFileFormat = 'vcf' | '23andme' | 'ancestrydna' | 'unknown';
+export type GenomicFileFormat = "vcf" | "23andme" | "ancestrydna" | "unknown";
 
 /**
  * Auto-detect the genomic data file format.
@@ -682,61 +828,74 @@ export function detectFileFormat(vcfPath: string): GenomicFileFormat {
   if (!fs.existsSync(vcfPath)) {
     throw new Error(
       `File not found: ${vcfPath}\n\n` +
-      `Please check the path and try again. ` +
-      `Supported formats: VCF (Dante Labs WGS, any whole-genome sequencing), ` +
-      `23andMe raw data export, AncestryDNA raw data export.`
+        `Please check the path and try again. ` +
+        `Supported formats: VCF (Dante Labs WGS, any whole-genome sequencing), ` +
+        `23andMe raw data export, AncestryDNA raw data export.`
     );
   }
 
   const ext = path.extname(vcfPath).toLowerCase();
 
   // Read first 4KB of the file
-  const fd = fs.openSync(vcfPath, 'r');
+  const fd = fs.openSync(vcfPath, "r");
   const buf = Buffer.alloc(4096);
   fs.readSync(fd, buf, 0, 4096, 0);
   fs.closeSync(fd);
 
   // Handle gzipped files: try reading via zcat
   let header: string;
-  if (ext === '.gz') {
+  if (ext === ".gz") {
     try {
-      header = execSync(`zcat -f "${vcfPath}" 2>/dev/null | head -200`, { encoding: 'utf8', timeout: 10000 });
+      header = execSync(`zcat -f "${vcfPath}" 2>/dev/null | head -200`, {
+        encoding: "utf8",
+        timeout: 10000,
+      });
     } catch {
-      header = buf.toString('utf8').slice(0, 1000);
+      header = buf.toString("utf8").slice(0, 1000);
     }
   } else {
-    header = buf.toString('utf8');
+    header = buf.toString("utf8");
   }
 
   // VCF detection: starts with ##fileformat=VCF
-  if (header.includes('##fileformat=VCF')) {
-    return 'vcf';
+  if (header.includes("##fileformat=VCF")) {
+    return "vcf";
   }
 
   // 23andMe detection: tab-separated, starts with # rsid header
-  if (header.includes('# rsid') && header.includes('\t')) {
-    return '23andme';
+  if (header.includes("# rsid") && header.includes("\t")) {
+    return "23andme";
   }
 
   // AncestryDNA detection: tab-separated, rsid column in header
   // AncestryDNA headers look like: rsid\tchromosome\tposition\tallele1\tallele2
-  if (header.includes('rsid') && header.includes('\t') && !header.startsWith('#') && !header.startsWith('##')) {
-    return 'ancestrydna';
+  if (
+    header.includes("rsid") &&
+    header.includes("\t") &&
+    !header.startsWith("#") &&
+    !header.startsWith("##")
+  ) {
+    return "ancestrydna";
   }
 
   // Last attempt: check raw bytes for text patterns
-  const raw = buf.toString('utf8', 0, Math.min(buf.length, 500));
-  if (raw.includes('##fileformat=VCF')) {
-    return 'vcf';
+  const raw = buf.toString("utf8", 0, Math.min(buf.length, 500));
+  if (raw.includes("##fileformat=VCF")) {
+    return "vcf";
   }
-  if (raw.includes('# rsid') && raw.includes('\t')) {
-    return '23andme';
+  if (raw.includes("# rsid") && raw.includes("\t")) {
+    return "23andme";
   }
-  if (raw.includes('rsid') && raw.includes('\t') && !raw.startsWith('#') && !raw.startsWith('##')) {
-    return 'ancestrydna';
+  if (
+    raw.includes("rsid") &&
+    raw.includes("\t") &&
+    !raw.startsWith("#") &&
+    !raw.startsWith("##")
+  ) {
+    return "ancestrydna";
   }
 
-  return 'unknown';
+  return "unknown";
 }
 
 /**
@@ -754,7 +913,6 @@ export async function analyzeVCF(
 ): Promise<AnalyzeVCFResult> {
   const {
     annotated: isPreAnnotated = false,
-    annotationDepth = 'compact',
     save = true,
     outputDir: customOutputDir,
     interpretationsDir: customInterpDir,
@@ -764,48 +922,60 @@ export async function analyzeVCF(
   if (!fs.existsSync(vcfPath)) {
     throw new Error(
       `File not found: ${vcfPath}\n\n` +
-      `Please check the path and try again. ` +
-      `Supported formats: VCF (Dante Labs WGS, any whole-genome sequencing), ` +
-      `23andMe raw data export, AncestryDNA raw data export.`
+        `Please check the path and try again. ` +
+        `Supported formats: VCF (Dante Labs WGS, any whole-genome sequencing), ` +
+        `23andMe raw data export, AncestryDNA raw data export.`
     );
   }
 
   // Preflight: detect format and warn on SNP arrays (reduced coverage)
   const format = detectFileFormat(vcfPath);
-  if (format === 'unknown') {
+  if (format === "unknown") {
     throw new Error(
       `Unrecognized file format: ${vcfPath}\n\n` +
-      `Supported formats:\n` +
-      `  1. VCF (.vcf or .vcf.gz) — Dante Labs WGS, any whole-genome sequencing\n` +
-      `  2. 23andMe raw data export — tab-separated text file (header: # rsid...)\n` +
-      `  3. AncestryDNA raw data export — tab-separated text file (header: rsid...)\n\n` +
-      `The file you provided does not appear to match any supported format. ` +
-      `Please check:\n` +
-      `  - Is the file a valid genetic data export?\n` +
-      `  - If zipped (.gz), is it gzip-compressed VCF?\n` +
-      `  - If 23andMe/AncestryDNA, did you download the 'Raw Data' export?`
+        `Supported formats:\n` +
+        `  1. VCF (.vcf or .vcf.gz) — Dante Labs WGS, any whole-genome sequencing\n` +
+        `  2. 23andMe raw data export — tab-separated text file (header: # rsid...)\n` +
+        `  3. AncestryDNA raw data export — tab-separated text file (header: rsid...)\n\n` +
+        `The file you provided does not appear to match any supported format. ` +
+        `Please check:\n` +
+        `  - Is the file a valid genetic data export?\n` +
+        `  - If zipped (.gz), is it gzip-compressed VCF?\n` +
+        `  - If 23andMe/AncestryDNA, did you download the 'Raw Data' export?`
     );
   }
-  if (format === '23andme' || format === 'ancestrydna') {
-    const label = format === '23andme' ? '23andMe' : 'AncestryDNA';
-    console.log(`📋 Detected ${label} format — running reduced pipeline (marker matching only).`);
-    console.log('   ClinVar, CPIC, and VEP enrichment will be skipped (low SNP coverage).');
+  if (format === "23andme" || format === "ancestrydna") {
+    const label = format === "23andme" ? "23andMe" : "AncestryDNA";
+    console.log(
+      `📋 Detected ${label} format — running reduced pipeline (marker matching only).`
+    );
+    console.log(
+      "   ClinVar, CPIC, and VEP enrichment will be skipped (low SNP coverage)."
+    );
   }
 
   const vcfDir = path.dirname(vcfPath);
   const vcfBasename = path.basename(vcfPath, path.extname(vcfPath));
-  const interpretationsDir = customInterpDir || path.join(path.dirname(fileURLToPath(import.meta.url)), '..', '..', 'shared', 'interpretations');
+  const interpretationsDir =
+    customInterpDir ||
+    path.join(
+      path.dirname(fileURLToPath(import.meta.url)),
+      "..",
+      "..",
+      "shared",
+      "interpretations"
+    );
 
   // Step 1: Annotate with rsIDs if needed
   let finalVCFPath = vcfPath;
-  let rsidAnnotationSource = 'provided_in_input';
-  let rsidAnnotationLimitation = 'rsIDs were already present in the input VCF.';
+  let rsidAnnotationSource = "provided_in_input";
+  let rsidAnnotationLimitation = "rsIDs were already present in the input VCF.";
 
   if (!isPreAnnotated) {
-    console.log('📋 Step 1: Checking if annotation is needed...');
+    console.log("📋 Step 1: Checking if annotation is needed...");
 
     const sampleVariant = parseVCF(vcfPath)[0];
-    let needsAnnotation = !sampleVariant?.id?.startsWith('rs');
+    let needsAnnotation = !sampleVariant?.id?.startsWith("rs");
     try {
       const doctor = runVcfDoctor(vcfPath);
       if (doctor.likely_wgs && doctor.rsid_density < 0.1) {
@@ -816,126 +986,186 @@ export async function analyzeVCF(
     }
 
     if (needsAnnotation) {
-      console.log('   VCF lacks rsID annotations, annotating with dbSNP...');
+      console.log("   VCF lacks rsID annotations, annotating with dbSNP...");
 
-      const annotatedPath = path.join(vcfDir, `${vcfBasename}.annotated.vcf.gz`);
+      const annotatedPath = path.join(
+        vcfDir,
+        `${vcfBasename}.annotated.vcf.gz`
+      );
 
-      if (fs.existsSync(annotatedPath)) {
+      const existingAnnotationHasRsids =
+        fs.existsSync(annotatedPath) &&
+        runVcfDoctor(annotatedPath).rsid_variants > 0;
+      if (existingAnnotationHasRsids) {
         console.log(`   Using existing annotation: ${annotatedPath}`);
         finalVCFPath = annotatedPath;
-        rsidAnnotationSource = 'existing_annotated_vcf';
-        rsidAnnotationLimitation = 'Using a previously generated annotated VCF. Confirm the annotation reference if provenance matters.';
+        rsidAnnotationSource = "existing_annotated_vcf";
+        rsidAnnotationLimitation =
+          "Using a previously generated annotated VCF. Confirm the annotation reference if provenance matters.";
       } else {
+        if (fs.existsSync(annotatedPath)) {
+          console.log(
+            "   Ignoring existing annotation because it contains zero rsIDs; regenerating it."
+          );
+          try {
+            fs.unlinkSync(annotatedPath);
+          } catch {}
+          try {
+            fs.unlinkSync(`${annotatedPath}.csi`);
+          } catch {}
+          try {
+            fs.unlinkSync(`${annotatedPath}.tbi`);
+          } catch {}
+        }
         // Prefer the lean ClinVar-derived annotation TSV (22MB, bundled in repo) over the
-        // full dbSNP (26GB, external). Falls back to dbSNP if the lean reference is absent.
+        // full dbSNP (26GB, external). An explicit dbSNP path opts into full coverage.
         const packageDir = getPackageDir();
-        const refDir = path.resolve(packageDir, '..', '..', 'reference');
+        const refDir = path.resolve(packageDir, "..", "..", "reference");
         const leanAnnotPath = findClinVarAnnotationReference(packageDir);
-        const leanAnnotIndex = leanAnnotPath ? `${leanAnnotPath}.tbi` : '';
-        const dbsnpPath = customDbsnpPath || path.join(refDir, 'dbsnp/GCF_000001405.25.gz');
+        const leanAnnotIndex = leanAnnotPath ? `${leanAnnotPath}.tbi` : "";
+        const dbsnpPath =
+          customDbsnpPath || path.join(refDir, "dbsnp/GCF_000001405.25.gz");
         const disclosure = getClinVarDisclosure(packageDir);
 
-        const useLeanAnnot = annotationDepth !== 'full_dbsnp'
-          && (leanAnnotPath ? fs.existsSync(leanAnnotPath) && fs.existsSync(leanAnnotIndex) : false);
-        // NCBI publishes a tabix (.tbi) sidecar for this GRCh37 VCF. Accept
-        // either index format so the official archive can be mounted without
-        // rebuilding a second, multi-gigabyte reference index.
-        const useDbsnp = !useLeanAnnot && fs.existsSync(dbsnpPath)
-          && (fs.existsSync(dbsnpPath + '.csi') || fs.existsSync(dbsnpPath + '.tbi'));
+        const useLeanAnnot =
+          !customDbsnpPath &&
+          leanAnnotPath !== undefined &&
+          fs.existsSync(leanAnnotPath) &&
+          fs.existsSync(leanAnnotIndex);
+        const useDbsnp =
+          fs.existsSync(dbsnpPath) &&
+          (fs.existsSync(`${dbsnpPath}.csi`) ||
+            fs.existsSync(`${dbsnpPath}.tbi`));
 
         if (!useLeanAnnot && !useDbsnp) {
           throw new Error(
-            'No rsID annotation reference found.\n' +
-            '  Expected (lean, bundled): reference/clinvar/clinvar_rsid_annotation.tsv.gz\n' +
-            '  Optional (full dbSNP):    ../../reference/dbsnp/GCF_000001405.25.gz\n' +
-            'Run: npm run setup:rsids'
+            "No rsID annotation reference found.\n" +
+              "  Expected (lean, bundled): reference/clinvar/clinvar_rsid_annotation.tsv.gz\n" +
+              "  Optional (full dbSNP):    ../../reference/dbsnp/GCF_000001405.25.gz\n" +
+              "Run: npm run setup:rsids"
           );
         }
 
-        console.log(useLeanAnnot ? '   Annotating with lean ClinVar rsID reference...' : '   Annotating with dbSNP GRCh37 (26GB)...');
+        console.log(
+          useLeanAnnot
+            ? "   Annotating with lean ClinVar rsID reference..."
+            : "   Annotating with dbSNP GRCh37 (26GB)..."
+        );
         if (useLeanAnnot) {
           console.log(`   Scope: ${disclosure.limitation}`);
-          rsidAnnotationSource = 'ClinVar GRCh37 rsID subset';
+          rsidAnnotationSource = "ClinVar GRCh37 rsID subset";
           rsidAnnotationLimitation = disclosure.limitation;
         } else {
-          rsidAnnotationSource = 'dbSNP GRCh37';
-          rsidAnnotationLimitation = 'Full dbSNP rsID annotation was used when available locally.';
+          rsidAnnotationSource = "dbSNP GRCh37";
+          rsidAnnotationLimitation =
+            "Full dbSNP rsID annotation was used when available locally.";
         }
         try {
-          const normalizedPath = path.join(vcfDir, `${vcfBasename}.normalized.vcf.gz`);
-          console.log('   Compressing and normalizing VCF...');
-          execSync(`zcat -f "${vcfPath}" | bgzip > "${normalizedPath}"`, { stdio: 'inherit', shell: '/bin/bash' });
-          execSync(`bcftools index "${normalizedPath}"`, { stdio: 'inherit', shell: '/bin/bash' });
+          const normalizedPath = path.join(
+            vcfDir,
+            `${vcfBasename}.normalized.vcf.gz`
+          );
+          const renamedPath = path.join(
+            vcfDir,
+            `${vcfBasename}.annotation-contigs.vcf.gz`
+          );
+          const contigMapPath = path.join(
+            vcfDir,
+            `${vcfBasename}.annotation-contigs.tsv`
+          );
+          console.log("   Compressing and normalizing VCF...");
+          execSync(`zcat -f "${vcfPath}" | bgzip > "${normalizedPath}"`, {
+            stdio: "inherit",
+            shell: "/bin/bash",
+          });
+          execSync(`bcftools index "${normalizedPath}"`, {
+            stdio: "inherit",
+            shell: "/bin/bash",
+          });
+
+          const renameEntries = writeVcfContigRenameMap(
+            normalizedPath,
+            useLeanAnnot ? "clinvar-grch37" : "dbsnp-grch37",
+            contigMapPath
+          );
+          const annotationInput = renameEntries.length
+            ? renamedPath
+            : normalizedPath;
+          if (renameEntries.length) {
+            console.log(
+              `   Normalizing ${renameEntries.length} contig name${
+                renameEntries.length === 1 ? "" : "s"
+              } for ${
+                useLeanAnnot ? "the ClinVar GRCh37" : "the dbSNP GRCh37"
+              } reference...`
+            );
+            execSync(
+              `bcftools annotate --rename-chrs "${contigMapPath}" -Oz -o "${renamedPath}" "${normalizedPath}"`,
+              { stdio: "pipe" }
+            );
+            execSync(`bcftools index "${renamedPath}"`, { stdio: "pipe" });
+          }
 
           if (useLeanAnnot) {
-            // Lean path: bcftools annotate with the tabix-indexed TSV (chr:pos:ref:alt → rsID).
-            // The TSV uses numeric chromosomes (1, 2, ...) matching standard VCF convention.
-            console.log('   Running bcftools annotate with ClinVar rsID TSV...');
-            execSync(
-              `bcftools annotate -a "${leanAnnotPath}" -c CHROM,POS,REF,ALT,ID -Oz -o "${annotatedPath}" --threads 4 "${normalizedPath}" 2>&1`,
-              { stdio: 'pipe' }
-            );
-          } else {
-            // Full dbSNP path: requires chromosome renaming (chr1 → NC_000001.10)
-            const chrMapPath = path.join(vcfDir, '.chr-map.txt');
-            const chrMapContent = [
-              'chr1\tNC_000001.10', 'chr2\tNC_000002.11', 'chr3\tNC_000003.12',
-              'chr4\tNC_000004.12', 'chr5\tNC_000005.10', 'chr6\tNC_000006.11',
-              'chr7\tNC_000007.13', 'chr8\tNC_000008.11', 'chr9\tNC_000009.11',
-              'chr10\tNC_000010.11', 'chr11\tNC_000011.10', 'chr12\tNC_000012.12',
-              'chr13\tNC_000013.11', 'chr14\tNC_000014.9', 'chr15\tNC_000015.10',
-              'chr16\tNC_000016.10', 'chr17\tNC_000017.11', 'chr18\tNC_000018.10',
-              'chr19\tNC_000019.10', 'chr20\tNC_000020.11', 'chr21\tNC_000021.9',
-              'chr22\tNC_000022.11', 'chrX\tNC_000023.4', 'chrY\tNC_000024.10',
-              'chrM\tNC_012920.1', 'chrMT\tNC_012920.1',
-            ].join('\n');
-            fs.writeFileSync(chrMapPath, chrMapContent);
-
-            const renamedPath = path.join(vcfDir, `${vcfBasename}.renamed.vcf.gz`);
-            console.log('   Renaming chromosomes (chr1 → NC_000001.10)...');
-            execSync(`bcftools annotate --rename-chrs "${chrMapPath}" "${normalizedPath}" -o "${renamedPath}"`, { stdio: 'pipe' });
-            execSync(`bcftools index "${renamedPath}"`, { stdio: 'pipe' });
-
-            console.log('   Running bcftools annotate with dbSNP rsIDs...');
-            // NCBI's official VCF stores the numeric rs number in INFO/RS and
-            // leaves the VCF ID column as '.'. Add that field first, then set
-            // the target ID to the conventional `rs< number >` form.
-            const rsInfoPath = path.join(vcfDir, `${vcfBasename}.rs-info.vcf.gz`);
-            const rsHeaderPath = path.join(vcfDir, '.dbsnp-rs-header.txt');
-            fs.writeFileSync(rsHeaderPath, '##INFO=<ID=RS,Number=1,Type=Integer,Description="dbSNP rs number">\n');
-            execSync(
-              `bcftools annotate -a "${dbsnpPath}" -h "${rsHeaderPath}" -c CHROM,POS,REF,ALT,INFO/RS -Oz -o "${rsInfoPath}" --threads 8 "${renamedPath}" 2>&1`,
-              { stdio: 'pipe' }
+            // Lean path: the tabix-indexed TSV expects numeric GRCh37 chromosomes.
+            console.log(
+              "   Running bcftools annotate with ClinVar rsID TSV..."
             );
             execSync(
-              `bcftools annotate -I 'rs%INFO/RS' -Oz -o "${annotatedPath}" --threads 8 "${rsInfoPath}" 2>&1`,
-              { stdio: 'pipe' }
+              `bcftools annotate -a "${leanAnnotPath}" -c CHROM,POS,REF,ALT,ID -Oz -o "${annotatedPath}" --threads 4 "${annotationInput}" 2>&1`,
+              { stdio: "pipe" }
             );
-            try { fs.unlinkSync(rsInfoPath); } catch {}
-            try { fs.unlinkSync(rsHeaderPath); } catch {}
-            try { fs.unlinkSync(renamedPath); } catch {}
-            try { fs.unlinkSync(renamedPath + '.csi'); } catch {}
-            try { fs.unlinkSync(chrMapPath); } catch {}
+          }
+          if (!useLeanAnnot) {
+            console.log("   Running bcftools annotate with dbSNP rsIDs...");
+            execSync(
+              `bcftools annotate -a "${dbsnpPath}" -c ID -Oz -o "${annotatedPath}" --threads 8 "${annotationInput}" 2>&1`,
+              { stdio: "pipe" }
+            );
           }
 
           if (!fs.existsSync(annotatedPath)) {
-            throw new Error('bcftools annotate failed to produce output file');
+            throw new Error("bcftools annotate failed to produce output file");
           }
 
-          execSync(`bcftools index "${annotatedPath}"`, { stdio: 'pipe' });
+          execSync(`bcftools index "${annotatedPath}"`, { stdio: "pipe" });
 
-          const annotatedContent = execSync(`gunzip -c "${annotatedPath}" | grep -v "^#" | cut -f3 | grep "^rs" | wc -l`, { encoding: 'utf8' });
+          const annotatedContent = execSync(
+            `gunzip -c "${annotatedPath}" | grep -v "^#" | cut -f3 | grep "^rs" | wc -l`,
+            { encoding: "utf8" }
+          );
           const rsidCount = parseInt(annotatedContent.trim(), 10);
 
           if (rsidCount === 0) {
-            console.error('   ⚠️  WARNING: Annotation completed but NO rsIDs were added.');
-            console.error('   This may indicate a coordinate system mismatch (GRCh38 vs GRCh37).');
+            throw new Error(
+              `rsID annotation added zero identifiers after ${
+                useLeanAnnot ? "ClinVar" : "dbSNP"
+              } contig normalization. Confirm the genome build and reference provenance before retrying.`
+            );
           } else {
-            console.log(`   ✅ Annotation complete: ${rsidCount.toLocaleString()} variants received rsIDs`);
+            console.log(
+              `   ✅ Annotation complete: ${rsidCount.toLocaleString()} variants received rsIDs`
+            );
           }
 
-          try { fs.unlinkSync(normalizedPath); } catch {}
-          try { fs.unlinkSync(normalizedPath + '.csi'); } catch {}
+          try {
+            fs.unlinkSync(normalizedPath);
+          } catch {}
+          try {
+            fs.unlinkSync(normalizedPath + ".csi");
+          } catch {}
+          try {
+            fs.unlinkSync(renamedPath);
+          } catch {}
+          try {
+            fs.unlinkSync(`${renamedPath}.csi`);
+          } catch {}
+          try {
+            fs.unlinkSync(`${renamedPath}.tbi`);
+          } catch {}
+          try {
+            fs.unlinkSync(contigMapPath);
+          } catch {}
 
           finalVCFPath = annotatedPath;
         } catch (err) {
@@ -944,16 +1174,21 @@ export async function analyzeVCF(
         }
       }
     } else {
-      console.log('   VCF already has rsID annotations');
+      console.log("   VCF already has rsID annotations");
     }
   } else {
-    rsidAnnotationSource = 'preannotated_input';
-    rsidAnnotationLimitation = 'The caller marked this VCF as preannotated. The pipeline did not add or verify rsIDs.';
+    rsidAnnotationSource = "preannotated_input";
+    rsidAnnotationLimitation =
+      "The caller marked this VCF as preannotated. The pipeline did not add or verify rsIDs.";
   }
 
   // Step 1a: VEP functional annotation (optional — skipped if VEP not installed)
-  console.log('\n🧬 Step 1a: Running VEP functional annotation (optional)...');
-  let vepResult: { annotations: Map<string, VEPAnnotation>; highImpactCount: number; moderateImpactCount: number } | null = null;
+  console.log("\n🧬 Step 1a: Running VEP functional annotation (optional)...");
+  let vepResult: {
+    annotations: Map<string, VEPAnnotation>;
+    highImpactCount: number;
+    moderateImpactCount: number;
+  } | null = null;
   try {
     const vep = annotateWithVEP(finalVCFPath);
     if (vep) {
@@ -962,31 +1197,38 @@ export async function analyzeVCF(
         highImpactCount: vep.highImpactCount,
         moderateImpactCount: vep.moderateImpactCount,
       };
-      console.log(`   VEP annotations: ${vep.totalAnnotated} (${vep.highImpactCount} HIGH impact, ${vep.moderateImpactCount} MODERATE)`);
+      console.log(
+        `   VEP annotations: ${vep.totalAnnotated} (${vep.highImpactCount} HIGH impact, ${vep.moderateImpactCount} MODERATE)`
+      );
     }
   } catch (err) {
-    console.warn('   ⚠️  VEP annotation step failed, continuing without functional annotation');
+    console.warn(
+      "   ⚠️  VEP annotation step failed, continuing without functional annotation"
+    );
   }
 
   // Step 2: Load interpretations first (to get target rsIDs for efficient parsing)
-  console.log('\n🧪 Step 2: Loading interpretation database...');
+  console.log("\n🧪 Step 2: Loading interpretation database...");
   const interpretations = loadInterpretations(interpretationsDir);
   const targetRSIDs = Array.from(interpretations.keys());
   console.log(`   Markers loaded: ${interpretations.size}`);
 
   // Step 3: Parse VCF (only extract variants matching our interpretation DB rsIDs)
-  console.log('\n📖 Step 3: Extracting relevant variants from VCF...');
-  const { variants, totalVariants, annotatedCount } = parseVCFWithRSIDs(finalVCFPath, targetRSIDs);
+  console.log("\n📖 Step 3: Extracting relevant variants from VCF...");
+  const { variants, totalVariants, annotatedCount } = parseVCFWithRSIDs(
+    finalVCFPath,
+    targetRSIDs
+  );
   console.log(`   Total variants in VCF: ${totalVariants.toLocaleString()}`);
   console.log(`   Variants matched: ${variants.length}`);
 
   // Step 4: Build rsID map
-  console.log('\n🗺️  Step 4: Building rsID lookup map...');
+  console.log("\n🗺️  Step 4: Building rsID lookup map...");
   const rsidMap = buildRSIDMap(variants);
   console.log(`   Unique rsIDs: ${rsidMap.size.toLocaleString()}`);
 
   // Step 5: Analyze variants
-  console.log('\n🔬 Step 5: Analyzing variants against database...');
+  console.log("\n🔬 Step 5: Analyzing variants against database...");
   const { alerts, superpowers, topRisks, supplements } = analyzeVariants(
     variants,
     rsidMap,
@@ -1001,17 +1243,19 @@ export async function analyzeVCF(
   // Single-pass extraction of all rs-annotated variants with genotypes.
   // Reuses the same bcftools query output for both ClinVar rsID lookup and CPIC genotype matching,
   // replacing two separate full-file decompression passes with one.
-  console.log('\n🔍 Extracting all rsIDs + genotypes from full VCF (single pass)...');
+  console.log(
+    "\n🔍 Extracting all rsIDs + genotypes from full VCF (single pass)..."
+  );
   const allGenotypes = new Map<string, string>();
   const allRSIDs: string[] = [];
   try {
     const genotypeLines = execSync(
       `bcftools query -f '%ID\\t%REF\\t%ALT[\\t%GT]\\n' "${finalVCFPath}" | awk -F'\\t' '$1 ~ /^rs/'`,
-      { encoding: 'utf8', maxBuffer: 500 * 1024 * 1024, timeout: 180000 }
+      { encoding: "utf8", maxBuffer: 500 * 1024 * 1024, timeout: 180000 }
     );
-    for (const line of genotypeLines.trim().split('\n')) {
+    for (const line of genotypeLines.trim().split("\n")) {
       if (!line.trim()) continue;
-      const [rsid, ref, alt, gtRaw] = line.split('\t');
+      const [rsid, ref, alt, gtRaw] = line.split("\t");
       if (!rsid) continue;
       allRSIDs.push(rsid);
       if (ref && alt && gtRaw && !allGenotypes.has(rsid)) {
@@ -1023,42 +1267,64 @@ export async function analyzeVCF(
     // Replace allRSIDs array in-place for ClinVar lookup below
     allRSIDs.length = 0;
     allRSIDs.push(...uniqueRSIDs);
-    console.log(`   ${allRSIDs.length.toLocaleString()} unique rsIDs, ${allGenotypes.size.toLocaleString()} with genotypes`);
+    console.log(
+      `   ${allRSIDs.length.toLocaleString()} unique rsIDs, ${allGenotypes.size.toLocaleString()} with genotypes`
+    );
   } catch (err) {
     // bcftools unavailable — fall back to zcat single pass
     try {
       const genotypeLines = execSync(
         `zcat -f "${finalVCFPath}" | grep -v "^#" | awk -F'\\t' '{if($3 ~ /^rs/) print $3"\\t"$4"\\t"$5"\\t"$10}'`,
-        { encoding: 'utf8', maxBuffer: 200 * 1024 * 1024 }
+        { encoding: "utf8", maxBuffer: 200 * 1024 * 1024 }
       );
-      for (const line of genotypeLines.trim().split('\n')) {
+      for (const line of genotypeLines.trim().split("\n")) {
         if (!line.trim()) continue;
-        const [rsid, ref, alt, sampleData] = line.split('\t');
+        const [rsid, ref, alt, sampleData] = line.split("\t");
         if (!rsid || !sampleData) continue;
         allRSIDs.push(rsid);
         if (!allGenotypes.has(rsid)) {
-          const gtRaw = sampleData.split(':')[0];
+          const gtRaw = sampleData.split(":")[0];
           const gt = convertGT(gtRaw, ref, alt);
           if (gt) allGenotypes.set(rsid, gt);
         }
       }
       console.log(`   ${allRSIDs.length.toLocaleString()} rsIDs found`);
     } catch {
-      console.warn(`   ⚠️  Genotype map build failed, continuing with reduced CPIC matching`);
+      console.warn(
+        `   ⚠️  Genotype map build failed, continuing with reduced CPIC matching`
+      );
     }
   }
 
   // Step 5b: ClinVar enrichment (all annotated rsIDs, no cap)
-  console.log('\n🏥 Step 5b: Cross-referencing against ClinVar...');
-  let clinvarAlerts: Array<{ itemName: string; tag: string; evidence: string; action: string; gene: string; rsid: string }> = [];
-  console.log(`   ClinVar lookup on ${allRSIDs.length.toLocaleString()} rsIDs...`);
+  console.log("\n🏥 Step 5b: Cross-referencing against ClinVar...");
+  let clinvarAlerts: Array<{
+    itemName: string;
+    tag: string;
+    evidence: string;
+    action: string;
+    gene: string;
+    rsid: string;
+  }> = [];
+  console.log(
+    `   ClinVar lookup on ${allRSIDs.length.toLocaleString()} rsIDs...`
+  );
   const clinvarResult = queryClinVarForRSIDs(allRSIDs);
   clinvarAlerts = generateClinVarAlerts(clinvarResult.annotations);
   console.log(`   ClinVar alerts generated: ${clinvarAlerts.length}`);
 
   // Step 5c: CPIC pharmacogenomic enrichment
-  console.log('\n💊 Step 5c: Pharmacogenomic analysis (CPIC drug-gene pairs)...');
-  let cpicAlerts: Array<{ itemName: string; tag: string; evidence: string; action: string; gene: string; rsid: string }> = [];
+  console.log(
+    "\n💊 Step 5c: Pharmacogenomic analysis (CPIC drug-gene pairs)..."
+  );
+  let cpicAlerts: Array<{
+    itemName: string;
+    tag: string;
+    evidence: string;
+    action: string;
+    gene: string;
+    rsid: string;
+  }> = [];
   // Use the full VCF genotype map (all rsIDs) for CPIC matching, not just the 191 targets
   const userGenotypes: Array<{ rsid: string; genotype: string }> = [];
   for (const [rsid, gt] of allGenotypes) {
@@ -1066,16 +1332,18 @@ export async function analyzeVCF(
   }
   const cpicResult = matchCPIC(userGenotypes);
   cpicAlerts = generateCPICAlerts(cpicResult);
-  console.log(`   CPIC matches: ${cpicResult.totalFound} (${cpicResult.levelAMatches} Level A, ${cpicResult.levelBMatches} Level B)`);
+  console.log(
+    `   CPIC matches: ${cpicResult.totalFound} (${cpicResult.levelAMatches} Level A, ${cpicResult.levelBMatches} Level B)`
+  );
 
   // Step 6: Build protocol
-  console.log('\n📝 Step 6: Generating Longevity Protocol...');
+  console.log("\n📝 Step 6: Generating Longevity Protocol...");
 
   const deduplicatedSupplements = deduplicateSupplements(supplements);
   const categorizedSupplements = categorizeSupplements(deduplicatedSupplements);
 
   const protocol: LongevityProtocol = {
-    version: '1.0.0',
+    version: "1.0.0",
     generated: new Date().toISOString(),
     source: {
       fileName: path.basename(vcfPath),
@@ -1087,42 +1355,66 @@ export async function analyzeVCF(
     },
     biologicalDossier: {},
     genomicProfile: {
-      alerts: [...alerts,
-        ...clinvarAlerts.filter(ca => ca.tag.includes('Medical Alert')),
-        ...cpicAlerts.filter(ca => ca.tag.includes('Medical Alert')),
+      alerts: [
+        ...alerts,
+        ...clinvarAlerts.filter((ca) => ca.tag.includes("Medical Alert")),
+        ...cpicAlerts.filter((ca) => ca.tag.includes("Medical Alert")),
       ],
-      superpowers: [...superpowers,
-        ...clinvarAlerts.filter(ca => ca.tag.includes('Superpower')).map(ca => ({
-          itemName: ca.itemName, tag: ca.tag as '🟢 Superpower', evidence: ca.evidence, advantage: ca.action,
-        })),
+      superpowers: [
+        ...superpowers,
+        ...clinvarAlerts
+          .filter((ca) => ca.tag.includes("Superpower"))
+          .map((ca) => ({
+            itemName: ca.itemName,
+            tag: ca.tag as "🟢 Superpower",
+            evidence: ca.evidence,
+            advantage: ca.action,
+          })),
       ],
-      topRisks: [...topRisks,
-        ...clinvarAlerts.filter(ca => ca.tag.includes('Risk Mitigation') || ca.tag.includes('Dietary Rule')).map((ca, i) => ({
-          itemName: ca.itemName, tag: ca.tag as '🛑 Risk Mitigation' | 'ℹ️ Dietary Rule',
-          priority: (Math.min(i + topRisks.length + 1, 3)) as 1 | 2 | 3,
-          evidence: ca.evidence, scienceSimplified: ca.action,
-        })),
-        ...cpicAlerts.filter(ca => !ca.tag.includes('Medical Alert')).map((ca, i) => ({
-          itemName: ca.itemName, tag: ca.tag as '🛑 Risk Mitigation' | 'ℹ️ Dietary Rule',
-          priority: (Math.min(i + topRisks.length + clinvarAlerts.length + 1, 3)) as 1 | 2 | 3,
-          evidence: ca.evidence, scienceSimplified: ca.action,
-        })),
+      topRisks: [
+        ...topRisks,
+        ...clinvarAlerts
+          .filter(
+            (ca) =>
+              ca.tag.includes("Risk Mitigation") ||
+              ca.tag.includes("Dietary Rule")
+          )
+          .map((ca, i) => ({
+            itemName: ca.itemName,
+            tag: ca.tag as "🛑 Risk Mitigation" | "ℹ️ Dietary Rule",
+            priority: Math.min(i + topRisks.length + 1, 3) as 1 | 2 | 3,
+            evidence: ca.evidence,
+            scienceSimplified: ca.action,
+          })),
+        ...cpicAlerts
+          .filter((ca) => !ca.tag.includes("Medical Alert"))
+          .map((ca, i) => ({
+            itemName: ca.itemName,
+            tag: ca.tag as "🛑 Risk Mitigation" | "ℹ️ Dietary Rule",
+            priority: Math.min(
+              i + topRisks.length + clinvarAlerts.length + 1,
+              3
+            ) as 1 | 2 | 3,
+            evidence: ca.evidence,
+            scienceSimplified: ca.action,
+          })),
       ],
     },
     dailyStack: categorizedSupplements,
     sourcingSafety: {
       formsToAvoid: [
-        'Cyanocobalamin (use methylcobalamin instead)',
-        'Synthetic folic acid (use methylfolate for MTHFR variants)',
-        'Calcium carbonate (poor absorption, use citrate)',
+        "Cyanocobalamin (use methylcobalamin instead)",
+        "Synthetic folic acid (use methylfolate for MTHFR variants)",
+        "Calcium carbonate (poor absorption, use citrate)",
       ],
-      brandCriteria: 'Only purchase supplements that are NSF Certified for Sport or GMP Certified. Recommended brands: Thorne, Pure Encapsulations, Life Extension, Momentous.',
+      brandCriteria:
+        "Only purchase supplements that are NSF Certified for Sport or GMP Certified. Recommended brands: Thorne, Pure Encapsulations, Life Extension, Momentous.",
     },
   };
 
   // Save protocol if requested
   const outputDir = customOutputDir || vcfDir;
-  const protocolPath = path.join(outputDir, 'longevity-protocol.json');
+  const protocolPath = path.join(outputDir, "longevity-protocol.json");
   if (save) {
     if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir, { recursive: true });
@@ -1132,26 +1424,46 @@ export async function analyzeVCF(
   }
 
   // Summary
-  console.log('\n' + '='.repeat(50));
-  console.log('📊 ANALYSIS SUMMARY');
-  console.log('='.repeat(50));
+  console.log("\n" + "=".repeat(50));
+  console.log("📊 ANALYSIS SUMMARY");
+  console.log("=".repeat(50));
   console.log(`   Source: ${protocol.source.fileName}`);
-  console.log(`   Total variants: ${protocol.source.variantCount.toLocaleString()}`);
-  console.log(`   Analyzed with rsIDs: ${protocol.source.annotatedCount.toLocaleString()}`);
-  console.log(`   Matched curated markers: ${(protocol.source.matchedMarkerCount ?? variants.length).toLocaleString()}`);
-  console.log(`   Matched in database: ${(alerts.length + superpowers.length + topRisks.length)}`);
-  console.log('\n   🏷️  Tags applied:');
+  console.log(
+    `   Total variants: ${protocol.source.variantCount.toLocaleString()}`
+  );
+  console.log(
+    `   Analyzed with rsIDs: ${protocol.source.annotatedCount.toLocaleString()}`
+  );
+  console.log(
+    `   Matched curated markers: ${(
+      protocol.source.matchedMarkerCount ?? variants.length
+    ).toLocaleString()}`
+  );
+  console.log(
+    `   Matched in database: ${
+      alerts.length + superpowers.length + topRisks.length
+    }`
+  );
+  console.log("\n   🏷️  Tags applied:");
   console.log(`      Alerts: ${alerts.length}`);
   console.log(`      Superpowers: ${superpowers.length}`);
   console.log(`      Top Risks: ${topRisks.length}`);
-  console.log('\n   💊 Supplements:');
+  console.log("\n   💊 Supplements:");
   console.log(`      Morning: ${categorizedSupplements.morning.length}`);
-  console.log(`      Pre-Performance: ${categorizedSupplements.prePerformance.length}`);
+  console.log(
+    `      Pre-Performance: ${categorizedSupplements.prePerformance.length}`
+  );
   console.log(`      Night: ${categorizedSupplements.night.length}`);
-  console.log('\n✅ Analysis complete! Protocol JSON ready for dashboard rendering.');
+  console.log(
+    "\n✅ Analysis complete! Protocol JSON ready for dashboard rendering."
+  );
 
   return {
-    protocol, protocolPath, variants, annotatedCount, rsidMap,
+    protocol,
+    protocolPath,
+    variants,
+    annotatedCount,
+    rsidMap,
     vepAnnotations: vepResult?.annotations,
     allRSIDs,
     allGenotypes,
@@ -1167,14 +1479,16 @@ export async function analyzeVCF(
 // ============================================================================
 
 async function run(argv: string[]) {
-  console.log('🧬 Genomic Analysis Pipeline');
-  console.log('============================\n');
+  console.log("🧬 Genomic Analysis Pipeline");
+  console.log("============================\n");
 
   const vcfPath = argv[2];
-  const isPreAnnotated = argv.includes('--annotated');
+  const isPreAnnotated = argv.includes("--annotated");
 
   if (!vcfPath) {
-    console.error('Usage: npx tsx scripts/analyze-vcf.ts <path-to-vcf-file> [--annotated]');
+    console.error(
+      "Usage: npx tsx scripts/analyze-vcf.ts <path-to-vcf-file> [--annotated]"
+    );
     process.exit(1);
   }
 
@@ -1195,7 +1509,7 @@ async function run(argv: string[]) {
 // Only execute CLI when run directly (not when imported as a module)
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   run(process.argv).catch((err) => {
-    console.error('Error:', err);
+    console.error("Error:", err);
     process.exit(1);
   });
 }

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Creates or reconciles the ForeverBetter Wellness API Stripe catalog.
+ * Creates or reconciles the ForeverBetter API Stripe catalog.
  *
  * Run where STRIPE_SECRET_KEY is available. It emits one JSON object so a
  * deployment command can consume generated IDs without printing credentials.
@@ -9,6 +9,8 @@
 const api = 'https://api.stripe.com/v1';
 const webhookUrl = 'https://api.foreverbetter.xyz/billing/stripe/webhook';
 const returnUrl = 'https://api.foreverbetter.xyz/dashboard';
+const productKey = 'foreverbetter-api';
+const compatibleProductKeys = new Set([productKey, 'longevity-api']);
 const secret = process.env.STRIPE_SECRET_KEY;
 if (!secret) throw new Error('STRIPE_SECRET_KEY is required.');
 
@@ -48,14 +50,22 @@ const products = await list('/products?active=true&limit=100');
 const prices = {};
 const planProducts = {};
 for (const plan of plans) {
-  let product = products.data?.find(item => item.metadata?.foreverbetter_product === 'longevity-api'
+  let product = products.data?.find(item => compatibleProductKeys.has(item.metadata?.foreverbetter_product)
     && item.metadata?.foreverbetter_tier === plan.id);
   if (!product) {
     product = await stripe('/products', {
-      name: `ForeverBetter Wellness API - ${plan.name}`,
+      name: `ForeverBetter API - ${plan.name}`,
       description: plan.description,
-      'metadata[foreverbetter_product]': 'longevity-api',
+      'metadata[foreverbetter_product]': productKey,
       'metadata[foreverbetter_tier]': plan.id,
+    });
+  } else if (product.metadata?.foreverbetter_product !== productKey
+    || product.name !== `ForeverBetter API - ${plan.name}`
+    || product.description !== plan.description) {
+    product = await stripe(`/products/${encodeURIComponent(product.id)}`, {
+      name: `ForeverBetter API - ${plan.name}`,
+      description: plan.description,
+      'metadata[foreverbetter_product]': productKey,
     });
   }
   planProducts[plan.id] = product.id;
@@ -72,7 +82,11 @@ for (const plan of plans) {
       'recurring[interval]': 'month',
       nickname: plan.name,
       'metadata[foreverbetter_tier]': plan.id,
-      'metadata[foreverbetter_product]': 'longevity-api',
+      'metadata[foreverbetter_product]': productKey,
+    });
+  } else if (price.metadata?.foreverbetter_product !== productKey) {
+    price = await stripe(`/prices/${encodeURIComponent(price.id)}`, {
+      'metadata[foreverbetter_product]': productKey,
     });
   }
   prices[plan.id] = price.id;
@@ -80,7 +94,7 @@ for (const plan of plans) {
 
 const portalParams = {
   default_return_url: returnUrl,
-  'business_profile[headline]': 'Manage your ForeverBetter Wellness API plan.',
+  'business_profile[headline]': 'Manage your ForeverBetter API plan.',
   'features[customer_update][enabled]': 'true',
   'features[customer_update][allowed_updates][0]': 'email',
   'features[invoice_history][enabled]': 'true',
@@ -110,7 +124,8 @@ if (configuredWebhookId) {
   await stripe(`/webhook_endpoints/${encodeURIComponent(configuredWebhookId)}`, webhookParams());
 } else {
   const endpoints = await list('/webhook_endpoints?limit=100');
-  const existing = endpoints.data?.find(item => item.url === webhookUrl && item.metadata?.foreverbetter_product === 'longevity-api');
+  const existing = endpoints.data?.find(item => item.url === webhookUrl
+    && compatibleProductKeys.has(item.metadata?.foreverbetter_product));
   if (existing) {
     webhookId = existing.id;
     await stripe(`/webhook_endpoints/${encodeURIComponent(webhookId)}`, webhookParams());
@@ -126,7 +141,7 @@ if (configuredWebhookId) {
 // prices, which Stripe's portal rejects. It was created during setup, has no
 // subscriptions, and can be cleanly archived after the replacement catalog is
 // configured.
-for (const legacyProduct of products.data?.filter(item => item.metadata?.foreverbetter_product === 'longevity-api' && !item.metadata?.foreverbetter_tier) ?? []) {
+for (const legacyProduct of products.data?.filter(item => compatibleProductKeys.has(item.metadata?.foreverbetter_product) && !item.metadata?.foreverbetter_tier) ?? []) {
   const legacyPrices = await list(`/prices?active=true&product=${encodeURIComponent(legacyProduct.id)}&limit=100`);
   for (const legacyPrice of legacyPrices.data ?? []) await stripe(`/prices/${encodeURIComponent(legacyPrice.id)}`, { active: 'false' });
   await stripe(`/products/${encodeURIComponent(legacyProduct.id)}`, { active: 'false' });
@@ -145,8 +160,8 @@ console.log(JSON.stringify({
 function webhookParams() {
   const params = {
     url: webhookUrl,
-    description: 'ForeverBetter Wellness API hosted billing',
-    'metadata[foreverbetter_product]': 'longevity-api',
+    description: 'ForeverBetter API hosted billing',
+    'metadata[foreverbetter_product]': productKey,
   };
   for (const [index, event] of events.entries()) params[`enabled_events[${index}]`] = event;
   return params;

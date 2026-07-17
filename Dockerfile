@@ -1,4 +1,4 @@
-# Multi-stage build for the Wellness API.
+# Multi-stage build for the ForeverBetter API.
 # The same image is reused for the API, the WGS worker, and the wearables
 # worker. The process is chosen by the PROCESS env var (see docker-entrypoint.sh).
 
@@ -42,9 +42,8 @@ COPY --from=builder /app/src ./src
 COPY tsconfig.json tsconfig.build.json ./
 
 # Bundled analyze-health skill used by the background health analysis worker.
-# The pipeline refreshes a small set of readiness artifacts in its bundled
-# output directory on every run. Keep the source bundle immutable in Git, but
-# make the runtime copy writable for the non-root worker user.
+# Request-specific analysis and WGS readiness files are written to the job's
+# output directory, leaving this shipped source bundle unchanged.
 COPY --chown=node:node vendor/health-analysis-skill ./vendor/health-analysis-skill
 ENV HEALTH_ANALYSIS_SKILL_DIR=/app/vendor/health-analysis-skill
 

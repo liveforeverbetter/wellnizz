@@ -16,7 +16,7 @@ async function main(): Promise<void> {
 
   const server = createHealthApiServer(configuredStore());
   server.listen(port, () => {
-    console.log(`ForeverBetter Wellness API listening on http://localhost:${port}`);
+    console.log(`ForeverBetter API listening on http://localhost:${port}`);
   });
 }
 

@@ -102,7 +102,7 @@ export interface CloudDashboardSpec {
   cards: CloudDashboardCard[];
   provenance: {
     source_ids: string[];
-    storage_mode: 'memory' | 'postgres';
+    storage_mode: 'memory' | 'supabase';
     clinical_boundary: string;
   };
 }

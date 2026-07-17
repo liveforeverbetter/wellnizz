@@ -8,13 +8,13 @@ The normal public path is still VCF-first: users provide a WGS VCF/VCF.GZ from a
 
 Classify the user file before running interpretation:
 
-| Input | Expected path | Interpretation depth |
-|---|---|---|
-| WGS VCF/VCF.GZ with rsIDs | Run directly through `npm run pipeline` | Best normal public path |
-| WGS VCF/VCF.GZ without rsIDs | Annotate or provide a position-to-rsID reference first | Strong after annotation |
-| SNP-array export | Run through reduced-coverage mode where supported | Limited to array markers |
-| BAM/CRAM/FASTQ | Run caller setup first, then feed generated VCFs to the dashboard pipeline | Advanced |
-| CNV/SV/repeat-only caller output | Normalize to VCF-like records, then validate/report by class | Advanced variant-class layer |
+| Input                            | Expected path                                                              | Interpretation depth         |
+| -------------------------------- | -------------------------------------------------------------------------- | ---------------------------- |
+| WGS VCF/VCF.GZ with rsIDs        | Run directly through `npm run pipeline`                                    | Best normal public path      |
+| WGS VCF/VCF.GZ without rsIDs     | Annotate or provide a position-to-rsID reference first                     | Strong after annotation      |
+| SNP-array export                 | Run through reduced-coverage mode where supported                          | Limited to array markers     |
+| BAM/CRAM/FASTQ                   | Run caller setup first, then feed generated VCFs to the dashboard pipeline | Advanced                     |
+| CNV/SV/repeat-only caller output | Normalize to VCF-like records, then validate/report by class               | Advanced variant-class layer |
 
 Ask for:
 
@@ -65,10 +65,10 @@ npm run pipeline -- /absolute/path/to/annotated.vcf.gz user_001 ./output
 
 If the VCF lacks rsIDs, use the lean ClinVar rsID annotation reference or full dbSNP reference:
 
-| Reference | Use | Tradeoff |
-|---|---|---|
+| Reference                                          | Use                                                | Tradeoff                                           |
+| -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- |
 | `reference/clinvar/clinvar_rsid_annotation.tsv.gz` | Bundled lean annotation for clinically known rsIDs | Smaller and default, misses many non-ClinVar rsIDs |
-| `reference/dbsnp/GCF_000001405.25.gz` | Full dbSNP rsID annotation | Large, best coverage |
+| `reference/dbsnp/GCF_000001405.25.gz`              | Full dbSNP rsID annotation                         | Large, best coverage                               |
 
 Default setup and update commands:
 
@@ -99,29 +99,40 @@ Dashboard interpretation rules:
 - Coordinate-only PGS Catalog scores are skipped by the rsID PRS engine until position-aware scoring is implemented.
 - Every PGS/GWAS output should carry source ID, source URL/release, confidence tier, and ancestry/build/coverage disclosure.
 
-When annotation fails, check chromosome naming:
+The implementation normalizes standard human contigs automatically before annotation:
+
+- Bundled ClinVar GRCh37 subset: `chr1`, `1`, or `NC_000001.10` → `1`.
+- Full dbSNP GRCh37: `chr1`, `1`, or `NC_000001.10` → `NC_000001.10`.
+
+Use a full dbSNP reference explicitly after the user opts in:
+
+```bash
+npm run pipeline -- --genetics=/absolute/path/to/user.vcf.gz --dbsnp=/absolute/path/to/GCF_000001405.25.gz --user=user_001 --out=./output
+```
+
+When annotation still fails, check:
 
 - `chr1`
 - `1`
 - `NC_000001.10`
 - GRCh37 vs GRCh38 coordinate mismatch
 
-Do not silently continue if a WGS VCF has almost no rsIDs. The report can render, but interpretation coverage will be materially weaker.
+Do not silently continue if a generated WGS annotation has zero rsIDs. The pipeline rejects that artifact and regenerates it rather than treating its filename as proof of successful annotation.
 
 ## 4. Interpretation Layers
 
 The WGS dashboard should preserve which layer produced each finding.
 
-| Layer | Input | Interpretation output | User-facing stance |
-|---|---|---|---|
-| Curated markers | rsID + genotype | Wellness, pharmacology, hereditary, vulnerability, performance, personality, ancestry traits | Consumer-ready, still educational |
-| ClinVar | rsIDs across the full VCF | Pathogenic/likely pathogenic, VUS, drug response, ACMG flags | Confirm clinically before action |
-| CPIC | rsID genotype map | Drug-gene context and phenotype hints | Informational; do not change medication from report alone |
-| PRS | rsID weights | Directional disease, longevity, and wellness polygenic scores | Risk context, not diagnosis |
-| VEP | variant consequence annotations | Rare coding-impact and missense context | Optional; disclose when skipped |
-| WGS class catalog | CNV/SV/repeat/large-indel records | Structural and repeat finding cards where evidence exists | Reportable only when evidence tier and class are clear |
-| Knowledge graph | merged traits | Mechanisms, outcomes, actions, hallmark links | Wellness protocol generation |
-| Biomarkers/wearables | optional user files | Retestable current-state context | Use to prioritize and retest actions |
+| Layer                | Input                             | Interpretation output                                                                        | User-facing stance                                        |
+| -------------------- | --------------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| Curated markers      | rsID + genotype                   | Wellness, pharmacology, hereditary, vulnerability, performance, personality, ancestry traits | Consumer-ready, still educational                         |
+| ClinVar              | rsIDs across the full VCF         | Pathogenic/likely pathogenic, VUS, drug response, ACMG flags                                 | Confirm clinically before action                          |
+| CPIC                 | rsID genotype map                 | Drug-gene context and phenotype hints                                                        | Informational; do not change medication from report alone |
+| PRS                  | rsID weights                      | Directional disease, longevity, and wellness polygenic scores                                | Risk context, not diagnosis                               |
+| VEP                  | variant consequence annotations   | Rare coding-impact and missense context                                                      | Optional; disclose when skipped                           |
+| WGS class catalog    | CNV/SV/repeat/large-indel records | Structural and repeat finding cards where evidence exists                                    | Reportable only when evidence tier and class are clear    |
+| Knowledge graph      | merged traits                     | Mechanisms, outcomes, actions, hallmark links                                                | Wellness protocol generation                              |
+| Biomarkers/wearables | optional user files               | Retestable current-state context                                                             | Use to prioritize and retest actions                      |
 
 If a layer is missing, the dashboard should disclose that limitation instead of presenting the WGS report as complete.
 
@@ -129,14 +140,14 @@ If a layer is missing, the dashboard should disclose that limitation instead of 
 
 WGS should be treated as more than SNPs. Track these classes separately:
 
-| Class | Normal source | Interpretation requirement |
-|---|---|---|
-| SNV | WGS VCF | rsID or position mapping, curated/ClinVar/PRS/VEP mapping |
-| Small indel | WGS VCF | VEP or ClinVar mapping where available |
-| CNV | Vendor CNV VCF or caller output | Dosage-sensitive region/gene catalog and evidence tier |
-| SV/rearrangement | Vendor SV VCF or caller output | ClinGen/dbVar/DGV-style support where available |
-| Tandem repeat | Repeat caller output or provider repeat records | Repeat-specific thresholds and condition catalog |
-| Large insertion/deletion | SV/indel caller output | Reportability by class, gene/region, and evidence |
+| Class                    | Normal source                                   | Interpretation requirement                                |
+| ------------------------ | ----------------------------------------------- | --------------------------------------------------------- |
+| SNV                      | WGS VCF                                         | rsID or position mapping, curated/ClinVar/PRS/VEP mapping |
+| Small indel              | WGS VCF                                         | VEP or ClinVar mapping where available                    |
+| CNV                      | Vendor CNV VCF or caller output                 | Dosage-sensitive region/gene catalog and evidence tier    |
+| SV/rearrangement         | Vendor SV VCF or caller output                  | ClinGen/dbVar/DGV-style support where available           |
+| Tandem repeat            | Repeat caller output or provider repeat records | Repeat-specific thresholds and condition catalog          |
+| Large insertion/deletion | SV/indel caller output                          | Reportability by class, gene/region, and evidence         |
 
 Run:
 
@@ -173,12 +184,12 @@ Use raw-read callers only when needed:
 
 Expected caller families:
 
-| Need | Example tool family | Output |
-|---|---|---|
-| Small variants | DeepVariant, GATK HaplotypeCaller | SNV/indel VCF |
-| CNV | GATK gCNV or equivalent | CNV VCF/segments |
-| SV | Manta, GATK-SV, Sniffles-style tools depending on reads | SV VCF |
-| Tandem repeats | ExpansionHunter-style tools | Repeat calls converted to reportable records |
+| Need           | Example tool family                                     | Output                                       |
+| -------------- | ------------------------------------------------------- | -------------------------------------------- |
+| Small variants | DeepVariant, GATK HaplotypeCaller                       | SNV/indel VCF                                |
+| CNV            | GATK gCNV or equivalent                                 | CNV VCF/segments                             |
+| SV             | Manta, GATK-SV, Sniffles-style tools depending on reads | SV VCF                                       |
+| Tandem repeats | ExpansionHunter-style tools                             | Repeat calls converted to reportable records |
 
 Run:
 
@@ -274,15 +285,15 @@ The normal public release can ship when:
 
 The repo should keep the public skill lightweight. These items are intentionally documented or preflighted, not bundled:
 
-| Item | Local status | Why it is not bundled |
-|---|---|---|
-| Raw GWAS Catalog and PGS Catalog dumps | Ignored under `reference/wellness/raw/` | The compact derived wellness indexes are bundled; raw TSV/scoring cache includes large files and should be rebuilt locally |
-| Full dbSNP rsID reference | Not bundled | Large reference archive; users can point to a local copy when needed |
-| ClinVar full VCF/index | Not bundled | Large and updateable; the bundled default is the lean ClinVar rsID TSV plus compressed interpretation index |
-| Ensembl VEP cache | Optional external dependency | Large cache and installation-specific setup |
-| BAM/CRAM/FASTQ caller stack | Not bundled | DeepVariant/GATK/Manta/GATK-SV/ExpansionHunter style tooling is heavyweight and platform-specific |
-| GIAB truthsets and query VCFs | Not bundled | Advanced precision/recall benchmark assets; normal dashboard generation does not require them |
-| Public CNV/SV/repeat evidence catalogs at production depth | Small local fixture only | The repo includes synthetic regression fixtures; production-scale catalogs should be documented and versioned separately |
+| Item                                                       | Local status                            | Why it is not bundled                                                                                                      |
+| ---------------------------------------------------------- | --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Raw GWAS Catalog and PGS Catalog dumps                     | Ignored under `reference/wellness/raw/` | The compact derived wellness indexes are bundled; raw TSV/scoring cache includes large files and should be rebuilt locally |
+| Full dbSNP rsID reference                                  | Not bundled                             | Large reference archive; users can point to a local copy when needed                                                       |
+| ClinVar full VCF/index                                     | Not bundled                             | Large and updateable; the bundled default is the lean ClinVar rsID TSV plus compressed interpretation index                |
+| Ensembl VEP cache                                          | Optional external dependency            | Large cache and installation-specific setup                                                                                |
+| BAM/CRAM/FASTQ caller stack                                | Not bundled                             | DeepVariant/GATK/Manta/GATK-SV/ExpansionHunter style tooling is heavyweight and platform-specific                          |
+| GIAB truthsets and query VCFs                              | Not bundled                             | Advanced precision/recall benchmark assets; normal dashboard generation does not require them                              |
+| Public CNV/SV/repeat evidence catalogs at production depth | Small local fixture only                | The repo includes synthetic regression fixtures; production-scale catalogs should be documented and versioned separately   |
 
 The local repo should validate the process shape without these assets:
 

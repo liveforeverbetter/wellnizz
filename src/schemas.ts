@@ -311,9 +311,9 @@ export function openApiDocument(baseUrl = 'http://localhost:8787', x402?: X402Pu
   const doc = {
     openapi: '3.1.0',
     info: {
-      title: 'ForeverBetter Wellness API',
+      title: 'ForeverBetter API',
       version: SERVICE_VERSION,
-      description: 'ForeverBetter Wellness API and MCP-compatible service for genetics, biomarkers, wearables, lab locator handoffs, dashboard specs, and hosted billing.',
+      description: 'ForeverBetter API and MCP-compatible service for genetics, biomarkers, wearables, lab discovery, dashboard specs, action plans, and hosted billing.',
       'x-guidance': 'Use /openapi.json to discover the API. For a payable operation, make the exact request without credentials, select a compatible option from PAYMENT-REQUIRED, then retry unchanged with PAYMENT-SIGNATURE. x402 payments create a payer-scoped private workspace; do not send user_id or organization_id. Use GET /.well-known/x402.json for the live route and price catalog.',
     },
     servers: [{ url: baseUrl }],

@@ -15,7 +15,9 @@ timeline with you.
 
 ## Repository security automation
 
-- Dependabot vulnerability alerts and automatic security updates are enabled.
+- Dependabot is configured to propose weekly npm, Docker, and GitHub Actions
+  updates. Enable native vulnerability alerts and automatic security fixes in
+  the repository settings before launch.
 - `Security Scan` runs Gitleaks, npm dependency audits, and a Trivy scan of the
   release image for every pull request, every push to `main`, and every day.
 - Actions and scanner containers are pinned to immutable commit or image
@@ -28,9 +30,9 @@ timeline with you.
   organization repositories. Keep the repository private and use the local and
   CI gates until that plan is enabled.
 
-## Handling wellness data
+## Handling health data
 
-This service processes personal wellness data (genomics, biomarkers, wearables).
+This service processes personal health data, including genetics, biomarkers, and wearables.
 When self-hosting:
 
 - Set strong, unique secrets (`API_KEY_JWT_SECRET`, `SERVICE_ACCOUNT_JWT_SECRET`,
@@ -62,4 +64,4 @@ When self-hosting:
 ## Supported versions
 
 Security fixes target the latest released version. Pin to a tagged image
-(`ghcr.io/liveforeverbetter/longevity-api:<version>`) and update deliberately.
+(`ghcr.io/liveforeverbetter/foreverbetter:<version>`) and update deliberately.

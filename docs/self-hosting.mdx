@@ -1,9 +1,9 @@
 ---
 title: "Self-hosting"
-description: "Run the ForeverBetter Wellness API on your own infrastructure with Docker."
+description: "Run the ForeverBetter API on your own infrastructure with Docker."
 ---
 
-The hosted ForeverBetter Wellness API at `https://api.foreverbetter.xyz` is the fastest way to start:
+The hosted ForeverBetter API at `https://api.foreverbetter.xyz` is the fastest way to start:
 nothing to run, and the same endpoints documented throughout these guides. If
 you would rather keep all data on your own infrastructure, the service is open
 source and runs with Docker. **Self-hosting is always an option and never
@@ -16,10 +16,11 @@ these docs works the same way against your own base URL.
 ## Quickstart
 
 ```bash
-git clone https://github.com/liveforeverbetter/foreverbetter-api.git
-cd foreverbetter-api
+git clone https://github.com/liveforeverbetter/foreverbetter.git
+cd foreverbetter
 cp .env.example .env
-# set POSTGRES_PASSWORD, API_KEY_JWT_SECRET, and SERVICE_ACCOUNT_JWT_SECRET
+# set POSTGRES_PASSWORD, API_KEY_JWT_SECRET, SERVICE_ACCOUNT_JWT_SECRET,
+# and AUDIT_IP_HASH_SALT
 docker compose up -d
 ```
 
@@ -53,6 +54,6 @@ in the bundled pipeline with no external service.
 The repository has the complete setup, including storage and email options,
 wearable OAuth, backups, and upgrades:
 
-- [Self-hosting guide](https://github.com/liveforeverbetter/foreverbetter-api/blob/main/SELF_HOSTING.md)
-- [Configuration reference](https://github.com/liveforeverbetter/foreverbetter-api/blob/main/.env.example)
-- [Security notes](https://github.com/liveforeverbetter/foreverbetter-api/blob/main/SECURITY.md)
+- [Self-hosting guide](https://github.com/liveforeverbetter/foreverbetter/blob/main/SELF_HOSTING.md)
+- [Configuration reference](https://github.com/liveforeverbetter/foreverbetter/blob/main/.env.example)
+- [Security notes](https://github.com/liveforeverbetter/foreverbetter/blob/main/SECURITY.md)

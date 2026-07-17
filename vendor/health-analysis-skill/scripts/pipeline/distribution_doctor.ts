@@ -150,14 +150,14 @@ function main(): void {
 
   const skill = read(path.join(packageDir, 'SKILL.md'));
   const onboardingOrder = [
-    skill.indexOf('1. Wearables and behavior:'),
-    skill.indexOf('2. Biomarkers and labs:'),
-    skill.indexOf('3. Genetics:'),
+    skill.indexOf('1. Outcome:'),
+    skill.indexOf('2. Ready data:'),
+    skill.indexOf('3. Annotation depth'),
   ];
   add(
     checks,
-    'onboarding.ordered_modality_prompts',
-    'Skill asks first-run intake in wearable, biomarker, genetics order',
+    'onboarding.outcome_first',
+    'Skill asks for the outcome before inventorying only the data it needs',
     onboardingOrder.every(index => index >= 0) && onboardingOrder[0] < onboardingOrder[1] && onboardingOrder[1] < onboardingOrder[2],
     'SKILL.md invocation behavior',
   );
@@ -199,9 +199,9 @@ function main(): void {
   add(
     checks,
     'onboarding.cron_prompt',
-    'Skill asks about opt-in recurring cron daily action plan after dashboard generation',
-    /recurring cron job/i.test(skill) && /daily action plan/i.test(skill) && /explicitly opt in/i.test(skill),
-    'SKILL.md post-dashboard behavior',
+    'Skill offers opt-in recurring action plans after the first requested result',
+    /After delivering the first requested result/i.test(skill) && /plan recurring/i.test(skill) && /explicitly opts? in/i.test(skill),
+    'SKILL.md post-result behavior',
   );
 
   const wgsProcess = read(path.join(packageDir, 'references/wgs-process.md'));

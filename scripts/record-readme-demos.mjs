@@ -392,7 +392,7 @@ function consoleScene(data, designCount) {
       <aside><b>FB</b><span class="active">Overview</span><span>Sources</span><span>Analyses</span><span>Agents</span><span>Billing</span></aside>
       <main>
         <div class="console-head">
-          <div><small>WORKSPACE</small><h3>Wellness developer console</h3></div>
+          <div><small>WORKSPACE</small><h3>Health developer console</h3></div>
           <div class="orb reveal d2"><span>76</span><small>ready</small></div>
         </div>
         <div class="surface-grid">
@@ -604,7 +604,7 @@ function documentFor(scene, theme) {
   const fontLinks = theme.fontHref
     ? `<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="${theme.fontHref}">`
     : '';
-  return `<!doctype html><html><head><meta charset="utf-8">${fontLinks}<style>${baseStyles(theme)}${scene.style}</style></head><body><div class="frame"><header class="top"><div class="brand"><span class="mark">F</span>ForeverBetter Wellness API</div><span class="live"><i></i>Design contract <b>&nbsp;${escapeHtml(theme.name)}</b>&nbsp; from GET /design/systems</span></header><section class="intro"><div class="copy reveal d1"><span class="eyebrow">${escapeHtml(scene.eyebrow)}</span><h1>${escapeHtml(scene.title)}</h1><p>${escapeHtml(scene.subtitle)}</p></div><div class="content">${scene.body}</div></section><footer class="footer"><b>${escapeHtml(scene.footer)}</b><span>REST + MCP / provenance included</span></footer></div><script>document.fonts.ready.then(() => requestAnimationFrame(() => document.body.classList.add('go')));</script></body></html>`;
+  return `<!doctype html><html><head><meta charset="utf-8">${fontLinks}<style>${baseStyles(theme)}${scene.style}</style></head><body><div class="frame"><header class="top"><div class="brand"><span class="mark">F</span>ForeverBetter API</div><span class="live"><i></i>Design contract <b>&nbsp;${escapeHtml(theme.name)}</b>&nbsp; from GET /design/systems</span></header><section class="intro"><div class="copy reveal d1"><span class="eyebrow">${escapeHtml(scene.eyebrow)}</span><h1>${escapeHtml(scene.title)}</h1><p>${escapeHtml(scene.subtitle)}</p></div><div class="content">${scene.body}</div></section><footer class="footer"><b>${escapeHtml(scene.footer)}</b><span>REST + MCP / provenance included</span></footer></div><script>document.fonts.ready.then(() => requestAnimationFrame(() => document.body.classList.add('go')));</script></body></html>`;
 }
 
 function command(binary, args) {

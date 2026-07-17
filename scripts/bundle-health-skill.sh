@@ -46,7 +46,7 @@ mv "$tmp/$source_subdir" "$dest"
 rm -rf "$tmp"
 
 {
-  echo "source_repo=$source_repo"
+  echo "source_repo=$(git -C "$source_repo" remote get-url origin 2>/dev/null || echo liveforeverbetter/agentic-health-analysis)"
   echo "source_subdir=$source_subdir"
   echo "source_commit=$(git -C "$source_repo" rev-parse HEAD)"
   if [[ -n "$(git -C "$source_repo" status --porcelain -- "$source_subdir")" ]]; then
