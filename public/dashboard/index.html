@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Forever Better Dashboard</title>
-    <link rel="stylesheet" href="/dashboard/styles.css?v=builder-1">
+    <link rel="stylesheet" href="/dashboard/styles.css?v=builder-2">
     <link rel="icon" href="/dashboard/favicon.svg" type="image/svg+xml">
   </head>
   <body>
@@ -21,7 +21,7 @@
                   <span>Genetics</span><span>Biomarkers</span><span>Wearables</span>
                 </div>
                 <div class="pipe-lines" aria-hidden="true"><i></i><i></i><i></i></div>
-                <div class="pipe-hub"><b>forever<span>better</span></b><small>connect &middot; analyze &middot; explain</small></div>
+                <div class="pipe-hub"><span class="pipe-hub-brand"><svg class="mark" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="#ff5a6e" stroke-width="2.6" stroke-linecap="round"><path d="M3 5 C9 5 9 12 13 12"/><path d="M3 12 H13"/><path d="M3 19 C9 19 9 12 13 12"/><path d="M13 12 H21"/></g></svg><b>forever<span>better</span></b></span><small>connect &middot; analyze &middot; explain</small></div>
                 <div class="pipe-lines pipe-lines-out" aria-hidden="true"><i></i></div>
                 <div class="outcome-bento">
                   <div class="bento-card bento-context">
@@ -58,9 +58,21 @@
           </div>
 
           <div class="mode-visual mode-visual-agent-login hidden">
-            <p class="visual-kicker">Your agent's workspace</p>
-            <img class="agent-login-visual" src="/dashboard/assets/tablet-dashboard.png" alt="Dashboard with health metrics" width="1672" height="941" loading="lazy">
-            <p class="visual-caption">Your agent creates a key, then analyzes your data.</p>
+            <p class="visual-kicker">What your agent gets</p>
+            <div class="approval-visual" aria-hidden="true">
+              <div class="approval-key">
+                <svg class="mark" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="#ff5a6e" stroke-width="2.4" stroke-linecap="round"><path d="M3 5 C9 5 9 12 13 12"/><path d="M3 12 H13"/><path d="M3 19 C9 19 9 12 13 12"/><path d="M13 12 H21"/></g></svg>
+                <div><small>Scoped key &middot; shown once</small><code>fb_live_ &bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull; 7d2c</code></div>
+              </div>
+              <div class="approval-scopes">
+                <span>health:data:read</span><span>health:data:write</span><span>health:connections:write</span>
+              </div>
+              <div class="approval-tools">
+                <small>21 MCP tools, including</small>
+                <div><code>query_health_context</code><code>run_health_analysis</code><code>get_action_plan</code><code>get_dashboard_spec</code></div>
+              </div>
+            </div>
+            <p class="visual-caption">The key acts only for you, on the scopes you approve. Revoke it any time from this dashboard.</p>
           </div>
         </div>
 
