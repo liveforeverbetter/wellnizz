@@ -213,7 +213,7 @@ function scenes(data) {
       system: 'foreverbetter',
       eyebrow: 'CUSTOM DASHBOARD',
       title: 'One health view. Every signal keeps its source.',
-      subtitle: `${data.dashboard.schema_version ? `Dashboard contract ${data.dashboard.schema_version}` : 'Renderer-neutral dashboard contract'} built from real biomarker and wearable imports, rendered in the ForeverBetter dossier system.`,
+      subtitle: `${data.dashboard.schema_version ? `Dashboard contract ${data.dashboard.schema_version}` : 'Renderer-neutral dashboard contract'} built by the ForeverBetter API from real biomarker and wearable imports.`,
       style: dossierStyles(),
       body: dashboardScene(priorities),
       footer: `POST /imports/file  >  POST /analyses  >  GET /dashboard-specs/${shortId(data.analysis.id)}`,
@@ -233,7 +233,7 @@ function scenes(data) {
       system: 'aperture',
       eyebrow: 'HEALTH CONNECT',
       title: 'On-device readings, normalized in one request',
-      subtitle: `The mobile SDK delivered ${data.mobile.readings_count ?? 5} source-backed observations directly to the user workspace, shown in the Aperture system.`,
+      subtitle: `The mobile SDK delivered ${data.mobile.readings_count ?? 5} source-backed observations directly to the ForeverBetter API.`,
       style: mobileStyles(),
       body: mobileScene(data.mobile),
       footer: `POST /api/v1/sdk/users/dev-user/sync  >  202 Accepted  >  source ${shortId(data.mobile.source_id)}`,
@@ -254,7 +254,7 @@ function scenes(data) {
       system: 'meridian',
       eyebrow: 'DEVELOPER CONSOLE',
       title: 'A complete surface for apps and agents',
-      subtitle: `${capabilityCount} capability groups, ${providerCount} provider records, ${designCount} design contracts, REST, MCP, Stripe, and x402, in the Meridian workspace.`,
+      subtitle: `${capabilityCount} capability groups, ${providerCount} provider records, ${designCount} design contracts, REST, MCP, Stripe, and x402 in one ForeverBetter API.`,
       style: consoleStyles(),
       body: consoleScene(data, designCount),
       footer: 'GET /capabilities  >  GET /design/systems  >  POST /mcp',
@@ -604,7 +604,7 @@ function documentFor(scene, theme) {
   const fontLinks = theme.fontHref
     ? `<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="${theme.fontHref}">`
     : '';
-  return `<!doctype html><html><head><meta charset="utf-8">${fontLinks}<style>${baseStyles(theme)}${scene.style}</style></head><body><div class="frame"><header class="top"><div class="brand"><span class="mark">F</span>ForeverBetter API</div><span class="live"><i></i>Design contract <b>&nbsp;${escapeHtml(theme.name)}</b>&nbsp; from GET /design/systems</span></header><section class="intro"><div class="copy reveal d1"><span class="eyebrow">${escapeHtml(scene.eyebrow)}</span><h1>${escapeHtml(scene.title)}</h1><p>${escapeHtml(scene.subtitle)}</p></div><div class="content">${scene.body}</div></section><footer class="footer"><b>${escapeHtml(scene.footer)}</b><span>REST + MCP / provenance included</span></footer></div><script>document.fonts.ready.then(() => requestAnimationFrame(() => document.body.classList.add('go')));</script></body></html>`;
+  return `<!doctype html><html><head><meta charset="utf-8">${fontLinks}<style>${baseStyles(theme)}${scene.style}</style></head><body><div class="frame"><header class="top"><div class="brand"><span class="mark">F</span>ForeverBetter API</div><span class="live"><i></i><b>API live</b></span></header><section class="intro"><div class="copy reveal d1"><span class="eyebrow">${escapeHtml(scene.eyebrow)}</span><h1>${escapeHtml(scene.title)}</h1><p>${escapeHtml(scene.subtitle)}</p></div><div class="content">${scene.body}</div></section><footer class="footer"><b>${escapeHtml(scene.footer)}</b><span>REST + MCP / provenance included</span></footer></div><script>document.fonts.ready.then(() => requestAnimationFrame(() => document.body.classList.add('go')));</script></body></html>`;
 }
 
 function command(binary, args) {

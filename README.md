@@ -1,7 +1,7 @@
 <h1 align="center">ForeverBetter API</h1>
 
 <p align="center">
-  <strong>Turn health data into personalized results and a clear action plan.</strong>
+  <strong>Combine wearables, biomarkers, and genetics data into a interpreted, personalized dashboard and action plan built for you with your agent.</strong>
 </p>
 
 <p align="center">
@@ -14,7 +14,7 @@
   <a href="https://api.foreverbetter.xyz/dashboard"><strong>Developer dashboard</strong></a> ·
   <a href="https://foreverbetter.mintlify.app/api-reference/introduction"><strong>Documentation</strong></a> ·
   <a href="https://api.foreverbetter.xyz/openapi.json"><strong>OpenAPI</strong></a> ·
-  <a href="#run-it-yourself"><strong>Self-host</strong></a>
+  <a href="#self-hosting"><strong>Self-host</strong></a>
 </p>
 
 <p align="center">
@@ -32,7 +32,7 @@ Upload biomarkers, genetics, or wearable observations. Analyze one source or com
 
 <p align="center">
   <a href="assets/demos/multimodal-dashboard.mp4">
-    <img src="assets/demos/multimodal-dashboard.gif" alt="Real local biomarker and wearable imports rendered as a healthspan dossier in the ForeverBetter design system" width="760" />
+    <img src="assets/demos/multimodal-dashboard.gif" alt="Biomarker and wearable data interpreted by the ForeverBetter API as a personalized dashboard and action plan" width="760" />
   </a>
 </p>
 
@@ -44,7 +44,7 @@ Give a scheduled agent a key limited to the user's approved data. It reads the l
 
 <p align="center">
   <a href="assets/demos/agent-daily-brief.mp4">
-    <img src="assets/demos/agent-daily-brief.gif" alt="An agent delivering the daily priority plan in a chat conversation, styled with the Aperture design system" width="760" />
+    <img src="assets/demos/agent-daily-brief.gif" alt="The ForeverBetter API giving an agent a personalized daily priority plan for chat delivery" width="760" />
   </a>
 </p>
 
@@ -68,7 +68,7 @@ Send user-approved Android health readings directly into ForeverBetter with the 
 
 <p align="center">
   <a href="assets/demos/wearable-mobile-sync.mp4">
-    <img src="assets/demos/wearable-mobile-sync.gif" alt="Health Connect readings imported through the mobile SDK and shown in the Aperture design system" width="760" />
+    <img src="assets/demos/wearable-mobile-sync.gif" alt="Health Connect readings imported through the mobile SDK into the ForeverBetter API" width="760" />
   </a>
 </p>
 
@@ -109,7 +109,7 @@ claude mcp add --transport http foreverbetter \
   --header "Authorization: Bearer <api key>"
 ```
 
-[Connect your agent](https://foreverbetter.mintlify.app/connect-your-agent) covers the same skill in local pipeline mode and against a self-hosted deployment.
+[Connect your agent](https://foreverbetter.mintlify.app/connect-your-agent) covers the complete hosted-agent setup.
 
 ## Start building on the hosted API
 
@@ -278,86 +278,6 @@ Machine-readable surfaces:
 
 Stripe subscriptions and x402 pay-per-use payments are available.
 
-## Run it yourself
-
-### Prerequisites
-
-- Docker Engine with Docker Compose v2
-- `openssl` for generating secrets
-- 2 GB or more of disk for the base image and additional storage for Postgres and uploaded payloads
-- a domain and TLS reverse proxy for any internet-facing deployment
-- additional persistent storage for full dbSNP mode
-
-### Local Docker Compose
-
-```bash
-git clone https://github.com/liveforeverbetter/foreverbetter.git
-cd foreverbetter
-cp .env.example .env
-```
-
-Edit `.env` and replace every `change-me` value. Generate independent secrets:
-
-```bash
-openssl rand -hex 32   # POSTGRES_PASSWORD
-openssl rand -hex 32   # API_KEY_JWT_SECRET
-openssl rand -hex 32   # SERVICE_ACCOUNT_JWT_SECRET
-openssl rand -hex 32   # AUDIT_IP_HASH_SALT
-```
-
-The production example defaults email login off. Start the stack and mint the first operator key:
-
-```bash
-docker compose up -d
-curl http://localhost:8787/ready
-
-docker compose exec api node scripts/mint-api-key.mjs \
-  --out - --user you --org your-org --scope "health:admin"
-```
-
-The minimal stack starts PostgreSQL, the API, the genetics worker, and the wearable worker. Raw payloads use the shared Docker volume by default. The API container applies migrations on boot.
-
-Optional local-only profiles:
-
-```bash
-# Local SMTP inbox. Set EMAIL_DRIVER=smtp, SMTP_HOST=mailpit, SMTP_PORT=1025.
-docker compose --profile mail up -d
-# UI is loopback-only at http://127.0.0.1:8025
-
-# Local S3-compatible storage. Set unique S3_ACCESS_KEY_ID and S3_SECRET_ACCESS_KEY first.
-docker compose --profile s3 up -d
-# MinIO API and console are loopback-only by default.
-```
-
-Do not expose Mailpit or the MinIO console to the internet. Compose requires an explicit PostgreSQL password and explicit MinIO credentials. Local secret files should be mode `0600`.
-
-For a database outside Compose, set `DATABASE_SSL=require`. Certificate verification is on. If the database uses a private CA, set `DATABASE_SSL_CA` to its PEM text with newlines encoded as `\n`.
-
-### Run from source without Docker
-
-For a disposable local process with no database:
-
-```bash
-npm ci
-npm run build
-STORE_MODE=memory AUTH_MODE=disabled EMAIL_DRIVER=none NODE_ENV=development npm start
-```
-
-For production from source, use PostgreSQL 16, durable payload storage, `AUTH_MODE=service_account` or `oidc`, verified TLS, and separate API and worker processes:
-
-```bash
-npm ci
-npm run build
-npm run migrate
-npm start
-node dist/workers/wearables-worker.js
-node dist/workers/genetics-worker.js
-```
-
-The Docker image includes `bcftools`, `tabix`, and the pinned TypeScript runtime needed by the bundled genetics pipeline.
-
-[`SELF_HOSTING.md`](SELF_HOSTING.md) covers storage drivers, email sign-in, wearable credentials, backups, and upgrades.
-
 ## Development and verification
 
 ```bash
@@ -386,8 +306,12 @@ AGPL-3.0-only. See [`LICENSE`](LICENSE).
 
 <p align="center">
   <a href="https://api.foreverbetter.xyz/dashboard">Create a developer key</a> ·
-  <a href="#run-it-yourself">Run it locally</a> ·
+  <a href="#self-hosting">Run it locally</a> ·
   <a href="https://api.foreverbetter.xyz/openapi.json">Download OpenAPI</a>
 </p>
 
 <sub>ForeverBetter provides health-data and educational infrastructure. It is not medical advice and is not intended for diagnosis, treatment, or emergencies.</sub>
+
+## Self-hosting
+
+To run the ForeverBetter API on your own infrastructure, clone this repository, copy `.env.example` to `.env`, replace every `change-me` value with an independent secret, and start the included PostgreSQL, API, genetics-worker, and wearable-worker stack with `docker compose up -d`; see [`SELF_HOSTING.md`](SELF_HOSTING.md) for storage, authentication, TLS, provider credentials, backups, upgrades, and production guidance.
