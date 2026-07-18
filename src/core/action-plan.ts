@@ -380,6 +380,7 @@ export interface ActionPlan {
   user_id: string;
   organization_id?: string;
   generated_at: string;
+  status: 'ready' | 'processing' | 'setup_required' | 'failed';
   summary: string;
   interventions: ActionPlanIntervention[];
   supplements: ActionPlanSupplement[];
@@ -413,6 +414,7 @@ export interface ActionPlanOptions {
 
 export function buildActionPlan(analysis: AnalysisResult, options: ActionPlanOptions = {}): ActionPlan {
   const flagged = collectFlaggedFindings(analysis.derived_interpretations);
+  const availability = actionPlanAvailability(analysis.derived_interpretations);
   const inventory = behavioralInventory(analysis);
   const takenSupplementKeys = supplementKeySet(inventory.supplements.map(s => s.name));
   const medicationNames = inventory.medications.map(m => m.name);
@@ -492,9 +494,11 @@ export function buildActionPlan(analysis: AnalysisResult, options: ActionPlanOpt
     })
     .sort(compareActions);
 
-  const cautions = planCautions(inventory);
+  const cautions = [...availability.cautions, ...planCautions(inventory)];
   const coreCount = interventions.filter(i => i.priority === 'core').length + supplements.filter(s => s.priority === 'core').length;
-  const summary = flagged.length === 0
+  const summary = availability.status !== 'ready'
+    ? availability.summary
+    : flagged.length === 0
     ? 'No out-of-range findings to act on - your markers are within target. Keep the current routine and re-test on schedule.'
     : `${flagged.length} finding${flagged.length === 1 ? '' : 's'} outside target mapped to ${interventions.length} lifestyle change${interventions.length === 1 ? '' : 's'} and ${supplements.length} supplement${supplements.length === 1 ? '' : 's'}${coreCount ? `, ${coreCount} of them core priorities` : ''}. Start with the lifestyle changes; layer supplements where a target justifies them.`;
 
@@ -503,21 +507,56 @@ export function buildActionPlan(analysis: AnalysisResult, options: ActionPlanOpt
     user_id: analysis.user_id,
     organization_id: analysis.organization_id,
     generated_at: new Date().toISOString(),
+    status: availability.status,
     summary,
-    interventions,
-    supplements,
+    interventions: availability.status === 'ready' ? interventions : [],
+    supplements: availability.status === 'ready' ? supplements : [],
     cautions,
     evidence_key: EVIDENCE_LABELS,
-    sources: [
+    sources: availability.status === 'ready' ? [
       { name: INTERACTIONS.source, url: INTERACTIONS.source_url, detail: 'Supplement–drug interaction evidence extracted from the scientific literature.' },
       { name: OUTCOMES.source, url: OUTCOMES.source_url, detail: 'Supplement–health-outcome study counts, cited per finding.' },
-    ],
+    ] : [],
     disclaimer: DISCLAIMER,
     provenance: {
       analysis_id: analysis.id,
       source_ids: analysis.source_ids ?? [],
       engine: 'health-api action_plan_engine',
     },
+  };
+}
+
+function actionPlanAvailability(derived: DerivedInterpretation[]): {
+  status: ActionPlan['status'];
+  summary: string;
+  cautions: string[];
+} {
+  if (derived.length === 0) {
+    return { status: 'ready', summary: '', cautions: [] };
+  }
+  const unavailable = derived.every(item =>
+    item.status === 'queued' || item.status === 'setup_required' || item.status === 'failed'
+  );
+  if (!unavailable) return { status: 'ready', summary: '', cautions: [] };
+
+  if (derived.some(item => item.status === 'failed')) {
+    return {
+      status: 'failed',
+      summary: 'This analysis failed before results were produced. No health, genetic, or clinical conclusions can be drawn from the absence of findings. Reanalysis is required.',
+      cautions: ['Results are unavailable because processing failed. Do not interpret an empty plan as evidence that markers are normal or within target.'],
+    };
+  }
+  if (derived.some(item => item.status === 'setup_required')) {
+    return {
+      status: 'setup_required',
+      summary: 'This analysis needs additional processing setup before results can be produced. No findings or action plan are available yet.',
+      cautions: ['Results are unavailable until the required analysis service is configured and the source is reanalyzed.'],
+    };
+  }
+  return {
+    status: 'processing',
+    summary: 'This analysis is still processing. Findings and a personalized action plan will appear after the analysis completes.',
+    cautions: [],
   };
 }
 

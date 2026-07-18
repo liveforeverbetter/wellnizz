@@ -6936,6 +6936,7 @@
           "analysis_id",
           "user_id",
           "generated_at",
+          "status",
           "summary",
           "interventions",
           "supplements",
@@ -6960,6 +6961,15 @@
           "generated_at": {
             "type": "string",
             "format": "date-time"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ready",
+              "processing",
+              "setup_required",
+              "failed"
+            ]
           },
           "summary": {
             "type": "string"

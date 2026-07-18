@@ -36,6 +36,7 @@ export interface GeneticsPipelineOptions {
 
 const DEFAULT_TIMEOUT_MS = 120_000;
 const DEFAULT_FULL_DBSNP_TIMEOUT_MS = 14_400_000;
+const COMMAND_OUTPUT_TAIL_BYTES = 256 * 1024;
 const DEFAULT_BUNDLED_SKILL_DIR = 'vendor/health-analysis-skill';
 const LEGACY_SKILL_DIR = '../open-source/skills/genomic-analysis';
 
@@ -185,6 +186,17 @@ async function resolveHealthAnalysisSkillDir(env: NodeJS.ProcessEnv): Promise<st
   return path.resolve(LEGACY_SKILL_DIR);
 }
 
+export function appendCommandOutputTail(current: string, chunk: Buffer | string, maxBytes = COMMAND_OUTPUT_TAIL_BYTES): string {
+  const next = Buffer.from(typeof chunk === 'string' ? chunk : chunk.toString('utf8'));
+  const existing = Buffer.from(current);
+  if (next.length >= maxBytes) return next.subarray(next.length - maxBytes).toString('utf8');
+  const keepExistingBytes = Math.max(0, maxBytes - next.length);
+  const keptExisting = existing.length > keepExistingBytes
+    ? existing.subarray(existing.length - keepExistingBytes)
+    : existing;
+  return Buffer.concat([keptExisting, next]).toString('utf8');
+}
+
 function runCommand(command: string, args: string[], cwd: string, timeoutMs: number): Promise<{ exitCode: number | null; stdout: string; stderr: string }> {
   return new Promise(resolve => {
     const child = spawn(command, args, { cwd, stdio: ['ignore', 'pipe', 'pipe'] });
@@ -192,17 +204,23 @@ function runCommand(command: string, args: string[], cwd: string, timeoutMs: num
     let stderr = '';
     const timeout = setTimeout(() => {
       child.kill('SIGTERM');
-      stderr += `\nTimed out after ${timeoutMs}ms.`;
+      stderr = appendCommandOutputTail(stderr, `\nTimed out after ${timeoutMs}ms.`);
     }, timeoutMs);
-    child.stdout.on('data', chunk => { stdout += String(chunk); });
-    child.stderr.on('data', chunk => { stderr += String(chunk); });
+    child.stdout.on('data', chunk => {
+      process.stdout.write(chunk);
+      stdout = appendCommandOutputTail(stdout, chunk);
+    });
+    child.stderr.on('data', chunk => {
+      process.stderr.write(chunk);
+      stderr = appendCommandOutputTail(stderr, chunk);
+    });
     child.on('close', exitCode => {
       clearTimeout(timeout);
       resolve({ exitCode, stdout, stderr });
     });
     child.on('error', error => {
       clearTimeout(timeout);
-      resolve({ exitCode: 1, stdout, stderr: `${stderr}\n${error.message}` });
+      resolve({ exitCode: 1, stdout, stderr: appendCommandOutputTail(stderr, `\n${error.message}`) });
     });
   });
 }

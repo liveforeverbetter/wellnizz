@@ -133,6 +133,7 @@ export interface CloudActionPlan {
   user_id: string;
   organization_id?: string;
   generated_at: string;
+  status: 'ready' | 'processing' | 'setup_required' | 'failed';
   summary: string;
   interventions: CloudActionItem[];
   supplements: Array<CloudActionItem & { typical_dose?: string; timing?: string; dose_guidance: string; cautions: string[] }>;
