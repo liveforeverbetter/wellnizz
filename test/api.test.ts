@@ -905,7 +905,8 @@ test('serves readiness and agent discovery metadata', async () => {
   assert.equal(dashboard.status, 200);
   assert.match(dashboard.headers.get('content-type') ?? '', /text\/html/);
   const dashboardHtml = await dashboard.text();
-  assert.match(dashboardHtml, /Connect your longevity data/);
+  assert.match(dashboardHtml, /Your health data, understood\./);
+  assert.match(dashboardHtml, /Connect it yourself\./);
   assert.match(dashboardHtml, /github\.com\/liveforeverbetter\/foreverbetter/);
 
   const skill = await fetch(`${baseUrl}/SKILL.md`);
