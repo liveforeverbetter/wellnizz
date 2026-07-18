@@ -5082,5 +5082,267 @@
         "description": "Most carriers are healthy; knowledge empowers informed reproductive decisions"
       }
     ]
+  },
+  "cardiovascular_polygenic": {
+    "trait_id": "cardiovascular_polygenic",
+    "mechanism": "Aggregate of common cardiovascular-associated variants (GWAS Catalog, genome-wide significant). Each variant is individually small-effect; the domain signal is their net direction.",
+    "outcomes": [
+      {
+        "id": "cv_polygenic_load",
+        "severity": 0.5,
+        "description": "Population-level cardiovascular risk tendency across many common variants"
+      }
+    ],
+    "actions": [
+      {
+        "id": "aerobic_exercise",
+        "title": "Regular aerobic exercise",
+        "impact": 0.7,
+        "difficulty": "medium"
+      },
+      {
+        "id": "lipid_monitoring",
+        "title": "Monitor lipids and blood pressure on schedule",
+        "impact": 0.6,
+        "difficulty": "low"
+      },
+      {
+        "id": "polygenic_review",
+        "title": "Discuss your polygenic profile with a clinician for context",
+        "impact": 0.4,
+        "difficulty": "low"
+      }
+    ]
+  },
+  "metabolic_polygenic": {
+    "trait_id": "metabolic_polygenic",
+    "mechanism": "Aggregate of common metabolic-associated variants (glucose, insulin, body composition) at genome-wide significance.",
+    "outcomes": [
+      {
+        "id": "metabolic_polygenic_load",
+        "severity": 0.5,
+        "description": "Population-level metabolic tendency across many common variants"
+      }
+    ],
+    "actions": [
+      {
+        "id": "diet_quality",
+        "title": "Prioritize diet quality and fiber",
+        "impact": 0.6,
+        "difficulty": "medium"
+      },
+      {
+        "id": "resistance_training",
+        "title": "Resistance training for insulin sensitivity",
+        "impact": 0.6,
+        "difficulty": "medium"
+      },
+      {
+        "id": "polygenic_review",
+        "title": "Discuss your polygenic profile with a clinician for context",
+        "impact": 0.4,
+        "difficulty": "low"
+      }
+    ]
+  },
+  "longevity_polygenic": {
+    "trait_id": "longevity_polygenic",
+    "mechanism": "Aggregate of common longevity- and healthspan-associated variants at genome-wide significance.",
+    "outcomes": [
+      {
+        "id": "longevity_polygenic_signal",
+        "severity": 0.3,
+        "description": "Population-level healthspan tendency across many common variants"
+      }
+    ],
+    "actions": [
+      {
+        "id": "healthy_lifestyle",
+        "title": "Maintain evidence-based healthy-lifestyle habits",
+        "impact": 0.6,
+        "difficulty": "medium"
+      },
+      {
+        "id": "polygenic_review",
+        "title": "Discuss your polygenic profile with a clinician for context",
+        "impact": 0.4,
+        "difficulty": "low"
+      }
+    ]
+  },
+  "cognitive_polygenic": {
+    "trait_id": "cognitive_polygenic",
+    "mechanism": "Aggregate of common brain- and cognition-associated variants at genome-wide significance.",
+    "outcomes": [
+      {
+        "id": "cognitive_polygenic_load",
+        "severity": 0.4,
+        "description": "Population-level cognitive-health tendency across many common variants"
+      }
+    ],
+    "actions": [
+      {
+        "id": "sleep_quality",
+        "title": "Protect sleep quality and duration",
+        "impact": 0.6,
+        "difficulty": "medium"
+      },
+      {
+        "id": "omega3_intake",
+        "title": "Adequate omega-3 intake",
+        "impact": 0.5,
+        "difficulty": "low"
+      },
+      {
+        "id": "polygenic_review",
+        "title": "Discuss your polygenic profile with a clinician for context",
+        "impact": 0.4,
+        "difficulty": "low"
+      }
+    ]
+  },
+  "performance_polygenic": {
+    "trait_id": "performance_polygenic",
+    "mechanism": "Aggregate of common athletic-performance-associated variants (power vs endurance) at genome-wide significance.",
+    "outcomes": [
+      {
+        "id": "performance_polygenic_profile",
+        "severity": 0.3,
+        "description": "Population-level performance tendency across many common variants"
+      }
+    ],
+    "actions": [
+      {
+        "id": "training_specificity",
+        "title": "Match training modality to your profile",
+        "impact": 0.5,
+        "difficulty": "medium"
+      },
+      {
+        "id": "polygenic_review",
+        "title": "Discuss your polygenic profile with a clinician for context",
+        "impact": 0.4,
+        "difficulty": "low"
+      }
+    ]
+  },
+  "sleep_polygenic": {
+    "trait_id": "sleep_polygenic",
+    "mechanism": "Aggregate of common sleep- and circadian-associated variants at genome-wide significance.",
+    "outcomes": [
+      {
+        "id": "sleep_polygenic_tendency",
+        "severity": 0.4,
+        "description": "Population-level sleep/chronotype tendency across many common variants"
+      }
+    ],
+    "actions": [
+      {
+        "id": "chronotype_alignment",
+        "title": "Align schedule with your chronotype",
+        "impact": 0.5,
+        "difficulty": "medium"
+      },
+      {
+        "id": "polygenic_review",
+        "title": "Discuss your polygenic profile with a clinician for context",
+        "impact": 0.4,
+        "difficulty": "low"
+      }
+    ]
+  },
+  "immune_polygenic": {
+    "trait_id": "immune_polygenic",
+    "mechanism": "Aggregate of common immune- and inflammation-associated variants at genome-wide significance.",
+    "outcomes": [
+      {
+        "id": "immune_polygenic_load",
+        "severity": 0.45,
+        "description": "Population-level immune/inflammatory tendency across many common variants"
+      }
+    ],
+    "actions": [
+      {
+        "id": "anti_inflammatory_diet",
+        "title": "Anti-inflammatory diet and gut health",
+        "impact": 0.5,
+        "difficulty": "medium"
+      },
+      {
+        "id": "polygenic_review",
+        "title": "Discuss your polygenic profile with a clinician for context",
+        "impact": 0.4,
+        "difficulty": "low"
+      }
+    ]
+  },
+  "nutrition_polygenic": {
+    "trait_id": "nutrition_polygenic",
+    "mechanism": "Aggregate of common nutrition- and micronutrient-associated variants at genome-wide significance.",
+    "outcomes": [
+      {
+        "id": "nutrition_polygenic_needs",
+        "severity": 0.4,
+        "description": "Population-level nutrient-need tendency across many common variants"
+      }
+    ],
+    "actions": [
+      {
+        "id": "micronutrient_review",
+        "title": "Review micronutrient status with labs",
+        "impact": 0.5,
+        "difficulty": "low"
+      },
+      {
+        "id": "polygenic_review",
+        "title": "Discuss your polygenic profile with a clinician for context",
+        "impact": 0.4,
+        "difficulty": "low"
+      }
+    ]
+  },
+  "cancer_polygenic": {
+    "trait_id": "cancer_polygenic",
+    "mechanism": "Aggregate of common cancer-risk-associated variants at genome-wide significance. This is a population-level tendency, not a hereditary cancer syndrome finding.",
+    "outcomes": [
+      {
+        "id": "cancer_polygenic_load",
+        "severity": 0.5,
+        "description": "Population-level cancer-risk tendency across many common variants; not diagnostic"
+      }
+    ],
+    "actions": [
+      {
+        "id": "screening_adherence",
+        "title": "Follow age-appropriate screening guidelines",
+        "impact": 0.6,
+        "difficulty": "low"
+      },
+      {
+        "id": "polygenic_review",
+        "title": "Discuss your polygenic profile with a clinician for context",
+        "impact": 0.4,
+        "difficulty": "low"
+      }
+    ]
+  },
+  "other_traits_polygenic": {
+    "trait_id": "other_traits_polygenic",
+    "mechanism": "Aggregate of other common trait-associated variants documented in the GWAS Catalog at genome-wide significance.",
+    "outcomes": [
+      {
+        "id": "other_polygenic_signal",
+        "severity": 0.3,
+        "description": "Population-level tendency across assorted common variants"
+      }
+    ],
+    "actions": [
+      {
+        "id": "polygenic_review",
+        "title": "Discuss your polygenic profile with a clinician for context",
+        "impact": 0.4,
+        "difficulty": "low"
+      }
+    ]
   }
 }

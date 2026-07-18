@@ -60,6 +60,7 @@ import {
 } from "./hallmark_engine.js";
 import { computePRS, type PRSScore } from "./prs_engine.js";
 import { computeGWASHits, getGWASRefDir } from "./gwas_engine.js";
+import { mapGWASToTraits, GWAS_INLINE_HITS_PER_DOMAIN } from "./gwas_traits.js";
 import type { GWASTraitSection } from "../../shared/dashboard-types.js";
 import {
   enrichVEPMissenseLongevity,
@@ -1551,6 +1552,7 @@ function mergeTraitScores(
   return Array.from(merged.values());
 }
 
+
 /**
  * Map clinical significance to a color badge for the variant card UI.
  */
@@ -1966,7 +1968,7 @@ export async function runPipelineFromVCF(
               label: d.label,
               hitCount: d.hitCount,
               netSignal: d.netSignal,
-              topHits: d.hits.slice(0, 20).map((h) => ({
+              topHits: d.hits.slice(0, GWAS_INLINE_HITS_PER_DOMAIN).map((h) => ({
                 rsid: h.rsid,
                 gene: h.gene,
                 trait: h.trait,
@@ -1986,8 +1988,15 @@ export async function runPipelineFromVCF(
               })),
             })),
           };
+          // Fold GWAS domains into the trait system (tier-3, additive) so
+          // population-level associations reach insights, priorities, and the
+          // GLI. Previously the entire GWAS layer was display-only.
+          const gwasTraitScores = mapGWASToTraits(gwasResult);
+          if (gwasTraitScores.length > 0) {
+            traitScores = mergeTraitScores(traitScores, gwasTraitScores);
+          }
           console.log(
-            `   GWAS: ${gwasResult.totalHits} associations across ${gwasResult.domains.length} domains`
+            `   GWAS: ${gwasResult.totalHits} associations across ${gwasResult.domains.length} domains → ${gwasTraitScores.length} polygenic traits`
           );
         } else {
           console.log(
