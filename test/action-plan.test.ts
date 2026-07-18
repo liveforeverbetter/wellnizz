@@ -144,6 +144,44 @@ test('does not report failed genetic processing as normal results', () => {
   assert.ok(plan.cautions.some(caution => /empty plan|processing failed/i.test(caution)));
 });
 
+test('turns completed actionable genetics into a clinical-review action', () => {
+  const labs = ingest('biomarkers', 'labs.csv', 'text/csv',
+    'marker,value,unit\nApoB,70,mg/dL\n');
+  const analysis = runHealthAnalysis('u6', [labs.source], labs.observations, undefined, 'o1');
+  analysis.derived_interpretations = [{
+    id: 'der_complete_genetics',
+    user_id: analysis.user_id,
+    organization_id: analysis.organization_id,
+    analysis_id: analysis.id,
+    category: 'genetics',
+    type: 'genetic_pipeline_analysis',
+    title: 'Genetic analysis completed',
+    status: 'complete',
+    summary: 'Full dbSNP analysis completed.',
+    provenance: {
+      source_ids: ['src_genetics'],
+      source_categories: ['genetics'],
+      source_type: 'derived',
+      engine: 'test genetics worker',
+      generated_at: new Date().toISOString(),
+    },
+    raw: {
+      status: 'complete',
+      raw: { clinvar_pathogenic: 51, cpic_actionable: 6 },
+    },
+  }];
+
+  const plan = buildActionPlan(analysis);
+  assert.equal(plan.status, 'ready');
+  assert.ok(plan.interventions.some(item => item.id === 'review_actionable_genetic_findings'));
+  assert.match(plan.summary, /51 ClinVar/i);
+  assert.match(plan.summary, /6 actionable CPIC/i);
+  assert.doesNotMatch(plan.summary, /within target|no out-of-range/i);
+  assert.ok(plan.cautions.some(caution => /do not diagnose|change medication/i.test(caution)));
+  assert.ok(plan.sources.some(source => source.name === 'ClinVar'));
+  assert.ok(plan.sources.some(source => source.name === 'CPIC'));
+});
+
 test('does not recommend supplements off an unrecognized-unit finding', () => {
   // Glucose with a bogus unit is quarantined, so it must not drive the plan.
   const labs = ingest('biomarkers', 'labs.csv', 'text/csv',

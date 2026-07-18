@@ -415,6 +415,7 @@ export interface ActionPlanOptions {
 export function buildActionPlan(analysis: AnalysisResult, options: ActionPlanOptions = {}): ActionPlan {
   const flagged = collectFlaggedFindings(analysis.derived_interpretations);
   const availability = actionPlanAvailability(analysis.derived_interpretations);
+  const geneticReview = actionableGeneticReview(analysis.derived_interpretations);
   const inventory = behavioralInventory(analysis);
   const takenSupplementKeys = supplementKeySet(inventory.supplements.map(s => s.name));
   const medicationNames = inventory.medications.map(m => m.name);
@@ -445,7 +446,7 @@ export function buildActionPlan(analysis: AnalysisResult, options: ActionPlanOpt
     }
   }
 
-  const interventions = [...interventionAgg.values()]
+  const interventions: ActionPlanIntervention[] = [...interventionAgg.values()]
     .map(entry => ({
       id: entry.ref.id,
       name: entry.ref.name,
@@ -457,6 +458,19 @@ export function buildActionPlan(analysis: AnalysisResult, options: ActionPlanOpt
       rationale: rationale(entry.targets),
     }))
     .sort(compareActions);
+
+  if (availability.status === 'ready' && geneticReview) {
+    interventions.unshift({
+      id: 'review_actionable_genetic_findings',
+      name: 'Review actionable genetic findings',
+      category: 'other',
+      detail: geneticReview.detail,
+      evidence: 'A',
+      priority: 'core',
+      targets: [{ marker: 'genetics', finding: geneticReview.finding, direction: 'high', status: 'needs_attention' }],
+      rationale: 'Clinical and medication-response genetic findings require qualified review and, where appropriate, confirmatory testing before care decisions.',
+    });
+  }
 
   const supplements = [...supplementAgg.values()]
     .map(entry => {
@@ -494,10 +508,16 @@ export function buildActionPlan(analysis: AnalysisResult, options: ActionPlanOpt
     })
     .sort(compareActions);
 
-  const cautions = [...availability.cautions, ...planCautions(inventory)];
+  const cautions = [
+    ...availability.cautions,
+    ...(geneticReview ? ['Genetic findings are educational screening results. Do not diagnose a condition or change medication without qualified clinical review and appropriate confirmation.'] : []),
+    ...planCautions(inventory),
+  ];
   const coreCount = interventions.filter(i => i.priority === 'core').length + supplements.filter(s => s.priority === 'core').length;
   const summary = availability.status !== 'ready'
     ? availability.summary
+    : flagged.length === 0 && geneticReview
+    ? geneticReview.summary
     : flagged.length === 0
     ? 'No out-of-range findings to act on - your markers are within target. Keep the current routine and re-test on schedule.'
     : `${flagged.length} finding${flagged.length === 1 ? '' : 's'} outside target mapped to ${interventions.length} lifestyle change${interventions.length === 1 ? '' : 's'} and ${supplements.length} supplement${supplements.length === 1 ? '' : 's'}${coreCount ? `, ${coreCount} of them core priorities` : ''}. Start with the lifestyle changes; layer supplements where a target justifies them.`;
@@ -516,6 +536,10 @@ export function buildActionPlan(analysis: AnalysisResult, options: ActionPlanOpt
     sources: availability.status === 'ready' ? [
       { name: INTERACTIONS.source, url: INTERACTIONS.source_url, detail: 'Supplement–drug interaction evidence extracted from the scientific literature.' },
       { name: OUTCOMES.source, url: OUTCOMES.source_url, detail: 'Supplement–health-outcome study counts, cited per finding.' },
+      ...(geneticReview ? [
+        { name: 'ClinVar', url: 'https://www.ncbi.nlm.nih.gov/clinvar/', detail: 'Clinical variant classifications; findings still require context and confirmation.' },
+        { name: 'CPIC', url: 'https://cpicpgx.org/', detail: 'Peer-reviewed pharmacogenomic prescribing guidance.' },
+      ] : []),
     ] : [],
     disclaimer: DISCLAIMER,
     provenance: {
@@ -524,6 +548,36 @@ export function buildActionPlan(analysis: AnalysisResult, options: ActionPlanOpt
       engine: 'health-api action_plan_engine',
     },
   };
+}
+
+function actionableGeneticReview(derived: DerivedInterpretation[]): {
+  summary: string;
+  detail: string;
+  finding: string;
+} | undefined {
+  const completed = derived.find(item => item.type === 'genetic_pipeline_analysis' && item.status === 'complete');
+  if (!completed || !completed.raw || typeof completed.raw !== 'object') return undefined;
+  const pipeline = completed.raw as Record<string, unknown>;
+  const stats = pipeline.raw && typeof pipeline.raw === 'object'
+    ? pipeline.raw as Record<string, unknown>
+    : {};
+  const clinvar = finiteCount(stats.clinvar_pathogenic);
+  const cpic = finiteCount(stats.cpic_actionable);
+  if (clinvar === 0 && cpic === 0) return undefined;
+  const labels = [
+    clinvar > 0 ? `${clinvar} ClinVar pathogenic or likely pathogenic finding${clinvar === 1 ? '' : 's'}` : undefined,
+    cpic > 0 ? `${cpic} actionable CPIC medication match${cpic === 1 ? '' : 'es'}` : undefined,
+  ].filter((value): value is string => Boolean(value));
+  const finding = labels.join(' and ');
+  return {
+    finding,
+    summary: `${finding} identified. Review the clinical findings with a genetics-informed clinician and medication-response findings with a clinician or pharmacist before making health or prescribing decisions.`,
+    detail: `Review ${finding.toLowerCase()}, including the reported rsIDs, zygosity, evidence tier, and medication context. Confirm clinically important variants before acting.`,
+  };
+}
+
+function finiteCount(value: unknown): number {
+  return typeof value === 'number' && Number.isFinite(value) && value > 0 ? Math.floor(value) : 0;
 }
 
 function actionPlanAvailability(derived: DerivedInterpretation[]): {
