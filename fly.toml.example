@@ -65,7 +65,9 @@ primary_region = "fra"
 
 [[vm]]
   size = "shared-cpu-1x"
-  memory = "512mb"
+  # Leave enough headroom to decode and serialize bounded WGS interpretations
+  # alongside normal API traffic. Full pipeline execution remains on wgs.
+  memory = "1024mb"
   processes = ["app", "worker"]
 
 [[vm]]

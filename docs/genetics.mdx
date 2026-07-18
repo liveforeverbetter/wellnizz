@@ -149,6 +149,20 @@ state. A brief database failover therefore does not discard a multi-hour WGS
 result or leave the job silently stuck in `running`. Retry events include the
 job ID, operation, attempt, delay, and original database error in worker logs.
 
+### Bounded inline results
+
+The rendered deep-genomic artifact can contain tens of thousands of exploratory
+variant cards. The analysis API keeps every clinical-condition, drug-response,
+and other-risk card, plus all trait, insight, protocol, PRS, and GWAS summaries.
+It does not embed the large low-priority `uncommon_mutations` collection in each
+analysis row, and condition-catalog collections are capped at 25 entries per
+modality. `dashboard.metadata.persistence_compaction` records the limits and
+the exact number omitted from each collection. This keeps `GET /analyses/:id`,
+dashboard, action-plan, and query requests usable on the hosted API while
+making the bounded result explicit instead of silently dropping data. The
+rendered deep-dive artifact remains the appropriate future surface for
+paginated exploratory variants.
+
 `GET /analyses/:id/action-plan` reports `status: "processing"`,
 `"setup_required"`, or `"failed"` when results are unavailable. These states do
 not return a misleading “within target” summary. Only `status: "ready"` means

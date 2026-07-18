@@ -37,6 +37,8 @@ export interface GeneticsPipelineOptions {
 const DEFAULT_TIMEOUT_MS = 120_000;
 const DEFAULT_FULL_DBSNP_TIMEOUT_MS = 14_400_000;
 const COMMAND_OUTPUT_TAIL_BYTES = 256 * 1024;
+const INLINE_UNCOMMON_MUTATION_LIMIT = 0;
+const INLINE_CONDITION_ENTRIES_PER_MODALITY = 25;
 const DEFAULT_BUNDLED_SKILL_DIR = 'vendor/health-analysis-skill';
 const LEGACY_SKILL_DIR = '../open-source/skills/genomic-analysis';
 
@@ -112,6 +114,7 @@ export async function runGeneticsPipelineWithWriter(
   const dashboardJsonPath = path.join(outputDir, `${userId}_dashboard.json`);
   const dashboard = await readJson(dashboardJsonPath);
   const raw = summarizeDashboard(dashboard);
+  const persistedDashboard = compactGeneticsDashboardForPersistence(dashboard);
   const fallback = rsidExtractionFallback(result.stderr);
   if (fallback) {
     raw.rsid_extraction_method = 'text_fallback';
@@ -133,11 +136,72 @@ export async function runGeneticsPipelineWithWriter(
     summary: fallback
       ? 'Health analysis completed with the text VCF parser after the bcftools rsID query failed. Interpreted results are available now; the original query error is recorded so this source can be reanalyzed after the worker is repaired.'
       : 'Health analysis completed using the bundled analyze-health pipeline.',
-    dashboard,
+    dashboard: persistedDashboard,
     dashboard_json_path: dashboardJsonPath,
     dashboard_html_path: path.join(outputDir, 'index.html'),
     raw,
   };
+}
+
+/**
+ * The rendered WGS dashboard can contain tens of thousands of low-priority
+ * variant cards. Embedding all of them in the analysis JSON makes routine API
+ * reads allocate hundreds of megabytes while parsing JSON. Keep every
+ * actionable clinical/drug/risk card and the complete trait/PRS summaries,
+ * while bounding the large exploratory and condition-catalog collections.
+ * Exact omitted counts remain in the payload so clients can explain the
+ * bounded inline view and request a future artifact-backed deep dive.
+ */
+export function compactGeneticsDashboardForPersistence(dashboard: unknown): unknown {
+  if (!isRecord(dashboard)) return dashboard;
+  const metadata = isRecord(dashboard.metadata) ? dashboard.metadata : {};
+  const variantCards = isRecord(metadata.variant_cards) ? metadata.variant_cards : {};
+  const uncommonMutations = Array.isArray(variantCards.uncommon_mutations)
+    ? variantCards.uncommon_mutations
+    : [];
+  const conditionMatches = compactConditionCatalog(metadata.condition_catalog_matches);
+  const conditionFindings = compactConditionCatalog(metadata.condition_catalog_findings);
+
+  return {
+    ...dashboard,
+    metadata: {
+      ...metadata,
+      variant_cards: {
+        ...variantCards,
+        uncommon_mutations: uncommonMutations.slice(0, INLINE_UNCOMMON_MUTATION_LIMIT),
+      },
+      condition_catalog_matches: conditionMatches.value,
+      condition_catalog_findings: conditionFindings.value,
+      persistence_compaction: {
+        version: 1,
+        reason: 'Large exploratory WGS collections are bounded in the inline API result; actionable clinical, drug-response, risk, trait, insight, protocol, and PRS results are retained.',
+        limits: {
+          uncommon_mutations: INLINE_UNCOMMON_MUTATION_LIMIT,
+          condition_entries_per_modality: INLINE_CONDITION_ENTRIES_PER_MODALITY,
+        },
+        omitted: {
+          uncommon_mutations: Math.max(0, uncommonMutations.length - INLINE_UNCOMMON_MUTATION_LIMIT),
+          condition_catalog_matches: conditionMatches.omitted,
+          condition_catalog_findings: conditionFindings.omitted,
+        },
+      },
+    },
+  };
+}
+
+function compactConditionCatalog(value: unknown): { value: unknown; omitted: Record<string, number> } {
+  if (!isRecord(value) || !isRecord(value.modalities)) return { value, omitted: {} };
+  const omitted: Record<string, number> = {};
+  const modalities = Object.fromEntries(Object.entries(value.modalities).map(([name, entries]) => {
+    if (!Array.isArray(entries)) return [name, entries];
+    omitted[name] = Math.max(0, entries.length - INLINE_CONDITION_ENTRIES_PER_MODALITY);
+    return [name, entries.slice(0, INLINE_CONDITION_ENTRIES_PER_MODALITY)];
+  }));
+  return { value: { ...value, modalities }, omitted };
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
 }
 
 export function geneticsPipelineTimeoutMs(
