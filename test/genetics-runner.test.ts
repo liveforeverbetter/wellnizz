@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { buildGeneticsPipelineArgs, geneticsPipelineTimeoutMs } from '../src/core/genetics-runner.js';
+import { appendCommandOutputTail, buildGeneticsPipelineArgs, geneticsPipelineTimeoutMs } from '../src/core/genetics-runner.js';
 import { createId, HealthApiStore } from '../src/store.js';
 import type { GeneticAnalysisJob } from '../src/types.js';
 
@@ -55,6 +55,16 @@ test('compact jobs retain the standard timeout', () => {
     ),
     1_800_000,
   );
+});
+
+test('worker command capture retains only a bounded diagnostic tail', () => {
+  let captured = '';
+  for (let index = 0; index < 10_000; index++) {
+    captured = appendCommandOutputTail(captured, `progress ${index.toString().padStart(5, '0')} ${'x'.repeat(80)}\n`, 4096);
+  }
+  assert.ok(Buffer.byteLength(captured) <= 4096);
+  assert.doesNotMatch(captured, /progress 00000/);
+  assert.match(captured, /progress 09999/);
 });
 
 test('claiming a genetic retry clears the previous attempt error', async () => {

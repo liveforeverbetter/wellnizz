@@ -1,5 +1,5 @@
 source_repo=https://github.com/liveforeverbetter/agentic-health-analysis.git
 source_subdir=skills/longevity-analysis
-source_commit=a6243f258e59fe63e1d4a1ae24387080acc6dbb7
+source_commit=4ca8d83cf6158136d582f7bc27f1be5db351adf5
 source_dirty=false
-bundled_at=2026-07-17T12:54:14Z
+bundled_at=2026-07-18T08:20:46Z

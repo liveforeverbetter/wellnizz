@@ -136,6 +136,18 @@ the same source after the WGS worker has been repaired. A failed full-dbSNP
 annotation itself is still retried by the queue rather than silently relabeled
 as a successful full analysis.
 
+Both extraction paths process command output incrementally instead of retaining
+the full WGS query in the Node heap. The hosted wrapper streams child output to
+worker logs and retains only a bounded diagnostic tail for the persisted error.
+The dedicated WGS process is configured with 4 GB of memory and a 3 GB Node heap;
+self-hosted deployments should keep similar headroom for `bcftools`, genotype
+maps, and temporary files.
+
+`GET /analyses/:id/action-plan` reports `status: "processing"`,
+`"setup_required"`, or `"failed"` when results are unavailable. These states do
+not return a misleading “within target” summary. Only `status: "ready"` means
+the empty-plan language can be interpreted as an analyzed result.
+
 Full dbSNP jobs use `HEALTH_ANALYSIS_FULL_DBSNP_TIMEOUT_MS` independently of
 the compact analysis timeout. The hosted WGS worker defaults this to four hours
 so multi-million-variant annotation is not killed by the 30-minute compact-job

@@ -17,7 +17,9 @@ primary_region = "fra"
 [processes]
   app = "node dist/index.js"
   worker = "node dist/workers/wearables-worker.js"
-  wgs = "node dist/workers/genetics-worker.js"
+  # Full WGS jobs stream bcftools output but still retain large genotype maps.
+  # Keep the Node heap bounded below the dedicated worker's VM memory.
+  wgs = "node --max-old-space-size=3072 dist/workers/genetics-worker.js"
 
 [http_service]
   internal_port = 8787
@@ -68,5 +70,5 @@ primary_region = "fra"
 
 [[vm]]
   size = "shared-cpu-2x"
-  memory = "1024mb"
+  memory = "4096mb"
   processes = ["wgs"]

@@ -109,6 +109,42 @@ describe("ClinVar rsID annotation", () => {
     }
   });
 
+  it("streams hundreds of thousands of rsIDs and handles multi-ID dbSNP records", () => {
+    const directory = fs.mkdtempSync(path.join(os.tmpdir(), "fb-vcf-streaming-"));
+    const input = path.join(directory, "provider.vcf");
+    const fakeBcftools = path.join(directory, "bcftools");
+    const previousPath = process.env.PATH;
+    try {
+      fs.writeFileSync(input, "##fileformat=VCFv4.2\n", "utf8");
+      fs.writeFileSync(
+        fakeBcftools,
+        [
+          "#!/bin/sh",
+          "if [ \"$1\" = query ]; then",
+          "  awk 'BEGIN { for (i=1; i<=300000; i++) { id=(i==300000 ? \"rs299999;rs300000\" : \"rs\" i); printf \"1\\t%d\\t%s\\tA\\tG\\t0/1\\n\", i, id } }'",
+          "  exit 0",
+          "fi",
+          "if [ \"$1\" = index ] && [ \"$2\" = -n ]; then echo 300000; exit 0; fi",
+          "exit 1",
+          "",
+        ].join("\n"),
+        "utf8"
+      );
+      fs.chmodSync(fakeBcftools, 0o755);
+      process.env.PATH = `${directory}${path.delimiter}${previousPath ?? ""}`;
+
+      const result = parseVCFWithRSIDs(input, ["rs300000"]);
+      assert.equal(result.totalVariants, 300000);
+      assert.equal(result.annotatedCount, 300000);
+      assert.equal(result.variants.length, 1);
+      assert.equal(result.variants[0]?.id, "rs300000");
+      assert.equal(result.extractionMethod, "bcftools");
+    } finally {
+      process.env.PATH = previousPath;
+      fs.rmSync(directory, { recursive: true, force: true });
+    }
+  });
+
   it("annotates and interprets a raw zero-ID VCF through the full dbSNP path", async () => {
     const directory = fs.mkdtempSync(path.join(os.tmpdir(), "fb-vcf-full-dbsnp-"));
     const input = path.join(directory, "provider.vcf");

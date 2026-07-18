@@ -17,6 +17,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { execSync } from "child_process";
+import { StringDecoder } from "node:string_decoder";
 import { fileURLToPath } from "url";
 import {
   queryClinVarForRSIDs,
@@ -410,8 +411,8 @@ function loadInterpretations(
 
 /**
  * Parse a VCF file but only extract variants matching the given rsIDs.
- * Uses grep for efficient line filtering — avoids loading all 3.7M
- * variants into memory (previously OOM'd at ~750MB heap per parse).
+ * Streams command output through a temporary file so WGS-scale query results
+ * never become one giant JavaScript string.
  */
 export interface VcfRsidExtractionResult {
   variants: Variant[];
@@ -419,6 +420,87 @@ export interface VcfRsidExtractionResult {
   annotatedCount: number;
   extractionMethod: "bcftools" | "text_fallback";
   fallbackReason?: string;
+}
+
+function shellQuote(value: string): string {
+  return `'${value.replace(/'/g, `'\\''`)}'`;
+}
+
+function forEachLineInFileSync(
+  filePath: string,
+  onLine: (line: string) => void
+): void {
+  const descriptor = fs.openSync(filePath, "r");
+  const buffer = Buffer.allocUnsafe(1024 * 1024);
+  const decoder = new StringDecoder("utf8");
+  let pending = "";
+  try {
+    let bytesRead = 0;
+    do {
+      bytesRead = fs.readSync(descriptor, buffer, 0, buffer.length, null);
+      const text = pending + decoder.write(buffer.subarray(0, bytesRead));
+      let lineStart = 0;
+      let newline = text.indexOf("\n", lineStart);
+      while (newline >= 0) {
+        const line = text.slice(lineStart, newline).replace(/\r$/, "");
+        if (line) onLine(line);
+        lineStart = newline + 1;
+        newline = text.indexOf("\n", lineStart);
+      }
+      pending = text.slice(lineStart);
+    } while (bytesRead > 0);
+    pending += decoder.end();
+    if (pending) onLine(pending.replace(/\r$/, ""));
+  } finally {
+    fs.closeSync(descriptor);
+  }
+}
+
+function forEachCommandOutputLineSync(
+  command: string,
+  nearbyPath: string,
+  timeout: number,
+  onLine: (line: string) => void
+): void {
+  const tempDir = fs.mkdtempSync(
+    path.join(path.dirname(nearbyPath), ".vcf-query-")
+  );
+  const outputPath = path.join(tempDir, "query.tsv");
+  try {
+    execSync(`set -o pipefail; ${command} > ${shellQuote(outputPath)}`, {
+      timeout,
+      shell: "/bin/bash",
+      stdio: ["ignore", "ignore", "pipe"],
+    });
+    forEachLineInFileSync(outputPath, onLine);
+  } finally {
+    fs.rmSync(tempDir, { recursive: true, force: true });
+  }
+}
+
+function rsidsFromIdField(id: string): string[] {
+  return id.split(";").filter(candidate => /^rs\d+/i.test(candidate));
+}
+
+function appendTargetVariants(
+  variants: Variant[],
+  targetSet: Set<string>,
+  input: { chrom: string; pos: number; id: string; ref: string; alt: string; gtRaw?: string }
+): void {
+  for (const rsid of rsidsFromIdField(input.id)) {
+    if (!targetSet.has(rsid)) continue;
+    variants.push({
+      chrom: input.chrom,
+      pos: input.pos,
+      id: rsid,
+      ref: input.ref,
+      alt: input.alt,
+      qual: ".",
+      filter: ".",
+      info: ".",
+      samples: input.gtRaw ? [input.gtRaw] : [],
+    });
+  }
 }
 
 export function parseVCFWithRSIDs(
@@ -436,103 +518,74 @@ export function parseVCFWithRSIDs(
   let fallbackReason: string | undefined;
 
   try {
-    // bcftools query -f outputs a TSV; filtering to rs* lines is fast on the plain-text stream
-    const result = execSync(
-      `set -o pipefail; bcftools query -f '%CHROM\\t%POS\\t%ID\\t%REF\\t%ALT[\\t%GT]\\n' "${vcfPath}" | awk -F'\\t' '$3 ~ /^rs/'`,
-      {
-        encoding: "utf8",
-        maxBuffer: 500 * 1024 * 1024,
-        timeout: 120000,
-        shell: "/bin/bash",
-      }
-    );
-
-    for (const line of result.trim().split("\n")) {
-      if (!line.trim()) continue;
-      annotatedCount++;
-      const parts = line.split("\t");
-      const [chrom, posStr, id, ref, alt, gtRaw] = parts;
-      if (!chrom || !posStr || !id || !ref || !alt) continue;
-      const gt = gtRaw ? convertGT(gtRaw.trim(), ref, alt) : undefined;
-      if (targetSet.has(id)) {
-        variants.push({
+    forEachCommandOutputLineSync(
+      `bcftools query -f '%CHROM\\t%POS\\t%ID\\t%REF\\t%ALT[\\t%GT]\\n' ${shellQuote(vcfPath)} | awk -F'\\t' '$3 ~ /(^|;)rs[0-9]+/'`,
+      vcfPath,
+      120000,
+      line => {
+        annotatedCount++;
+        const [chrom, posStr, id, ref, alt, gtRaw] = line.split("\t");
+        if (!chrom || !posStr || !id || !ref || !alt) return;
+        appendTargetVariants(variants, targetSet, {
           chrom,
           pos: parseInt(posStr, 10),
           id,
           ref,
           alt,
-          qual: ".",
-          filter: ".",
-          info: ".",
-          samples: gtRaw ? [gtRaw] : [],
+          gtRaw,
         });
       }
-    }
+    );
 
     // Total variant count: use bcftools index -n (instant for indexed BGZip).
-    // A valid, unindexed VCF still needs an exact count rather than being reported
-    // as though its rsID count were its total variant count.
+    // A valid, unindexed VCF still needs an exact count.
     try {
-      const nResult = execSync(`bcftools index -n "${vcfPath}" 2>/dev/null`, {
+      const nResult = execSync(`bcftools index -n ${shellQuote(vcfPath)} 2>/dev/null`, {
         encoding: "utf8",
       });
       totalVariants = parseInt(nResult.trim(), 10) || annotatedCount;
     } catch {
       const nResult = execSync(
-        `set -o pipefail; bcftools view -H "${vcfPath}" | wc -l`,
+        `set -o pipefail; bcftools view -H ${shellQuote(vcfPath)} | wc -l`,
         { encoding: "utf8", timeout: 300000, shell: "/bin/bash" }
       );
       totalVariants = parseInt(nResult.trim(), 10) || 0;
     }
   } catch (error) {
-    // A bcftools query error must remain observable, but it does not make a
-    // readable VCF invalid. Fall back to one text pass and preserve the reason
-    // in both worker logs and the returned analysis provenance.
     extractionMethod = "text_fallback";
     fallbackReason = commandFailureSummary(error);
     console.warn(
       `[vcf-rsid-extraction-fallback] ${JSON.stringify({ reason: fallbackReason })}`
     );
-    const tmp = `${vcfPath}.lines.tmp`;
     try {
-      execSync(
-        `set -o pipefail; gzip -cdf "${vcfPath}" | grep -v "^#" > "${tmp}"`,
-        { timeout: 300000, shell: "/bin/bash" }
-      );
-      const countResult = execSync(`wc -l < "${tmp}"`, { encoding: "utf8" });
-      totalVariants = parseInt(countResult.trim(), 10) || 0;
-      // awk prints zero and exits successfully when the VCF has no rsIDs.
-      // grep -c also prints zero but exits 1, which previously made a valid WGS
-      // VCF look corrupt and exhausted every queued retry.
-      const rsCountResult = execSync(
-        `awk -F'\\t' '$3 ~ /^rs/ {n++} END{print n+0}' "${tmp}"`,
-        { encoding: "utf8" }
-      );
-      annotatedCount = parseInt(rsCountResult.trim(), 10) || 0;
-      if (targetRSIDs.length > 0) {
-        const rsidFile = `${vcfPath}.target_rsids.txt`;
-        fs.writeFileSync(rsidFile, targetRSIDs.join("\n"));
-        try {
-          const matched = execSync(
-            `awk -F'\\t' 'NR==FNR {wanted[$1]=1; next} ($3 in wanted)' "${rsidFile}" "${tmp}"`,
-            { encoding: "utf8", maxBuffer: 10 * 1024 * 1024 }
-          );
-          for (const line of matched.trim().split("\n")) {
-            if (!line.trim()) continue;
-            const variant = parseVCFLine(line);
-            if (variant) variants.push(variant);
-          }
-        } catch {
-          /* no matches */
+      totalVariants = 0;
+      annotatedCount = 0;
+      variants.length = 0;
+      forEachCommandOutputLineSync(
+        `gzip -cdf ${shellQuote(vcfPath)} | awk '!/^#/'`,
+        vcfPath,
+        300000,
+        line => {
+          totalVariants++;
+          const parsed = parseVCFLine(line);
+          if (!parsed) return;
+          const rsids = rsidsFromIdField(parsed.id);
+          if (rsids.length === 0) return;
+          annotatedCount++;
+          appendTargetVariants(variants, targetSet, {
+            chrom: parsed.chrom,
+            pos: parsed.pos,
+            id: parsed.id,
+            ref: parsed.ref,
+            alt: parsed.alt,
+            gtRaw: parsed.samples?.[0],
+          });
         }
-        try {
-          fs.unlinkSync(rsidFile);
-        } catch {}
-      }
-    } finally {
-      try {
-        fs.unlinkSync(tmp);
-      } catch {}
+      );
+    } catch (fallbackError) {
+      throw new Error(
+        `bcftools query failed (${fallbackReason}); text fallback failed (${commandFailureSummary(fallbackError)})`
+      );
     }
   }
 
@@ -1307,71 +1360,58 @@ export async function analyzeVCF(
     "\n🔍 Extracting all rsIDs + genotypes from full VCF (single pass)..."
   );
   const allGenotypes = new Map<string, string>();
-  const allRSIDs: string[] = [];
-  try {
-    const genotypeLines = execSync(
-      `set -o pipefail; bcftools query -f '%ID\\t%REF\\t%ALT[\\t%GT]\\n' "${finalVCFPath}" | awk -F'\\t' '$1 ~ /^rs/'`,
-      {
-        encoding: "utf8",
-        maxBuffer: 500 * 1024 * 1024,
-        timeout: 180000,
-        shell: "/bin/bash",
-      }
-    );
-    for (const line of genotypeLines.trim().split("\n")) {
-      if (!line.trim()) continue;
-      const [rsid, ref, alt, gtRaw] = line.split("\t");
-      if (!rsid) continue;
-      allRSIDs.push(rsid);
-      if (ref && alt && gtRaw && !allGenotypes.has(rsid)) {
-        const gt = convertGT(gtRaw.trim(), ref, alt);
-        if (gt) allGenotypes.set(rsid, gt);
+  const rsidsWithoutGenotypes = new Set<string>();
+  const recordGenotypeLine = (line: string, sampleIncludesFormat: boolean) => {
+    const [idField, ref, alt, sampleValue] = line.split("\t");
+    if (!idField) return;
+    const gtRaw = sampleIncludesFormat ? sampleValue?.split(":")[0] : sampleValue;
+    const gt = ref && alt && gtRaw ? convertGT(gtRaw.trim(), ref, alt) : null;
+    for (const rsid of rsidsFromIdField(idField)) {
+      if (gt && !allGenotypes.has(rsid)) {
+        allGenotypes.set(rsid, gt);
+        rsidsWithoutGenotypes.delete(rsid);
+      } else if (!allGenotypes.has(rsid)) {
+        rsidsWithoutGenotypes.add(rsid);
       }
     }
-    const uniqueRSIDs = [...new Set(allRSIDs)];
-    // Replace allRSIDs array in-place for ClinVar lookup below
-    allRSIDs.length = 0;
-    allRSIDs.push(...uniqueRSIDs);
-    console.log(
-      `   ${allRSIDs.length.toLocaleString()} unique rsIDs, ${allGenotypes.size.toLocaleString()} with genotypes`
+  };
+  try {
+    forEachCommandOutputLineSync(
+      `bcftools query -f '%ID\\t%REF\\t%ALT[\\t%GT]\\n' ${shellQuote(finalVCFPath)} | awk -F'\\t' '$1 ~ /(^|;)rs[0-9]+/'`,
+      finalVCFPath,
+      180000,
+      line => recordGenotypeLine(line, false)
     );
   } catch (err) {
-    const fallbackReason = commandFailureSummary(err);
+    const queryFailure = commandFailureSummary(err);
     extraction.extractionMethod = "text_fallback";
     extraction.fallbackReason = extraction.fallbackReason
-      ? `${extraction.fallbackReason}; genotype query: ${fallbackReason}`
-      : `genotype query: ${fallbackReason}`;
+      ? `${extraction.fallbackReason}; genotype query: ${queryFailure}`
+      : `genotype query: ${queryFailure}`;
     console.warn(
       `[vcf-rsid-extraction-fallback] ${JSON.stringify({ reason: extraction.fallbackReason })}`
     );
-    // bcftools unavailable — fall back to zcat single pass
     try {
-      const genotypeLines = execSync(
-        `set -o pipefail; gzip -cdf "${finalVCFPath}" | grep -v "^#" | awk -F'\\t' '{if($3 ~ /^rs/) print $3"\\t"$4"\\t"$5"\\t"$10}'`,
-        {
-          encoding: "utf8",
-          maxBuffer: 200 * 1024 * 1024,
-          shell: "/bin/bash",
-        }
+      forEachCommandOutputLineSync(
+        `gzip -cdf ${shellQuote(finalVCFPath)} | awk -F'\\t' '!/^#/ && $3 ~ /(^|;)rs[0-9]+/ {print $3"\\t"$4"\\t"$5"\\t"$10}'`,
+        finalVCFPath,
+        300000,
+        line => recordGenotypeLine(line, true)
       );
-      for (const line of genotypeLines.trim().split("\n")) {
-        if (!line.trim()) continue;
-        const [rsid, ref, alt, sampleData] = line.split("\t");
-        if (!rsid || !sampleData) continue;
-        allRSIDs.push(rsid);
-        if (!allGenotypes.has(rsid)) {
-          const gtRaw = sampleData.split(":")[0];
-          const gt = convertGT(gtRaw, ref, alt);
-          if (gt) allGenotypes.set(rsid, gt);
-        }
-      }
-      console.log(`   ${allRSIDs.length.toLocaleString()} rsIDs found`);
-    } catch {
+    } catch (fallbackError) {
+      extraction.fallbackReason = `${extraction.fallbackReason ?? 'genotype query failed'}; genotype text fallback failed: ${commandFailureSummary(fallbackError)}`;
       console.warn(
-        `   ⚠️  Genotype map build failed, continuing with reduced CPIC matching`
+        `   ⚠️  Genotype map build failed, continuing with reduced CPIC matching: ${commandFailureSummary(fallbackError)}`
       );
     }
   }
+  const allRSIDs = [
+    ...allGenotypes.keys(),
+    ...rsidsWithoutGenotypes,
+  ];
+  console.log(
+    `   ${allRSIDs.length.toLocaleString()} unique rsIDs, ${allGenotypes.size.toLocaleString()} with genotypes`
+  );
 
   // Step 5b: ClinVar enrichment (all annotated rsIDs, no cap)
   console.log("\n🏥 Step 5b: Cross-referencing against ClinVar...");

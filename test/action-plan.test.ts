@@ -108,6 +108,40 @@ test('returns an empty, maintain-framed plan when nothing is out of range', () =
   assert.equal(plan.supplements.length, 0);
   assert.equal(plan.interventions.length, 0);
   assert.match(plan.summary, /within target|no out-of-range/i);
+  assert.equal(plan.status, 'ready');
+});
+
+test('does not report failed genetic processing as normal results', () => {
+  const labs = ingest('biomarkers', 'labs.csv', 'text/csv',
+    'marker,value,unit\nApoB,70,mg/dL\n');
+  const analysis = runHealthAnalysis('u5', [labs.source], labs.observations, undefined, 'o1');
+  analysis.derived_interpretations = [{
+    id: 'der_failed_genetics',
+    user_id: analysis.user_id,
+    organization_id: analysis.organization_id,
+    analysis_id: analysis.id,
+    category: 'genetics',
+    type: 'failed',
+    title: 'Genetic analysis failed',
+    status: 'failed',
+    summary: 'Worker ran out of memory.',
+    provenance: {
+      source_ids: ['src_genetics'],
+      source_categories: ['genetics'],
+      source_type: 'failed',
+      engine: 'test genetics worker',
+      generated_at: new Date().toISOString(),
+    },
+  }];
+
+  const plan = buildActionPlan(analysis);
+  assert.equal(plan.status, 'failed');
+  assert.equal(plan.interventions.length, 0);
+  assert.equal(plan.supplements.length, 0);
+  assert.equal(plan.sources.length, 0);
+  assert.doesNotMatch(plan.summary, /within target|markers are normal/i);
+  assert.match(plan.summary, /failed|reanalysis/i);
+  assert.ok(plan.cautions.some(caution => /empty plan|processing failed/i.test(caution)));
 });
 
 test('does not recommend supplements off an unrecognized-unit finding', () => {
