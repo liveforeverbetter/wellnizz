@@ -143,6 +143,12 @@ The dedicated WGS process is configured with 4 GB of memory and a 3 GB Node heap
 self-hosted deployments should keep similar headroom for `bcftools`, genotype
 maps, and temporary files.
 
+After the pipeline renders its result, the worker retries transient PostgreSQL
+recovery and connection failures while saving the analysis and terminal job
+state. A brief database failover therefore does not discard a multi-hour WGS
+result or leave the job silently stuck in `running`. Retry events include the
+job ID, operation, attempt, delay, and original database error in worker logs.
+
 `GET /analyses/:id/action-plan` reports `status: "processing"`,
 `"setup_required"`, or `"failed"` when results are unavailable. These states do
 not return a misleading “within target” summary. Only `status: "ready"` means

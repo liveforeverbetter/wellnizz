@@ -2,6 +2,7 @@ import { randomUUID } from 'node:crypto';
 import { configuredStore } from '../configured-store.js';
 import { runGeneticsPipelineWithWriter } from '../core/genetics-runner.js';
 import { upsertGeneticPipelineInterpretation } from '../core/genetic-analysis.js';
+import { retryTransientStoreOperation } from '../core/store-retry.js';
 
 const workerId = process.env.HEALTH_ANALYSIS_WORKER_ID
   ?? process.env.GENOMIC_ANALYSIS_WORKER_ID
@@ -12,7 +13,20 @@ const store = configuredStore();
 
 async function main(): Promise<void> {
   do {
-    const processed = await processNextJob();
+    let processed = false;
+    try {
+      processed = await processNextJob();
+    } catch (error) {
+      console.error(JSON.stringify({
+        ts: new Date().toISOString(),
+        worker_id: workerId,
+        event: 'genetics_worker_poll_error',
+        error: errorMessage(error),
+      }));
+      if (once) throw error;
+      await sleep(pollMs);
+      continue;
+    }
     if (once) break;
     await sleep(processed ? 100 : pollMs);
   } while (true);
@@ -38,12 +52,12 @@ async function processNextJob(): Promise<boolean> {
       { annotation_depth: job.annotation_depth },
     );
     upsertGeneticPipelineInterpretation(analysis, source, pipeline, job.id);
-    await store.saveAnalysis(analysis);
+    await storeWriteWithRetry(job.id, 'save_analysis', () => store.saveAnalysis(analysis));
 
     if (pipeline.status === 'failed') {
-      await store.failGeneticAnalysisJob(job.id, pipeline.summary);
+      await storeWriteWithRetry(job.id, 'fail_job', () => store.failGeneticAnalysisJob(job.id, pipeline.summary));
     } else {
-      await store.completeGeneticAnalysisJob(job.id, pipeline);
+      await storeWriteWithRetry(job.id, 'complete_job', () => store.completeGeneticAnalysisJob(job.id, pipeline));
     }
     console.log(JSON.stringify({
       ts: new Date().toISOString(),
@@ -54,8 +68,19 @@ async function processNextJob(): Promise<boolean> {
       source_id: job.source_id,
     }));
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    await store.failGeneticAnalysisJob(job.id, message);
+    const message = errorMessage(error);
+    try {
+      await storeWriteWithRetry(job.id, 'record_failure', () => store.failGeneticAnalysisJob(job.id, message));
+    } catch (persistenceError) {
+      console.error(JSON.stringify({
+        ts: new Date().toISOString(),
+        worker_id: workerId,
+        job_id: job.id,
+        event: 'genetics_job_failure_persistence_exhausted',
+        error: errorMessage(persistenceError),
+        original_error: message,
+      }));
+    }
     console.error(JSON.stringify({
       ts: new Date().toISOString(),
       worker_id: workerId,
@@ -65,6 +90,36 @@ async function processNextJob(): Promise<boolean> {
     }));
   }
   return true;
+}
+
+async function storeWriteWithRetry(jobId: string, operation: string, write: () => Promise<void>): Promise<void> {
+  const maxAttempts = positiveInteger(process.env.HEALTH_ANALYSIS_STORE_WRITE_MAX_ATTEMPTS, 60);
+  const delayMs = positiveInteger(process.env.HEALTH_ANALYSIS_STORE_WRITE_RETRY_MS, 5_000);
+  await retryTransientStoreOperation(write, {
+    maxAttempts,
+    delayMs,
+    onRetry: (error, attempt, retryDelayMs) => {
+      console.warn(JSON.stringify({
+        ts: new Date().toISOString(),
+        worker_id: workerId,
+        job_id: jobId,
+        event: 'genetics_store_write_retry',
+        operation,
+        attempt,
+        retry_delay_ms: retryDelayMs,
+        error: errorMessage(error),
+      }));
+    },
+  });
+}
+
+function positiveInteger(value: string | undefined, fallback: number): number {
+  const parsed = Number(value);
+  return Number.isInteger(parsed) && parsed > 0 ? parsed : fallback;
+}
+
+function errorMessage(error: unknown): string {
+  return error instanceof Error ? error.message : String(error);
 }
 
 function sleep(ms: number): Promise<void> {
