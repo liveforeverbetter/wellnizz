@@ -285,7 +285,7 @@ const SYSTEMS: DesignSystem[] = [
     id: "foreverbetter",
     name: "ForeverBetter",
     inspired_by: "ForeverBetter",
-    vibe: 'The house design. A warm-paper editorial "Healthspan dossier": near-black ink on soft paper, a Fraunces serif for the numbers, a single coral accent, and a composite Genomic Longevity Index at the top. Reads like a printed report, not an app. The full multimodal board - biomarkers, wearables, genetics, action plan.',
+    vibe: 'The house design. A warm-paper editorial "Healthspan dossier": near-black ink on soft paper, Schibsted Grotesk display for the numbers, a single coral accent, and a composite Genomic Longevity Index at the top. Reads like a printed report, not an app. The full multimodal board - biomarkers, wearables, genetics, action plan.',
     best_for: [
       "full multimodal longevity reports",
       "composite healthspan index dashboards",
@@ -309,11 +309,11 @@ const SYSTEMS: DesignSystem[] = [
       gradient: "linear-gradient(180deg, #fbf9f5, #f6f3ee)",
     },
     typography: {
-      font_display: '"Fraunces", "Georgia", "Times New Roman", serif',
+      font_display: '"Schibsted Grotesk", system-ui, -apple-system, sans-serif',
       font_body: '"DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif',
       font_mono: '"DM Mono", ui-monospace, SFMono-Regular, Menlo, monospace',
       google_fonts: [
-        "Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700",
+        "Schibsted+Grotesk:wght@500;600",
         "DM+Sans:wght@400;500;600;700",
         "DM+Mono:wght@400;500",
       ],
@@ -359,12 +359,12 @@ const SYSTEMS: DesignSystem[] = [
     components: {
       gli_dial: {
         description:
-          "The hero: a tick-marked semicircular dial for the composite Genomic Longevity Index (0-100), number set large in the Fraunces serif.",
+          "The hero: a tick-marked semicircular dial for the composite Genomic Longevity Index (0-100), number set large in Schibsted Grotesk.",
         css: {
           "stroke-width": "14px",
           "stroke-linecap": "round",
           color: "#df1e39",
-          "font-family": '"Fraunces", serif',
+          "font-family": '"Schibsted Grotesk", sans-serif',
         },
       },
       modality_chip: {
