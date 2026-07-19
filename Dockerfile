@@ -35,6 +35,7 @@ COPY --from=builder /app/dist ./dist
 COPY public ./public
 COPY migrations ./migrations
 COPY scripts ./scripts
+COPY data/genetics ./data/genetics
 
 # Ship sources so the genetics worker can run the vendored TypeScript analysis
 # pipeline with the production-pinned tsx dependency.

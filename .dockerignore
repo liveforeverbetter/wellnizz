@@ -12,6 +12,10 @@ dist
 *.log
 assets
 data
+!data/
+data/*
+!data/genetics/
+!data/genetics/**
 docker
 docs-internal
 test

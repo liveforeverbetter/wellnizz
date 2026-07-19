@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "release": "2026-07-19.1",
+  "scores": [
+    {
+      "pgs_id": "PGS000210",
+      "trait_id": "pulmonary_function",
+      "display_name": "Pulmonary function (FEV1/FVC)",
+      "consumer_category": "performance",
+      "efo_id": "EFO_0004713",
+      "genome_build": "GRCh37",
+      "scoring_file": "PGS000210_hmPOS_GRCh37.txt",
+      "sha256": "df642ed2a88fbc0475a80271e04fe0c6197572fcf874d8a5b8db95e86b5be0ab",
+      "variants": 279,
+      "weight_type": "NR",
+      "source_url": "https://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/PGS000210/ScoringFiles/Harmonized/PGS000210_hmPOS_GRCh37.txt.gz",
+      "publication": "Shrine N et al. Nature Genetics (2019)",
+      "doi": "10.1038/s41588-018-0321-7",
+      "development_ancestry": "European:100",
+      "evaluation_ancestry": "European:29.4|African:23.5|East Asian:17.6|Additional Diverse Ancestries:17.6|South Asian:11.8",
+      "calibration_state": "raw_score_only",
+      "direction_interpretation": "withheld",
+      "license": "PGS Catalog terms of use; cite the source publication",
+      "limitations": [
+        "The Catalog reports the weight type as not reported, so score direction is not converted into a higher/lower lung-function claim.",
+        "No compatible individual reference distribution is bundled; no percentile is returned.",
+        "A variant-only VCF cannot prove callability at omitted loci. Reference-genotype inference must be explicitly disclosed.",
+        "Spirometry, symptoms, smoking, respiratory disease, body size, age, sex, altitude, and test technique remain decisive."
+      ]
+    }
+  ]
+}

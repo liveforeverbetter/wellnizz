@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated": "2026-06-09",
+  "updated": "2026-07-19",
   "description": "Performance interpretations - athletic potential, exercise response, muscle composition, recovery",
   "markers": {
     "rs1815739": {
@@ -8,69 +8,62 @@
       "name": "R577X",
       "category": "performance",
       "chrom": "11",
-      "pos": 66553224,
+      "pos": 66328095,
       "display": "ACTN3 R577X",
       "interpretations": {
         "CC": {
-          "effect": "Fast-twitch fiber optimized",
-          "interpretation": "Homozygous for normal ACTN3 - fast-twitch fibers excel at power activities",
+          "effect": "Two ACTN3 R alleles",
+          "interpretation": "The CC (R/R) genotype retains alpha-actinin-3 expression. It is modestly enriched in some elite power-athlete cohorts, but it does not predict an individual's strength, speed, sport, or training response.",
           "recommendations": [
-            "Natural advantage in sprint/power sports",
-            "Optimal for explosive movements"
+            "Choose training from measured sprint, jump, strength, and endurance response",
+            "Treat this as interesting context rather than a talent result"
           ],
           "priority": "low"
         },
         "CT": {
-          "effect": "Intermediate",
-          "interpretation": "One copy of the variant - balanced fiber type",
+          "effect": "One ACTN3 R allele and one X allele",
+          "interpretation": "The CT (R/X) genotype produces alpha-actinin-3 from one copy. Athlete-group associations are small and heterogeneous and cannot classify an individual as balanced, power-oriented, or endurance-oriented.",
           "recommendations": [
-            "Capable of both power and endurance",
-            "Train for your goals"
+            "Use repeatable performance tests and recovery data to guide training"
           ],
           "priority": "low"
         },
         "TT": {
-          "effect": "Reduced fast-twitch",
-          "interpretation": "R577X variant - may have reduced fast-twitch fiber function, better suited for endurance",
+          "effect": "ACTN3 X/X genotype",
+          "interpretation": "The TT (X/X) genotype is associated with alpha-actinin-3 deficiency, a common non-disease state. It does not mean that your muscles are built for endurance or that power performance is impaired.",
           "recommendations": [
-            "Better suited for endurance activities",
-            "May benefit from endurance training focus"
+            "Train for your goals and compare actual power and endurance benchmarks",
+            "Do not select a sport or supplement from this genotype"
           ],
-          "priority": "low",
-          "supplements": [
-            {
-              "compound": "Beet Root (Nitrate)",
-              "dosage": "500-1000mg",
-              "timing": "prePerformance",
-              "brands": [
-                "NOW Foods",
-                "Thorne"
-              ]
-            },
-            {
-              "compound": "Beta-Alanine",
-              "dosage": "3-5g",
-              "timing": "prePerformance",
-              "brands": [
-                "NOW Foods",
-                "Optimum Nutrition"
-              ]
-            },
-            {
-              "compound": "Iron",
-              "dosage": "18mg",
-              "timing": "morning",
-              "brands": [
-                "Nature Made",
-                "Thorne"
-              ]
-            }
-          ],
-          "theWhy": "Your ACTN3 variant favors endurance over power - your fast-twitch fibers are optimized differently",
-          "scienceSimplified": "Your muscles are built more for sustained effort than explosive bursts"
+          "priority": "low"
         }
       },
-      "evidenceTier": 2
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "reviewedAt": "2026-07-19",
+        "genomeBuild": "GRCh37",
+        "referenceAllele": "T",
+        "commonAlleles": ["C", "T"],
+        "sources": [
+          {
+            "id": "ensembl-grch37-rs1815739",
+            "label": "Ensembl GRCh37 variant record",
+            "url": "https://grch37.ensembl.org/Homo_sapiens/Variation/Explore?v=rs1815739",
+            "type": "variant_identity"
+          },
+          {
+            "id": "PMID:38609671",
+            "label": "ACTN3 athlete-status systematic review and meta-analysis",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/38609671/",
+            "type": "systematic_review"
+          }
+        ],
+        "limitations": [
+          "Athlete-status associations have modest effect sizes, study heterogeneity, ancestry differences, and possible publication bias.",
+          "A single genotype cannot predict performance, training response, injury, or the best sport for an individual."
+        ]
+      }
     },
     "rs4340": {
       "gene": "ACE",
@@ -114,72 +107,61 @@
       "name": "G482S",
       "category": "performance",
       "chrom": "4",
-      "pos": 238121291,
+      "pos": 23815662,
       "display": "PPARGC1A G482S Mitochondrial Biogenesis",
       "interpretations": {
-        "GG": {
-          "effect": "Normal mitochondrial biogenesis",
-          "interpretation": "Standard PGC-1alpha function and mitochondrial replication",
+        "CC": {
+          "effect": "Two Gly482-associated forward-strand alleles",
+          "interpretation": "The CC genotype corresponds to the coding-strand Gly/Gly genotype used in many studies. It has been associated with athlete status or aerobic-training response in some populations, but it does not measure mitochondrial function or reliably predict a larger VO2max response.",
           "recommendations": [
-            "Normal response to aerobic training"
+            "Measure aerobic response across a consistent training block"
           ],
           "priority": "low"
         },
-        "AG": {
-          "effect": "Moderately reduced mitochondrial efficiency",
-          "interpretation": "Heterozygous - may have reduced mitochondrial adaptation to training",
+        "CT": {
+          "effect": "Gly482Ser heterozygous genotype",
+          "interpretation": "The CT genotype corresponds to one Gly and one Ser coding-strand allele. Evidence does not support converting this result into a mitochondrial-efficiency label or a prescribed training volume.",
           "recommendations": [
-            "Higher training volume may be needed",
-            "Consider NAD+ precursors",
-            "Paced training progression"
+            "Compare measured VO2max or standardized field performance before and after training"
           ],
-          "priority": "medium"
+          "priority": "low"
         },
-        "AA": {
-          "effect": "Significantly reduced mitochondrial biogenesis",
-          "interpretation": "Homozygous - substantially reduced capacity for new mitochondria",
+        "TT": {
+          "effect": "Two Ser482-associated forward-strand alleles",
+          "interpretation": "The TT genotype corresponds to the coding-strand Ser/Ser genotype. Some small training studies reported a lower average aerobic response, but this does not establish mitochondrial impairment or individual non-response.",
           "recommendations": [
-            "Optimize mitochondrial function through training",
-            "NAD+ precursor supplementation",
-            "CoQ10 support",
-            "Paced progressive overload essential"
+            "Use an 8-12 week training block and objective performance measures before changing programming",
+            "Do not add supplements from this genotype alone"
           ],
-          "priority": "high",
-          "supplements": [
-            {
-              "compound": "CoQ10",
-              "dosage": "100-200mg",
-              "timing": "morning",
-              "brands": [
-                "Qunol",
-                "NOW Foods",
-                "Thorne"
-              ]
-            },
-            {
-              "compound": "Alpha-Lipoic Acid",
-              "dosage": "300-600mg",
-              "timing": "morning",
-              "brands": [
-                "Thorne",
-                "NOW Foods"
-              ]
-            },
-            {
-              "compound": "PQQ",
-              "dosage": "10-20mg",
-              "timing": "morning",
-              "brands": [
-                "NOW Foods",
-                "Life Extension"
-              ]
-            }
-          ],
-          "theWhy": "PPARGC1A variant reduces mitochondrial biogenesis capacity",
-          "scienceSimplified": "Your muscles build new mitochondria less efficiently in response to exercise"
+          "priority": "low"
         }
       },
-      "evidenceTier": 2
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "reviewedAt": "2026-07-19",
+        "genomeBuild": "GRCh37",
+        "referenceAllele": "C",
+        "commonAlleles": ["C", "T"],
+        "sources": [
+          {
+            "id": "ensembl-grch37-rs8192678",
+            "label": "Ensembl GRCh37 variant record",
+            "url": "https://grch37.ensembl.org/Homo_sapiens/Variation/Explore?v=rs8192678",
+            "type": "variant_identity"
+          },
+          {
+            "id": "PMID:29762540",
+            "label": "PPARGC1A and human trainability systematic review",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/29762540/",
+            "type": "systematic_review"
+          }
+        ],
+        "limitations": [
+          "Training-response studies are small and differ in population, intervention, and outcome definition.",
+          "This genotype does not measure mitochondrial function, set achievable VO2max, or justify supplement use."
+        ]
+      }
     },
     "rs1805086": {
       "gene": "MSTN",
@@ -270,7 +252,7 @@
           ],
           "priority": "low"
         },
-        "TC": {
+        "CT": {
           "effect": "Intermediate",
           "interpretation": "Altered receptor activity",
           "recommendations": [
@@ -327,42 +309,67 @@
       },
       "evidenceTier": 2
     },
-    "rs1760272": {
+    "rs17602729": {
       "gene": "AMPD1",
       "name": "C34T",
       "category": "performance",
       "chrom": "1",
-      "pos": 115202435,
+      "pos": 115236057,
       "display": "AMPD1 C34T",
       "interpretations": {
-        "CC": {
-          "effect": "Normal AMP deaminase",
-          "interpretation": "Standard energy production during high-intensity exercise",
+        "GG": {
+          "effect": "Two common AMPD1 alleles",
+          "interpretation": "No C34T loss-of-function allele was detected at this marker. This does not establish a particular exercise capacity or athlete profile.",
           "recommendations": [
-            "Normal high-intensity exercise capacity"
+            "Use actual training response and performance tests to guide programming"
           ],
           "priority": "low"
         },
-        "CT": {
-          "effect": "Intermediate AMPD",
-          "interpretation": "Reduced AMP deaminase - may have reduced tolerance for high-intensity work",
+        "AG": {
+          "effect": "One AMPD1 C34T-associated allele",
+          "interpretation": "One loss-of-function-associated allele was observed. Many carriers are asymptomatic; genotype alone does not explain fatigue or predict sprint, power, or endurance performance.",
           "recommendations": [
-            "May fatigue faster in sprints",
-            "Longer recovery between intense efforts"
+            "Compare symptoms with workload, sleep, fueling, iron status, and measured recovery",
+            "Seek clinical evaluation for persistent or disproportionate exercise intolerance"
           ],
-          "priority": "medium"
+          "priority": "low"
         },
-        "TT": {
-          "effect": "Reduced AMPD activity",
-          "interpretation": "Homozygous - significantly reduced energy production in muscle",
+        "AA": {
+          "effect": "Two AMPD1 C34T-associated alleles",
+          "interpretation": "Two loss-of-function-associated alleles can reduce skeletal-muscle AMP deaminase activity, but symptoms and exercise capacity vary. This result is not a diagnosis of metabolic myopathy.",
           "recommendations": [
-            "May experience early fatigue in high-intensity training",
-            "Pacing strategies recommended"
+            "Discuss persistent exercise intolerance, cramps, or unusual fatigue with a qualified clinician",
+            "Use symptom-guided pacing while other common causes are assessed"
           ],
           "priority": "medium"
         }
       },
-      "evidenceTier": 3
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "reviewedAt": "2026-07-19",
+        "genomeBuild": "GRCh37",
+        "referenceAllele": "G",
+        "commonAlleles": ["A", "G"],
+        "sources": [
+          {
+            "id": "ensembl-grch37-rs17602729",
+            "label": "Ensembl GRCh37 variant record",
+            "url": "https://grch37.ensembl.org/Homo_sapiens/Variation/Explore?v=rs17602729",
+            "type": "variant_identity"
+          },
+          {
+            "id": "PMID:38053960",
+            "label": "AMPD1 and power-athlete status meta-analysis",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/38053960/",
+            "type": "systematic_review"
+          }
+        ],
+        "limitations": [
+          "Athlete-status enrichment is a group association and is not an individual performance test.",
+          "Penetrance and symptoms vary; fatigue and exercise intolerance have many genetic and non-genetic causes."
+        ]
+      }
     },
     "rs2228675": {
       "gene": "PPARG",
@@ -953,40 +960,60 @@
       "name": "C>T",
       "category": "performance",
       "chrom": "9",
-      "pos": 137599108,
-      "display": "COL5A1 Tendon Injury Risk",
-      "evidenceTier": 1,
+      "pos": 137734416,
+      "display": "COL5A1 soft-tissue injury context",
+      "evidenceTier": 3,
       "interpretations": {
         "TT": {
-          "effect": "Higher type V collagen expression \u2014 stiffer tendons",
-          "interpretation": "Increased collagen V in tendons \u2014 associated with stiffer Achilles tendon (less shock absorption), higher baseline stiffness but potentially reduced strain injury risk",
+          "effect": "Two T alleles at COL5A1 rs12722",
+          "interpretation": "Some meta-analyses associate the TT genotype with tendon or ligament injury in selected cohorts, while results differ by ancestry, injury site, and study design. It does not measure tendon stiffness or predict that an injury will occur.",
           "recommendations": [
-            "Eccentric calf strengthening (Alfredson protocol) for Achilles resilience",
-            "Graduated running load increases (< 10% weekly mileage increase)",
-            "Regular stretching to maintain tendon flexibility",
-            "Collagen peptides 10-15g with vitamin C 30 min before training (shown to stimulate tendon collagen synthesis)"
+            "Base load progression on training history, pain, biomechanics, and recovery",
+            "Use a clinician or physiotherapist for persistent tendon or ligament symptoms"
           ],
           "priority": "low"
         },
-        "TC": {
-          "effect": "Intermediate tendon stiffness",
-          "interpretation": "One allele of each type \u2014 moderate tendon stiffness profile",
+        "CT": {
+          "effect": "One C allele and one T allele",
+          "interpretation": "Association studies do not support an individual intermediate-stiffness label. Training load, previous injury, biomechanics, sex, and sport are more actionable predictors.",
           "recommendations": [
-            "Eccentric loading and collagen supplementation beneficial"
+            "Use progressive loading and track symptoms regardless of genotype"
           ],
           "priority": "low"
         },
         "CC": {
-          "effect": "Lower type V collagen \u2014 more compliant tendons, higher strain injury risk",
-          "interpretation": "More compliant Achilles tendon \u2014 associated with higher risk of Achilles tendinopathy and rupture, especially at high training loads",
+          "effect": "Two C alleles at COL5A1 rs12722",
+          "interpretation": "The CC genotype is not a diagnosis of compliant tendons or high injury risk. Published associations are population-specific and sometimes directionally inconsistent across analyses.",
           "recommendations": [
-            "Eccentric heel-drop protocol 3x/week (strongest evidence for Achilles tendinopathy prevention)",
-            "Collagen 10-15g + vitamin C 1h pre-training",
-            "Progressive loading \u2014 avoid sudden increases; tendons adapt more slowly than muscles",
-            "Avoid deep heel drops if pain present; begin isometric loading phase first"
+            "Use the same evidence-based load management and symptom monitoring as any athlete"
           ],
-          "priority": "high"
+          "priority": "low"
         }
+      },
+      "provenance": {
+        "status": "curated",
+        "reviewedAt": "2026-07-19",
+        "genomeBuild": "GRCh37",
+        "referenceAllele": "C",
+        "commonAlleles": ["C", "T"],
+        "sources": [
+          {
+            "id": "ensembl-grch37-rs12722",
+            "label": "Ensembl GRCh37 variant record",
+            "url": "https://grch37.ensembl.org/Homo_sapiens/Variation/Explore?v=rs12722",
+            "type": "variant_identity"
+          },
+          {
+            "id": "PMID:35241120",
+            "label": "COL5A1 soft-tissue injury meta-analysis",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/35241120/",
+            "type": "systematic_review"
+          }
+        ],
+        "limitations": [
+          "Associations vary by ancestry, injury site, case definition, and genetic model.",
+          "This marker does not measure tissue mechanics or justify supplements, imaging, or a training restriction."
+        ]
       }
     },
     "rs3918242": {

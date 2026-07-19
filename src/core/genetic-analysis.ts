@@ -1,6 +1,7 @@
 import { createId, type HealthStore } from '../store.js';
 import type { AnalysisResult, GeneticAnalysisJob, GeneticsAnnotationDepth, RawSourceReference } from '../types.js';
 import { runGeneticsPipeline, type GeneticsPipelineOptions, type GeneticsPipelineResult } from './genetics-runner.js';
+import type { ConsumerGeneticsSection, GeneticConsumerInsight } from './genetic-insights.js';
 
 export async function enrichAnalysisWithGeneticPipeline(
   analysis: AnalysisResult,
@@ -50,6 +51,9 @@ export function upsertGeneticPipelineInterpretation(
   };
   removeGeneticCardsAndInterpretations(analysis, source.id);
   analysis.derived_interpretations.push(interpretation);
+  for (const consumerInterpretation of consumerGeneticInterpretations(analysis, source, pipeline)) {
+    analysis.derived_interpretations.push(consumerInterpretation);
+  }
   analysis.dashboard_spec.cards.unshift({
     id: interpretation.id,
     title: interpretation.title,
@@ -62,6 +66,69 @@ export function upsertGeneticPipelineInterpretation(
     action: interpretation.action,
   });
   return analysis;
+}
+
+function consumerGeneticInterpretations(
+  analysis: AnalysisResult,
+  source: RawSourceReference,
+  pipeline: GeneticsPipelineResult,
+): AnalysisResult['derived_interpretations'] {
+  const section = consumerGeneticsSection(pipeline.dashboard);
+  if (!section) return [];
+  return section.insights.slice(0, 100).map(insight => ({
+    id: createId('der'),
+    user_id: analysis.user_id,
+    organization_id: analysis.organization_id,
+    analysis_id: analysis.id,
+    category: 'genetics' as const,
+    type: 'genetic_consumer_insight',
+    title: insight.display_name,
+    status: consumerInsightStatus(insight),
+    score: insight.percentile,
+    summary: insight.result_summary,
+    action: insight.next_measurement,
+    provenance: {
+      source_ids: [source.id],
+      source_categories: ['genetics' as const],
+      source_type: 'derived' as const,
+      engine: `ForeverBetter consumer genetics ${section.interpretation_release}`,
+      generated_at: section.generated_at,
+    },
+    raw: {
+      ...insight,
+      interpretation_release: section.interpretation_release,
+      domain: insight.category,
+      query_aliases: consumerInsightAliases(insight),
+    },
+  }));
+}
+
+function consumerGeneticsSection(dashboard: unknown): ConsumerGeneticsSection | undefined {
+  if (!dashboard || typeof dashboard !== 'object' || Array.isArray(dashboard)) return undefined;
+  const metadata = (dashboard as Record<string, unknown>).metadata;
+  if (!metadata || typeof metadata !== 'object' || Array.isArray(metadata)) return undefined;
+  const section = (metadata as Record<string, unknown>).consumer_genetics;
+  if (!section || typeof section !== 'object' || Array.isArray(section)) return undefined;
+  return section as unknown as ConsumerGeneticsSection;
+}
+
+function consumerInsightStatus(insight: GeneticConsumerInsight): string {
+  if (insight.calculation_state === 'insufficient_coverage' || insight.calculation_state === 'failed_retryable') return 'reanalysis_recommended';
+  if (insight.calculation_state === 'unsupported_model') return 'unsupported';
+  if (insight.calculation_state === 'raw_score_only' || insight.calculation_state === 'not_applicable') return 'informational';
+  return 'complete';
+}
+
+function consumerInsightAliases(insight: GeneticConsumerInsight): string[] {
+  return Array.from(new Set([
+    insight.trait_id,
+    insight.display_name,
+    ...(insight.genes ?? []),
+    ...(insight.rsids ?? []),
+    ...(insight.trait_id === 'caffeine_clearance' ? ['caffeine metabolism', 'caffeine half life', 'fast caffeine metabolizer', 'slow caffeine metabolizer'] : []),
+    ...(insight.trait_id === 'pulmonary_function' ? ['lung capacity', 'FEV1', 'FVC', 'respiratory performance'] : []),
+    ...(insight.trait_id === 'aerobic_trainability' ? ['VO2max', 'cardio fitness', 'aerobic response'] : []),
+  ]));
 }
 
 export async function enqueueGeneticAnalysisJob(
@@ -79,6 +146,9 @@ export async function enqueueGeneticAnalysisJob(
     source_id: source.id,
     annotation_depth: annotationDepth,
     status: 'queued',
+    stage: 'queued',
+    progress_pct: 0,
+    progress_message: 'Waiting for the dedicated WGS worker.',
     attempts: 0,
     max_attempts: Number(healthAnalysisEnv('MAX_ATTEMPTS') ?? '3'),
     priority: Number(healthAnalysisEnv('QUEUE_PRIORITY') ?? '0'),
@@ -115,6 +185,9 @@ function upsertGeneticQueuedInterpretation(
     raw: {
       job_id: job.id,
       status: job.status,
+      stage: job.stage,
+      progress_pct: job.progress_pct,
+      progress_message: job.progress_message,
       attempts: job.attempts,
       max_attempts: job.max_attempts,
     },

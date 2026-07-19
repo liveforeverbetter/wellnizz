@@ -75,7 +75,17 @@ IDs from both modalities separately.
 When complete, the analysis gains a `genetic_pipeline_analysis` interpretation
 summarizing GLI, matched markers, CPIC matches, and ClinVar findings. Clinical
 and medication findings are treated as educational until confirmed by a
-qualified clinician.
+qualified clinician. It also gains compact `genetic_consumer_insight`
+interpretations. These make supported health, nutrition, sleep, recovery, and
+performance topics available through `POST /query` without loading the full
+WGS artifact.
+
+Examples include caffeine clearance and sensitivity, aerobic trainability,
+power-versus-endurance context, exercise tolerance, soft-tissue resilience,
+chronotype, and pulmonary function. These are probabilistic context, not talent
+tests or physiological measurements. A genotype must not override observed
+sleep response, training performance, spirometry, laboratory results, symptoms,
+or clinical review.
 
 ## Reference modes
 
@@ -115,6 +125,43 @@ provenance. Do not describe compact annotation as exhaustive genome
 interpretation: full dbSNP improves rsID recovery, but it does not make every
 variant medically interpretable.
 
+### Consumer score safety contract
+
+Every API-normalized polygenic result has one explicit calculation state:
+
+- `calibrated_absolute_risk`: a validated model returned an absolute risk;
+- `reference_relative`: a compatible, named reference panel supports the
+  population comparison;
+- `raw_score_only`: the weighted sum is available, but direction and percentile
+  are withheld;
+- `insufficient_coverage`: too few model variants matched for interpretation;
+- `unsupported_model`, `not_applicable`, or `failed_retryable`.
+
+The API never converts an uncalibrated score into "Average" or the 50th
+percentile. A reference-relative percentile requires a named calibration
+method and reference panel. Results retain score ID and release, source URL,
+genome build, matching method, ancestry metadata, model coverage, and
+limitations. `dashboard.metadata.consumer_genetics` contains the normalized
+section and its `interpretation_release`.
+
+Full-dbSNP analyses additionally run a small API-owned position-and-allele
+registry after rsID annotation. Release `2026-07-19.1` includes PGS Catalog
+[PGS000210](https://www.pgscatalog.org/score/PGS000210/) for pulmonary function
+(FEV1/FVC), matched on harmonized GRCh37 coordinates and alleles. Because its
+weight direction and a compatible individual-level reference distribution are
+not bundled, this result is deliberately `raw_score_only`: it does not claim
+high or low lung capacity and returns no percentile. Measured spirometry takes
+precedence. The source model and publication
+([Shrine et al., 2019](https://doi.org/10.1038/s41588-018-0321-7)) are retained
+in provenance.
+
+A variant-only WGS VCF normally omits homozygous-reference loci. The scorer can
+infer those loci only against the configured dbSNP reference under a disclosed
+high-coverage WGS assumption. It reports observed calls, inferred-reference
+loci, allele mismatches, and missing/uncallable loci separately. This is useful
+for a raw model score, but it is not equivalent to all-sites callability and is
+one reason calibration remains withheld.
+
 ### Query fallback and reanalysis
 
 The WGS worker uses `bcftools` first. If the final annotated VCF is readable but
@@ -127,6 +174,13 @@ single-pass text parser so the job can still return interpreted results. Poll
 - `rsid_extraction_method` is `bcftools` or `text_fallback`.
 - `rsid_extraction_fallback_reason` retains the original query failure when a
   fallback was required.
+
+The job response also exposes `stage`, `progress_pct`, `progress_message`, and
+`last_progress_at`, plus `retryable`, `reanalysis_recommended`, and
+`reanalysis_reason`. Stable stages include `queued`, `preparing`,
+`annotating_variants`, `extracting_genotypes`, `clinical_interpretation`,
+`polygenic_scoring`, `consumer_interpretation`, `persisting_results`,
+`retry_queued`, `complete`, and `failed`.
 
 A valid VCF with zero rsIDs is not treated as corrupt. The configured compact or
 full reference annotation runs before extraction; zero matches in the parser

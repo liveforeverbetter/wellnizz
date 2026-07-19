@@ -244,11 +244,13 @@ export class PostgresHealthStore implements HealthStore {
   async createGeneticAnalysisJob(job: GeneticAnalysisJob): Promise<void> {
     await this.query(
       `insert into ${SCHEMA}.genetic_analysis_jobs
-        (id, user_id, organization_id, analysis_id, source_id, annotation_depth, status, attempts, max_attempts, priority, worker_id, locked_at, started_at, completed_at, error, result, created_at, updated_at)
-       values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16::jsonb, coalesce($17::timestamptz, now()), coalesce($18::timestamptz, now()))`,
+        (id, user_id, organization_id, analysis_id, source_id, annotation_depth, status, stage, progress_pct, progress_message, last_progress_at, reanalysis_recommended, reanalysis_reason, attempts, max_attempts, priority, worker_id, locked_at, started_at, completed_at, error, result, created_at, updated_at)
+       values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22::jsonb, coalesce($23::timestamptz, now()), coalesce($24::timestamptz, now()))`,
       [
         job.id, job.user_id, requireOrganizationId(job.organization_id, job.id), job.analysis_id, job.source_id,
-        job.annotation_depth ?? 'compact', job.status, job.attempts, job.max_attempts, job.priority, job.worker_id ?? null, job.locked_at ?? null,
+        job.annotation_depth ?? 'compact', job.status, job.stage ?? 'queued', job.progress_pct ?? 0, job.progress_message ?? null,
+        job.last_progress_at ?? null, job.reanalysis_recommended ?? false, job.reanalysis_reason ?? null,
+        job.attempts, job.max_attempts, job.priority, job.worker_id ?? null, job.locked_at ?? null,
         job.started_at ?? null, job.completed_at ?? null, job.error ?? null, toJson(job.result ?? null),
         job.created_at ?? null, job.updated_at ?? null,
       ],
@@ -270,6 +272,7 @@ export class PostgresHealthStore implements HealthStore {
        )
        update ${SCHEMA}.genetic_analysis_jobs job
        set status='running', attempts=job.attempts+1, worker_id=$1, locked_at=now(),
+           stage='preparing', progress_pct=5, progress_message='Preparing the uploaded genome for analysis.', last_progress_at=now(),
            started_at=coalesce(job.started_at, now()), updated_at=now(), error=null
        from candidate where job.id=candidate.id returning job.*`,
       [workerId],
@@ -277,9 +280,31 @@ export class PostgresHealthStore implements HealthStore {
     return rows[0] ? jobFromRow(rows[0]) : undefined;
   }
 
+  async updateGeneticAnalysisJobProgress(
+    id: string,
+    progress: { stage: import('../types.js').GeneticAnalysisJobStage; progress_pct: number; progress_message?: string },
+  ): Promise<void> {
+    await this.query(
+      `update ${SCHEMA}.genetic_analysis_jobs
+       set stage=$2, progress_pct=greatest(progress_pct, greatest(0, least(100, $3))), progress_message=$4,
+           last_progress_at=now(), updated_at=now()
+       where id=$1`,
+      [id, progress.stage, Math.round(progress.progress_pct), progress.progress_message ?? null],
+    );
+  }
+
   async completeGeneticAnalysisJob(id: string, result: unknown): Promise<void> {
     await this.query(
-      `update ${SCHEMA}.genetic_analysis_jobs set status='complete', completed_at=now(), updated_at=now(), locked_at=null, result=$2::jsonb, error=null where id=$1`,
+      `update ${SCHEMA}.genetic_analysis_jobs
+       set status='complete', stage='complete', progress_pct=100,
+           progress_message='Analysis complete. Interpreted results are ready.', last_progress_at=now(),
+           completed_at=now(), updated_at=now(), locked_at=null, result=$2::jsonb, error=null
+           , reanalysis_recommended=coalesce(($2::jsonb #>> '{raw,consumer_genetics,reanalysis_recommended}')::boolean, false)
+           , reanalysis_reason=case
+               when coalesce(($2::jsonb #>> '{raw,consumer_genetics,reanalysis_recommended}')::boolean, false)
+               then 'A raw or incomplete genetic score can be upgraded when a compatible calibration or score-registry release becomes available.'
+               else null end
+       where id=$1`,
       [id, toJson(result ?? null)],
     );
   }
@@ -288,6 +313,13 @@ export class PostgresHealthStore implements HealthStore {
     await this.query(
       `update ${SCHEMA}.genetic_analysis_jobs
        set status = case when attempts < max_attempts then 'queued' else 'failed' end,
+           stage = case when attempts < max_attempts then 'retry_queued' else 'failed' end,
+           progress_message = case when attempts < max_attempts
+             then 'This attempt failed and has been queued for retry.'
+             else 'Analysis attempts are exhausted. The source can be reanalyzed after the reported issue is corrected.' end,
+           last_progress_at=now(),
+           reanalysis_recommended = attempts >= max_attempts,
+           reanalysis_reason = case when attempts >= max_attempts then $2 else null end,
            updated_at=now(), locked_at=null, worker_id=null, error=$2 where id=$1`,
       [id, error],
     );
@@ -655,6 +687,9 @@ function jobFromRow(row: Record<string, unknown>): GeneticAnalysisJob {
     analysis_id: String(row.analysis_id), source_id: String(row.source_id),
     annotation_depth: row.annotation_depth === 'full_dbsnp' ? 'full_dbsnp' : 'compact',
     status: row.status as GeneticAnalysisJob['status'],
+    stage: stringField(row, 'stage') as GeneticAnalysisJob['stage'], progress_pct: Number(row.progress_pct ?? 0),
+    progress_message: stringField(row, 'progress_message'), last_progress_at: iso(row.last_progress_at),
+    reanalysis_recommended: row.reanalysis_recommended === true, reanalysis_reason: stringField(row, 'reanalysis_reason'),
     attempts: Number(row.attempts ?? 0), max_attempts: Number(row.max_attempts ?? 3), priority: Number(row.priority ?? 0),
     worker_id: stringField(row, 'worker_id'), locked_at: iso(row.locked_at), started_at: iso(row.started_at),
     completed_at: iso(row.completed_at), error: stringField(row, 'error'), result: row.result,

@@ -1,0 +1,299 @@
+###PGS CATALOG SCORING FILE - see https://www.pgscatalog.org/downloads/#dl_ftp_scoring for additional information
+#format_version=2.0
+##POLYGENIC SCORE (PGS) INFORMATION
+#pgs_id=PGS000210
+#pgs_name=LF279
+#trait_reported=Lung function (FEV1/FVC)
+#trait_mapped=FEV/FEC ratio
+#trait_efo=EFO_0004713
+#genome_build=GRCh37
+#variants_number=279
+#weight_type=NR
+##SOURCE INFORMATION
+#pgp_id=PGP000086
+#citation=Shrine N et al. Nat Genet (2019). doi:10.1038/s41588-018-0321-7
+##HARMONIZATION DETAILS
+#HmPOS_build=GRCh37
+#HmPOS_date=2022-07-28
+#HmPOS_match_chr={"True": 279, "False": 0}
+#HmPOS_match_pos={"True": 279, "False": 0}
+rsID	chr_name	chr_position	effect_allele	other_allele	effect_weight	variant_description	hm_source	hm_rsID	hm_chr	hm_pos	hm_inferOtherAllele	hm_match_chr	hm_match_pos
+rs9661802	1	6678864	C	A	1.102	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.022	ENSEMBL	rs9661802	1	6678864		True	True
+rs12737805	1	22612690	G	A	0.203	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.004	ENSEMBL	rs12737805	1	22612690		True	True
+rs9438626	1	26775367	G	C	0.127	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.002	ENSEMBL	rs9438626	1	26775367		True	True
+rs12096239	1	26796922	C	G	0.652	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.013	ENSEMBL	rs12096239	1	26796922		True	True
+rs1416685	1	51243374	G	C	0.975	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.019	ENSEMBL	rs1416685	1	51243374		True	True
+rs72673461	1	60966772	G	T	2.227	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.044	ENSEMBL	rs72673461	1	60966772		True	True
+rs9661687	1	78387270	T	C	1.495	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.029	ENSEMBL	rs9661687	1	78387270		True	True
+rs10874851	1	92106637	A	C	0.855	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.017	ENSEMBL	rs10874851	1	92106637		True	True
+rs9970286	1	111737398	G	A	1.195	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.024	ENSEMBL	rs9970286	1	111737398		True	True
+rs11205354	1	150249101	C	A	0.761	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.015	ENSEMBL	rs11205354	1	150249101		True	True
+rs141942982	1	155137395	T	G	1.804	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.036	ENSEMBL	rs141942982	1	155137395		True	True
+rs4651005	1	178719306	C	T	0.137	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.003	ENSEMBL	rs4651005	1	178719306		True	True
+rs2146098	1	186090370	G	A	0.76	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.015	ENSEMBL	rs2146098	1	186090370		True	True
+rs17531405	1	186113852	G	C	1.276	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.025	ENSEMBL	rs17531405	1	186113852		True	True
+rs10919604	1	198898157	G	A	1.137	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.022	ENSEMBL	rs10919604	1	198898157		True	True
+rs4309038	1	201884647	G	C	0.729	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.014	ENSEMBL	rs4309038	1	201884647		True	True
+rs2799098	1	218521609	A	G	1.246	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.025	ENSEMBL	rs2799098	1	218521609		True	True
+rs75128958	1	219483218	A	G	2.051	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.04	ENSEMBL	rs75128958	1	219483218		True	True
+rs17009288	1	221204299	C	A	0.514	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.01	ENSEMBL	rs17009288	1	221204299		True	True
+rs2544536	2	15906854	T	C	1.152	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.023	ENSEMBL	rs2544536	2	15906854		True	True
+rs6751968	2	18570024	A	C	0.689	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.014	ENSEMBL	rs6751968	2	18570024		True	True
+rs13430465	2	18702313	T	C	0.36	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.007	ENSEMBL	rs13430465	2	18702313		True	True
+rs13009582	2	24018480	G	A	0.106	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.002	ENSEMBL	rs13009582	2	24018480		True	True
+rs732990	2	26842146	G	C	0.596	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.012	ENSEMBL	rs732990	2	26842146		True	True
+rs4952564	2	42243850	G	A	0.36	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.007	ENSEMBL	rs4952564	2	42243850		True	True
+rs12470864	2	102926362	A	G	1.089	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.021	ENSEMBL	rs12470864	2	102926362		True	True
+rs1406225	2	145797829	T	G	1.054	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.021	ENSEMBL	rs1406225	2	145797829		True	True
+rs7424771	2	161276378	A	G	0.095	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.002	ENSEMBL	rs7424771	2	161276378		True	True
+rs2304340	2	179260382	G	A	0.174	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.003	ENSEMBL	rs2304340	2	179260382		True	True
+rs2084448	2	187530520	C	T	1.04	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.02	ENSEMBL	rs2084448	2	187530520		True	True
+rs1249096	2	199723365	G	A	0.131	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.003	ENSEMBL	rs1249096	2	199723365		True	True
+rs985256	2	201208692	C	A	0.85	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.017	ENSEMBL	rs985256	2	201208692		True	True
+rs12997625	2	202970250	C	T	0.191	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.004	ENSEMBL	rs12997625	2	202970250		True	True
+rs6435952	2	217614730	T	A	1.702	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.034	ENSEMBL	rs6435952	2	217614730		True	True
+rs4294980	2	218604356	G	A	0.13	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.003	ENSEMBL	rs4294980	2	218604356		True	True
+rs4674407	2	220382700	C	T	0.465	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.009	ENSEMBL	rs4674407	2	220382700		True	True
+rs6431620	2	239604970	T	G	0.53	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.01	ENSEMBL	rs6431620	2	239604970		True	True
+rs6437219	2	241844033	T	C	0.456	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.009	ENSEMBL	rs6437219	2	241844033		True	True
+rs6733504	2	242495953	G	A	0.072	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.001	ENSEMBL	rs6733504	2	242495953		True	True
+rs2974389	3	13787641	G	A	0.113	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.002	ENSEMBL	rs2974389	3	13787641		True	True
+rs73048404	3	25179533	T	G	0.192	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.004	ENSEMBL	rs73048404	3	25179533		True	True
+rs35480566	3	71583177	A	G	0.294	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.006	ENSEMBL	rs35480566	3	71583177		True	True
+rs586936	3	73862616	A	G	0.968	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.019	ENSEMBL	rs586936	3	73862616		True	True
+rs1610265	3	99420192	C	T	0.757	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.015	ENSEMBL	rs1610265	3	99420192		True	True
+rs1799807	3	165548529	C	T	4.419	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.087	ENSEMBL	rs1799807	3	165548529		True	True
+rs6780171	3	185503456	A	T	0.386	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.008	ENSEMBL	rs6780171	3	185503456		True	True
+rs12331869	4	56012149	A	G	0.377	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.007	ENSEMBL	rs12331869	4	56012149		True	True
+rs62316310	4	75676529	G	A	1.061	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.021	ENSEMBL	rs62316310	4	75676529		True	True
+rs11098196	4	79403952	T	G	0.917	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.018	ENSEMBL	rs11098196	4	79403952		True	True
+rs13109426	4	145330628	G	A	0.577	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.011	ENSEMBL	rs13109426	4	145330628		True	True
+rs13116999	4	145442364	G	A	2.075	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.041	ENSEMBL	rs13116999	4	145442364		True	True
+rs11739847	5	609661	A	G	0.422	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.008	ENSEMBL	rs11739847	5	609661		True	True
+rs4866846	5	43976162	G	A	0.93	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.018	ENSEMBL	rs4866846	5	43976162		True	True
+rs10059661	5	121410529	C	G	1.513	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.03	ENSEMBL	rs10059661	5	121410529		True	True
+rs17163397	5	128767384	A	G	1.596	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.031	ENSEMBL	rs17163397	5	128767384		True	True
+rs1800888	5	148206885	T	C	3.446	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.068	ENSEMBL	rs1800888	5	148206885		True	True
+rs10059996	5	170901463	T	G	1.644	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.032	ENSEMBL	rs10059996	5	170901463		True	True
+rs79898473	5	179598771	T	C	1.028	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.02	ENSEMBL	rs79898473	5	179598771		True	True
+rs12198986	6	7720059	A	G	0.03	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.000582	ENSEMBL	rs12198986	6	7720059		True	True
+rs9689096	6	34188892	A	C	0.574	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.011	ENSEMBL	rs9689096	6	34188892		True	True
+rs9357446	6	44447598	G	A	0.02	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.000397	ENSEMBL	rs9357446	6	44447598		True	True
+rs12202314	6	45530471	T	C	1.087	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.021	ENSEMBL	rs12202314	6	45530471		True	True
+rs9472541	6	45622748	T	A	0.342	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.007	ENSEMBL	rs9472541	6	45622748		True	True
+rs2894837	6	56336406	G	A	0.331	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.007	ENSEMBL	rs2894837	6	56336406		True	True
+rs2627237	6	134339265	G	A	0.003	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.0000668	ENSEMBL	rs2627237	6	134339265		True	True
+rs1102077	6	140271357	A	C	0.126	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.002	ENSEMBL	rs1102077	6	140271357		True	True
+rs9385988	6	142560957	A	G	0.84	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.017	ENSEMBL	rs9385988	6	142560957		True	True
+rs4721457	7	15872324	C	T	1.472	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.029	ENSEMBL	rs4721457	7	15872324		True	True
+rs559233	7	26848830	C	T	0.796	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.016	ENSEMBL	rs559233	7	26848830		True	True
+rs62454414	7	27182329	T	G	0.224	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.004	ENSEMBL	rs62454414	7	27182329		True	True
+rs1513272	7	28200097	C	T	0.115	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.002	ENSEMBL	rs1513272	7	28200097		True	True
+rs17232687	7	46448518	C	T	0.099	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.002	ENSEMBL	rs17232687	7	46448518		True	True
+rs12707691	7	84569510	C	G	0.316	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.006	ENSEMBL	rs12707691	7	84569510		True	True
+rs193686	7	116431427	T	C	0.832	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.016	ENSEMBL	rs193686	7	116431427		True	True
+rs330939	8	9018590	G	T	0.909	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.018	ENSEMBL	rs330939	8	9018590		True	True
+rs4128298	8	11823332	T	C	0.865	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.017	ENSEMBL	rs4128298	8	11823332		True	True
+rs7465401	8	70367248	T	C	0.354	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.007	ENSEMBL	rs7465401	8	70367248		True	True
+rs7838717	8	145504343	C	T	0.034	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.000671	ENSEMBL	rs7838717	8	145504343		True	True
+rs7041139	9	18013733	T	C	0.327	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.006	ENSEMBL	rs7041139	9	18013733		True	True
+rs72743974	9	98878881	A	G	1.455	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.029	ENSEMBL	rs72743974	9	98878881		True	True
+rs57649467	9	101632854	G	A	0.981	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.019	ENSEMBL	rs57649467	9	101632854		True	True
+rs967497	9	131943843	G	A	0.494	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.01	ENSEMBL	rs967497	9	131943843		True	True
+rs1274475	10	34480582	G	A	0.969	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.019	ENSEMBL	rs1274475	10	34480582		True	True
+rs60820984	10	75639578	T	C	0.749	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.015	ENSEMBL	rs60820984	10	75639578		True	True
+rs11191841	10	105639611	T	C	0.266	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.005	ENSEMBL	rs11191841	10	105639611		True	True
+rs10836366	11	35308988	C	T	0.918	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.018	ENSEMBL	rs10836366	11	35308988		True	True
+rs56196860	12	2908330	C	A	0.965	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.019	ENSEMBL	rs56196860	12	2908330		True	True
+rs12811814	12	4243749	T	C	0.158	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.003	ENSEMBL	rs12811814	12	4243749		True	True
+rs10841302	12	19808912	G	C	1.146	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.023	ENSEMBL	rs10841302	12	19808912		True	True
+rs1244869	12	65075332	G	T	0.7	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.014	ENSEMBL	rs1244869	12	65075332		True	True
+rs11176001	12	66409367	A	C	1.052	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.021	ENSEMBL	rs11176001	12	66409367		True	True
+rs972936	12	102824921	C	T	0.772	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.015	ENSEMBL	rs972936	12	102824921		True	True
+rs2701110	12	114669870	C	A	1.298	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.026	ENSEMBL	rs2701110	12	114669870		True	True
+rs9533803	13	44820608	T	C	1.28	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.025	ENSEMBL	rs9533803	13	44820608		True	True
+rs2812208	13	50707087	G	C	1.73	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.034	ENSEMBL	rs2812208	13	50707087		True	True
+rs803765	13	71647588	C	A	0.651	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.013	ENSEMBL	rs803765	13	71647588		True	True
+rs4885681	13	80467235	C	T	0.175	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.003	ENSEMBL	rs4885681	13	80467235		True	True
+rs11620380	13	99665512	A	C	1.841	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.036	ENSEMBL	rs11620380	13	99665512		True	True
+rs9634470	13	109918493	T	C	1.091	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.021	ENSEMBL	rs9634470	13	109918493		True	True
+rs1951121	14	23429729	G	T	0.939	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.018	ENSEMBL	rs1951121	14	23429729		True	True
+rs74053129	14	54346010	G	A	2.037	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.04	ENSEMBL	rs74053129	14	54346010		True	True
+rs10141786	14	74817418	A	G	0.177	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.003	ENSEMBL	rs10141786	14	74817418		True	True
+rs34245505	15	40397191	C	G	0.788	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.016	ENSEMBL	rs34245505	15	40397191		True	True
+rs2304645	15	40716253	C	G	0.002	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.0000385	ENSEMBL	rs2304645	15	40716253		True	True
+rs4924525	15	41255396	C	A	0.568	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.011	ENSEMBL	rs4924525	15	41255396		True	True
+rs79234094	15	49409527	G	A	1.676	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.033	ENSEMBL	rs79234094	15	49409527		True	True
+rs35251997	15	49706145	A	T	2.038	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.04	ENSEMBL	rs35251997	15	49706145		True	True
+rs62012772	15	63866877	T	C	1.934	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.038	ENSEMBL	rs62012772	15	63866877		True	True
+rs7176074	15	73833600	G	T	1.622	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.032	ENSEMBL	rs7176074	15	73833600		True	True
+rs3751837	16	3583173	C	T	0.281	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.006	ENSEMBL	rs3751837	16	3583173		True	True
+rs56104880	16	4361138	C	T	1.23	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.024	ENSEMBL	rs56104880	16	4361138		True	True
+rs11074547	16	10136889	G	T	0.139	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.003	ENSEMBL	rs11074547	16	10136889		True	True
+rs76219171	16	50188929	G	A	0.293	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.006	ENSEMBL	rs76219171	16	50188929		True	True
+rs35420030	16	53935407	T	C	3.718	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.073	ENSEMBL	rs35420030	16	53935407		True	True
+rs12918140	16	86403821	C	G	1.671	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.033	ENSEMBL	rs12918140	16	86403821		True	True
+rs6539952	16	86579223	A	C	0.794	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.016	ENSEMBL	rs6539952	16	86579223		True	True
+rs8082036	17	3882613	G	C	1.005	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.02	ENSEMBL	rs8082036	17	3882613		True	True
+rs4796334	17	6469793	A	G	0.343	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.007	ENSEMBL	rs4796334	17	6469793		True	True
+rs1215	17	7163350	A	G	0.301	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.006	ENSEMBL	rs1215	17	7163350		True	True
+rs4968200	17	7448457	C	G	0.579	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.011	ENSEMBL	rs4968200	17	7448457		True	True
+rs34351630	17	16030520	C	T	0.003	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.0000634	ENSEMBL	rs34351630	17	16030520		True	True
+rs12945803	17	46552229	T	C	0.017	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.000344	ENSEMBL	rs12945803	17	46552229		True	True
+rs28519449	17	54195453	T	C	0.516	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.01	ENSEMBL	rs28519449	17	54195453		True	True
+rs8068952	17	59286644	C	G	1.238	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.024	ENSEMBL	rs8068952	17	59286644		True	True
+rs77672322	17	62497964	C	T	1.37	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.027	ENSEMBL	rs77672322	17	62497964		True	True
+rs11653958	17	62686730	G	A	1.342	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.026	ENSEMBL	rs11653958	17	62686730		True	True
+rs996865	17	69371318	T	C	2.12	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.042	ENSEMBL	rs996865	17	69371318		True	True
+rs59606152	17	79952944	T	C	1.241	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.024	ENSEMBL	rs59606152	17	79952944		True	True
+rs8089099	18	10078071	G	A	1.071	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.021	ENSEMBL	rs8089099	18	10078071		True	True
+rs1985511	18	19816712	T	A	0.734	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.014	ENSEMBL	rs1985511	18	19816712		True	True
+rs303752	18	21074255	G	A	0.047	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.00092	ENSEMBL	rs303752	18	21074255		True	True
+rs1668091	18	22290711	C	T	0.131	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.003	ENSEMBL	rs1668091	18	22290711		True	True
+rs9807668	18	42827898	C	T	0.61	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.012	ENSEMBL	rs9807668	18	42827898		True	True
+rs2202572	18	53566471	C	A	0.009	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.000172	ENSEMBL	rs2202572	18	53566471		True	True
+rs11085744	19	10819967	T	C	0.455	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.009	ENSEMBL	rs11085744	19	10819967		True	True
+rs2967516	19	36881643	G	A	0.135	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.003	ENSEMBL	rs2967516	19	36881643		True	True
+rs6032942	20	10745545	G	C	0.879	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.017	ENSEMBL	rs6032942	20	10745545		True	True
+rs12627254	21	35368402	G	T	1.786	Discovery = Novel; Soure of weight = SpiroMeta; beta = -0.035	ENSEMBL	rs12627254	21	35368402		True	True
+rs113111175	22	50867711	C	T	0.404	Discovery = Novel; Soure of weight = UK Biobank; beta = -0.008	ENSEMBL	rs113111175	22	50867711		True	True
+rs2284746	1	17306675	G	C	1.94	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.038	ENSEMBL	rs2284746	1	17306675		True	True
+rs17513135	1	40035686	T	C	1.077	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.021	ENSEMBL	rs17513135	1	40035686		True	True
+rs1192404	1	92068967	G	A	1.85	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.036	ENSEMBL	rs1192404	1	92068967		True	True
+rs12140637	1	92374517	T	C	0.733	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.014	ENSEMBL	rs12140637	1	92374517		True	True
+rs60804050	1	118870373	A	G	0.156	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.003	ENSEMBL	rs60804050	1	118870373		True	True
+rs6681426	1	150586971	G	A	0.444	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.009	ENSEMBL	rs6681426	1	150586971		True	True
+rs2821332	1	200085714	A	T	0.198	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.004	ENSEMBL	rs2821332	1	200085714		True	True
+rs12092943	1	204434927	T	G	0.688	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.014	ENSEMBL	rs12092943	1	204434927		True	True
+rs512597	1	215095003	C	T	0.116	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.002	ENSEMBL	rs512597	1	215095003		True	True
+rs4846480	1	218598469	A	T	0.704	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.014	ENSEMBL	rs4846480	1	218598469		True	True
+rs993925	1	218860068	C	T	0.64	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.013	ENSEMBL	rs993925	1	218860068		True	True
+rs4328080	1	219963088	G	A	1.132	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.022	ENSEMBL	rs4328080	1	219963088		True	True
+rs6657854	1	221630555	C	A	0.711	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.014	ENSEMBL	rs6657854	1	221630555		True	True
+rs6688537	1	239850588	A	C	0.696	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.014	ENSEMBL	rs6688537	1	239850588		True	True
+rs62126408	2	18309132	T	C	2.369	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.047	ENSEMBL	rs62126408	2	18309132		True	True
+rs1430193	2	56120853	A	T	0.789	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.016	ENSEMBL	rs1430193	2	56120853		True	True
+rs2322659	2	136555659	C	T	0.125	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.002	ENSEMBL	rs2322659	2	136555659		True	True
+rs72904209	2	157046432	C	T	1.666	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.033	ENSEMBL	rs72904209	2	157046432		True	True
+rs2571445	2	218683154	A	G	1.121	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.022	ENSEMBL	rs2571445	2	218683154		True	True
+rs10498230	2	229502503	C	T	4.166	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.082	ENSEMBL	rs10498230	2	229502503		True	True
+rs61332075	2	239316560	G	C	0.889	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.018	ENSEMBL	rs61332075	2	239316560		True	True
+rs12477314	2	239877148	C	T	2.496	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.049	ENSEMBL	rs12477314	2	239877148		True	True
+rs1286664	3	25529280	C	T	2.192	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.043	ENSEMBL	rs1286664	3	25529280		True	True
+rs17666332	3	29469675	G	T	1.506	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.03	ENSEMBL	rs17666332	3	29469675		True	True
+rs1458979	3	55150677	G	A	0.741	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.015	ENSEMBL	rs1458979	3	55150677		True	True
+rs79294353	3	57494433	A	C	0.901	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.018	ENSEMBL	rs79294353	3	57494433		True	True
+rs1490265	3	67452043	C	A	0.233	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.005	ENSEMBL	rs1490265	3	67452043		True	True
+rs6778584	3	98815640	C	T	0.287	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.006	ENSEMBL	rs6778584	3	98815640		True	True
+rs2811415	3	127991527	G	A	0.762	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.015	ENSEMBL	rs2811415	3	127991527		True	True
+rs1595029	3	158241767	A	C	0.291	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.006	ENSEMBL	rs1595029	3	158241767		True	True
+rs56341938	3	168715808	A	G	0.644	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.013	ENSEMBL	rs56341938	3	168715808		True	True
+rs1344555	3	169300219	T	C	0.591	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.012	ENSEMBL	rs1344555	3	169300219		True	True
+rs28520091	4	7846240	C	T	0.781	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.015	ENSEMBL	rs28520091	4	7846240		True	True
+rs13110699	4	89815695	G	T	2.349	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.046	ENSEMBL	rs13110699	4	89815695		True	True
+rs2045517	4	89870964	T	C	2.275	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.045	ENSEMBL	rs2045517	4	89870964		True	True
+rs2007403	4	106131210	T	C	0.796	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.016	ENSEMBL	rs2007403	4	106131210		True	True
+rs10516526	4	106688904	A	G	2.367	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.047	ENSEMBL	rs10516526	4	106688904		True	True
+rs34712979	4	106819053	A	G	2.639	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.052	ENSEMBL	rs34712979	4	106819053		True	True
+rs12504628	4	145436324	T	C	3.742	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.074	ENSEMBL	rs12504628	4	145436324		True	True
+rs111898810	4	146174040	A	C	1.377	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.027	ENSEMBL	rs111898810	4	146174040		True	True
+rs91731	5	33334312	A	C	0.363	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.007	ENSEMBL	rs91731	5	33334312		True	True
+rs1448044	5	44296986	A	G	0.269	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.005	ENSEMBL	rs1448044	5	44296986		True	True
+rs1551943	5	52195033	A	G	1.023	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.02	ENSEMBL	rs1551943	5	52195033		True	True
+rs2441026	5	53444498	C	T	0.068	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.001	ENSEMBL	rs2441026	5	53444498		True	True
+rs72776440	5	77440196	G	C	0.574	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.011	ENSEMBL	rs72776440	5	77440196		True	True
+rs153916	5	95036700	T	C	1.423	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.028	ENSEMBL	rs153916	5	95036700		True	True
+rs7713065	5	131788334	A	C	0.452	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.009	ENSEMBL	rs7713065	5	131788334		True	True
+rs7715901	5	147856392	A	G	2.717	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.054	ENSEMBL	rs7715901	5	147856392		True	True
+rs2014787	5	148611675	C	G	0.553	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.011	ENSEMBL	rs2014787	5	148611675		True	True
+rs10515750	5	156810072	T	C	2.062	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.041	ENSEMBL	rs10515750	5	156810072		True	True
+rs1990950	5	156920756	G	T	1.897	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.037	ENSEMBL	rs1990950	5	156920756		True	True
+rs1294421	6	6743149	T	G	1.644	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.032	ENSEMBL	rs1294421	6	6743149		True	True
+rs55938083	6	7565376	C	T	0.826	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.016	ENSEMBL	rs55938083	6	7565376		True	True
+rs6924424	6	7801611	T	G	0.282	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.006	ENSEMBL	rs6924424	6	7801611		True	True
+rs1928168	6	22017738	C	T	1.554	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.031	ENSEMBL	rs1928168	6	22017738		True	True
+rs34864796	6	27459923	A	G	1.713	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.034	ENSEMBL	rs34864796	6	27459923		True	True
+rs2070600	6	32151443	C	T	7.604	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.15	ENSEMBL	rs2070600	6	32151443		True	True
+rs114544105	6	32635629	A	G	1.273	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.025	ENSEMBL	rs3844313	6	32635629		True	True
+rs16883089	6	73658053	T	C	1.177	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.023	ENSEMBL	rs16883089	6	73658053		True	True
+rs2768551	6	109270656	A	G	2.455	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.048	ENSEMBL	rs2768551	6	109270656		True	True
+rs11759026	6	126792095	G	A	0.183	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.004	ENSEMBL	rs11759026	6	126792095		True	True
+rs7753012	6	142745883	T	G	3.882	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.076	ENSEMBL	rs7753012	6	142745883		True	True
+rs148274477	6	142838173	C	T	9.253	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.182	ENSEMBL	rs148274477	6	142838173		True	True
+rs10246303	7	7286445	T	A	0.492	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.01	ENSEMBL	rs10246303	7	7286445		True	True
+rs55905169	7	15506529	G	C	0.281	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.006	ENSEMBL	rs55905169	7	15506529		True	True
+rs72615157	7	99635967	G	A	0.635	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.013	ENSEMBL	rs72615157	7	99635967		True	True
+rs12698403	7	156127246	A	G	1.067	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.021	ENSEMBL	rs12698403	7	156127246		True	True
+rs771924	9	1555835	A	T	0.133	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.003	ENSEMBL	rs771924	9	1555835		True	True
+rs7872188	9	4124377	T	C	0.989	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.019	ENSEMBL	rs7872188	9	4124377		True	True
+rs10965947	9	23588583	C	T	1.231	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.024	ENSEMBL	rs10965947	9	23588583		True	True
+rs16909859	9	98204792	A	G	2.238	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.044	ENSEMBL	rs16909859	9	98204792		True	True
+rs2451951	9	109496630	C	T	1.234	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.024	ENSEMBL	rs2451951	9	109496630		True	True
+rs803923	9	119401650	A	G	1.187	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.023	ENSEMBL	rs803923	9	119401650		True	True
+rs10858246	9	139102831	G	C	0.372	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.007	ENSEMBL	rs10858246	9	139102831		True	True
+rs10870202	9	139257411	C	T	0.314	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.006	ENSEMBL	rs10870202	9	139257411		True	True
+rs7090277	10	12278021	T	A	2.224	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.044	ENSEMBL	rs7090277	10	12278021		True	True
+rs3847402	10	30267810	A	G	0.782	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.015	ENSEMBL	rs3847402	10	30267810		True	True
+rs7899503	10	65087468	G	C	0.48	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.009	ENSEMBL	rs7899503	10	65087468		True	True
+rs7095607	10	69957350	A	G	0.239	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.005	ENSEMBL	rs7095607	10	69957350		True	True
+rs3849969	10	75525999	C	T	0.721	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.014	ENSEMBL	rs3849969	10	75525999		True	True
+rs1259524	10	77004644	G	T	0.238	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.005	ENSEMBL	rs1259524	10	77004644		True	True
+rs2637254	10	78312002	A	G	1.057	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.021	ENSEMBL	rs2637254	10	78312002		True	True
+rs2256462	10	81685593	T	C	0.969	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.019	ENSEMBL	rs2256462	10	81685593		True	True
+rs2293871	10	124273671	C	T	1.054	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.021	ENSEMBL	rs2293871	10	124273671		True	True
+rs4237643	11	43648368	T	G	0.039	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.000761	ENSEMBL	rs4237643	11	43648368		True	True
+rs2863171	11	45250732	A	C	0.558	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.011	ENSEMBL	rs2863171	11	45250732		True	True
+rs2509961	11	62310909	T	C	0.203	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.004	ENSEMBL	rs2509961	11	62310909		True	True
+rs11235809	11	73290163	A	G	1.666	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.033	ENSEMBL	rs11235809	11	73290163		True	True
+rs7108254	11	86436086	G	T	1.324	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.026	ENSEMBL	rs7108254	11	86436086		True	True
+rs567508	11	126008910	G	A	1.44	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.028	ENSEMBL	rs567508	11	126008910		True	True
+rs2348418	12	28689514	T	C	0.14	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.003	ENSEMBL	rs2348418	12	28689514		True	True
+rs772920	12	56390364	G	C	0.802	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.016	ENSEMBL	rs772920	12	56390364		True	True
+rs11172113	12	57527283	T	C	1.175	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.023	ENSEMBL	rs11172113	12	57527283		True	True
+rs1494502	12	65824670	G	A	0.305	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.006	ENSEMBL	rs1494502	12	65824670		True	True
+rs7971039	12	85724305	G	A	0.181	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.004	ENSEMBL	rs7971039	12	85724305		True	True
+rs11107184	12	94184082	C	T	0.075	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.001	ENSEMBL	rs11107184	12	94184082		True	True
+rs113745635	12	95554771	T	C	0.859	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.017	ENSEMBL	rs113745635	12	95554771		True	True
+rs12820313	12	96255704	C	T	2.169	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.043	ENSEMBL	rs12820313	12	96255704		True	True
+rs10850377	12	115201436	G	A	0.509	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.01	ENSEMBL	rs10850377	12	115201436		True	True
+rs35506	12	115500691	A	T	0.103	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.002	ENSEMBL	rs35506	12	115500691		True	True
+rs4444235	14	54410919	C	T	1.312	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.026	ENSEMBL	rs4444235	14	54410919		True	True
+rs1698268	14	84309664	T	A	0.08	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.002	ENSEMBL	rs1698268	14	84309664		True	True
+rs7155279	14	92485881	G	T	0.372	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.007	ENSEMBL	rs7155279	14	92485881		True	True
+rs72699866	14	93114787	G	A	0.35	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.007	ENSEMBL	rs72699866	14	93114787		True	True
+rs1200345	15	41819716	C	T	1.146	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.023	ENSEMBL	rs1200345	15	41819716		True	True
+rs72724130	15	41977690	T	A	0.948	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.019	ENSEMBL	rs72724130	15	41977690		True	True
+rs8025774	15	67483276	C	T	0.725	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.014	ENSEMBL	rs8025774	15	67483276		True	True
+rs10851839	15	71628370	T	A	3.481	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.069	ENSEMBL	rs10851839	15	71628370		True	True
+rs12591467	15	71788387	C	T	1.466	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.029	ENSEMBL	rs12591467	15	71788387		True	True
+rs12438269	15	84502549	C	T	0.829	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.016	ENSEMBL	rs12438269	15	84502549		True	True
+rs12149593	16	10704535	A	C	1.024	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.02	ENSEMBL	rs12149593	16	10704535		True	True
+rs181206	16	28513403	G	A	0.22	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.004	ENSEMBL	rs181206	16	28513403		True	True
+rs12447804	16	58075282	T	C	1.9	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.037	ENSEMBL	rs12447804	16	58075282		True	True
+rs3973397	16	70040398	A	G	0.283	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.006	ENSEMBL	rs3973397	16	70040398		True	True
+rs3743609	16	75467021	C	G	2.01	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.04	ENSEMBL	rs3743609	16	75467021		True	True
+rs1079572	16	78187138	G	A	0.117	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.002	ENSEMBL	rs1079572	16	78187138		True	True
+rs62070270	17	28263980	G	A	1.004	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.02	ENSEMBL	rs62070270	17	28263980		True	True
+rs62070631	17	29087285	G	A	0.221	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.004	ENSEMBL	rs62070631	17	29087285		True	True
+rs11658500	17	36886828	A	G	0.904	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.018	ENSEMBL	rs11658500	17	36886828		True	True
+rs8067511	17	37611352	T	C	0.051	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.000995	ENSEMBL	rs8067511	17	37611352		True	True
+rs17577877	17	44208218	A	G	0.023	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.000446	ENSEMBL	rs17577877	17	44208218		True	True
+rs6501431	17	68976415	T	C	0.581	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.011	ENSEMBL	rs6501431	17	68976415		True	True
+rs1859962	17	69108753	T	G	0.652	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.013	ENSEMBL	rs1859962	17	69108753		True	True
+rs7218675	17	73513185	A	C	0.538	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.011	ENSEMBL	rs7218675	17	73513185		True	True
+rs633286	18	8809273	T	C	1.326	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.026	ENSEMBL	rs633286	18	8809273		True	True
+rs7243351	18	20148531	C	T	0.149	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.003	ENSEMBL	rs7243351	18	20148531		True	True
+rs7238093	18	20728158	T	A	0.303	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.006	ENSEMBL	rs7238093	18	20728158		True	True
+rs8089865	18	50957922	A	G	0.456	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.009	ENSEMBL	rs8089865	18	50957922		True	True
+rs9636166	19	31829613	C	A	2.027	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.04	ENSEMBL	rs9636166	19	31829613		True	True
+rs113473882	19	41124155	T	C	7.964	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.157	ENSEMBL	rs113473882	19	41124155		True	True
+rs6140050	20	6632901	A	C	0.241	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.005	ENSEMBL	rs6140050	20	6632901		True	True
+rs6138639	20	25669052	G	C	0.828	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.016	ENSEMBL	rs6138639	20	25669052		True	True
+rs1737889	20	31042176	T	C	0.962	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.019	ENSEMBL	rs1737889	20	31042176		True	True
+rs6088813	20	33975181	A	C	0.29	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.006	ENSEMBL	rs6088813	20	33975181		True	True
+rs2236519	20	45529571	G	A	0.289	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.006	ENSEMBL	rs2236519	20	45529571		True	True
+rs6062304	20	62351539	T	A	0.131	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.003	ENSEMBL	rs6062304	20	62351539		True	True
+rs2834440	21	35690499	G	A	1.234	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.024	ENSEMBL	rs2834440	21	35690499		True	True
+rs11704827	22	18450287	A	T	0.975	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.019	ENSEMBL	rs11704827	22	18450287		True	True
+rs4820216	22	20854161	T	C	0.984	Discovery = Previous; Soure of weight = UK Biobank; beta = -0.019	ENSEMBL	rs4820216	22	20854161		True	True
+rs2283847	22	28181399	T	C	0.868	Discovery = Previous; Soure of weight = SpiroMeta; beta = -0.017	ENSEMBL	rs2283847	22	28181399		True	True

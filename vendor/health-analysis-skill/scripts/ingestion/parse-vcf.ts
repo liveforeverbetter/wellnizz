@@ -84,6 +84,7 @@ export interface LongevityProtocol {
     superpowers: Superpower[];
     topRisks: Risk[];
   };
+  curatedInterpretations?: CuratedProtocolInterpretation[];
   dailyStack: {
     morning: Supplement[];
     prePerformance: Supplement[];
@@ -93,6 +94,16 @@ export interface LongevityProtocol {
     formsToAvoid: string[];
     brandCriteria: string;
   };
+}
+
+export interface CuratedProtocolInterpretation {
+  rsid: string;
+  gene: string;
+  label: string;
+  interpretation: string;
+  action?: string;
+  evidenceTier?: 1 | 2 | 3;
+  provenance: MarkerProvenance;
 }
 
 export interface InterpretationSource {
@@ -422,6 +433,10 @@ function loadInterpretations(
             normalized.genotypes = normalized.interpretations;
             delete normalized.interpretations;
           }
+          const existing = markers.get(rsid);
+          if (existing?.provenance && !normalized.provenance) {
+            continue;
+          }
           markers.set(rsid, normalized as MarkerInterpretation);
         }
       }
@@ -713,11 +728,13 @@ function analyzeVariants(
   superpowers: Superpower[];
   topRisks: Risk[];
   supplements: Supplement[];
+  curatedInterpretations: CuratedProtocolInterpretation[];
 } {
   const alerts: Alert[] = [];
   const superpowers: Superpower[] = [];
   const topRisks: Risk[] = [];
   const supplements: Supplement[] = [];
+  const curatedInterpretations: CuratedProtocolInterpretation[] = [];
 
   const found = new Set<string>();
 
@@ -759,7 +776,11 @@ function analyzeVariants(
     // Look up genotype-specific interpretation, fall back to '*' wildcard
     // (used by ClinVar-expanded entries where per-genotype data isn't available)
     const genotypeData =
-      interpretation.genotypes[genotype] || interpretation.genotypes["*"];
+      interpretation.genotypes[genotype] ||
+      (genotype.length === 2
+        ? interpretation.genotypes[`${genotype[1]}${genotype[0]}`]
+        : undefined) ||
+      interpretation.genotypes["*"];
     if (!genotypeData) continue;
 
     const priority = genotypeData.priority;
@@ -786,6 +807,18 @@ function analyzeVariants(
       genotypeData.scienceSimplified ||
       interpretation.scienceSimplified ||
       genotypeData.interpretation;
+
+    if (interpretation.provenance) {
+      curatedInterpretations.push({
+        rsid: variant.id,
+        gene: interpretation.gene,
+        label: interpretation.display || interpretation.name,
+        interpretation: genotypeData.interpretation,
+        action: genotypeData.recommendations?.join(", "),
+        evidenceTier: interpretation.evidenceTier,
+        provenance: interpretation.provenance,
+      });
+    }
 
     // Create superpower items
     if (isSuperpower) {
@@ -841,7 +874,7 @@ function analyzeVariants(
     const geneSupplements = normalizeSupplementBuckets(
       genotypeData.supplements ||
         interpretation.supplements ||
-        getDefaultSupplements(interpretation.gene)
+        (interpretation.provenance ? [] : getDefaultSupplements(interpretation.gene))
     );
 
     for (const [timing, supps] of Object.entries(geneSupplements)) {
@@ -859,7 +892,7 @@ function analyzeVariants(
     }
   }
 
-  return { alerts, superpowers, topRisks, supplements };
+  return { alerts, superpowers, topRisks, supplements, curatedInterpretations };
 }
 
 function generateAction(gene: string, genotype: string): string {
@@ -1375,7 +1408,7 @@ export async function analyzeVCF(
 
   // Step 5: Analyze variants
   console.log("\n🔬 Step 5: Analyzing variants against database...");
-  const { alerts, superpowers, topRisks, supplements } = analyzeVariants(
+  const { alerts, superpowers, topRisks, supplements, curatedInterpretations } = analyzeVariants(
     variants,
     rsidMap,
     interpretations
@@ -1552,6 +1585,7 @@ export async function analyzeVCF(
           })),
       ],
     },
+    curatedInterpretations,
     dailyStack: categorizedSupplements,
     sourcingSafety: {
       formsToAvoid: [

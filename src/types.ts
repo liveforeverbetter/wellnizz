@@ -78,6 +78,18 @@ export interface AnalysisResult {
 }
 
 export type GeneticAnalysisJobStatus = 'queued' | 'running' | 'complete' | 'failed';
+export type GeneticAnalysisJobStage =
+  | 'queued'
+  | 'preparing'
+  | 'annotating_variants'
+  | 'extracting_genotypes'
+  | 'clinical_interpretation'
+  | 'polygenic_scoring'
+  | 'consumer_interpretation'
+  | 'persisting_results'
+  | 'retry_queued'
+  | 'complete'
+  | 'failed';
 export type ConnectorSyncJobStatus = 'queued' | 'running' | 'complete' | 'failed';
 export type WebhookEventType =
   | 'connection.started'
@@ -252,6 +264,12 @@ export interface GeneticAnalysisJob {
   source_id: string;
   annotation_depth?: GeneticsAnnotationDepth;
   status: GeneticAnalysisJobStatus;
+  stage?: GeneticAnalysisJobStage;
+  progress_pct?: number;
+  progress_message?: string;
+  last_progress_at?: string;
+  reanalysis_recommended?: boolean;
+  reanalysis_reason?: string;
   attempts: number;
   max_attempts: number;
   priority: number;

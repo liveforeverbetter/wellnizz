@@ -3482,7 +3482,7 @@
             }
           }
         },
-        "description": "Read queued WGS/SNP-array analysis job status."
+        "description": "Read queued WGS/SNP-array analysis status, progress stage, retry state, and reanalysis recommendation."
       }
     },
     "/dashboard-specs/{analysis_id}": {
@@ -8308,7 +8308,7 @@
       "scopes": [
         "health:data:read"
       ],
-      "description": "Read queued WGS/SNP-array analysis job status."
+      "description": "Read queued WGS/SNP-array analysis status, progress stage, retry state, and reanalysis recommendation."
     },
     {
       "id": "design_implementation.read",

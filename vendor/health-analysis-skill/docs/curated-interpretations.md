@@ -46,6 +46,33 @@ provenance records, source URL classes, limitations, and consumer-safety
 wording. `interpretation:depth` also requires at least 11 provenance-graded
 markers before the report can pass.
 
+## Performance and optimization safety pass
+
+The 2026-07-19 performance pass reviewed six consumer-interest markers. These
+records are deliberately framed as context for self-observation and measured
+performance, not as talent selection, training prescriptions, supplement
+recommendations, or substitutes for pulmonary testing.
+
+| Marker | Gene | Consumer topic | Review outcome |
+| --- | --- | --- | --- |
+| rs762551 | CYP1A2 | caffeine metabolism context | corrected to CYP1A2 inducibility; removed genotype-based dose and timing prescriptions |
+| rs5751876 | ADORA2A | caffeine sensitivity context | consolidated duplicate records; retained anxiety/sleep-response context with limitations |
+| rs1815739 | ACTN3 | muscle performance association | corrected GRCh37 identity and alleles; removed talent and sport-selection claims |
+| rs8192678 | PPARGC1A | aerobic adaptation research | corrected genotype orientation; removed deterministic VO2 and mitochondrial claims |
+| rs17602729 | AMPD1 | exercise intolerance context | corrected rsID, coordinate, and alleles; routes persistent symptoms to clinical evaluation |
+| rs12722 | COL5A1 | tendon/soft-tissue association | corrected coordinate; removed deterministic tissue-mechanics and collagen-dose claims |
+
+All six records carry stable variant identity, primary or synthesis evidence,
+curation date, and explicit limitations. Together with the Phase 2 wellness
+set, the report now contains 17 provenance-graded markers. The parser also
+retains every matched reviewed record in `metadata.curated_interpretations`,
+including low-priority consumer findings, so API query surfaces do not depend
+on whether a marker happened to be promoted into an alert, risk, or strength.
+
+Reviewed markers must not inherit generic genotype-driven supplement stacks.
+The content regression fixture asserts this behavior for the six performance
+markers plus ADORA2A.
+
 ## Deliberate boundaries
 
 ### PRS breadth
@@ -56,7 +83,13 @@ uncalibrated score would otherwise fall back to a misleading average percentile.
 Meaningful PRS expansion therefore requires both:
 
 1. position/build-aware matching for score variants that lack rsIDs; and
-2. population-specific calibration parameters for every surfaced score.
+2. population-specific calibration parameters for every surfaced absolute or
+   percentile interpretation.
+
+Position/build-aware matching may still expose a well-covered raw score when
+calibration is unavailable, provided the result is clearly labeled raw-only,
+does not infer direction or risk, and reports observed, reference-inferred,
+rejected, and missing variant counts.
 
 Do not add a disease label to the PRS registry merely because a PGS file is
 available. Until both conditions are met, retain the smaller calibrated set and

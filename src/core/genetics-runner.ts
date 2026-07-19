@@ -2,7 +2,9 @@ import { spawn } from 'node:child_process';
 import * as fs from 'node:fs/promises';
 import * as os from 'node:os';
 import * as path from 'node:path';
-import type { GeneticsAnnotationDepth, RawSourceReference } from '../types.js';
+import type { GeneticAnalysisJobStage, GeneticsAnnotationDepth, RawSourceReference } from '../types.js';
+import { normalizeGeneticsDashboard, type ConsumerGeneticsSection } from './genetic-insights.js';
+import { scoreBundledPositionAwarePgs } from './pgs-position-scorer.js';
 
 export interface GeneticsPipelineResult {
   status: 'complete' | 'setup_required' | 'failed';
@@ -27,6 +29,9 @@ export interface GeneticsPipelineResult {
     rsid_annotation_source?: string;
     rsid_extraction_method?: 'bcftools' | 'text_fallback';
     rsid_extraction_fallback_reason?: string;
+    consumer_genetics?: ConsumerGeneticsSection['summary'] & {
+      interpretation_release: string;
+    };
   };
 }
 
@@ -38,6 +43,7 @@ export interface FullAnalysisArtifactRef {
 
 export interface GeneticsPipelineOptions {
   annotation_depth?: GeneticsAnnotationDepth;
+  onProgress?: (progress: { stage: GeneticAnalysisJobStage; progress_pct: number; progress_message: string }) => void | Promise<void>;
   /**
    * Persists the COMPLETE (pre-compaction) analysis to durable storage before
    * the inline payload is bounded, so nothing is dropped. Runs on the WGS
@@ -117,7 +123,8 @@ export async function runGeneticsPipelineWithWriter(
 
   const commandArgs = buildGeneticsPipelineArgs(userId, inputPath, outputDir, env, options);
   const tsxCommand = env.TSX_BIN ?? path.resolve(process.cwd(), 'node_modules/.bin/tsx');
-  const result = await runCommand(tsxCommand, commandArgs, skillDir, timeoutMs);
+  await options.onProgress?.({ stage: 'annotating_variants', progress_pct: 10, progress_message: 'Normalizing the VCF and annotating variants.' });
+  const result = await runCommand(tsxCommand, commandArgs, skillDir, timeoutMs, options.onProgress);
   if (result.exitCode !== 0) {
     return {
       status: 'failed',
@@ -128,13 +135,64 @@ export async function runGeneticsPipelineWithWriter(
 
   const dashboardJsonPath = path.join(outputDir, `${userId}_dashboard.json`);
   const dashboard = await readJson(dashboardJsonPath);
+  if (options.annotation_depth === 'full_dbsnp' && env.HEALTH_ANALYSIS_DBSNP_GRCH37_PATH && isRecord(dashboard)) {
+    const registryDir = env.HEALTH_ANALYSIS_PGS_REGISTRY_DIR ?? path.resolve(process.cwd(), 'data/genetics/pgs');
+    if (await exists(path.join(registryDir, 'manifest.json'))) {
+      await options.onProgress?.({ stage: 'polygenic_scoring', progress_pct: 89, progress_message: 'Matching position- and allele-aware consumer performance scores.' });
+      try {
+        const positionScores = await scoreBundledPositionAwarePgs(
+          inputPath,
+          env.HEALTH_ANALYSIS_DBSNP_GRCH37_PATH,
+          registryDir,
+        );
+        const metadata = isRecord(dashboard.metadata) ? dashboard.metadata : {};
+        const existingScores = Array.isArray(metadata.prs_scores) ? metadata.prs_scores : [];
+        const replacedIds = new Set(positionScores.scores.map(score => score.sourceId));
+        metadata.prs_scores = [
+          ...existingScores.filter(score => !isRecord(score) || !replacedIds.has(String(score.sourceId ?? score.pgsId ?? ''))),
+          ...positionScores.scores,
+        ];
+        metadata.api_pgs_scoring = {
+          registry_release: positionScores.registry_release,
+          score_count: positionScores.scores.length,
+          errors: positionScores.errors,
+          matching_method: 'normalized_grch37_position_and_alleles',
+          reference_inference_policy: 'dbsnp_reference_plus_variant_only_wgs_assumption',
+          percentile_policy: 'withheld_without_compatible_reference_distribution',
+        };
+        dashboard.metadata = metadata;
+      } catch (pgsError) {
+        const metadata = isRecord(dashboard.metadata) ? dashboard.metadata : {};
+        metadata.api_pgs_scoring = {
+          status: 'failed_retryable',
+          error: pgsError instanceof Error ? pgsError.message : String(pgsError),
+          reanalysis_recommended: true,
+        };
+        dashboard.metadata = metadata;
+        console.warn(JSON.stringify({
+          ts: new Date().toISOString(),
+          event: 'position_aware_pgs_scoring_failed',
+          user_id: userId,
+          source_id: source.id,
+          error: pgsError instanceof Error ? pgsError.message : String(pgsError),
+        }));
+      }
+    }
+  }
+  await options.onProgress?.({ stage: 'consumer_interpretation', progress_pct: 92, progress_message: 'Building calibrated-safe consumer health and optimization interpretations.' });
+  const consumerGenetics = normalizeGeneticsDashboard(dashboard);
   const raw = summarizeDashboard(dashboard);
+  raw.consumer_genetics = {
+    ...consumerGenetics.summary,
+    interpretation_release: consumerGenetics.interpretation_release,
+  };
   // Persist the complete analysis before bounding the inline payload, so the
   // dropped tail is never lost. Failure here must not fail the analysis: the
   // bounded inline result is still valid and useful on its own.
   let fullArtifact: FullAnalysisArtifactRef | undefined;
   if (options.saveFullArtifact) {
     try {
+      await options.onProgress?.({ stage: 'persisting_results', progress_pct: 95, progress_message: 'Saving the complete analysis and compact query results.' });
       const body = Buffer.from(JSON.stringify(dashboard));
       fullArtifact = await options.saveFullArtifact(body);
     } catch (artifactError) {
@@ -300,11 +358,24 @@ export function appendCommandOutputTail(current: string, chunk: Buffer | string,
   return Buffer.concat([keptExisting, next]).toString('utf8');
 }
 
-function runCommand(command: string, args: string[], cwd: string, timeoutMs: number): Promise<{ exitCode: number | null; stdout: string; stderr: string }> {
+function runCommand(
+  command: string,
+  args: string[],
+  cwd: string,
+  timeoutMs: number,
+  onProgress?: GeneticsPipelineOptions['onProgress'],
+): Promise<{ exitCode: number | null; stdout: string; stderr: string }> {
   return new Promise(resolve => {
     const child = spawn(command, args, { cwd, stdio: ['ignore', 'pipe', 'pipe'] });
     let stdout = '';
     let stderr = '';
+    let progressWrites = Promise.resolve();
+    let settled = false;
+    const finish = (result: { exitCode: number | null; stdout: string; stderr: string }) => {
+      if (settled) return;
+      settled = true;
+      void progressWrites.finally(() => resolve(result));
+    };
     const timeout = setTimeout(() => {
       child.kill('SIGTERM');
       stderr = appendCommandOutputTail(stderr, `\nTimed out after ${timeoutMs}ms.`);
@@ -312,6 +383,12 @@ function runCommand(command: string, args: string[], cwd: string, timeoutMs: num
     child.stdout.on('data', chunk => {
       process.stdout.write(chunk);
       stdout = appendCommandOutputTail(stdout, chunk);
+      const progress = progressFromPipelineOutput(chunk.toString('utf8'));
+      if (progress && onProgress) {
+        progressWrites = progressWrites.then(() => onProgress(progress)).catch(error => {
+          console.warn(JSON.stringify({ event: 'genetics_job_progress_update_failed', error: error instanceof Error ? error.message : String(error) }));
+        });
+      }
     });
     child.stderr.on('data', chunk => {
       process.stderr.write(chunk);
@@ -319,13 +396,23 @@ function runCommand(command: string, args: string[], cwd: string, timeoutMs: num
     });
     child.on('close', exitCode => {
       clearTimeout(timeout);
-      resolve({ exitCode, stdout, stderr });
+      finish({ exitCode, stdout, stderr });
     });
     child.on('error', error => {
       clearTimeout(timeout);
-      resolve({ exitCode: 1, stdout, stderr: appendCommandOutputTail(stderr, `\n${error.message}`) });
+      finish({ exitCode: 1, stdout, stderr: appendCommandOutputTail(stderr, `\n${error.message}`) });
     });
   });
+}
+
+export function progressFromPipelineOutput(output: string): { stage: GeneticAnalysisJobStage; progress_pct: number; progress_message: string } | undefined {
+  const text = output.toLowerCase();
+  if (text.includes('pipeline complete')) return { stage: 'consumer_interpretation', progress_pct: 88, progress_message: 'Core genomic analysis complete; preparing consumer interpretations.' };
+  if (text.includes('prs:') || text.includes('polygenic risk')) return { stage: 'polygenic_scoring', progress_pct: 80, progress_message: 'Calculating polygenic health and optimization scores.' };
+  if (text.includes('cpic') || text.includes('clinvar') || text.includes('step 5b')) return { stage: 'clinical_interpretation', progress_pct: 65, progress_message: 'Interpreting clinical and pharmacogenomic evidence.' };
+  if (text.includes('extracting all rsids') || text.includes('genotype map')) return { stage: 'extracting_genotypes', progress_pct: 50, progress_message: 'Extracting genotypes for trait and score matching.' };
+  if (text.includes('annotat') || text.includes('step 2') || text.includes('step 3')) return { stage: 'annotating_variants', progress_pct: 30, progress_message: 'Annotating variants against configured reference data.' };
+  return undefined;
 }
 
 async function exists(filePath: string): Promise<boolean> {

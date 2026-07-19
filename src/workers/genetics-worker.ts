@@ -51,12 +51,18 @@ async function processNextJob(): Promise<boolean> {
       process.env,
       {
         annotation_depth: job.annotation_depth,
+        onProgress: progress => store.updateGeneticAnalysisJobProgress(job.id, progress),
         // Preserve the complete analysis in durable storage before the inline
         // payload is bounded. Keyed by analysis_id so read paths can fetch it.
         saveFullArtifact: body => store.saveAnalysisArtifact(job.analysis_id, body),
       },
     );
     upsertGeneticPipelineInterpretation(analysis, source, pipeline, job.id);
+    await storeWriteWithRetry(job.id, 'persisting_progress', () => store.updateGeneticAnalysisJobProgress(job.id, {
+      stage: 'persisting_results',
+      progress_pct: 97,
+      progress_message: 'Saving interpreted results and final job state.',
+    }));
     await storeWriteWithRetry(job.id, 'save_analysis', () => store.saveAnalysis(analysis));
 
     if (pipeline.status === 'failed') {

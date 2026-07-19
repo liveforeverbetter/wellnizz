@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import * as os from 'node:os';
 import * as path from 'node:path';
 import { readFile, rm } from 'node:fs/promises';
-import { appendCommandOutputTail, buildGeneticsPipelineArgs, compactGeneticsDashboardForPersistence, geneticsPipelineTimeoutMs } from '../src/core/genetics-runner.js';
+import { appendCommandOutputTail, buildGeneticsPipelineArgs, compactGeneticsDashboardForPersistence, geneticsPipelineTimeoutMs, progressFromPipelineOutput } from '../src/core/genetics-runner.js';
 import { createId, HealthApiStore } from '../src/store.js';
 import type { AnalysisResult, GeneticAnalysisJob } from '../src/types.js';
 
@@ -68,6 +68,15 @@ test('worker command capture retains only a bounded diagnostic tail', () => {
   assert.ok(Buffer.byteLength(captured) <= 4096);
   assert.doesNotMatch(captured, /progress 00000/);
   assert.match(captured, /progress 09999/);
+});
+
+test('worker output maps to stable user-facing progress stages', () => {
+  assert.deepEqual(progressFromPipelineOutput('Extracting all rsIDs + genotypes from full VCF'), {
+    stage: 'extracting_genotypes',
+    progress_pct: 50,
+    progress_message: 'Extracting genotypes for trait and score matching.',
+  });
+  assert.equal(progressFromPipelineOutput('unrelated log line'), undefined);
 });
 
 test('WGS persistence keeps actionable results and bounds exploratory collections', () => {
@@ -192,12 +201,41 @@ test('claiming a genetic retry clears the previous attempt error', async () => {
 
   const first = await store.claimNextGeneticAnalysisJob('worker-1');
   assert.ok(first);
+  assert.equal(first.stage, 'preparing');
+  assert.equal(first.progress_pct, 5);
+  await store.updateGeneticAnalysisJobProgress(job.id, {
+    stage: 'polygenic_scoring',
+    progress_pct: 80,
+    progress_message: 'Calculating scores.',
+  });
+  assert.equal((await store.getGeneticAnalysisJob(job.id))?.stage, 'polygenic_scoring');
   await store.failGeneticAnalysisJob(job.id, 'first attempt failed');
   assert.equal((await store.getGeneticAnalysisJob(job.id))?.status, 'queued');
+  assert.equal((await store.getGeneticAnalysisJob(job.id))?.stage, 'retry_queued');
   assert.equal((await store.getGeneticAnalysisJob(job.id))?.error, 'first attempt failed');
 
   const retry = await store.claimNextGeneticAnalysisJob('worker-2');
   assert.equal(retry?.status, 'running');
   assert.equal(retry?.attempts, 2);
   assert.equal(retry?.error, undefined);
+});
+
+test('completed raw genetic scores advertise future calibration reanalysis', async () => {
+  const store = new HealthApiStore();
+  const now = new Date().toISOString();
+  const job: GeneticAnalysisJob = {
+    id: createId('wgsjob'), user_id: 'user_1', organization_id: 'org_1',
+    analysis_id: createId('analysis'), source_id: createId('src'),
+    status: 'running', attempts: 1, max_attempts: 3, priority: 0,
+    created_at: now, updated_at: now,
+  };
+  await store.createGeneticAnalysisJob(job);
+  await store.completeGeneticAnalysisJob(job.id, {
+    raw: { consumer_genetics: { reanalysis_recommended: true } },
+  });
+
+  const completed = await store.getGeneticAnalysisJob(job.id);
+  assert.equal(completed?.status, 'complete');
+  assert.equal(completed?.reanalysis_recommended, true);
+  assert.match(completed?.reanalysis_reason ?? '', /calibration or score-registry release/);
 });

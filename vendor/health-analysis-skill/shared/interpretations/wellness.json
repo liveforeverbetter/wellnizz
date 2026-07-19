@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated": "2026-06-09",
+  "updated": "2026-07-19",
   "description": "Wellness interpretations - nutrition, methylation, metabolism, inflammation",
   "markers": {
     "rs1801133": {
@@ -349,40 +349,125 @@
     },
     "rs762551": {
       "gene": "CYP1A2",
-      "name": "A>C",
+      "name": "-163C>A (CYP1A2*1F)",
       "category": "wellness",
       "chrom": "15",
       "pos": 75041917,
-      "display": "CYP1A2 A>C",
+      "display": "CYP1A2 caffeine clearance context",
       "interpretations": {
         "AA": {
-          "effect": "Fast metabolizer",
-          "interpretation": "Rapid caffeine clearance - standard tolerance",
+          "effect": "Higher-inducibility-associated genotype",
+          "interpretation": "The AA genotype is often grouped as faster caffeine metabolism in research cohorts, especially when CYP1A2 is induced. It does not directly measure your caffeine half-life or reliably predict tolerance.",
           "recommendations": [
-            "2-4 cups coffee OK"
+            "Track dose, timing, alertness, anxiety, resting heart rate, and sleep response"
           ],
           "priority": "low"
         },
         "AC": {
-          "effect": "Intermediate",
-          "interpretation": "Moderate caffeine sensitivity - longer lasting effects",
+          "effect": "One lower-inducibility-associated allele",
+          "interpretation": "The AC genotype is often grouped with slower metabolism in association studies, but smoking, medications, hormones, pregnancy, liver health, and habitual use can materially change clearance.",
           "recommendations": [
-            "1-3 cups",
-            "Avoid after 2pm"
+            "Use a personal cutoff based on measured sleep response rather than genotype alone"
           ],
           "priority": "medium"
         },
         "CC": {
-          "effect": "Slow metabolizer",
-          "interpretation": "Prolonged caffeine effects",
+          "effect": "Two lower-inducibility-associated alleles",
+          "interpretation": "The CC genotype is associated with lower CYP1A2 inducibility and is commonly grouped as slower metabolism. It is not a measured clearance rate and does not establish a safe or unsafe coffee dose.",
           "recommendations": [
-            "1 cup max",
-            "None after noon"
+            "Start caffeine timing experiments conservatively and let sleep and symptoms determine the cutoff",
+            "Review medication and hormonal interactions with a clinician or pharmacist when relevant"
           ],
           "priority": "medium"
         }
       },
-      "evidenceTier": 2
+      "evidenceTier": 2,
+      "provenance": {
+        "status": "curated",
+        "reviewedAt": "2026-07-19",
+        "genomeBuild": "GRCh37",
+        "referenceAllele": "C",
+        "commonAlleles": ["A", "C"],
+        "sources": [
+          {
+            "id": "ensembl-grch37-rs762551",
+            "label": "Ensembl GRCh37 variant record",
+            "url": "https://grch37.ensembl.org/Homo_sapiens/Variation/Explore?v=rs762551",
+            "type": "variant_identity"
+          },
+          {
+            "id": "PMID:34564706",
+            "label": "CYP1A2 genotype and coffee-response study",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/34564706/",
+            "type": "primary_study"
+          }
+        ],
+        "limitations": [
+          "rs762551 is a context-dependent inducibility marker, not a direct measurement of caffeine pharmacokinetics.",
+          "Smoking, medications, hormones, pregnancy, liver health, ancestry, dose, and habitual intake can outweigh this association."
+        ]
+      }
+    },
+    "rs5751876": {
+      "gene": "ADORA2A",
+      "name": "1976T>C",
+      "category": "wellness",
+      "chrom": "22",
+      "pos": 24837301,
+      "display": "ADORA2A caffeine sensitivity context",
+      "interpretations": {
+        "TT": {
+          "effect": "Caffeine-sensitivity-associated genotype in some cohorts",
+          "interpretation": "Some controlled studies observed greater caffeine-related anxiety in TT participants, particularly with low habitual intake. Other sleep findings vary, so this is sensitivity context rather than a deterministic response.",
+          "recommendations": [
+            "Track anxiety, jitteriness, heart rate, and sleep response at known caffeine doses",
+            "Use symptoms and sleep data to personalize timing"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Mixed ADORA2A sensitivity genotype",
+          "interpretation": "The CT genotype does not provide a reliable individual anxiety, alertness, or sleep prediction. Habitual intake and tolerance materially affect caffeine response.",
+          "recommendations": [
+            "Use a repeatable dose-and-timing experiment instead of a genotype label"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Alternative ADORA2A sensitivity genotype",
+          "interpretation": "The CC genotype was less anxiety-responsive than TT in some controlled cohorts, but it does not reliably predict caffeine tolerance or protection from sleep effects.",
+          "recommendations": [
+            "Keep caffeine timing responsive to actual anxiety and sleep effects"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "reviewedAt": "2026-07-19",
+        "genomeBuild": "GRCh37",
+        "referenceAllele": "T",
+        "commonAlleles": ["C", "T"],
+        "sources": [
+          {
+            "id": "ensembl-grch37-rs5751876",
+            "label": "Ensembl GRCh37 variant record",
+            "url": "https://grch37.ensembl.org/Homo_sapiens/Variation/Explore?v=rs5751876",
+            "type": "variant_identity"
+          },
+          {
+            "id": "PMID:20520601",
+            "label": "ADORA2A genotype and controlled caffeine-response study",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/20520601/",
+            "type": "primary_study"
+          }
+        ],
+        "limitations": [
+          "Cohorts are modest and results depend on habitual caffeine use, dose, outcome definition, and ancestry.",
+          "This marker does not predict a safe dose, clinical anxiety, or whether caffeine will impair sleep."
+        ]
+      }
     },
     "rs9939609": {
       "gene": "FTO",
@@ -3283,48 +3368,6 @@
             "Combined effect with CYP2R1 genotype is additive"
           ],
           "priority": "medium"
-        }
-      },
-      "evidenceTier": 2
-    },
-    "rs5751876": {
-      "gene": "ADORA2A",
-      "name": "C>T",
-      "category": "wellness",
-      "chrom": "22",
-      "pos": 24427062,
-      "display": "ADORA2A adenosine sensitivity",
-      "interpretations": {
-        "CC": {
-          "effect": "Lower adenosine A2A receptor sensitivity",
-          "interpretation": "Standard caffeine tolerance \u2014 less susceptibility to caffeine-induced anxiety and sleep disruption",
-          "recommendations": [
-            "Standard caffeine timing guidelines apply",
-            "Caffeine after 2pm may still disrupt sleep \u2014 test individually"
-          ],
-          "priority": "low"
-        },
-        "CT": {
-          "effect": "Intermediate adenosine sensitivity",
-          "interpretation": "Moderate adenosine A2A sensitivity \u2014 caffeine may cause occasional anxiety or sleep disruption",
-          "recommendations": [
-            "Limit caffeine to morning hours",
-            "Cap at 200mg/day",
-            "Avoid caffeine after noon if sleep is poor"
-          ],
-          "priority": "low"
-        },
-        "TT": {
-          "effect": "High adenosine A2A receptor sensitivity",
-          "interpretation": "Heightened caffeine sensitivity \u2014 more likely to experience anxiety, jitteriness, and sleep disruption from caffeine; shift to alertness more dependent on adenosine accumulation",
-          "recommendations": [
-            "Limit caffeine to 100-150mg/day maximum",
-            "No caffeine after 10am",
-            "Consider L-theanine pairing to buffer anxiety",
-            "Track sleep quality and HRV if using caffeine"
-          ],
-          "priority": "medium",
-          "scienceSimplified": "Your adenosine receptors are more sensitive, meaning caffeine blocks them more forcefully and sleep pressure builds faster \u2014 small caffeine doses have outsized effects on your system"
         }
       },
       "evidenceTier": 2

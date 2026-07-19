@@ -347,7 +347,7 @@ export const ENDPOINTS: EndpointDefinition[] = [
     path: '/genetics/jobs/:id',
     category: 'genetics',
     scopes: ['health:data:read'],
-    description: 'Read queued WGS/SNP-array analysis job status.',
+    description: 'Read queued WGS/SNP-array analysis status, progress stage, retry state, and reanalysis recommendation.',
   },
   {
     id: 'design_implementation.read',

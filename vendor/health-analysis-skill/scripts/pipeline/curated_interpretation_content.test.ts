@@ -24,7 +24,7 @@ interface InterpretationMarker {
 
 const packageDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
-function loadMarkers(file: 'wellness' | 'personality'): Record<string, InterpretationMarker> {
+function loadMarkers(file: 'wellness' | 'personality' | 'performance'): Record<string, InterpretationMarker> {
   return JSON.parse(fs.readFileSync(
     path.join(packageDir, 'shared/interpretations', `${file}.json`),
     'utf8',
@@ -43,15 +43,22 @@ const expected = {
   rs10830963: { file: 'wellness', gene: 'MTNR1B', chrom: '11', pos: 92708710, ref: 'C', alleles: ['C', 'G'], genotypes: ['CC', 'CG', 'GG'] },
   rs662799: { file: 'wellness', gene: 'APOA5', chrom: '11', pos: 116663707, ref: 'G', alleles: ['A', 'G'], genotypes: ['AA', 'AG', 'GG'] },
   rs1801725: { file: 'wellness', gene: 'CASR', chrom: '3', pos: 122003757, ref: 'G', alleles: ['G', 'T'], genotypes: ['GG', 'GT', 'TT'] },
+  rs762551: { file: 'wellness', gene: 'CYP1A2', chrom: '15', pos: 75041917, ref: 'C', alleles: ['A', 'C'], genotypes: ['AA', 'AC', 'CC'] },
+  rs5751876: { file: 'wellness', gene: 'ADORA2A', chrom: '22', pos: 24837301, ref: 'T', alleles: ['C', 'T'], genotypes: ['CC', 'CT', 'TT'] },
+  rs1815739: { file: 'performance', gene: 'ACTN3', chrom: '11', pos: 66328095, ref: 'T', alleles: ['C', 'T'], genotypes: ['CC', 'CT', 'TT'] },
+  rs8192678: { file: 'performance', gene: 'PPARGC1A', chrom: '4', pos: 23815662, ref: 'C', alleles: ['C', 'T'], genotypes: ['CC', 'CT', 'TT'] },
+  rs17602729: { file: 'performance', gene: 'AMPD1', chrom: '1', pos: 115236057, ref: 'G', alleles: ['A', 'G'], genotypes: ['AA', 'AG', 'GG'] },
+  rs12722: { file: 'performance', gene: 'COL5A1', chrom: '9', pos: 137734416, ref: 'C', alleles: ['C', 'T'], genotypes: ['CC', 'CT', 'TT'] },
 } as const;
 
 describe('phase 2 curated interpretation content', () => {
   const wellness = loadMarkers('wellness');
   const personality = loadMarkers('personality');
+  const performance = loadMarkers('performance');
 
   for (const [rsid, identity] of Object.entries(expected)) {
     it(`${rsid} has verified identity, allele, and evidence provenance`, () => {
-      const marker = (identity.file === 'wellness' ? wellness : personality)[rsid];
+      const marker = (identity.file === 'wellness' ? wellness : identity.file === 'personality' ? personality : performance)[rsid];
       assert.ok(marker, `${rsid} is present`);
       assert.equal(marker.gene, identity.gene);
       assert.equal(marker.chrom, identity.chrom);
@@ -97,30 +104,58 @@ describe('phase 2 curated interpretation content', () => {
     assert.match(text, /holotranscobalamin/i);
     assert.doesNotMatch(text, /supplementation .* beneficial|hidden.*deficiency|probiotics may help/i);
   });
+
+  it('keeps performance and caffeine markers non-deterministic and measurement-led', () => {
+    const reviewed = [
+      wellness.rs762551,
+      wellness.rs5751876,
+      performance.rs1815739,
+      performance.rs8192678,
+      performance.rs17602729,
+      performance.rs12722,
+    ];
+    const text = JSON.stringify(reviewed);
+    assert.doesNotMatch(text, /natural advantage|better suited|optimized for|substantially reduced capacity|cups coffee ok|cup max/i);
+    assert.doesNotMatch(text, /collagen peptides|NAD\+ precursor|CoQ10 support|iron.*mg/i);
+    assert.match(text, /measur|track|symptom|response/i);
+    assert.match(text, /does not|cannot|not a diagnosis/i);
+  });
 });
 
 describe('curated interpretation report metadata', () => {
-  it('carries provenance from an interpreted VCF into report metadata', async () => {
+  it('carries reviewed wellness and performance provenance into report metadata', async () => {
     const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'fb-curated-provenance-'));
     const input = path.join(directory, 'curated.vcf');
     try {
       fs.writeFileSync(input, [
         '##fileformat=VCFv4.2',
+        '##contig=<ID=1,length=249250621>',
         '##contig=<ID=4,length=191154276>',
+        '##contig=<ID=9,length=141213431>',
+        '##contig=<ID=11,length=135006516>',
+        '##contig=<ID=15,length=102531392>',
+        '##contig=<ID=22,length=51304566>',
         '##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">',
         '#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tSAMPLE',
+        '1\t115236057\trs17602729\tG\tA\t100\tPASS\t.\tGT\t0/1',
+        '4\t23815662\trs8192678\tC\tT\t100\tPASS\t.\tGT\t0/1',
         '4\t72608383\trs2282679\tT\tG\t100\tPASS\t.\tGT\t1/1',
+        '9\t137734416\trs12722\tC\tT\t100\tPASS\t.\tGT\t1/1',
+        '11\t66328095\trs1815739\tT\tC\t100\tPASS\t.\tGT\t1/1',
+        '15\t75041917\trs762551\tC\tA\t100\tPASS\t.\tGT\t1/1',
+        '22\t24837301\trs5751876\tT\tC\t100\tPASS\t.\tGT\t0/0',
         '',
       ].join('\n'), 'utf8');
 
       const result = await analyzeVCF(input, { annotated: true, save: false });
       const evidence = collectCuratedInterpretationEvidence(result.protocol);
-      assert.equal(evidence.length, 1);
-      assert.equal(evidence[0]!.rsid, 'rs2282679');
-      assert.equal(evidence[0]!.gene, 'GC');
-      assert.equal(evidence[0]!.provenance.status, 'curated');
-      assert.equal(evidence[0]!.provenance.referenceAllele, 'T');
-      assert.ok(evidence[0]!.provenance.sources.some(source => source.id === 'PMID:20541252'));
+      const byRsid = new Map(evidence.map(item => [item.rsid, item]));
+      for (const rsid of ['rs2282679', 'rs762551', 'rs5751876', 'rs1815739', 'rs8192678', 'rs17602729', 'rs12722']) {
+        assert.equal(byRsid.get(rsid)?.provenance.status, 'curated', `${rsid} provenance is surfaced`);
+      }
+      assert.equal(byRsid.get('rs2282679')?.gene, 'GC');
+      assert.equal(byRsid.get('rs2282679')?.provenance.referenceAllele, 'T');
+      assert.ok(byRsid.get('rs2282679')?.provenance.sources.some(source => source.id === 'PMID:20541252'));
     } finally {
       fs.rmSync(directory, { recursive: true, force: true });
     }

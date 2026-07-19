@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { writeFile } from 'node:fs/promises';
-import type { AnalysisResult, ConnectorSyncJob, DataExportResult, ExternalAccount, GeneticAnalysisJob, Goal, NormalizedObservation, OtpChallenge, ProviderToken, RawSourceReference, TombstoneResult, WebhookEvent } from './types.js';
+import type { AnalysisResult, ConnectorSyncJob, DataExportResult, ExternalAccount, GeneticAnalysisJob, GeneticAnalysisJobStage, Goal, NormalizedObservation, OtpChallenge, ProviderToken, RawSourceReference, TombstoneResult, WebhookEvent } from './types.js';
 
 export interface IdempotencyRecord {
   key: string;
@@ -38,6 +38,7 @@ export interface HealthStore {
   createGeneticAnalysisJob(job: GeneticAnalysisJob): Promise<void>;
   getGeneticAnalysisJob(id: string): Promise<GeneticAnalysisJob | undefined>;
   claimNextGeneticAnalysisJob(workerId: string): Promise<GeneticAnalysisJob | undefined>;
+  updateGeneticAnalysisJobProgress(id: string, progress: { stage: GeneticAnalysisJobStage; progress_pct: number; progress_message?: string }): Promise<void>;
   completeGeneticAnalysisJob(id: string, result: unknown): Promise<void>;
   failGeneticAnalysisJob(id: string, error: string): Promise<void>;
   upsertExternalAccount(account: ExternalAccount): Promise<ExternalAccount>;
@@ -230,6 +231,10 @@ export class HealthApiStore implements HealthStore {
     const claimed: GeneticAnalysisJob = {
       ...job,
       status: 'running',
+      stage: 'preparing',
+      progress_pct: 5,
+      progress_message: 'Preparing the uploaded genome for analysis.',
+      last_progress_at: now,
       attempts: job.attempts + 1,
       worker_id: workerId,
       locked_at: now,
@@ -241,17 +246,42 @@ export class HealthApiStore implements HealthStore {
     return claimed;
   }
 
-  async completeGeneticAnalysisJob(id: string, result: unknown): Promise<void> {
+  async updateGeneticAnalysisJobProgress(
+    id: string,
+    progress: { stage: GeneticAnalysisJobStage; progress_pct: number; progress_message?: string },
+  ): Promise<void> {
     const job = this.geneticJobs.get(id);
     if (!job) return;
     const now = new Date().toISOString();
     this.geneticJobs.set(id, {
       ...job,
+      ...progress,
+      progress_pct: Math.max(job.progress_pct ?? 0, Math.max(0, Math.min(100, Math.round(progress.progress_pct)))),
+      last_progress_at: now,
+      updated_at: now,
+    });
+  }
+
+  async completeGeneticAnalysisJob(id: string, result: unknown): Promise<void> {
+    const job = this.geneticJobs.get(id);
+    if (!job) return;
+    const now = new Date().toISOString();
+    const reanalysisRecommended = resultRequestsGeneticReanalysis(result);
+    this.geneticJobs.set(id, {
+      ...job,
       status: 'complete',
+      stage: 'complete',
+      progress_pct: 100,
+      progress_message: 'Analysis complete. Interpreted results are ready.',
+      last_progress_at: now,
       completed_at: now,
       updated_at: now,
       result,
       error: undefined,
+      reanalysis_recommended: reanalysisRecommended,
+      reanalysis_reason: reanalysisRecommended
+        ? 'A raw or incomplete genetic score can be upgraded when a compatible calibration or score-registry release becomes available.'
+        : undefined,
     });
   }
 
@@ -262,6 +292,13 @@ export class HealthApiStore implements HealthStore {
     this.geneticJobs.set(id, {
       ...job,
       status: retryable ? 'queued' : 'failed',
+      stage: retryable ? 'retry_queued' : 'failed',
+      progress_message: retryable
+        ? 'This attempt failed and has been queued for retry.'
+        : 'Analysis attempts are exhausted. The source can be reanalyzed after the reported issue is corrected.',
+      last_progress_at: new Date().toISOString(),
+      reanalysis_recommended: !retryable,
+      reanalysis_reason: !retryable ? error : undefined,
       locked_at: undefined,
       worker_id: undefined,
       updated_at: new Date().toISOString(),
@@ -526,6 +563,15 @@ export class HealthApiStore implements HealthStore {
       },
     };
   }
+}
+
+function resultRequestsGeneticReanalysis(result: unknown): boolean {
+  if (!result || typeof result !== 'object' || Array.isArray(result)) return false;
+  const raw = (result as Record<string, unknown>).raw;
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return false;
+  const consumer = (raw as Record<string, unknown>).consumer_genetics;
+  return Boolean(consumer && typeof consumer === 'object' && !Array.isArray(consumer)
+    && (consumer as Record<string, unknown>).reanalysis_recommended === true);
 }
 
 export function createId(prefix: string): string {

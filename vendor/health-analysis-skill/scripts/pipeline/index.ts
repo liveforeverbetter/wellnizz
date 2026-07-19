@@ -240,7 +240,7 @@ export interface DashboardOutput {
 export interface CuratedInterpretationEvidence {
   rsid: string;
   gene: string;
-  surface: "alert" | "risk" | "strength";
+  surface: "alert" | "risk" | "strength" | "matched";
   label: string;
   interpretation: string;
   action?: string;
@@ -751,6 +751,13 @@ export function collectCuratedInterpretationEvidence(
       interpretation: strength.advantage,
       evidenceTier: strength.evidenceTier,
       provenance: strength.provenance,
+    });
+  }
+
+  for (const matched of protocol.curatedInterpretations ?? []) {
+    add({
+      ...matched,
+      surface: "matched",
     });
   }
 
