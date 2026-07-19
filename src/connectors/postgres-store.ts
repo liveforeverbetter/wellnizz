@@ -122,6 +122,27 @@ export class PostgresHealthStore implements HealthStore {
     return key ? this.payloads.writeToFile(key, destination) : false;
   }
 
+  // Full, uncompacted analysis artifact. Written once by the WGS worker; the
+  // 1 GB API server retrieves it by streaming to a file
+  // (writeAnalysisArtifactToFile), never buffering the whole blob in-process.
+  private analysisArtifactKey(analysisId: string): string {
+    return `analyses/${analysisId}/full-analysis.json`;
+  }
+
+  async saveAnalysisArtifact(analysisId: string, body: Buffer, contentType = 'application/json'): Promise<{ object_key: string; bytes: number; storage: string }> {
+    const object_key = this.analysisArtifactKey(analysisId);
+    await this.payloads.upload(object_key, body, contentType);
+    return { object_key, bytes: body.byteLength, storage: this.payloads.driver };
+  }
+
+  async writeAnalysisArtifactToFile(analysisId: string, destination: string): Promise<boolean> {
+    return this.payloads.writeToFile(this.analysisArtifactKey(analysisId), destination);
+  }
+
+  async getAnalysisArtifactSize(analysisId: string): Promise<number | undefined> {
+    return this.payloads.size(this.analysisArtifactKey(analysisId));
+  }
+
   // Kept outside HealthStore because in-memory and filesystem deployments do
   // not offer a safe public object-storage endpoint. The HTTP layer feature
   // detects these methods and only enables this flow for S3-compatible stores.
@@ -507,6 +528,23 @@ export class PostgresHealthStore implements HealthStore {
       const dashboards = await client.query(`update ${SCHEMA}.dashboard_specs set deleted_at=now(), updated_at=now() where user_id=$1 and organization_id=$2 and deleted_at is null returning id`, [userId, orgId]);
       const goals = await client.query(`update ${SCHEMA}.goals set deleted_at=now(), updated_at=now() where user_id=$1 and organization_id=$2 and deleted_at is null returning id`, [userId, orgId]);
       await client.query('commit');
+      // Actively delete the full-analysis genomic artifacts from object storage
+      // rather than relying on bucket lifecycle, since they sit under a separate
+      // key prefix. Best-effort: the DB tombstone is the source of truth, and
+      // lifecycle remains the backstop, so a transient object-store error here
+      // must not fail the deletion receipt.
+      for (const row of analyses.rows) {
+        try {
+          await this.payloads.remove(this.analysisArtifactKey(String(row.id)));
+        } catch (error) {
+          console.warn(JSON.stringify({
+            ts: new Date().toISOString(),
+            event: 'analysis_artifact_tombstone_cleanup_failed',
+            analysis_id: String(row.id),
+            error: error instanceof Error ? error.message : String(error),
+          }));
+        }
+      }
       return {
         user_id: userId, organization_id: orgId, deleted_at: now,
         sources: sources.rowCount ?? 0, observations: observations.rowCount ?? 0, analyses: analyses.rowCount ?? 0,

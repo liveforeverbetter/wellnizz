@@ -49,7 +49,12 @@ async function processNextJob(): Promise<boolean> {
       source,
       inputPath => store.writeSourcePayloadToFile(source.id, inputPath),
       process.env,
-      { annotation_depth: job.annotation_depth },
+      {
+        annotation_depth: job.annotation_depth,
+        // Preserve the complete analysis in durable storage before the inline
+        // payload is bounded. Keyed by analysis_id so read paths can fetch it.
+        saveFullArtifact: body => store.saveAnalysisArtifact(job.analysis_id, body),
+      },
     );
     upsertGeneticPipelineInterpretation(analysis, source, pipeline, job.id);
     await storeWriteWithRetry(job.id, 'save_analysis', () => store.saveAnalysis(analysis));

@@ -26,6 +26,12 @@ export interface HealthStore {
   getUserObservations(userId: string, organizationIds?: Set<string>): Promise<NormalizedObservation[]>;
   saveAnalysis(result: AnalysisResult): Promise<void>;
   getAnalysis(id: string): Promise<AnalysisResult | undefined>;
+  // Full, uncompacted analysis artifact stored in durable object storage.
+  // The write happens on the WGS worker; read paths must stream it to a file
+  // (writeAnalysisArtifactToFile) rather than buffering it in the API process.
+  saveAnalysisArtifact(analysisId: string, body: Buffer, contentType?: string): Promise<{ object_key: string; bytes: number; storage: string }>;
+  writeAnalysisArtifactToFile(analysisId: string, destination: string): Promise<boolean>;
+  getAnalysisArtifactSize(analysisId: string): Promise<number | undefined>;
   getAnalysesForUser(ids: string[], userId: string, organizationIds?: Set<string>): Promise<AnalysisResult[]>;
   getIdempotencyRecord(key: string, method: string, route: string, subject: string): Promise<IdempotencyRecord | undefined>;
   saveIdempotencyRecord(record: IdempotencyRecord): Promise<void>;
@@ -61,6 +67,7 @@ export class HealthApiStore implements HealthStore {
   private sources = new Map<string, RawSourceReference>();
   private observations = new Map<string, NormalizedObservation[]>();
   private analyses = new Map<string, AnalysisResult>();
+  private analysisArtifacts = new Map<string, Buffer>();
   private sourcePayloads = new Map<string, Buffer>();
   private idempotency = new Map<string, IdempotencyRecord>();
   private geneticJobs = new Map<string, GeneticAnalysisJob>();
@@ -81,6 +88,7 @@ export class HealthApiStore implements HealthStore {
       sources: new Map(this.sources),
       observations: new Map(Array.from(this.observations, ([key, value]) => [key, [...value]])),
       analyses: new Map(this.analyses),
+      analysisArtifacts: new Map(Array.from(this.analysisArtifacts, ([key, value]) => [key, Buffer.from(value)])),
       sourcePayloads: new Map(Array.from(this.sourcePayloads, ([key, value]) => [key, Buffer.from(value)])),
       idempotency: new Map(this.idempotency),
       geneticJobs: new Map(this.geneticJobs),
@@ -97,6 +105,7 @@ export class HealthApiStore implements HealthStore {
       this.sources = snapshot.sources;
       this.observations = snapshot.observations;
       this.analyses = snapshot.analyses;
+      this.analysisArtifacts = snapshot.analysisArtifacts;
       this.sourcePayloads = snapshot.sourcePayloads;
       this.idempotency = snapshot.idempotency;
       this.geneticJobs = snapshot.geneticJobs;
@@ -167,6 +176,23 @@ export class HealthApiStore implements HealthStore {
 
   async getAnalysis(id: string): Promise<AnalysisResult | undefined> {
     return this.analyses.get(id);
+  }
+
+  async saveAnalysisArtifact(analysisId: string, body: Buffer): Promise<{ object_key: string; bytes: number; storage: string }> {
+    const object_key = `analyses/${analysisId}/full-analysis.json`;
+    this.analysisArtifacts.set(object_key, Buffer.from(body));
+    return { object_key, bytes: body.byteLength, storage: 'memory' };
+  }
+
+  async writeAnalysisArtifactToFile(analysisId: string, destination: string): Promise<boolean> {
+    const body = this.analysisArtifacts.get(`analyses/${analysisId}/full-analysis.json`);
+    if (!body) return false;
+    await writeFile(destination, body);
+    return true;
+  }
+
+  async getAnalysisArtifactSize(analysisId: string): Promise<number | undefined> {
+    return this.analysisArtifacts.get(`analyses/${analysisId}/full-analysis.json`)?.byteLength;
   }
 
   async getAnalysesForUser(ids: string[], userId: string, organizationIds?: Set<string>): Promise<AnalysisResult[]> {
@@ -463,6 +489,7 @@ export class HealthApiStore implements HealthStore {
     for (const [id, analysis] of this.analyses) {
       if (analysis.user_id === userId && (organizationId == null || analysis.organization_id === organizationId)) {
         this.analyses.delete(id);
+        this.analysisArtifacts.delete(`analyses/${id}/full-analysis.json`);
         analyses += 1;
       }
     }

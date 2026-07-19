@@ -1,8 +1,11 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
+import * as os from 'node:os';
+import * as path from 'node:path';
+import { readFile, rm } from 'node:fs/promises';
 import { appendCommandOutputTail, buildGeneticsPipelineArgs, compactGeneticsDashboardForPersistence, geneticsPipelineTimeoutMs } from '../src/core/genetics-runner.js';
 import { createId, HealthApiStore } from '../src/store.js';
-import type { GeneticAnalysisJob } from '../src/types.js';
+import type { AnalysisResult, GeneticAnalysisJob } from '../src/types.js';
 
 test('full-dbSNP worker uses the bundled CLI dbsnp flag', () => {
   const args = buildGeneticsPipelineArgs(
@@ -111,6 +114,61 @@ test('WGS persistence keeps actionable results and bounds exploratory collection
   assert.equal(compact.metadata.condition_catalog_findings.modalities.hereditary.length, 25);
   assert.equal(compact.metadata.persistence_compaction.omitted.uncommon_mutations, 1000);
   assert.equal(compact.metadata.persistence_compaction.omitted.condition_catalog_findings.hereditary, 15);
+});
+
+test('compaction records the full-analysis artifact reference when provided', () => {
+  const dashboard = { gli: 100, metadata: { variant_cards: { uncommon_mutations: [{ rsid: 'rs1' }] } } };
+  const withRef = compactGeneticsDashboardForPersistence(dashboard, {
+    object_key: 'analyses/an_1/full-analysis.json',
+    bytes: 31_800_000,
+    storage: 's3',
+  }) as { metadata: { persistence_compaction: { full_artifact: { object_key: string; bytes: number; storage: string } | null; version: number } } };
+  assert.equal(withRef.metadata.persistence_compaction.version, 2);
+  assert.deepEqual(withRef.metadata.persistence_compaction.full_artifact, {
+    object_key: 'analyses/an_1/full-analysis.json',
+    bytes: 31_800_000,
+    storage: 's3',
+  });
+
+  // Without a ref (e.g. object storage not configured), the field is explicit null.
+  const withoutRef = compactGeneticsDashboardForPersistence(dashboard) as { metadata: { persistence_compaction: { full_artifact: unknown } } };
+  assert.equal(withoutRef.metadata.persistence_compaction.full_artifact, null);
+});
+
+test('the store round-trips a full-analysis artifact without buffering on read', async () => {
+  const store = new HealthApiStore();
+  const body = Buffer.from(JSON.stringify({ complete: true, uncommon_mutations: Array.from({ length: 5000 }, (_, i) => i) }));
+  const ref = await store.saveAnalysisArtifact('an_42', body);
+  assert.equal(ref.object_key, 'analyses/an_42/full-analysis.json');
+  assert.equal(ref.bytes, body.byteLength);
+  assert.equal(await store.getAnalysisArtifactSize('an_42'), body.byteLength);
+
+  const dest = path.join(os.tmpdir(), `fb-artifact-${Date.now()}.json`);
+  const wrote = await store.writeAnalysisArtifactToFile('an_42', dest);
+  assert.equal(wrote, true);
+  assert.deepEqual(JSON.parse(await readFile(dest, 'utf8')), JSON.parse(body.toString('utf8')));
+  await rm(dest, { force: true });
+
+  assert.equal(await store.writeAnalysisArtifactToFile('missing', dest), false);
+  assert.equal(await store.getAnalysisArtifactSize('missing'), undefined);
+});
+
+test('tombstoning a user deletes their full-analysis genomic artifacts', async () => {
+  const store = new HealthApiStore();
+  const analysis: AnalysisResult = {
+    id: createId('analysis'), user_id: 'user_1', organization_id: 'org_1', created_at: new Date().toISOString(),
+    source_ids: [], raw_source_references: [], normalized_observations: [], derived_interpretations: [],
+    dashboard_spec: {
+      id: createId('dash'), user_id: 'user_1', organization_id: 'org_1', analysis_id: 'x', generated_at: new Date().toISOString(),
+      cards: [], provenance: { source_ids: [], storage_mode: 'durable', clinical_boundary: 'test' },
+    },
+  };
+  await store.saveAnalysis(analysis);
+  await store.saveAnalysisArtifact(analysis.id, Buffer.from('{"complete":true}'));
+  assert.ok(await store.getAnalysisArtifactSize(analysis.id));
+
+  await store.tombstoneUserData('user_1', 'org_1');
+  assert.equal(await store.getAnalysisArtifactSize(analysis.id), undefined);
 });
 
 test('claiming a genetic retry clears the previous attempt error', async () => {

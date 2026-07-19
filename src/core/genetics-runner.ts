@@ -30,8 +30,23 @@ export interface GeneticsPipelineResult {
   };
 }
 
+export interface FullAnalysisArtifactRef {
+  object_key: string;
+  bytes: number;
+  storage?: string;
+}
+
 export interface GeneticsPipelineOptions {
   annotation_depth?: GeneticsAnnotationDepth;
+  /**
+   * Persists the COMPLETE (pre-compaction) analysis to durable storage before
+   * the inline payload is bounded, so nothing is dropped. Runs on the WGS
+   * worker (which has memory headroom); the 1 GB API server must never load
+   * this blob wholesale. Returns the stored artifact reference, which is
+   * recorded in `persistence_compaction.full_artifact` so read paths can fetch
+   * the tail on demand. When omitted, behaviour is unchanged.
+   */
+  saveFullArtifact?: (body: Buffer) => Promise<FullAnalysisArtifactRef | undefined>;
 }
 
 const DEFAULT_TIMEOUT_MS = 120_000;
@@ -114,7 +129,25 @@ export async function runGeneticsPipelineWithWriter(
   const dashboardJsonPath = path.join(outputDir, `${userId}_dashboard.json`);
   const dashboard = await readJson(dashboardJsonPath);
   const raw = summarizeDashboard(dashboard);
-  const persistedDashboard = compactGeneticsDashboardForPersistence(dashboard);
+  // Persist the complete analysis before bounding the inline payload, so the
+  // dropped tail is never lost. Failure here must not fail the analysis: the
+  // bounded inline result is still valid and useful on its own.
+  let fullArtifact: FullAnalysisArtifactRef | undefined;
+  if (options.saveFullArtifact) {
+    try {
+      const body = Buffer.from(JSON.stringify(dashboard));
+      fullArtifact = await options.saveFullArtifact(body);
+    } catch (artifactError) {
+      console.warn(JSON.stringify({
+        ts: new Date().toISOString(),
+        event: 'full_analysis_artifact_save_failed',
+        user_id: userId,
+        source_id: source.id,
+        error: artifactError instanceof Error ? artifactError.message : String(artifactError),
+      }));
+    }
+  }
+  const persistedDashboard = compactGeneticsDashboardForPersistence(dashboard, fullArtifact);
   const fallback = rsidExtractionFallback(result.stderr);
   if (fallback) {
     raw.rsid_extraction_method = 'text_fallback';
@@ -152,7 +185,10 @@ export async function runGeneticsPipelineWithWriter(
  * Exact omitted counts remain in the payload so clients can explain the
  * bounded inline view and request a future artifact-backed deep dive.
  */
-export function compactGeneticsDashboardForPersistence(dashboard: unknown): unknown {
+export function compactGeneticsDashboardForPersistence(
+  dashboard: unknown,
+  fullArtifact?: FullAnalysisArtifactRef,
+): unknown {
   if (!isRecord(dashboard)) return dashboard;
   const metadata = isRecord(dashboard.metadata) ? dashboard.metadata : {};
   const variantCards = isRecord(metadata.variant_cards) ? metadata.variant_cards : {};
@@ -173,8 +209,8 @@ export function compactGeneticsDashboardForPersistence(dashboard: unknown): unkn
       condition_catalog_matches: conditionMatches.value,
       condition_catalog_findings: conditionFindings.value,
       persistence_compaction: {
-        version: 1,
-        reason: 'Large exploratory WGS collections are bounded in the inline API result; actionable clinical, drug-response, risk, trait, insight, protocol, and PRS results are retained.',
+        version: 2,
+        reason: 'Large exploratory WGS collections are bounded in the inline API result; actionable clinical, drug-response, risk, trait, insight, protocol, and PRS results are retained. The complete analysis is preserved in the full_artifact when durable object storage is configured.',
         limits: {
           uncommon_mutations: INLINE_UNCOMMON_MUTATION_LIMIT,
           condition_entries_per_modality: INLINE_CONDITION_ENTRIES_PER_MODALITY,
@@ -184,6 +220,9 @@ export function compactGeneticsDashboardForPersistence(dashboard: unknown): unkn
           condition_catalog_matches: conditionMatches.omitted,
           condition_catalog_findings: conditionFindings.omitted,
         },
+        // Reference to the complete, uncompacted analysis in durable storage.
+        // Absent when object storage is not configured (e.g. local dev).
+        full_artifact: fullArtifact ?? null,
       },
     },
   };
