@@ -84,10 +84,12 @@ test('chromosome normalization handles common VCF and RefSeq names', () => {
   assert.equal(normalizeChrom('chr1'), '1');
   assert.equal(normalizeChrom('NC_000022.10'), '22');
   assert.equal(normalizeChrom('23'), 'X');
+  assert.equal(normalizeChrom('XY'), 'X');
   assert.equal(normalizeChrom('NC_012920.1'), 'MT');
   assert.equal(grch37Contig('5'), 'NC_000005.9');
   assert.equal(grch37Contig('7'), 'NC_000007.13');
   assert.equal(grch37Contig('X'), 'NC_000023.10');
+  assert.equal(grch37Contig('XY'), 'NC_000023.10');
 });
 
 test('position-aware scoring requires an explicit compatible genome build', () => {
@@ -123,6 +125,10 @@ test('every bundled PGS score is SHA-256 pinned, parses, and is coordinate-scora
 
     const rows = await parsePgsScoringFile(filePath);
     assert.ok(rows.length > 0, `${score.pgs_id} must parse at least one weight`);
+    assert.doesNotThrow(
+      () => rows.forEach(row => grch37Contig(row.chrom)),
+      `${score.pgs_id} must use supported GRCh37 contigs`,
+    );
     // Position-aware scoring needs coordinate + effect allele + finite weight on
     // essentially every row; a low yield means the harmonized file is unusable.
     const usable = rows.filter(row => row.chrom && row.pos > 0 && row.effectAllele && Number.isFinite(row.effectWeight)).length;
