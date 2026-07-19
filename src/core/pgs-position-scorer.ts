@@ -434,6 +434,10 @@ function scoreAlleles(row: PgsWeightRow): Set<string> {
 export function normalizeChrom(chrom: string): string {
   const stripped = chrom.replace(/^chr/i, '').toUpperCase();
   if (stripped === 'NC_012920.1') return 'MT';
+  // PGS Catalog harmonized GRCh37 files can use the PLINK `XY` label for
+  // pseudoautosomal variants. Those coordinates are represented on chromosome
+  // X in the GRCh37 reference queried by this scorer.
+  if (stripped === 'XY') return 'X';
   const nc = stripped.match(/^NC_0*(\d+)\./);
   if (nc) {
     const number = Number(nc[1]);
