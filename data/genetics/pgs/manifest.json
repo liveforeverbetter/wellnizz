@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "release": "2026-07-19.1",
+  "release": "2026-07-19.2",
   "scores": [
     {
       "pgs_id": "PGS000210",
@@ -26,6 +26,136 @@
         "No compatible individual reference distribution is bundled; no percentile is returned.",
         "A variant-only VCF cannot prove callability at omitted loci. Reference-genotype inference must be explicitly disclosed.",
         "Spirometry, symptoms, smoking, respiratory disease, body size, age, sex, altitude, and test technique remain decisive."
+      ]
+    },
+    {
+      "pgs_id": "PGS000887",
+      "trait_id": "ldl_cholesterol",
+      "display_name": "LDL cholesterol",
+      "consumer_category": "health_trait",
+      "efo_id": "EFO_0004611",
+      "genome_build": "GRCh37",
+      "scoring_file": "PGS000887_hmPOS_GRCh37.txt",
+      "sha256": "b14d16989080eb86d6c088a5fa64d89b9d26f05b32e667b2025ef9d147865add",
+      "variants": 295,
+      "weight_type": "beta",
+      "source_url": "https://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/PGS000887/ScoringFiles/Harmonized/PGS000887_hmPOS_GRCh37.txt.gz",
+      "publication": "Graham SE et al. Nature (2021)",
+      "doi": "10.1038/s41586-021-04064-3",
+      "development_ancestry": "African:100",
+      "evaluation_ancestry": "African:62.5|European:12.5|Admixed American:6.2|South Asian:6.2|East Asian:6.2|Additional:6.2",
+      "calibration_state": "raw_score_only",
+      "direction_interpretation": "withheld",
+      "license": "PGS Catalog terms of use; cite the source publication",
+      "limitations": [
+        "No compatible individual reference distribution is bundled, so no percentile or above/below-average claim is returned; the score is raw only.",
+        "A variant-only VCF cannot prove callability at omitted loci. Reference-genotype inference is explicitly disclosed in the coverage QC.",
+        "A measured fasting or clinically appropriate lipid panel is decisive; this genetic score is context, not a lipid measurement.",
+        "Polygenic scores perform differently across ancestry; development and evaluation ancestries are recorded and cross-population performance is not assumed equal."
+      ]
+    },
+    {
+      "pgs_id": "PGS000060",
+      "trait_id": "hdl_cholesterol",
+      "display_name": "HDL cholesterol",
+      "consumer_category": "health_trait",
+      "efo_id": "EFO_0004612",
+      "genome_build": "GRCh37",
+      "scoring_file": "PGS000060_hmPOS_GRCh37.txt",
+      "sha256": "3688486d604234449873b373f56e85379ac1f0d37f8cb21059a22651a99bf7f7",
+      "variants": 46,
+      "weight_type": "beta",
+      "source_url": "https://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/PGS000060/ScoringFiles/Harmonized/PGS000060_hmPOS_GRCh37.txt.gz",
+      "publication": "Johnson L et al. PLoS One (2015)",
+      "doi": "10.1371/journal.pone.0126361",
+      "development_ancestry": "European:100",
+      "evaluation_ancestry": "African:25|Admixed American:25|East Asian:25|European:25",
+      "calibration_state": "raw_score_only",
+      "direction_interpretation": "withheld",
+      "license": "PGS Catalog terms of use; cite the source publication",
+      "limitations": [
+        "No compatible individual reference distribution is bundled, so no percentile or above/below-average claim is returned; the score is raw only.",
+        "A variant-only VCF cannot prove callability at omitted loci. Reference-genotype inference is explicitly disclosed in the coverage QC.",
+        "A measured lipid panel is decisive; interpret this only alongside measured HDL, triglycerides, ApoB, and cardiometabolic context.",
+        "Polygenic scores perform differently across ancestry; development and evaluation ancestries are recorded and cross-population performance is not assumed equal."
+      ]
+    },
+    {
+      "pgs_id": "PGS000063",
+      "trait_id": "triglycerides",
+      "display_name": "Triglycerides",
+      "consumer_category": "health_trait",
+      "efo_id": "EFO_0004530",
+      "genome_build": "GRCh37",
+      "scoring_file": "PGS000063_hmPOS_GRCh37.txt",
+      "sha256": "c0533869e051bdc849d741de6aabd01b0c2bf4e107ae1ee579cd64bd976012b1",
+      "variants": 32,
+      "weight_type": "beta",
+      "source_url": "https://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/PGS000063/ScoringFiles/Harmonized/PGS000063_hmPOS_GRCh37.txt.gz",
+      "publication": "Johnson L et al. PLoS One (2015)",
+      "doi": "10.1371/journal.pone.0126361",
+      "development_ancestry": "European:100",
+      "evaluation_ancestry": "African:25|Admixed American:25|East Asian:25|European:25",
+      "calibration_state": "raw_score_only",
+      "direction_interpretation": "withheld",
+      "license": "PGS Catalog terms of use; cite the source publication",
+      "limitations": [
+        "No compatible individual reference distribution is bundled, so no percentile or above/below-average claim is returned; the score is raw only.",
+        "A variant-only VCF cannot prove callability at omitted loci. Reference-genotype inference is explicitly disclosed in the coverage QC.",
+        "A measured fasting triglyceride level is decisive; triglycerides are strongly modified by diet, alcohol, and metabolic health.",
+        "Polygenic scores perform differently across ancestry; development and evaluation ancestries are recorded and cross-population performance is not assumed equal."
+      ]
+    },
+    {
+      "pgs_id": "PGS000868",
+      "trait_id": "type_2_diabetes",
+      "display_name": "Type 2 diabetes",
+      "consumer_category": "clinical_risk",
+      "efo_id": "MONDO_0005148",
+      "genome_build": "GRCh37",
+      "scoring_file": "PGS000868_hmPOS_GRCh37.txt",
+      "sha256": "073a8d5876917b31ad49c8570f0d5b372981be50d4ffbae3f36272252248001c",
+      "variants": 221,
+      "weight_type": "log(OR)",
+      "source_url": "https://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/PGS000868/ScoringFiles/Harmonized/PGS000868_hmPOS_GRCh37.txt.gz",
+      "publication": "Aksit MA et al. J Clin Endocrinol Metab (2020)",
+      "doi": "10.1210/clinem/dgz102",
+      "development_ancestry": "European:100",
+      "evaluation_ancestry": "African:18.8|East Asian:18.8|South Asian:18.8|European:12.5|Greater Middle Eastern:12.5|Admixed American:6.2|Other:12.6",
+      "calibration_state": "raw_score_only",
+      "direction_interpretation": "withheld",
+      "license": "PGS Catalog terms of use; cite the source publication",
+      "limitations": [
+        "No compatible individual reference distribution is bundled, so no percentile or above/below-average claim is returned; the score is raw only.",
+        "A variant-only VCF cannot prove callability at omitted loci. Reference-genotype inference is explicitly disclosed in the coverage QC.",
+        "HbA1c and fasting glucose, together with age, weight, and family history, are decisive; this is inherited context, not a diagnosis.",
+        "Polygenic scores perform differently across ancestry; development and evaluation ancestries are recorded and cross-population performance is not assumed equal."
+      ]
+    },
+    {
+      "pgs_id": "PGS000034",
+      "trait_id": "body_mass_index",
+      "display_name": "Body mass index (BMI)",
+      "consumer_category": "health_trait",
+      "efo_id": "EFO_0004340",
+      "genome_build": "GRCh37",
+      "scoring_file": "PGS000034_hmPOS_GRCh37.txt",
+      "sha256": "0e39b8a81dbc4ec2e6e795a946f6d183c7d969cd81229b944dce2b02112bc659",
+      "variants": 97,
+      "weight_type": "NR",
+      "source_url": "https://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/PGS000034/ScoringFiles/Harmonized/PGS000034_hmPOS_GRCh37.txt.gz",
+      "publication": "Song M et al. Diabetes (2018)",
+      "doi": "10.2337/db17-1156",
+      "development_ancestry": "European:99.1|Admixed American:0.5|African:0.4",
+      "evaluation_ancestry": "European:88.9|Multiple/Admixed:11.1",
+      "calibration_state": "raw_score_only",
+      "direction_interpretation": "withheld",
+      "license": "PGS Catalog terms of use; cite the source publication",
+      "limitations": [
+        "The Catalog reports the weight type as not reported, so score direction is not converted into a higher/lower BMI claim.",
+        "No compatible individual reference distribution is bundled; no percentile is returned; the score is raw only.",
+        "A variant-only VCF cannot prove callability at omitted loci. Reference-genotype inference is explicitly disclosed in the coverage QC.",
+        "Measured body composition and metabolic health are decisive; genetic BMI tendency does not set a fixed weight."
       ]
     }
   ]

@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import * as path from 'node:path';
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 import {
   detectGenomeBuildFromVcfHeader,
   grch37Contig,
@@ -101,4 +103,27 @@ test('bundled pulmonary model is pinned and parses all 279 weights', async () =>
 
   assert.equal(rows.length, 279);
   assert.ok(rows.every(row => row.chrom && row.pos > 0 && row.effectAllele && Number.isFinite(row.effectWeight)));
+});
+
+test('every bundled PGS score is SHA-256 pinned, parses, and is coordinate-scorable', async () => {
+  const dir = path.resolve(process.cwd(), 'data/genetics/pgs');
+  const manifest = JSON.parse(readFileSync(path.join(dir, 'manifest.json'), 'utf8')) as {
+    scores: BundledPgsManifestEntry[];
+  };
+  assert.ok(manifest.scores.length >= 6, 'registry should carry the expanded score set');
+
+  for (const score of manifest.scores) {
+    const filePath = path.join(dir, score.scoring_file);
+    const sha = createHash('sha256').update(readFileSync(filePath)).digest('hex');
+    assert.equal(sha, score.sha256, `${score.pgs_id} SHA-256 must match the manifest (integrity)`);
+
+    const rows = await parsePgsScoringFile(filePath);
+    assert.ok(rows.length > 0, `${score.pgs_id} must parse at least one weight`);
+    // Position-aware scoring needs coordinate + effect allele + finite weight on
+    // essentially every row; a low yield means the harmonized file is unusable.
+    const usable = rows.filter(row => row.chrom && row.pos > 0 && row.effectAllele && Number.isFinite(row.effectWeight)).length;
+    assert.ok(usable >= Math.floor(rows.length * 0.95), `${score.pgs_id} rows must be coordinate-scorable`);
+    assert.equal(score.calibration_state, 'raw_score_only', `${score.pgs_id} must not claim calibration without a bundled reference distribution`);
+    assert.equal(score.genome_build, 'GRCh37');
+  }
 });
