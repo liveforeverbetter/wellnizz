@@ -95,6 +95,28 @@ export interface LongevityProtocol {
   };
 }
 
+export interface InterpretationSource {
+  id: string;
+  label: string;
+  url: string;
+  type:
+    | "variant_identity"
+    | "primary_study"
+    | "systematic_review"
+    | "guideline"
+    | "catalog";
+}
+
+export interface MarkerProvenance {
+  status: "curated";
+  reviewedAt: string;
+  genomeBuild: "GRCh37";
+  referenceAllele: string;
+  commonAlleles: string[];
+  sources: InterpretationSource[];
+  limitations: string[];
+}
+
 interface Alert {
   itemName: string;
   tag: string;
@@ -103,6 +125,7 @@ interface Alert {
   gene: string;
   rsid?: string;
   evidenceTier?: 1 | 2 | 3;
+  provenance?: MarkerProvenance;
 }
 
 interface Superpower {
@@ -113,6 +136,7 @@ interface Superpower {
   rsid?: string;
   gene?: string;
   evidenceTier?: 1 | 2 | 3;
+  provenance?: MarkerProvenance;
 }
 
 interface Risk {
@@ -123,6 +147,9 @@ interface Risk {
   scienceSimplified: string;
   supplementation?: string;
   evidenceTier?: 1 | 2 | 3;
+  rsid?: string;
+  gene?: string;
+  provenance?: MarkerProvenance;
 }
 
 interface Supplement {
@@ -154,6 +181,7 @@ interface MarkerInterpretation {
   category: string;
   tag?: string;
   evidenceTier?: 1 | 2 | 3;
+  provenance?: MarkerProvenance;
   genotypes: {
     [genotype: string]: {
       effect: string;
@@ -769,6 +797,7 @@ function analyzeVariants(
         rsid: variant.id,
         gene: interpretation.gene,
         evidenceTier: interpretation.evidenceTier,
+        provenance: interpretation.provenance,
       });
     }
 
@@ -786,6 +815,9 @@ function analyzeVariants(
         scienceSimplified: scienceSimplified,
         supplementation: genotypeData.recommendations?.join(", "),
         evidenceTier: interpretation.evidenceTier,
+        rsid: variant.id,
+        gene: interpretation.gene,
+        provenance: interpretation.provenance,
       });
 
       // Add alerts for medical or dietary variants
@@ -800,6 +832,7 @@ function analyzeVariants(
           gene: interpretation.gene,
           rsid: variant.id,
           evidenceTier: interpretation.evidenceTier,
+          provenance: interpretation.provenance,
         });
       }
     }

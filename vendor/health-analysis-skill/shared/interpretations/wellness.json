@@ -286,41 +286,66 @@
       "evidenceTier": 2
     },
     "rs12934922": {
-      "gene": "BCMO1",
-      "name": "T/C",
+      "gene": "BCO1",
+      "name": "R267S",
       "category": "wellness",
       "chrom": "16",
-      "pos": 55052699,
-      "display": "BCMO1 T>C",
+      "pos": 81301694,
+      "display": "BCO1 R267S (beta-carotene conversion)",
       "interpretations": {
+        "AA": {
+          "effect": "Common beta-carotene conversion genotype",
+          "interpretation": "No reduced-conversion allele detected at this BCO1 marker. This single variant does not measure total vitamin A status.",
+          "recommendations": [
+            "Follow standard dietary guidance for vitamin A and carotenoid-rich foods"
+          ],
+          "priority": "low"
+        },
+        "AT": {
+          "effect": "One reduced-conversion allele",
+          "interpretation": "One R267S allele is associated with lower conversion of beta-carotene to retinoid products in population studies. Diet, other BCO1 variants, and health status also matter.",
+          "recommendations": [
+            "Review dietary vitamin A sources if intake is limited",
+            "Discuss biomarkers or supplementation with a clinician before using preformed vitamin A"
+          ],
+          "priority": "low"
+        },
         "TT": {
-          "effect": "Normal beta-carotene conversion",
-          "interpretation": "Efficient conversion to vitamin A",
+          "effect": "Two reduced-conversion alleles",
+          "interpretation": "Two R267S alleles are associated with lower beta-carotene conversion. This is not a diagnosis of vitamin A deficiency.",
           "recommendations": [
-            "Standard vitamin A intake adequate"
-          ],
-          "priority": "low"
-        },
-        "TC": {
-          "effect": "Reduced conversion",
-          "interpretation": "Heterozygous variant reduces beta-carotene conversion",
-          "recommendations": [
-            "Consider preformed vitamin A sources",
-            "Monitor vitamin A levels"
-          ],
-          "priority": "low"
-        },
-        "CC": {
-          "effect": "Significantly reduced conversion to vitamin A",
-          "interpretation": "Homozygous variant substantially impairs conversion",
-          "recommendations": [
-            "Preformed vitamin A recommended",
-            "Avoid high-dose beta-carotene supplements"
+            "Review dietary vitamin A sources and overall nutrition",
+            "Use clinical assessment before supplementation because excess preformed vitamin A can be harmful"
           ],
           "priority": "medium"
         }
       },
-      "evidenceTier": 2
+      "evidenceTier": 2,
+      "provenance": {
+        "status": "curated",
+        "reviewedAt": "2026-07-19",
+        "genomeBuild": "GRCh37",
+        "referenceAllele": "A",
+        "commonAlleles": ["A", "T"],
+        "sources": [
+          {
+            "id": "ensembl-grch37-rs12934922",
+            "label": "Ensembl GRCh37 variant record",
+            "url": "https://grch37.ensembl.org/Homo_sapiens/Variation/Explore?v=rs12934922",
+            "type": "variant_identity"
+          },
+          {
+            "id": "PMID:19103647",
+            "label": "BCO1 variants and beta-carotene conversion",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/19103647/",
+            "type": "primary_study"
+          }
+        ],
+        "limitations": [
+          "Population-level association; not diagnostic of vitamin A status.",
+          "Other BCO1 variants, diet, absorption, and liver health also affect vitamin A status."
+        ]
+      }
     },
     "rs762551": {
       "gene": "CYP1A2",
@@ -2658,39 +2683,63 @@
     },
     "rs601338": {
       "gene": "FUT2",
-      "name": "B12 Absorption (Secretor Status)",
+      "name": "W154X (secretor status)",
       "category": "wellness",
-      "chrom": "",
-      "pos": 0,
-      "display": "FUT2 \u2014 Secretor Status & B12 Absorption",
+      "chrom": "19",
+      "pos": 49206674,
+      "display": "FUT2 W154X secretor status",
       "interpretations": {
         "AA": {
-          "effect": "Non-secretor (FUT2 deficiency)",
-          "interpretation": "Non-secretor status \u2014 reduced fucosyltransferase activity. Associated with lower B12 levels (via altered gut microbiome composition), altered gut microbiome, and reduced norovirus susceptibility. May have lower B12 from reduced intrinsic factor-independent absorption.",
+          "effect": "Likely non-secretor genotype",
+          "interpretation": "Two stop-gain alleles are consistent with FUT2 non-secretor status in populations where rs601338 is the principal determinant. Studies link this genotype to differences in total circulating vitamin B12, largely through haptocorrin-bound B12 rather than the active holotranscobalamin fraction.",
           "recommendations": [
-            "Monitor B12 status regularly (serum B12 + MMA)",
-            "B12 supplementation (methylcobalamin 1000mcg/day) beneficial",
-            "Probiotics may help optimize B12-producing gut bacteria"
+            "Do not infer vitamin B12 deficiency from this genotype alone",
+            "Use clinical symptoms and appropriate laboratory testing when B12 status is a concern"
           ],
-          "priority": "medium"
+          "priority": "low"
         },
         "AG": {
-          "effect": "Partial secretor status",
-          "interpretation": "Intermediate secretor phenotype. Moderately affected B12 absorption and gut microbiome composition.",
+          "effect": "Secretor carrier genotype",
+          "interpretation": "One functional FUT2 allele is usually sufficient for secretor status. This marker alone does not establish vitamin B12 deficiency, absorption capacity, or microbiome health.",
           "recommendations": [
-            "Regular B12 monitoring recommended",
-            "Dietary B12 sources: shellfish, liver, fatty fish"
+            "Follow standard clinical testing when vitamin B12 status is a concern"
           ],
           "priority": "low"
         },
         "GG": {
-          "effect": "Secretor phenotype",
-          "interpretation": "Full secretor status \u2014 normal fucosyltransferase activity. Normal B12 absorption and gut-microbiome-mediated B-vitamin production.",
+          "effect": "Likely secretor genotype",
+          "interpretation": "Two functional alleles are consistent with secretor status. This marker alone does not establish vitamin B12 status or gut health.",
           "recommendations": [
-            "Standard B12 intake guidelines apply"
+            "Follow standard dietary and clinical guidance"
           ],
           "priority": "low"
         }
+      },
+      "evidenceTier": 2,
+      "provenance": {
+        "status": "curated",
+        "reviewedAt": "2026-07-19",
+        "genomeBuild": "GRCh37",
+        "referenceAllele": "G",
+        "commonAlleles": ["G", "A"],
+        "sources": [
+          {
+            "id": "ensembl-grch37-rs601338",
+            "label": "Ensembl GRCh37 variant record",
+            "url": "https://grch37.ensembl.org/Homo_sapiens/Variation/Explore?v=rs601338",
+            "type": "variant_identity"
+          },
+          {
+            "id": "PMID:29040465",
+            "label": "FUT2 genotype and circulating vitamin B12 fractions",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/29040465/",
+            "type": "primary_study"
+          }
+        ],
+        "limitations": [
+          "Secretor genetics differ across ancestries; other FUT2 variants can determine phenotype.",
+          "Association with total vitamin B12 does not establish active B12 deficiency or a need for supplementation."
+        ]
       }
     },
     "rs7946": {
@@ -3985,38 +4034,63 @@
       }
     },
     "rs1801282": {
-      "gene": "PPARD",
-      "name": "T>C",
+      "gene": "PPARG",
+      "name": "Pro12Ala",
       "category": "wellness",
-      "chrom": "6",
-      "pos": 35322589,
-      "display": "PPARD T>C",
+      "chrom": "3",
+      "pos": 12393125,
+      "display": "PPARG Pro12Ala",
       "interpretations": {
-        "TT": {
-          "effect": "Normal PPARD",
-          "interpretation": "Standard fatty acid metabolism",
-          "recommendations": [
-            "Standard approach"
-          ],
-          "priority": "low"
-        },
-        "TC": {
-          "effect": "Moderate fatty acid oxidation",
-          "interpretation": "Heterozygous - may have altered fuel preference",
-          "recommendations": [
-            "May benefit from endurance training"
-          ],
-          "priority": "low"
-        },
         "CC": {
-          "effect": "Altered fuel metabolism",
-          "interpretation": "CC - increased fatty acid oxidation capacity",
+          "effect": "Pro/Pro genotype",
+          "interpretation": "The common Pro/Pro genotype is the reference group in most studies of PPARG Pro12Ala. Type 2 diabetes risk is multifactorial and cannot be predicted from this marker alone.",
           "recommendations": [
-            "Well-suited for endurance activities",
-            "Benefits from ketogenic diet"
+            "Use standard metabolic screening based on age, history, and clinical risk factors"
+          ],
+          "priority": "low"
+        },
+        "CG": {
+          "effect": "Pro/Ala genotype",
+          "interpretation": "One Ala12 allele has been associated with a modestly lower type 2 diabetes risk in large meta-analyses, although effect size and consistency vary by ancestry.",
+          "recommendations": [
+            "Continue standard evidence-based exercise, nutrition, and metabolic screening"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Ala/Ala genotype",
+          "interpretation": "Two Ala12 alleles are uncommon and have been associated with lower type 2 diabetes risk in some populations. This does not remove the need for routine metabolic screening.",
+          "recommendations": [
+            "Continue standard evidence-based exercise, nutrition, and metabolic screening"
           ],
           "priority": "low"
         }
+      },
+      "evidenceTier": 2,
+      "provenance": {
+        "status": "curated",
+        "reviewedAt": "2026-07-19",
+        "genomeBuild": "GRCh37",
+        "referenceAllele": "C",
+        "commonAlleles": ["C", "G"],
+        "sources": [
+          {
+            "id": "ensembl-grch37-rs1801282",
+            "label": "Ensembl GRCh37 variant record",
+            "url": "https://grch37.ensembl.org/Homo_sapiens/Variation/Explore?v=rs1801282",
+            "type": "variant_identity"
+          },
+          {
+            "id": "PMID:20179158",
+            "label": "PPARG Pro12Ala type 2 diabetes meta-analysis",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/20179158/",
+            "type": "systematic_review"
+          }
+        ],
+        "limitations": [
+          "The association is modest and varies by ancestry and study design.",
+          "This marker is not diagnostic and does not justify a specific diet or medication choice."
+        ]
       }
     },
     "rs8192678": {
@@ -6480,6 +6554,467 @@
           ],
           "priority": "low"
         }
+      }
+    },
+    "rs2282679": {
+      "gene": "GC",
+      "name": "Vitamin D-binding protein marker",
+      "category": "wellness",
+      "chrom": "4",
+      "pos": 72608383,
+      "display": "GC marker associated with 25-hydroxyvitamin D",
+      "evidenceTier": 2,
+      "interpretations": {
+        "TT": {
+          "effect": "No lower-vitamin-D allele detected",
+          "interpretation": "This genotype is the reference group at a GC locus associated with circulating 25-hydroxyvitamin D. It does not establish whether an individual's vitamin D level is sufficient.",
+          "recommendations": [
+            "Use measured 25-hydroxyvitamin D and clinical context when vitamin D status is relevant"
+          ],
+          "priority": "low"
+        },
+        "GT": {
+          "effect": "One allele associated with lower 25-hydroxyvitamin D",
+          "interpretation": "One G allele is associated with a modestly lower circulating 25-hydroxyvitamin D level in population studies. Sun exposure, diet, skin pigmentation, season, and health status remain important.",
+          "recommendations": [
+            "Consider a measured 25-hydroxyvitamin D level when clinically appropriate",
+            "Base supplementation decisions on the measured level and clinical guidance"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Two alleles associated with lower 25-hydroxyvitamin D",
+          "interpretation": "Two G alleles are associated with a lower average circulating 25-hydroxyvitamin D level. This genotype is not a diagnosis of vitamin D deficiency.",
+          "recommendations": [
+            "Consider a measured 25-hydroxyvitamin D level when clinically appropriate",
+            "Base supplementation decisions on the measured level and clinical guidance"
+          ],
+          "priority": "medium"
+        }
+      },
+      "provenance": {
+        "status": "curated",
+        "reviewedAt": "2026-07-19",
+        "genomeBuild": "GRCh37",
+        "referenceAllele": "T",
+        "commonAlleles": ["T", "G"],
+        "sources": [
+          {
+            "id": "ensembl-grch37-rs2282679",
+            "label": "Ensembl GRCh37 variant record",
+            "url": "https://grch37.ensembl.org/Homo_sapiens/Variation/Explore?v=rs2282679",
+            "type": "variant_identity"
+          },
+          {
+            "id": "PMID:20541252",
+            "label": "Genome-wide association study of vitamin D insufficiency",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/20541252/",
+            "type": "primary_study"
+          }
+        ],
+        "limitations": [
+          "Population-level association; not a vitamin D deficiency diagnosis.",
+          "Measured 25-hydroxyvitamin D is more informative for individual decisions."
+        ]
+      }
+    },
+    "rs5082": {
+      "gene": "APOA2",
+      "name": "-265T>C saturated-fat interaction",
+      "category": "wellness",
+      "chrom": "1",
+      "pos": 161193683,
+      "display": "APOA2 saturated-fat interaction marker",
+      "evidenceTier": 3,
+      "interpretations": {
+        "AA": {
+          "effect": "No interaction genotype detected",
+          "interpretation": "This forward-strand genotype corresponds to the TT group used in APOA2 nutrition studies. The reported saturated-fat interaction was not observed for this genotype.",
+          "recommendations": [
+            "Follow general dietary guidance for saturated fat and cardiovascular health"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "One interaction allele",
+          "interpretation": "This forward-strand genotype corresponds to the TC group in published studies. The strongest replicated interaction with saturated-fat intake was reported for people with two C alleles, not one.",
+          "recommendations": [
+            "Follow general dietary guidance for saturated fat and cardiovascular health"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Diet interaction reported with higher saturated-fat intake",
+          "interpretation": "This forward-strand genotype corresponds to the CC genotype in APOA2 nutrition studies. Some cohorts found higher body mass index or obesity prevalence when saturated-fat intake was high, but intervention evidence is limited.",
+          "recommendations": [
+            "Keep saturated-fat intake within evidence-based dietary guidance",
+            "Track weight and cardiometabolic markers rather than treating this result as deterministic"
+          ],
+          "priority": "medium"
+        }
+      },
+      "provenance": {
+        "status": "curated",
+        "reviewedAt": "2026-07-19",
+        "genomeBuild": "GRCh37",
+        "referenceAllele": "G",
+        "commonAlleles": ["A", "G"],
+        "sources": [
+          {
+            "id": "ensembl-grch37-rs5082",
+            "label": "Ensembl GRCh37 variant record",
+            "url": "https://grch37.ensembl.org/Homo_sapiens/Variation/Explore?v=rs5082",
+            "type": "variant_identity"
+          },
+          {
+            "id": "PMID:19901143",
+            "label": "APOA2 saturated-fat interaction across three populations",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/19901143/",
+            "type": "primary_study"
+          },
+          {
+            "id": "PMID:29901700",
+            "label": "APOA2 diet interaction systematic review",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/29901700/",
+            "type": "systematic_review"
+          }
+        ],
+        "limitations": [
+          "Nutrigenetic interaction evidence is observational and not a clinical dietary prescription.",
+          "Published papers commonly report the reverse-strand C/T alleles; this record uses forward-strand A/G alleles."
+        ]
+      }
+    },
+    "rs174537": {
+      "gene": "FADS1",
+      "name": "Long-chain polyunsaturated fatty-acid marker",
+      "category": "wellness",
+      "chrom": "11",
+      "pos": 61552680,
+      "display": "FADS1 polyunsaturated fatty-acid conversion marker",
+      "evidenceTier": 2,
+      "interpretations": {
+        "GG": {
+          "effect": "Higher estimated endogenous conversion activity",
+          "interpretation": "The common G allele is associated with higher estimated desaturase activity and different long-chain polyunsaturated fatty-acid levels. This does not directly measure omega-3 status.",
+          "recommendations": [
+            "Include guideline-consistent food sources of long-chain omega-3 fatty acids"
+          ],
+          "priority": "low"
+        },
+        "GT": {
+          "effect": "Intermediate estimated conversion activity",
+          "interpretation": "One T allele is associated with lower estimated FADS-pathway conversion activity than GG in population studies.",
+          "recommendations": [
+            "Include guideline-consistent food sources of long-chain omega-3 fatty acids",
+            "Use a measured fatty-acid profile if individual status would change care"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Lower estimated endogenous conversion activity",
+          "interpretation": "Two T alleles are associated with lower estimated desaturase activity and altered long-chain polyunsaturated fatty-acid levels. Diet and ancestry can modify the observed relationship.",
+          "recommendations": [
+            "Include guideline-consistent food sources of long-chain omega-3 fatty acids",
+            "Use a measured fatty-acid profile if individual status would change care"
+          ],
+          "priority": "medium"
+        }
+      },
+      "provenance": {
+        "status": "curated",
+        "reviewedAt": "2026-07-19",
+        "genomeBuild": "GRCh37",
+        "referenceAllele": "G",
+        "commonAlleles": ["G", "T"],
+        "sources": [
+          {
+            "id": "ensembl-grch37-rs174537",
+            "label": "Ensembl GRCh37 variant record",
+            "url": "https://grch37.ensembl.org/Homo_sapiens/Variation/Explore?v=rs174537",
+            "type": "variant_identity"
+          },
+          {
+            "id": "PMID:23160180",
+            "label": "FADS variants and desaturase activity",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/23160180/",
+            "type": "primary_study"
+          },
+          {
+            "id": "PMID:20562440",
+            "label": "FADS locus and polyunsaturated fatty-acid levels",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/20562440/",
+            "type": "primary_study"
+          }
+        ],
+        "limitations": [
+          "The marker is a proxy for a FADS haplotype and effects vary by ancestry and diet.",
+          "It does not directly measure omega-3 status or establish a supplement dose."
+        ]
+      }
+    },
+    "rs1260326": {
+      "gene": "GCKR",
+      "name": "P446L",
+      "category": "wellness",
+      "chrom": "2",
+      "pos": 27730940,
+      "display": "GCKR P446L metabolic-trait marker",
+      "evidenceTier": 2,
+      "interpretations": {
+        "CC": {
+          "effect": "No P446L allele detected",
+          "interpretation": "The CC genotype is generally associated with lower triglycerides but slightly higher fasting glucose relative to T-allele carriers. These are small population-level effects.",
+          "recommendations": [
+            "Use measured fasting glucose and lipids for health decisions"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "One P446L allele",
+          "interpretation": "One T allele is associated with a tendency toward higher triglycerides and slightly lower fasting glucose. The opposing trait effects should not be summarized as simply beneficial or harmful.",
+          "recommendations": [
+            "Use measured fasting glucose and a lipid panel for individual assessment"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Two P446L alleles",
+          "interpretation": "Two T alleles are associated with higher average triglycerides and slightly lower fasting glucose. This result does not diagnose hypertriglyceridemia or diabetes risk.",
+          "recommendations": [
+            "Use measured fasting glucose and a lipid panel for individual assessment",
+            "Prioritize established lifestyle and clinical guidance if triglycerides are elevated"
+          ],
+          "priority": "medium"
+        }
+      },
+      "provenance": {
+        "status": "curated",
+        "reviewedAt": "2026-07-19",
+        "genomeBuild": "GRCh37",
+        "referenceAllele": "T",
+        "commonAlleles": ["C", "T"],
+        "sources": [
+          {
+            "id": "ensembl-grch37-rs1260326",
+            "label": "Ensembl GRCh37 variant record",
+            "url": "https://grch37.ensembl.org/Homo_sapiens/Variation/Explore?v=rs1260326",
+            "type": "variant_identity"
+          },
+          {
+            "id": "PMID:20352598",
+            "label": "GCKR variants and triglyceride traits",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/20352598/",
+            "type": "primary_study"
+          },
+          {
+            "id": "PMID:23894584",
+            "label": "GCKR P446L metabolic-trait study",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/23894584/",
+            "type": "primary_study"
+          }
+        ],
+        "limitations": [
+          "Effects are small, population-level, and point in different directions for triglycerides and glucose.",
+          "Measured biomarkers and overall clinical risk are more informative."
+        ]
+      }
+    },
+    "rs10830963": {
+      "gene": "MTNR1B",
+      "name": "Fasting-glucose association marker",
+      "category": "wellness",
+      "chrom": "11",
+      "pos": 92708710,
+      "display": "MTNR1B fasting-glucose marker",
+      "evidenceTier": 2,
+      "interpretations": {
+        "CC": {
+          "effect": "No glucose-raising allele detected",
+          "interpretation": "The CC genotype is the reference group for this MTNR1B fasting-glucose association. It does not indicate absence of diabetes risk.",
+          "recommendations": [
+            "Follow standard glucose screening based on age and clinical risk"
+          ],
+          "priority": "low"
+        },
+        "CG": {
+          "effect": "One allele associated with higher fasting glucose",
+          "interpretation": "One G allele is associated with a small increase in average fasting glucose and altered early insulin response in population studies.",
+          "recommendations": [
+            "Use fasting glucose or HbA1c, not genotype alone, for metabolic assessment"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Two alleles associated with higher fasting glucose",
+          "interpretation": "Two G alleles are associated with a somewhat higher average fasting glucose. The effect is modest and does not diagnose prediabetes or diabetes.",
+          "recommendations": [
+            "Use fasting glucose or HbA1c, not genotype alone, for metabolic assessment",
+            "Follow established sleep, activity, nutrition, and clinical guidance"
+          ],
+          "priority": "medium"
+        }
+      },
+      "provenance": {
+        "status": "curated",
+        "reviewedAt": "2026-07-19",
+        "genomeBuild": "GRCh37",
+        "referenceAllele": "C",
+        "commonAlleles": ["C", "G"],
+        "sources": [
+          {
+            "id": "ensembl-grch37-rs10830963",
+            "label": "Ensembl GRCh37 variant record",
+            "url": "https://grch37.ensembl.org/Homo_sapiens/Variation/Explore?v=rs10830963",
+            "type": "variant_identity"
+          },
+          {
+            "id": "PMID:19060907",
+            "label": "MTNR1B locus and fasting glucose genome-wide study",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/19060907/",
+            "type": "primary_study"
+          },
+          {
+            "id": "PMID:19324940",
+            "label": "MTNR1B glucose and insulin-secretion study",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/19324940/",
+            "type": "primary_study"
+          }
+        ],
+        "limitations": [
+          "The effect is small and not diagnostic.",
+          "Clinical measurements and established risk factors should drive decisions."
+        ]
+      }
+    },
+    "rs662799": {
+      "gene": "APOA5",
+      "name": "-1131T>C triglyceride marker",
+      "category": "wellness",
+      "chrom": "11",
+      "pos": 116663707,
+      "display": "APOA5 triglyceride marker",
+      "evidenceTier": 2,
+      "interpretations": {
+        "AA": {
+          "effect": "No triglyceride-raising allele detected",
+          "interpretation": "This forward-strand genotype corresponds to the common TT genotype in many APOA5 studies. It does not rule out elevated triglycerides from other genetic or non-genetic causes.",
+          "recommendations": [
+            "Use a measured lipid panel for cardiovascular risk assessment"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "One allele associated with higher triglycerides",
+          "interpretation": "One forward-strand G allele, corresponding to the C allele in many publications, is associated with higher average triglyceride levels.",
+          "recommendations": [
+            "Use a measured lipid panel for individual assessment",
+            "Follow established lifestyle and clinical guidance if triglycerides are elevated"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Two alleles associated with higher triglycerides",
+          "interpretation": "Two forward-strand G alleles are associated with higher average triglyceride levels. This genotype does not diagnose hypertriglyceridemia.",
+          "recommendations": [
+            "Use a measured lipid panel for individual assessment",
+            "Follow established lifestyle and clinical guidance if triglycerides are elevated"
+          ],
+          "priority": "medium"
+        }
+      },
+      "provenance": {
+        "status": "curated",
+        "reviewedAt": "2026-07-19",
+        "genomeBuild": "GRCh37",
+        "referenceAllele": "G",
+        "commonAlleles": ["A", "G"],
+        "sources": [
+          {
+            "id": "ensembl-grch37-rs662799",
+            "label": "Ensembl GRCh37 variant record",
+            "url": "https://grch37.ensembl.org/Homo_sapiens/Variation/Explore?v=rs662799",
+            "type": "variant_identity"
+          },
+          {
+            "id": "PMID:20571505",
+            "label": "APOA5 rs662799 and triglyceride levels",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/20571505/",
+            "type": "primary_study"
+          },
+          {
+            "id": "PMID:23468858",
+            "label": "APOA5 rs662799 triglyceride meta-analysis",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/23468858/",
+            "type": "systematic_review"
+          }
+        ],
+        "limitations": [
+          "Effects vary by ancestry, diet, alcohol, metabolic health, and other variants.",
+          "Published papers often report reverse-strand T/C alleles; this record uses forward-strand A/G alleles."
+        ]
+      }
+    },
+    "rs1801725": {
+      "gene": "CASR",
+      "name": "A986S",
+      "category": "wellness",
+      "chrom": "3",
+      "pos": 122003757,
+      "display": "CASR A986S serum-calcium marker",
+      "evidenceTier": 2,
+      "interpretations": {
+        "GG": {
+          "effect": "No calcium-raising allele detected",
+          "interpretation": "The GG genotype is the reference group at a CASR locus associated with serum calcium. It does not establish whether an individual's calcium level is normal.",
+          "recommendations": [
+            "Use measured serum calcium for clinical assessment"
+          ],
+          "priority": "low"
+        },
+        "GT": {
+          "effect": "One allele associated with higher serum calcium",
+          "interpretation": "One T allele is associated with a modest increase in average serum calcium. This is not a diagnosis of hypercalcemia or a calcium-sensing receptor disorder.",
+          "recommendations": [
+            "Do not change calcium intake based on this genotype alone",
+            "If serum calcium is abnormal, use standard clinical evaluation"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Two alleles associated with higher serum calcium",
+          "interpretation": "Two T alleles are associated with a higher average serum calcium level. The marker explains only a small part of population variation and is not diagnostic.",
+          "recommendations": [
+            "Do not change calcium intake based on this genotype alone",
+            "If serum calcium is abnormal, use standard clinical evaluation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "provenance": {
+        "status": "curated",
+        "reviewedAt": "2026-07-19",
+        "genomeBuild": "GRCh37",
+        "referenceAllele": "G",
+        "commonAlleles": ["G", "T"],
+        "sources": [
+          {
+            "id": "ensembl-grch37-rs1801725",
+            "label": "Ensembl GRCh37 variant record",
+            "url": "https://grch37.ensembl.org/Homo_sapiens/Variation/Explore?v=rs1801725",
+            "type": "variant_identity"
+          },
+          {
+            "id": "PMID:20661308",
+            "label": "Genome-wide meta-analysis of serum calcium",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/20661308/",
+            "type": "primary_study"
+          }
+        ],
+        "limitations": [
+          "Population-level association; not a diagnosis of hypercalcemia or a monogenic CASR disorder.",
+          "Measured calcium, albumin, parathyroid hormone, medications, and clinical context are more informative."
+        ]
       }
     }
   }

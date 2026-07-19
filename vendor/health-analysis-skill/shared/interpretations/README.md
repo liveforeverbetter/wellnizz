@@ -30,30 +30,56 @@ Each interpretation file contains:
   "version": "1.0.0",
   "updated": "2026-04-23",
   "markers": {
-    "rs1801133": {
-      "gene": "MTHFR",
-      "name": "C677T",
+    "rs2282679": {
+      "gene": "GC",
+      "name": "Vitamin D-binding protein marker",
       "category": "wellness",
-      "chrom": "1",
-      "pos": 11856378,
+      "chrom": "4",
+      "pos": 72608383,
+      "evidenceTier": 2,
+      "provenance": {
+        "status": "curated",
+        "reviewedAt": "2026-07-19",
+        "genomeBuild": "GRCh37",
+        "referenceAllele": "T",
+        "commonAlleles": ["T", "G"],
+        "sources": [
+          {
+            "id": "ensembl-grch37-rs2282679",
+            "label": "Ensembl GRCh37 variant record",
+            "url": "https://grch37.ensembl.org/Homo_sapiens/Variation/Explore?v=rs2282679",
+            "type": "variant_identity"
+          },
+          {
+            "id": "PMID:20541252",
+            "label": "Genome-wide association study of vitamin D insufficiency",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/20541252/",
+            "type": "primary_study"
+          }
+        ],
+        "limitations": [
+          "Population-level association; not a vitamin D deficiency diagnosis.",
+          "Measured 25-hydroxyvitamin D is more informative for individual decisions."
+        ]
+      },
       "interpretations": {
-        "CC": {
-          "effect": "Normal enzyme activity (100%)",
-          "interpretation": "Full MTHFR function - standard folate metabolism",
-          "recommendations": ["Standard folic acid is effective"],
+        "TT": {
+          "effect": "No lower-vitamin-D allele detected",
+          "interpretation": "Reference group for this population-level association.",
+          "recommendations": ["Use a measured level when clinically appropriate"],
           "priority": "low"
         },
-        "CT": {
-          "effect": "Reduced activity (65-70%)",
-          "interpretation": "Heterozygous variant - moderate folate processing reduction",
-          "recommendations": ["Consider methylfolate", "Monitor homocysteine levels"],
-          "priority": "medium"
+        "GT": {
+          "effect": "One allele associated with lower 25-hydroxyvitamin D",
+          "interpretation": "A modest population-level association, not a diagnosis.",
+          "recommendations": ["Base decisions on measured status and clinical guidance"],
+          "priority": "low"
         },
-        "TT": {
-          "effect": "Significantly reduced (30%)",
-          "interpretation": "Homozygous variant - impaired folate pathway",
-          "recommendations": ["Methylfolate strongly recommended", "Regular homocysteine monitoring"],
-          "priority": "high"
+        "GG": {
+          "effect": "Two alleles associated with lower 25-hydroxyvitamin D",
+          "interpretation": "A population-level association, not a deficiency diagnosis.",
+          "recommendations": ["Base decisions on measured status and clinical guidance"],
+          "priority": "medium"
         }
       }
     }
@@ -67,6 +93,19 @@ Each interpretation file contains:
 2. **The analysis script reads JSON at runtime** - never duplicates interpretation data
 3. **Update these files when adding new markers** - keeps single source of truth
 4. **Marker metadata (rsID, position, category) comes from marker-database.md**
+5. **New curated entries MUST use GRCh37 forward-strand alleles** and include
+   `provenance` with a variant-identity source, an evidence source, and at least
+   two explicit limitations.
+6. **Recommendations MUST NOT prescribe a dose, diagnose disease, or imply a
+   deterministic behavioral outcome.** Prefer measured biomarkers, established
+   screening guidance, and clinician review where appropriate.
+7. **Evidence tier is not source provenance.** Keep both: the tier grades the
+   evidence class, while provenance makes the identity, sources, review date,
+   and uncertainty auditable.
+
+See [Curated interpretation standard](../../docs/curated-interpretations.md)
+for the review workflow, the currently provenance-graded marker set, and the
+known PRS/clinical boundaries.
 
 ## Key Markers Reference
 

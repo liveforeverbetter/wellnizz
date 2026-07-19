@@ -23,6 +23,7 @@ interface PrsWeights {
 interface DepthThresholds {
   source_family_min: number;
   curated_marker_min: number;
+  provenance_graded_marker_min: number;
   clinvar_gene_target_min: number;
   cpic_gene_drug_rule_min: number;
   cpic_unique_gene_min: number;
@@ -45,6 +46,7 @@ export interface InterpretationDepthReport {
     compact_catalog_entries: number;
     compact_catalog_bytes: number;
     curated_marker_entries: number;
+    provenance_graded_markers: number;
     clinvar_gene_targets: number;
     acmg_secondary_genes: number;
     recessive_carrier_genes: number;
@@ -84,6 +86,7 @@ export interface InterpretationDepthReport {
 const DEFAULT_THRESHOLDS: DepthThresholds = {
   source_family_min: 5,
   curated_marker_min: 250,
+  provenance_graded_marker_min: 11,
   clinvar_gene_target_min: 150,
   cpic_gene_drug_rule_min: 10,
   cpic_unique_gene_min: 8,
@@ -135,6 +138,22 @@ function percentScore(actual: number, target: number): number {
   return Math.round(Math.max(0, Math.min(1, actual / target)) * 100);
 }
 
+function countProvenanceGradedMarkers(packageDir: string): number {
+  const interpretationsDir = path.join(packageDir, 'shared/interpretations');
+  return fs.readdirSync(interpretationsDir)
+    .filter(file => file.endsWith('.json'))
+    .reduce((count, file) => {
+      const parsed = readJson<{ markers?: Record<string, { provenance?: { status?: string; sources?: unknown[] } }> }>(
+        path.join(interpretationsDir, file),
+      );
+      return count + Object.values(parsed.markers ?? {}).filter(marker =>
+        marker.provenance?.status === 'curated'
+        && Array.isArray(marker.provenance.sources)
+        && marker.provenance.sources.length >= 2
+      ).length;
+    }, 0);
+}
+
 function metric(
   id: string,
   label: string,
@@ -166,6 +185,7 @@ export function buildInterpretationDepthReport(packageDir: string, thresholds: D
   const wellnessPgsTraits = [...pgsTraits].filter(trait => WELLNESS_TRAITS.has(trait)).length;
 
   const curatedMarkerEntries = compactCatalog.entries.filter(entry => entry.source_type === 'curated_rsid_marker').length;
+  const provenanceGradedMarkers = countProvenanceGradedMarkers(packageDir);
   const clinvarGeneTargets = compactCatalog.entries.filter(entry => entry.source_type === 'clinvar_gene_slice').length;
   const cpicGeneDrugRules = compactCatalog.entries.filter(entry => entry.source_type === 'cpic_drug_gene_rule').length;
   const wgsClassEntries = compactCatalog.entries.filter(entry => entry.source_type === 'cnv_sv_repeat_catalog').length;
@@ -177,6 +197,7 @@ export function buildInterpretationDepthReport(packageDir: string, thresholds: D
   const metrics = [
     metric('source_families', 'Independent compact source families', sourceFamiliesSupported, thresholds.source_family_min, percentScore(sourceFamiliesSupported, thresholds.source_family_min)),
     metric('curated_markers', 'Curated rsID interpretation markers', curatedMarkerEntries, thresholds.curated_marker_min, percentScore(curatedMarkerEntries, thresholds.curated_marker_min)),
+    metric('provenance_graded_markers', 'Curated markers with build, allele, source, and limitation provenance', provenanceGradedMarkers, thresholds.provenance_graded_marker_min, percentScore(provenanceGradedMarkers, thresholds.provenance_graded_marker_min)),
     metric('clinvar_targets', 'ClinVar target genes covered by compact review templates', clinvarGeneTargets, thresholds.clinvar_gene_target_min, percentScore(clinvarGeneTargets, thresholds.clinvar_gene_target_min)),
     metric('cpic_rules', 'CPIC Level A gene-drug rules covered locally', cpicGeneDrugRules, thresholds.cpic_gene_drug_rule_min, percentScore(cpicGeneDrugRules, thresholds.cpic_gene_drug_rule_min)),
     metric('cpic_unique_genes', 'Unique CPIC pharmacogenes covered', cpicUniqueGenes.size, thresholds.cpic_unique_gene_min, percentScore(cpicUniqueGenes.size, thresholds.cpic_unique_gene_min)),
@@ -202,6 +223,7 @@ export function buildInterpretationDepthReport(packageDir: string, thresholds: D
       compact_catalog_entries: compactCatalog.summary.total_entries,
       compact_catalog_bytes: compactCatalog.summary.compiled_json_bytes,
       curated_marker_entries: curatedMarkerEntries,
+      provenance_graded_markers: provenanceGradedMarkers,
       clinvar_gene_targets: clinvarGeneTargets,
       acmg_secondary_genes: ACMG_SF_GENES.size,
       recessive_carrier_genes: RECESSIVE_DISEASE_GENES.size,
@@ -272,6 +294,7 @@ function main(): void {
     output: outPath,
     source_families_supported: report.summary.source_families_supported,
     compact_catalog_entries: report.summary.compact_catalog_entries,
+    provenance_graded_markers: report.summary.provenance_graded_markers,
     clinvar_gene_targets: report.summary.clinvar_gene_targets,
     cpic_gene_drug_rules: report.summary.cpic_gene_drug_rules,
     pgs_traits: report.summary.pgs_traits,

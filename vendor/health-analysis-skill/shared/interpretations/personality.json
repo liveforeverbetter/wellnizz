@@ -424,41 +424,71 @@
       "evidenceTier": 3
     },
     "rs1800497": {
-      "gene": "DRD2",
+      "gene": "ANKK1",
       "name": "Taq1A",
       "category": "personality",
       "chrom": "11",
-      "pos": 113409886,
-      "display": "DRD2 Taq1A",
+      "pos": 113270828,
+      "display": "ANKK1 Taq1A",
+      "tag": "ℹ️ Research Context",
       "interpretations": {
-        "CC": {
-          "effect": "Higher DRD2 density",
-          "interpretation": "Associated with higher D2 receptor density in striatum",
+        "GG": {
+          "effect": "No A1 allele detected",
+          "interpretation": "This is the common genotype at the ANKK1 Taq1A marker. A meta-analysis found genotype associations with striatal dopamine D2/3 receptor availability in healthy participants, but this marker does not determine personality, reward behavior, or addiction risk.",
           "recommendations": [
-            "Standard reward processing",
-            "Lower addiction risk"
+            "Do not use this genotype to predict behavior or substance-use risk"
           ],
           "priority": "low"
         },
-        "CT": {
-          "effect": "Intermediate",
-          "interpretation": "Moderate receptor density",
+        "AG": {
+          "effect": "One A1 allele",
+          "interpretation": "One A1 allele has been associated with lower striatal dopamine D2/3 receptor availability in some healthy-control imaging studies. Evidence linking the marker to addiction phenotypes is inconsistent.",
           "recommendations": [
-            "Moderate reward sensitivity"
+            "Base behavioral or substance-use decisions on personal history and clinical assessment, not this marker"
           ],
           "priority": "low"
         },
-        "TT": {
-          "effect": "Lower DRD2 density",
-          "interpretation": "Reduced D2 receptor density - associated with higher reward drive and addiction susceptibility",
+        "AA": {
+          "effect": "Two A1 alleles",
+          "interpretation": "Two A1 alleles are uncommon. Imaging studies report a population-level association with dopamine D2/3 receptor availability, while evidence for predicting addiction or personality remains inconsistent.",
           "recommendations": [
-            "Higher addiction risk with substances",
-            "Mindful of reward-seeking behaviors"
+            "Do not interpret this genotype as an addiction diagnosis or personality profile"
           ],
-          "priority": "medium"
+          "priority": "low"
         }
       },
-      "evidenceTier": 3
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "reviewedAt": "2026-07-19",
+        "genomeBuild": "GRCh37",
+        "referenceAllele": "G",
+        "commonAlleles": ["G", "A"],
+        "sources": [
+          {
+            "id": "ensembl-grch37-rs1800497",
+            "label": "Ensembl GRCh37 variant record",
+            "url": "https://grch37.ensembl.org/Homo_sapiens/Variation/Explore?v=rs1800497",
+            "type": "variant_identity"
+          },
+          {
+            "id": "PMID:26926883",
+            "label": "Taq1A and striatal dopamine receptor binding meta-analysis",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/26926883/",
+            "type": "systematic_review"
+          },
+          {
+            "id": "PMID:31702801",
+            "label": "Taq1A addiction association re-evaluation",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/31702801/",
+            "type": "primary_study"
+          }
+        ],
+        "limitations": [
+          "Evidence for addiction and behavioral outcomes is inconsistent and not clinically predictive.",
+          "This locus is in ANKK1 and should not be presented as a deterministic DRD2 personality test."
+        ]
+      }
     },
     "rs6295": {
       "gene": "HTR1A",

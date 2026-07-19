@@ -29,6 +29,7 @@ import { analyzeVCF } from "../ingestion/parse-vcf.js";
 import type {
   LongevityProtocol,
   AnalyzeVCFResult,
+  MarkerProvenance,
 } from "../ingestion/parse-vcf.js";
 import { enrichTraits } from "./graph_resolver.js";
 import type { EnrichedTrait } from "./graph_resolver.js";
@@ -185,6 +186,8 @@ export interface DashboardOutput {
     matched_marker_count?: number;
     /** Number of curated health markers in the interpretation database */
     curated_markers: number;
+    /** Matched curated interpretations with review provenance for user queries. */
+    curated_interpretations?: CuratedInterpretationEvidence[];
     /** Number of rare HIGH/MODERATE functional variants (VEP, gnomAD AF < 0.01) */
     vep_rare_variants: number;
     /** Number of ClinVar pathogenic/likely pathogenic findings */
@@ -232,6 +235,17 @@ export interface DashboardOutput {
      */
     condition_catalog_findings?: CatalogFindings;
   };
+}
+
+export interface CuratedInterpretationEvidence {
+  rsid: string;
+  gene: string;
+  surface: "alert" | "risk" | "strength";
+  label: string;
+  interpretation: string;
+  action?: string;
+  evidenceTier?: 1 | 2 | 3;
+  provenance: MarkerProvenance;
 }
 
 // ============================================================================
@@ -677,6 +691,74 @@ export function buildWgsValidationCoverage(
  * Map LongevityProtocol to trait scores for pipeline processing.
  * This transforms the existing pipeline's output into the user's pipeline format.
  */
+export function collectCuratedInterpretationEvidence(
+  protocol: LongevityProtocol
+): CuratedInterpretationEvidence[] {
+  const evidenceByKey = new Map<string, CuratedInterpretationEvidence>();
+
+  const add = (item: CuratedInterpretationEvidence) => {
+    const key = item.rsid || `${item.gene}:${item.label}`;
+    const current = evidenceByKey.get(key);
+    if (!current) {
+      evidenceByKey.set(key, item);
+      return;
+    }
+    evidenceByKey.set(key, {
+      ...current,
+      action: current.action || item.action,
+      interpretation:
+        current.interpretation.length >= item.interpretation.length
+          ? current.interpretation
+          : item.interpretation,
+    });
+  };
+
+  for (const alert of protocol.genomicProfile.alerts) {
+    if (!alert.rsid || !alert.provenance) continue;
+    add({
+      rsid: alert.rsid,
+      gene: alert.gene,
+      surface: "alert",
+      label: alert.itemName,
+      interpretation: alert.evidence,
+      action: alert.action,
+      evidenceTier: alert.evidenceTier,
+      provenance: alert.provenance,
+    });
+  }
+
+  for (const risk of protocol.genomicProfile.topRisks) {
+    if (!risk.rsid || !risk.provenance) continue;
+    add({
+      rsid: risk.rsid,
+      gene: risk.gene || risk.itemName.split(" ")[0],
+      surface: "risk",
+      label: risk.itemName,
+      interpretation: risk.scienceSimplified,
+      action: risk.supplementation,
+      evidenceTier: risk.evidenceTier,
+      provenance: risk.provenance,
+    });
+  }
+
+  for (const strength of protocol.genomicProfile.superpowers) {
+    if (!strength.rsid || !strength.provenance) continue;
+    add({
+      rsid: strength.rsid,
+      gene: strength.gene || strength.itemName.split(" ")[0],
+      surface: "strength",
+      label: strength.itemName,
+      interpretation: strength.advantage,
+      evidenceTier: strength.evidenceTier,
+      provenance: strength.provenance,
+    });
+  }
+
+  return [...evidenceByKey.values()].sort((a, b) =>
+    a.rsid.localeCompare(b.rsid, undefined, { numeric: true })
+  );
+}
+
 function mapProtocolToTraits(protocol: LongevityProtocol): Array<{
   trait_id: string;
   score: number;
@@ -2204,6 +2286,7 @@ export async function runPipelineFromVCF(
       matched_marker_count:
         protocol.source.matchedMarkerCount ?? result.variants.length,
       curated_markers: curatedMarkerCount,
+      curated_interpretations: collectCuratedInterpretationEvidence(protocol),
       vep_rare_variants: vepRareCount,
       clinvar_pathogenic: clinvarPathogenicCount,
       cpic_actionable: cpicActionableCount,
@@ -2458,6 +2541,7 @@ export function runPipelineFromProtocol(
       annotated_count: 0,
       matched_marker_count: 0,
       curated_markers: 0,
+      curated_interpretations: collectCuratedInterpretationEvidence(protocol),
       vep_rare_variants: 0,
       clinvar_pathogenic: 0,
       cpic_actionable: 0,
