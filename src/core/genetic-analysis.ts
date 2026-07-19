@@ -115,7 +115,7 @@ function consumerGeneticsSection(dashboard: unknown): ConsumerGeneticsSection | 
 function consumerInsightStatus(insight: GeneticConsumerInsight): string {
   if (insight.calculation_state === 'insufficient_coverage' || insight.calculation_state === 'failed_retryable') return 'reanalysis_recommended';
   if (insight.calculation_state === 'unsupported_model') return 'unsupported';
-  if (insight.calculation_state === 'raw_score_only' || insight.calculation_state === 'not_applicable') return 'informational';
+  if (insight.calculation_state === 'raw_score_only' || insight.calculation_state === 'research_only' || insight.calculation_state === 'not_applicable') return 'informational';
   return 'complete';
 }
 
@@ -128,6 +128,15 @@ function consumerInsightAliases(insight: GeneticConsumerInsight): string[] {
     ...(insight.trait_id === 'caffeine_clearance' ? ['caffeine metabolism', 'caffeine half life', 'fast caffeine metabolizer', 'slow caffeine metabolizer'] : []),
     ...(insight.trait_id === 'pulmonary_function' ? ['lung capacity', 'FEV1', 'FVC', 'respiratory performance'] : []),
     ...(insight.trait_id === 'aerobic_trainability' ? ['VO2max', 'cardio fitness', 'aerobic response'] : []),
+    ...(insight.trait_id === 'grip_strength' ? ['hand strength', 'dynamometer', 'muscular strength', 'healthy aging strength'] : []),
+    ...(insight.trait_id === 'lean_body_mass' ? ['lean mass', 'fat free mass', 'body composition', 'muscle mass'] : []),
+    ...(insight.trait_id === 'walking_duration' ? ['walking time', 'physical activity', 'daily steps'] : []),
+    ...(insight.trait_id === 'sleep_duration' ? ['sleep need', 'sleep length', 'recovery'] : []),
+    ...(insight.trait_id === 'chronotype_morningness' ? ['chronotype', 'morning person', 'evening person', 'sleep timing'] : []),
+    ...(insight.trait_id === 'fluid_intelligence_score' ? ['fluid reasoning', 'cognitive research', 'cognitive performance', 'intelligence research'] : []),
+    ...(insight.trait_id === 'loneliness' ? ['social connection research', 'loneliness research'] : []),
+    ...(insight.trait_id === 'friendship_satisfaction' ? ['friendship research', 'social satisfaction research'] : []),
+    ...(insight.trait_id === 'neuroticism' ? ['personality research', 'emotional trait research'] : []),
   ]));
 }
 

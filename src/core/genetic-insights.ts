@@ -7,13 +7,14 @@
  * health and optimization insights from the completed WGS dashboard.
  */
 
-export const GENETIC_INTERPRETATION_RELEASE = '2026-07-19.2';
+export const GENETIC_INTERPRETATION_RELEASE = '2026-07-19.3';
 
 export type GeneticCalculationState =
   | 'calibrated_absolute_risk'
   | 'reference_relative'
   | 'raw_score_only'
   | 'insufficient_coverage'
+  | 'research_only'
   | 'unsupported_model'
   | 'not_applicable'
   | 'failed_retryable';
@@ -32,6 +33,7 @@ export interface GeneticConsumerInsight {
   trait_id: string;
   display_name: string;
   category: GeneticConsumerCategory;
+  reporting_policy: 'consumer_context' | 'research_only_non_directional';
   calculation_state: GeneticCalculationState;
   result_summary: string;
   consumer_value: string;
@@ -85,6 +87,7 @@ export interface ConsumerGeneticsSection {
     raw_score_only: number;
     insufficient_coverage: number;
     performance_and_optimization: number;
+    research_only: number;
     reanalysis_recommended: boolean;
   };
   insights: GeneticConsumerInsight[];
@@ -142,7 +145,7 @@ const SPOTLIGHTS: SpotlightDefinition[] = [
     id: 'power_endurance_tendency',
     displayName: 'Power versus endurance tendency',
     category: 'performance',
-    traitIds: ['grip_strength', 'muscular_strength'],
+    traitIds: ['muscle_fibre_context'],
     rsids: ['rs1815739'],
     genes: ['ACTN3'],
     consumerValue: 'An interesting training-context signal that can be compared with actual sprint, strength, and endurance performance.',
@@ -153,10 +156,22 @@ const SPOTLIGHTS: SpotlightDefinition[] = [
     ],
   },
   {
+    id: 'grip_strength',
+    displayName: 'Hand grip-strength tendency',
+    category: 'performance',
+    traitIds: ['grip_strength', 'muscular_strength'],
+    consumerValue: 'Adds inherited context to a simple, repeatable marker of strength and healthy aging while keeping measured performance decisive.',
+    nextMeasurement: 'Use a calibrated dynamometer and track the best of repeated trials under a consistent protocol.',
+    limitations: [
+      'The score predicts a population phenotype, not an individual ceiling or response to a training plan.',
+      'Age, sex, body size, training, pain, injury, technique, and device protocol materially affect measured grip strength.',
+    ],
+  },
+  {
     id: 'exercise_tolerance',
     displayName: 'Exercise tolerance and energy metabolism',
     category: 'performance',
-    traitIds: ['exercise_tolerance', 'lean_body_mass'],
+    traitIds: ['exercise_tolerance'],
     rsids: ['rs17602729'],
     genes: ['AMPD1'],
     consumerValue: 'Can provide context when unusually rapid fatigue or exercise intolerance is also observed.',
@@ -164,6 +179,30 @@ const SPOTLIGHTS: SpotlightDefinition[] = [
     limitations: [
       'A genotype is not an explanation for exercise symptoms by itself.',
       'Chest pain, fainting, or unexplained severe breathlessness requires clinical evaluation regardless of genotype.',
+    ],
+  },
+  {
+    id: 'lean_body_mass',
+    displayName: 'Fat-free mass tendency',
+    category: 'performance',
+    traitIds: ['lean_body_mass', 'fat_free_mass'],
+    consumerValue: 'Adds inherited context to body composition, recovery, strength, and healthy-aging measurements without treating mass as performance.',
+    nextMeasurement: 'Pair with DEXA or a consistent validated body-composition method, waist measures, and strength testing.',
+    limitations: [
+      'Fat-free mass includes water, organs, bone, and other tissue and is not identical to skeletal muscle or strength.',
+      'Training, diet, hormones, illness, age, sex, and measurement method can outweigh inherited tendency.',
+    ],
+  },
+  {
+    id: 'walking_duration',
+    displayName: 'Walking-duration research context',
+    category: 'performance',
+    traitIds: ['walking_duration', 'physical_activity'],
+    consumerValue: 'Offers population-level context for habitual walking that can be compared with actual activity, opportunity, and functional capacity.',
+    nextMeasurement: 'Use several weeks of steps, walking minutes, pace, terrain, and symptom data rather than inferring activity from genetics.',
+    limitations: [
+      'Walking is strongly shaped by environment, occupation, health, disability, transport access, and preference.',
+      'This score does not measure motivation, discipline, exercise capacity, or the benefit a person can gain from activity.',
     ],
   },
   {
@@ -202,6 +241,54 @@ const SPOTLIGHTS: SpotlightDefinition[] = [
     limitations: [
       'A polygenic tendency cannot diagnose asthma, COPD, restriction, or exercise-induced bronchoconstriction.',
       'Smoking, air quality, respiratory disease, body size, age, sex, altitude, and test technique have major effects.',
+    ],
+  },
+  {
+    id: 'fluid_reasoning_research',
+    displayName: 'Fluid-reasoning research score',
+    category: 'research_only',
+    traitIds: ['fluid_intelligence_score'],
+    consumerValue: 'Makes a cohort-derived cognitive research model queryable without converting it into an intelligence or potential claim.',
+    limitations: [
+      'This is not a measure or prediction of general intelligence, creativity, judgment, knowledge, learning potential, or personal worth.',
+      'Education, culture, language, health, opportunity, test setting, and population structure materially shape the modeled phenotype.',
+      'Never use this result for education, employment, insurance, eligibility, or any other high-impact decision.',
+    ],
+  },
+  {
+    id: 'loneliness_research',
+    displayName: 'Loneliness research score',
+    category: 'research_only',
+    traitIds: ['loneliness'],
+    consumerValue: 'Makes an exploratory population model available as research provenance, not as a prediction about social connection or mental health.',
+    limitations: [
+      'Loneliness is a lived state shaped strongly by relationships, environment, health, culture, access, and current circumstances.',
+      'This model cannot predict social ability, belonging, relationship quality, or future mental health for an individual.',
+      'Never use this result for clinical, employment, insurance, eligibility, relationship, or other high-impact decisions.',
+    ],
+  },
+  {
+    id: 'friendship_satisfaction_research',
+    displayName: 'Friendship-satisfaction research score',
+    category: 'research_only',
+    traitIds: ['friendship_satisfaction'],
+    consumerValue: 'Preserves an exploratory social-phenotype model and its provenance without claiming to predict anyone\'s relationships.',
+    limitations: [
+      'This cohort-specific self-report phenotype is strongly shaped by relationships, opportunity, culture, health, and current circumstances.',
+      'The score does not measure social skill, empathy, compatibility, trustworthiness, or personal worth.',
+      'Never use this result for employment, insurance, eligibility, relationship, or other high-impact decisions.',
+    ],
+  },
+  {
+    id: 'neuroticism_research',
+    displayName: 'Personality-trait research score',
+    category: 'research_only',
+    traitIds: ['neuroticism'],
+    consumerValue: 'Exposes a published research model without turning a probabilistic questionnaire association into a personality identity.',
+    limitations: [
+      'A polygenic model does not define personality identity, resilience, emotional capacity, future behavior, or mental health.',
+      'Current stress, health, trauma, support, culture, age, and questionnaire context materially affect reported traits.',
+      'Never use this result for diagnosis, treatment, employment, insurance, eligibility, relationship, or other high-impact decisions.',
     ],
   },
 ];
@@ -247,11 +334,12 @@ export function normalizeGeneticsDashboard(dashboard: unknown, now = new Date())
       raw_score_only: insights.filter(item => item.calculation_state === 'raw_score_only').length,
       insufficient_coverage: insights.filter(item => item.calculation_state === 'insufficient_coverage').length,
       performance_and_optimization: insights.filter(item => ['performance', 'nutrition', 'sleep_recovery'].includes(item.category)).length,
+      research_only: insights.filter(item => item.category === 'research_only').length,
       reanalysis_recommended: insights.some(item => item.reanalysis_recommended) || requestedButUnavailable.length > 0,
     },
     insights,
     requested_but_unavailable: requestedButUnavailable,
-    interpretation_boundary: 'Educational health, performance, nutrition, sleep, and longevity context. Not diagnosis, treatment, or a substitute for measured physiology and qualified clinical review.',
+    interpretation_boundary: 'Educational health, performance, nutrition, sleep, longevity, and research context. Not diagnosis, treatment, or a substitute for measured physiology and qualified clinical review. Cognitive, personality, and social research scores are never measures of intelligence, identity, social worth, relationship quality, or education or employment potential.',
   };
 
   if (metadata) {
@@ -265,9 +353,12 @@ function normalizePolygenicScore(score: Record<string, unknown>): GeneticConsume
   const traitId = stringValue(score.disease) ?? stringValue(score.trait_id) ?? 'unknown_polygenic_score';
   const coverage = scoreCoverage(score);
   const calibration = explicitCalibration(score);
+  const reportingPolicy = reportingPolicyForScore(score, traitId);
   const state: GeneticCalculationState = coverage && coverage.percent < 75
     ? 'insufficient_coverage'
-    : calibration?.state ?? 'raw_score_only';
+    : reportingPolicy === 'research_only_non_directional'
+      ? 'research_only'
+      : calibration?.state ?? 'raw_score_only';
   const rawScore = numberValue(score.score);
   const percentile = state === 'calibrated_absolute_risk' || state === 'reference_relative'
     ? numberValue(score.percentile)
@@ -280,24 +371,29 @@ function normalizePolygenicScore(score: Record<string, unknown>): GeneticConsume
   score.calculationState = state;
   score.percentile = percentile ?? null;
   score.riskLabel = riskLabel ?? (state === 'insufficient_coverage' ? 'Insufficient coverage' : 'Raw score only');
-  score.calibration = calibration?.publicValue ?? null;
+  score.calibration = state === 'research_only' ? null : calibration?.publicValue ?? null;
   score.reanalysisRecommended = state === 'raw_score_only' || state === 'insufficient_coverage';
   if (state === 'raw_score_only') {
     score.description = 'A model-weighted genetic score was calculated, but no compatible population calibration was supplied. No percentile or above/below-average claim is returned.';
   } else if (state === 'insufficient_coverage') {
     score.description = `Only ${coverage?.matched_variants ?? 0} of ${coverage?.expected_variants ?? 0} configured variants were matched. The model is not interpreted.`;
+  } else if (state === 'research_only') {
+    score.description = 'A published research model was calculated, but direction, percentile, and trait prediction are intentionally withheld. It must not be used for health or high-impact life decisions.';
   }
 
   return {
     id: `pgs:${stringValue(score.sourceId) ?? traitId}`,
     trait_id: traitId,
-    display_name: spotlight?.displayName ?? titleize(traitId),
-    category: spotlight?.category ?? categoryForTrait(traitId),
+    display_name: spotlight?.displayName ?? stringValue(score.sourceName) ?? titleize(traitId),
+    category: spotlight?.category ?? consumerCategoryForScore(score, traitId),
+    reporting_policy: reportingPolicy,
     calculation_state: state,
     result_summary: state === 'raw_score_only'
       ? 'Raw model score available; population comparison withheld until compatible calibration is available.'
       : state === 'insufficient_coverage'
         ? 'The score was not interpreted because model coverage is below the API safety threshold.'
+        : state === 'research_only'
+          ? 'Research model calculated; direction, percentile, and individual trait prediction are intentionally withheld.'
         : `${riskLabel ?? 'Reference-relative result'}${percentile == null ? '' : ` (${Math.round(percentile)}th percentile)`}.`,
     consumer_value: spotlight?.consumerValue ?? consumerValueForTrait(traitId),
     raw_score: rawScore,
@@ -308,7 +404,7 @@ function normalizePolygenicScore(score: Record<string, unknown>): GeneticConsume
       genome_build: stringValue(score.genomeBuild),
       method: matchingMethod(score),
     },
-    calibration: calibration?.publicValue,
+    calibration: state === 'research_only' ? undefined : calibration?.publicValue,
     source: {
       id: stringValue(score.sourceId),
       name: stringValue(score.sourceName),
@@ -321,6 +417,7 @@ function normalizePolygenicScore(score: Record<string, unknown>): GeneticConsume
       'Polygenic results are probabilistic and can perform differently across ancestry, age, sex, phenotype definition, and genotyping pipelines.',
       ...(state === 'raw_score_only' ? ['This result has no compatible reference distribution and must not be read as low, average, or high.'] : []),
       ...(state === 'insufficient_coverage' ? ['Missing model variants can materially change the score; reanalysis is recommended when more complete matching is available.'] : []),
+      ...(state === 'research_only' ? ['Research-only scores remain non-directional even if a reference distribution later becomes available. They must not be used to label a person or make high-impact decisions.'] : []),
     ],
     reanalysis_recommended: state === 'raw_score_only' || state === 'insufficient_coverage',
   };
@@ -400,6 +497,7 @@ function directSpotlightInsight(spotlight: SpotlightDefinition, signals: Array<R
     trait_id: spotlight.id,
     display_name: spotlight.displayName,
     category: spotlight.category,
+    reporting_policy: 'consumer_context',
     // A single-marker association is not a polygenic score. Keep it outside
     // the calibrated/raw-score state machine so summary counts and reanalysis
     // recommendations remain model-specific.
@@ -415,12 +513,31 @@ function directSpotlightInsight(spotlight: SpotlightDefinition, signals: Array<R
   };
 }
 
+function reportingPolicyForScore(score: Record<string, unknown>, traitId: string): GeneticConsumerInsight['reporting_policy'] {
+  const explicit = stringValue(score.reportingPolicy) ?? stringValue(score.reporting_policy);
+  const explicitCategory = stringValue(score.consumerCategory) ?? stringValue(score.consumer_category);
+  if (explicit === 'research_only_non_directional' || explicitCategory === 'research_only' || categoryForTrait(traitId) === 'research_only') {
+    return 'research_only_non_directional';
+  }
+  return 'consumer_context';
+}
+
+function consumerCategoryForScore(score: Record<string, unknown>, traitId: string): GeneticConsumerCategory {
+  const explicit = stringValue(score.consumerCategory) ?? stringValue(score.consumer_category);
+  if (explicit && isGeneticConsumerCategory(explicit)) return explicit;
+  return categoryForTrait(traitId);
+}
+
+function isGeneticConsumerCategory(value: string): value is GeneticConsumerCategory {
+  return ['clinical_risk', 'health_trait', 'performance', 'nutrition', 'sleep_recovery', 'pharmacogenomics', 'research_only'].includes(value);
+}
+
 function categoryForTrait(traitId: string): GeneticConsumerCategory {
   if (/(cancer|disease|diabetes|coronary|alzheimer|stroke|kidney|asthma|fibrillation)/.test(traitId)) return 'clinical_risk';
-  if (/(vo2|grip|lean_body|exercise|fitness|caffeine|reaction_time)/.test(traitId)) return 'performance';
+  if (/(vo2|grip|lean_body|fat_free|exercise|fitness|walking|caffeine|reaction_time)/.test(traitId)) return 'performance';
   if (/(sleep|chronotype)/.test(traitId)) return 'sleep_recovery';
   if (/(vitamin|homocysteine|alcohol)/.test(traitId)) return 'nutrition';
-  if (/(cognitive|neuroticism|personality|education)/.test(traitId)) return 'research_only';
+  if (/(cognitive|fluid_intelligence|neuroticism|personality|education|loneliness|friendship_satisfaction)/.test(traitId)) return 'research_only';
   return 'health_trait';
 }
 

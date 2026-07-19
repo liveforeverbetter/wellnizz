@@ -78,6 +78,29 @@ test('position scorer emits a reference-relative percentile but keeps unknown tr
   assert.equal(result.reanalysisRecommended, false);
 });
 
+test('research-only cognitive and social scores never expose direction or a calibrated percentile', () => {
+  const definition: BundledPgsManifestEntry = {
+    pgs_id: 'PGS_TEST', trait_id: 'fluid_intelligence_score', display_name: 'Fluid-reasoning research score',
+    consumer_category: 'research_only', reporting_policy: 'research_only_non_directional',
+    genome_build: 'GRCh37', scoring_file: 'test.txt', sha256: 'model-sha', variants: 1, weight_type: 'beta',
+    source_url: 'https://example.test', calibration_state: 'raw_score_only', direction_interpretation: 'higher_trait_value', limitations: [],
+  };
+  const rows: PgsWeightRow[] = [{ chrom: '1', pos: 100, effectAllele: 'G', otherAllele: 'A', effectWeight: 40 }];
+  const observed = new Map<string, PositionGenotype>([
+    ['1:100', { chrom: '1', pos: 100, ref: 'A', alts: ['G'], gt: '1/1' }],
+  ]);
+
+  const result = scoreWeightRows(definition, 'registry-release', rows, observed, new Map(), fixtureRegistry('model-sha', 1), similarity);
+
+  assert.equal(result.calculationState, 'research_only');
+  assert.equal(result.reportingPolicy, 'research_only_non_directional');
+  assert.equal(result.percentile, null);
+  assert.equal(result.calibration, null);
+  assert.equal(result.riskLabel, 'Research context only');
+  assert.equal(result.reanalysisRecommended, false);
+  assert.equal(result.provenance[0]?.direction_interpretation, 'withheld');
+});
+
 test('reference registry builder strips sample identifiers and requires every super-population', async () => {
   const tempDir = await mkdtemp(path.join(os.tmpdir(), 'pgs-calibration-test-'));
   try {

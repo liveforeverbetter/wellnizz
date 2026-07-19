@@ -81,11 +81,14 @@ performance topics available through `POST /query` without loading the full
 WGS artifact.
 
 Examples include caffeine clearance and sensitivity, aerobic trainability,
-power-versus-endurance context, exercise tolerance, soft-tissue resilience,
-chronotype, and pulmonary function. These are probabilistic context, not talent
-tests or physiological measurements. A genotype must not override observed
-sleep response, training performance, spirometry, laboratory results, symptoms,
-or clinical review.
+power-versus-endurance context, grip strength, fat-free mass, walking duration,
+sleep duration, chronotype, exercise tolerance, soft-tissue resilience, and
+pulmonary function. Research-only cognitive, personality, and social models
+are separately queryable, with direction and population ranking intentionally
+withheld. These are probabilistic context, not talent, intelligence,
+personality, or physiological tests. A genotype must not override observed
+sleep response, training performance, spirometry, laboratory results,
+relationships, symptoms, or clinical review.
 
 ## Reference modes
 
@@ -135,6 +138,8 @@ Every API-normalized polygenic result has one explicit calculation state:
 - `raw_score_only`: the weighted sum is available, but direction and percentile
   are withheld;
 - `insufficient_coverage`: too few model variants matched for interpretation;
+- `research_only`: a sensitive research model was scored, but direction,
+  percentile, and individual trait prediction are intentionally withheld;
 - `unsupported_model`, `not_applicable`, or `failed_retryable`.
 
 The API never converts an uncalibrated score into "Average" or the 50th
@@ -144,16 +149,36 @@ genome build, matching method, ancestry metadata, model coverage, and
 limitations. `dashboard.metadata.consumer_genetics` contains the normalized
 section and its `interpretation_release`.
 
-Full-dbSNP analyses additionally run a small API-owned position-and-allele
-registry after rsID annotation. Release `2026-07-19.1` includes PGS Catalog
-[PGS000210](https://www.pgscatalog.org/score/PGS000210/) for pulmonary function
-(FEV1/FVC), matched on harmonized GRCh37 coordinates and alleles. Because its
-weight direction and a compatible individual-level reference distribution are
-not bundled, this result is deliberately `raw_score_only`: it does not claim
-high or low lung capacity and returns no percentile. Measured spirometry takes
-precedence. The source model and publication
-([Shrine et al., 2019](https://doi.org/10.1038/s41588-018-0321-7)) are retained
-in provenance.
+Full-dbSNP analyses additionally run a versioned API-owned position-and-allele
+registry after rsID annotation. Registry release `2026-07-19.5` contains 22
+pinned PGS Catalog definitions. The performance and recovery expansion adds:
+
+| Consumer topic | PGS Catalog definition | Reporting policy |
+| --- | --- | --- |
+| Hand grip strength | [PGS001927](https://www.pgscatalog.org/score/PGS001927/) | Consumer context; measurement takes precedence |
+| Whole-body fat-free mass | [PGS003901](https://www.pgscatalog.org/score/PGS003901/) | Consumer context; not equivalent to muscle or strength |
+| Walking duration | [PGS001073](https://www.pgscatalog.org/score/PGS001073/) | Direction withheld; not motivation or capacity |
+| Sleep duration | [PGS001978](https://www.pgscatalog.org/score/PGS001978/) | Consumer context; longer is not automatically better |
+| Chronotype | [PGS000336](https://www.pgscatalog.org/score/PGS000336/) | Direction withheld pending model-faithful calibration |
+| Fluid-reasoning test research | [PGS001232](https://www.pgscatalog.org/score/PGS001232/) | Research only, non-directional |
+| Loneliness research | [PGS001091](https://www.pgscatalog.org/score/PGS001091/) | Research only, non-directional |
+| Friendship-satisfaction research | [PGS001398](https://www.pgscatalog.org/score/PGS001398/) | Research only, non-directional |
+| Neuroticism research | [PGS002561](https://www.pgscatalog.org/score/PGS002561/) | Research only, non-directional |
+
+The registry also retains [PGS000210](https://www.pgscatalog.org/score/PGS000210/)
+for pulmonary function (FEV1/FVC), matched on harmonized GRCh37 coordinates and
+alleles. No suitable VO2max or exercise-response PGS was added: those topics
+remain direct-marker and measured-phenotype context until an approved,
+model-faithful score is available. Score files add about 15 MB uncompressed;
+the large HGDP + 1000 Genomes reference panel is separate and is not required
+to calculate raw scores.
+
+Research-only models have an enforced `research_only_non_directional`
+reporting policy. Even if a compatible reference distribution is installed,
+the API returns no percentile, higher/lower label, or prediction of
+intelligence, personality identity, social worth, relationship quality,
+education potential, or employment potential. These results never drive a
+health action or high-impact decision.
 
 A variant-only WGS VCF normally omits homozygous-reference loci. The scorer can
 infer those loci only against the configured dbSNP reference under a disclosed

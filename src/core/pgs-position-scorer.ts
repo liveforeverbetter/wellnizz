@@ -19,6 +19,7 @@ export interface BundledPgsManifestEntry {
   trait_id: string;
   display_name: string;
   consumer_category: string;
+  reporting_policy?: 'consumer_context' | 'research_only_non_directional';
   efo_id?: string;
   genome_build: 'GRCh37' | 'GRCh38';
   scoring_file: string;
@@ -69,10 +70,12 @@ export interface PositionAwarePgsResult {
   sourceName: string;
   sourceUrl: string;
   sourceRelease: string;
+  consumerCategory: string;
+  reportingPolicy: 'consumer_context' | 'research_only_non_directional';
   genomeBuild: string;
   ancestry: string;
   matchingMethod: 'position_allele';
-  calculationState: 'reference_relative' | 'raw_score_only' | 'insufficient_coverage';
+  calculationState: 'reference_relative' | 'raw_score_only' | 'insufficient_coverage' | 'research_only';
   calibration: PgsCalibrationResult | null;
   calibrationUnavailableReason?: string;
   reanalysisRecommended: boolean;
@@ -208,6 +211,10 @@ export function scoreWeightRows(
   const matched = observedCalls + inferredReference - rejectedAlleles;
   const coveragePct = rows.length > 0 ? Math.round((matched / rows.length) * 10_000) / 100 : 0;
   const roundedScore = Math.round(rawScore * 1_000_000) / 1_000_000;
+  const reportingPolicy = definition.reporting_policy ?? 'consumer_context';
+  const directionInterpretation = reportingPolicy === 'research_only_non_directional'
+    ? 'withheld'
+    : definition.direction_interpretation;
   const calibrationDecision = calibratePgsScore({
     pgs_id: definition.pgs_id,
     raw_score: roundedScore,
@@ -215,26 +222,34 @@ export function scoreWeightRows(
     genome_build: definition.genome_build,
     weighted_variant_count: rows.length,
     coverage_pct: coveragePct,
-    direction_interpretation: definition.direction_interpretation,
+    direction_interpretation: directionInterpretation,
     registry: calibrationRegistry,
     similarity: populationSimilarity,
   });
   const calculationState = coveragePct < 95
     ? 'insufficient_coverage'
-    : calibrationDecision.calibrated ? 'reference_relative' : 'raw_score_only';
-  const calibration = calibrationDecision.calibrated ? calibrationDecision.result : null;
+    : reportingPolicy === 'research_only_non_directional'
+      ? 'research_only'
+      : calibrationDecision.calibrated ? 'reference_relative' : 'raw_score_only';
+  const calibration = calculationState === 'reference_relative' && calibrationDecision.calibrated
+    ? calibrationDecision.result
+    : null;
   const percentile = calibration?.percentile ?? null;
   return {
     disease: definition.trait_id,
     score: roundedScore,
     riskLabel: calculationState === 'reference_relative'
-      ? referenceRelativeLabel(percentile!, definition.direction_interpretation)
-      : calculationState === 'raw_score_only' ? 'Raw score only' : 'Insufficient coverage',
+      ? referenceRelativeLabel(percentile!, directionInterpretation)
+      : calculationState === 'raw_score_only'
+        ? 'Raw score only'
+        : calculationState === 'research_only' ? 'Research context only' : 'Insufficient coverage',
     percentile,
     description: calculationState === 'reference_relative'
-      ? referenceRelativeDescription(percentile!, calibration!, definition.direction_interpretation)
+      ? referenceRelativeDescription(percentile!, calibration!, directionInterpretation)
       : calculationState === 'raw_score_only'
         ? `The model was scored by normalized GRCh37 position and alleles. Percentile interpretation is withheld: ${calibrationDecision.calibrated ? 'unknown calibration error' : calibrationDecision.reason}`
+        : calculationState === 'research_only'
+          ? 'The research model was scored by normalized GRCh37 position and alleles. Direction, percentile, and trait prediction are intentionally withheld by reporting policy.'
         : `Only ${matched} of ${rows.length} model variants could be scored after position and allele quality control. No interpretation is returned.`,
     variantsScored: matched,
     totalWeightedVariants: rows.length,
@@ -246,13 +261,17 @@ export function scoreWeightRows(
     sourceName: definition.display_name,
     sourceUrl: definition.source_url,
     sourceRelease: registryRelease,
+    consumerCategory: definition.consumer_category,
+    reportingPolicy,
     genomeBuild: `${definition.genome_build} harmonized`,
     ancestry: [definition.development_ancestry, definition.evaluation_ancestry].filter(Boolean).join(' | '),
     matchingMethod: 'position_allele',
     calculationState,
     calibration,
-    ...(!calibrationDecision.calibrated ? { calibrationUnavailableReason: calibrationDecision.reason } : {}),
-    reanalysisRecommended: calculationState !== 'reference_relative',
+    ...(calculationState === 'research_only'
+      ? { calibrationUnavailableReason: 'Population ranking is intentionally withheld for this research-only model.' }
+      : !calibrationDecision.calibrated ? { calibrationUnavailableReason: calibrationDecision.reason } : {}),
+    reanalysisRecommended: calculationState === 'raw_score_only' || calculationState === 'insufficient_coverage',
     matchingQc: {
       observed_variant_calls: observedCalls,
       inferred_homozygous_reference: inferredReference,
@@ -269,7 +288,9 @@ export function scoreWeightRows(
       efo_id: definition.efo_id,
       genome_build: definition.genome_build,
       weight_type: definition.weight_type,
-      direction_interpretation: definition.direction_interpretation,
+      direction_interpretation: directionInterpretation,
+      consumer_category: definition.consumer_category,
+      reporting_policy: reportingPolicy,
       license: definition.license,
       limitations: definition.limitations,
     }],
@@ -343,7 +364,7 @@ async function queryObservedGenotypes(inputVcf: string, requestedKeys: Set<strin
 
 async function queryDbsnpReferenceAlleles(dbsnpVcf: string, requestedKeys: Set<string>, tempDir: string): Promise<Map<string, string>> {
   const regionPath = path.join(tempDir, 'score-positions.tsv');
-  const regions = Array.from(requestedKeys).map(key => {
+  const regions = Array.from(requestedKeys).sort(comparePositionKeys).map(key => {
     const [chrom, pos] = key.split(':');
     return `${grch37Contig(chrom)}\t${pos}`;
   }).join('\n');
@@ -355,6 +376,22 @@ async function queryDbsnpReferenceAlleles(dbsnpVcf: string, requestedKeys: Set<s
     if (requestedKeys.has(key) && ref && !output.has(key)) output.set(key, ref.toUpperCase());
   });
   return output;
+}
+
+function comparePositionKeys(left: string, right: string): number {
+  const [leftChrom, leftPos] = left.split(':');
+  const [rightChrom, rightPos] = right.split(':');
+  const leftRank = chromosomeRank(leftChrom);
+  const rightRank = chromosomeRank(rightChrom);
+  return leftRank - rightRank || Number(leftPos) - Number(rightPos);
+}
+
+function chromosomeRank(chrom: string): number {
+  const normalized = normalizeChrom(chrom);
+  if (normalized === 'X') return 23;
+  if (normalized === 'Y') return 24;
+  if (normalized === 'MT') return 25;
+  return Number(normalized);
 }
 
 async function detectVcfGenomeBuild(inputVcf: string): Promise<'GRCh37' | 'GRCh38' | 'unknown'> {

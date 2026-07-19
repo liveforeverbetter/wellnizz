@@ -110,7 +110,7 @@ test('every bundled PGS score is SHA-256 pinned, parses, and is coordinate-scora
   const manifest = JSON.parse(readFileSync(path.join(dir, 'manifest.json'), 'utf8')) as {
     scores: BundledPgsManifestEntry[];
   };
-  assert.ok(manifest.scores.length >= 6, 'registry should carry the expanded score set');
+  assert.ok(manifest.scores.length >= 22, 'registry should carry the expanded score set');
 
   for (const score of manifest.scores) {
     const filePath = path.join(dir, score.scoring_file);
@@ -129,5 +129,9 @@ test('every bundled PGS score is SHA-256 pinned, parses, and is coordinate-scora
     assert.ok(usable >= Math.floor(rows.length * 0.95), `${score.pgs_id} rows must be coordinate-scorable`);
     assert.equal(score.calibration_state, 'raw_score_only', `${score.pgs_id} must not claim calibration without a bundled reference distribution`);
     assert.equal(score.genome_build, 'GRCh37');
+    if (score.consumer_category === 'research_only') {
+      assert.equal(score.reporting_policy, 'research_only_non_directional', `${score.pgs_id} must enforce research-only reporting`);
+      assert.equal(score.direction_interpretation, 'withheld', `${score.pgs_id} must not expose a trait direction`);
+    }
   }
 });

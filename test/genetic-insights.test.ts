@@ -119,3 +119,40 @@ test('creates compact optimization spotlights from direct marker evidence', () =
   assert.equal(section.summary.performance_and_optimization, 2);
   assert.equal(section.summary.raw_score_only, 0);
 });
+
+test('normalizes cognitive and social models as non-directional research context', () => {
+  const dashboard = {
+    metadata: {
+      prs_scores: [{
+        disease: 'fluid_intelligence_score',
+        score: 2.4,
+        riskLabel: 'Higher genetic tendency',
+        percentile: 96,
+        variantsScored: 100,
+        totalWeightedVariants: 100,
+        coveragePct: 100,
+        sourceId: 'PGS001232',
+        sourceName: 'Fluid-reasoning research score',
+        calibration: {
+          state: 'reference_relative',
+          method: 'empirical_percentile_MostSimilarPop',
+          reference_panel: 'HGDP+1kGP',
+          population: 'EUR',
+          population_sample_size: 500,
+        },
+      }],
+    },
+  };
+
+  const section = normalizeGeneticsDashboard(dashboard);
+  const insight = section.insights[0];
+  assert.equal(insight.calculation_state, 'research_only');
+  assert.equal(insight.category, 'research_only');
+  assert.equal(insight.reporting_policy, 'research_only_non_directional');
+  assert.equal(insight.percentile, undefined);
+  assert.equal(insight.risk_label, undefined);
+  assert.equal(insight.calibration, undefined);
+  assert.equal(insight.reanalysis_recommended, false);
+  assert.equal(section.summary.research_only, 1);
+  assert.match(section.interpretation_boundary, /employment potential/i);
+});
