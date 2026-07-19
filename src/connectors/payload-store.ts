@@ -211,6 +211,19 @@ export class S3PayloadStore implements PayloadStore {
     };
   }
 
+  /**
+   * Short-lived, object-scoped GET URL. Lets a client download a large stored
+   * object (e.g. the complete WGS analysis) straight from object storage,
+   * bypassing the API server so it never buffers the blob in its 1 GB heap.
+   */
+  async createSignedPayloadDownload(objectKey: string): Promise<{ download_url: string; expires_in_seconds: number }> {
+    const { client, GetObjectCommand } = await this.sdk();
+    const { getSignedUrl } = await import('@aws-sdk/s3-request-presigner');
+    const expiresIn = signedUploadExpirySeconds(this.env);
+    const download_url = await getSignedUrl(client, new GetObjectCommand({ Bucket: this.bucket, Key: objectKey }), { expiresIn });
+    return { download_url, expires_in_seconds: expiresIn };
+  }
+
   private async getBody(objectKey: string): Promise<Readable | undefined> {
     const { client, GetObjectCommand } = await this.sdk();
     try {

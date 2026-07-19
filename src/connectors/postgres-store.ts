@@ -143,6 +143,15 @@ export class PostgresHealthStore implements HealthStore {
     return this.payloads.size(this.analysisArtifactKey(analysisId));
   }
 
+  // Signed direct-download URL for the full analysis, so the client fetches it
+  // straight from object storage and the API never buffers it. Returns
+  // undefined on non-S3 deployments; the HTTP layer streams from disk instead.
+  async createAnalysisArtifactDownload(analysisId: string): Promise<{ download_url: string; expires_in_seconds: number } | undefined> {
+    if (!(this.payloads instanceof S3PayloadStore)) return undefined;
+    if ((await this.payloads.size(this.analysisArtifactKey(analysisId))) === undefined) return undefined;
+    return this.payloads.createSignedPayloadDownload(this.analysisArtifactKey(analysisId));
+  }
+
   // Kept outside HealthStore because in-memory and filesystem deployments do
   // not offer a safe public object-storage endpoint. The HTTP layer feature
   // detects these methods and only enables this flow for S3-compatible stores.

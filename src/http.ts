@@ -1171,6 +1171,33 @@ async function route(req: IncomingMessage, res: ServerResponse, store: HealthSto
     }));
   }
 
+  const fullAnalysisMatch = url.pathname.match(/^\/analyses\/([^/]+)\/full-analysis$/);
+  if (method === 'GET' && fullAnalysisMatch) {
+    requireEndpoint(auth, authConfig, 'analyses.read');
+    requireScope(auth, 'health:data:read');
+    const analysis = await store.getAnalysis(fullAnalysisMatch[1]);
+    if (!analysis) throw new HttpError(404, 'Analysis not found.');
+    requireResourceAccess(auth, authConfig, { userId: analysis.user_id, organizationId: analysis.organization_id });
+    const bytes = await store.getAnalysisArtifactSize(analysis.id);
+    if (bytes === undefined) {
+      throw new HttpError(404, 'No complete-analysis artifact is stored for this analysis. It predates artifact preservation, or durable object storage is not configured on this deployment.');
+    }
+    const downloadStore = analysisArtifactDownloadStore(store);
+    const signed = downloadStore ? await downloadStore.createAnalysisArtifactDownload(analysis.id) : undefined;
+    if (!signed) {
+      throw new HttpError(503, 'Direct download of the complete analysis requires object storage (STORAGE_DRIVER=s3) on this deployment. The bounded inline analysis remains available at /analyses/{id}.');
+    }
+    auditEvent(req, 'success', { route: '/analyses/:id/full-analysis', status: 200, auth });
+    return sendJson(req, res, authConfig, 200, {
+      analysis_id: analysis.id,
+      object_key: `analyses/${analysis.id}/full-analysis.json`,
+      bytes,
+      download_url: signed.download_url,
+      expires_in_seconds: signed.expires_in_seconds,
+      note: 'Fetch the complete, uncompacted analysis directly from download_url; it streams from object storage and never passes through the API server.',
+    });
+  }
+
   const rerunMatch = url.pathname.match(/^\/analyses\/([^/]+)\/rerun$/);
   if (method === 'POST' && rerunMatch) {
     requireEndpoint(auth, authConfig, 'analyses.create');
@@ -1738,6 +1765,17 @@ function directGeneticsUploadStore(store: HealthStore): DirectGeneticsUploadStor
     && typeof candidate.uploadedPayloadSize === 'function'
     && (typeof candidate.directPayloadUploadsEnabled !== 'function' || candidate.directPayloadUploadsEnabled())
     ? candidate as DirectGeneticsUploadStore
+    : undefined;
+}
+
+type ArtifactDownloadStore = HealthStore & {
+  createAnalysisArtifactDownload(analysisId: string): Promise<{ download_url: string; expires_in_seconds: number } | undefined>;
+};
+
+function analysisArtifactDownloadStore(store: HealthStore): ArtifactDownloadStore | undefined {
+  const candidate = store as Partial<ArtifactDownloadStore>;
+  return typeof candidate.createAnalysisArtifactDownload === 'function'
+    ? candidate as ArtifactDownloadStore
     : undefined;
 }
 

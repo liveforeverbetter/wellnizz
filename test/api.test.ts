@@ -1638,6 +1638,11 @@ test('lists sources and analyses, returns recommendations, and computes trends a
   assert.ok(recs.protocols.every((routine: any) => Array.isArray(routine.items) && routine.items.length > 0 && Array.isArray(routine.domains)));
   assert.ok(recs.protocols.some((routine: any) => routine.id === 'core' || routine.id === 'optimize'));
 
+  // The complete-analysis download 404s when no artifact was preserved (this
+  // biomarkers analysis has no genetics artifact), rather than erroring.
+  const fullAnalysisMissing = await fetch(`${baseUrl}/analyses/${analysis.id}/full-analysis`);
+  assert.equal(fullAnalysisMissing.status, 404);
+
   const trends = await post(`/users/${userId}/trends`, { organization_id: orgId });
   const apob = trends.markers.find((marker: any) => marker.marker === 'apob');
   assert.ok(apob, 'expected an ApoB trend');
