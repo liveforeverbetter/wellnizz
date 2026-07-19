@@ -167,11 +167,28 @@ test('genetic job claim is exclusive under concurrency', opts, async () => {
   const claimed = [a, b].filter(Boolean);
   assert.equal(claimed.length, 1, 'exactly one worker should claim the job');
   assert.equal(claimed[0]?.status, 'running');
+  assert.equal(claimed[0]?.stage, 'preparing');
+  assert.equal(claimed[0]?.progress_pct, 5);
   assert.equal(claimed[0]?.attempts, 1);
 
-  await store.completeGeneticAnalysisJob(job.id, { done: true });
+  await store.updateGeneticAnalysisJobProgress(job.id, {
+    stage: 'polygenic_scoring',
+    progress_pct: 89,
+    progress_message: 'Scoring test model.',
+  });
+  const scoring = await store.getGeneticAnalysisJob(job.id);
+  assert.equal(scoring?.stage, 'polygenic_scoring');
+  assert.equal(scoring?.progress_pct, 89);
+
+  await store.completeGeneticAnalysisJob(job.id, {
+    done: true,
+    raw: { consumer_genetics: { reanalysis_recommended: true } },
+  });
   const done = await store.getGeneticAnalysisJob(job.id);
   assert.equal(done?.status, 'complete');
+  assert.equal(done?.stage, 'complete');
+  assert.equal(done?.progress_pct, 100);
+  assert.equal(done?.reanalysis_recommended, true);
 });
 
 test('failed genetic job requeues until attempts are exhausted', opts, async () => {
@@ -199,6 +216,42 @@ test('failed genetic job requeues until attempts are exhausted', opts, async () 
   assert.equal(second?.error, undefined, 'a running retry must not expose the previous attempt error');
   await store.failGeneticAnalysisJob(second!.id, 'boom again');
   assert.equal((await store.getGeneticAnalysisJob(job.id))?.status, 'failed');
+});
+
+test('state-repair migration reconciles an exhausted running genetic job', opts, async () => {
+  const source = sampleSource({ category: 'genetics' });
+  await store.saveSource(source, []);
+  const analysis: AnalysisResult = {
+    id: createId('analysis'), user_id: USER, organization_id: ORG, created_at: new Date().toISOString(),
+    source_ids: [source.id], raw_source_references: [], normalized_observations: [], derived_interpretations: [],
+    dashboard_spec: { id: createId('dash'), user_id: USER, organization_id: ORG, analysis_id: 'x', generated_at: new Date().toISOString(), cards: [], provenance: { source_ids: [], storage_mode: 'durable', clinical_boundary: 'test' } },
+  };
+  await store.saveAnalysis(analysis);
+  const job: GeneticAnalysisJob = {
+    id: createId('gjob'), user_id: USER, organization_id: ORG, analysis_id: analysis.id, source_id: source.id,
+    status: 'queued', attempts: 0, max_attempts: 1, priority: 0, created_at: new Date().toISOString(), updated_at: new Date().toISOString(),
+  };
+  await store.createGeneticAnalysisJob(job);
+
+  const { getPool } = await import('../src/db/pool.js');
+  const { runMigrations } = await import('../src/db/migrate.js');
+  const pool = getPool();
+  await pool.query(
+    `update health_api.genetic_analysis_jobs
+     set status='running', attempts=max_attempts, error='legacy parser failure', worker_id='stale-worker', locked_at=now()
+     where id=$1`,
+    [job.id],
+  );
+  await pool.query(`delete from health_api.schema_migrations where filename='0005_genetic_job_state_repair.sql'`);
+  await runMigrations(pool);
+
+  const repaired = await store.getGeneticAnalysisJob(job.id);
+  assert.equal(repaired?.status, 'failed');
+  assert.equal(repaired?.stage, 'failed');
+  assert.equal(repaired?.reanalysis_recommended, true);
+  assert.equal(repaired?.reanalysis_reason, 'legacy parser failure');
+  assert.equal(repaired?.worker_id, undefined);
+  assert.equal(repaired?.locked_at, undefined);
 });
 
 test('external account upsert merges metadata and provider tokens save/lookup', opts, async () => {
