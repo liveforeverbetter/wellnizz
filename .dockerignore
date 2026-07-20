@@ -43,3 +43,7 @@ vendor/health-analysis-skill/output-*
 vendor/health-analysis-skill/.gstack
 vendor/health-analysis-skill/.playwright-mcp
 vendor/health-analysis-skill/.DS_Store
+
+# Design-system handoff ZIPs served via GitHub raw CDN
+public/design-system-specs/*.zip
+public/design-system-specs/**/*.zip
