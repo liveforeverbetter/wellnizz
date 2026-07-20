@@ -1,0 +1,1317 @@
+{
+  "version": "2.0.0",
+  "updated": "2026-07-20",
+  "description": "Cardiovascular health, blood pressure, cholesterol, and lipid profiles",
+  "markers": {
+    "rs1799983": {
+      "gene": "NOS3",
+      "name": "G894T (Glu298Asp)",
+      "category": "cardiometabolic",
+      "chrom": "7",
+      "pos": 150696111,
+      "display": "eNOS Glu298Asp Nitric Oxide",
+      "evidenceTier": 2,
+      "interpretations": {
+        "TT": {
+          "effect": "Normal endothelial function",
+          "interpretation": "For g894t (glu298asp), your NOS3 variant is one contributing factor — standard nitric oxide production",
+          "recommendations": [
+            "Maintain cardiovascular health"
+          ],
+          "priority": "low"
+        },
+        "GT": {
+          "effect": "Intermediate eNOS activity",
+          "interpretation": "For g894t (glu298asp), your NOS3 variant is one contributing factor — one asp298 allele — mild reduction in endothelial nitric oxide production",
+          "recommendations": [
+            "Dietary nitrates and L-citrulline beneficial",
+            "Aerobic exercise maintains eNOS expression"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Elevated risk",
+          "interpretation": "Glu/Glu - linked to endothelial dysfunction and hypertension risk This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Priority cardiovascular Tracking",
+            "Lifestyle optimization important"
+          ],
+          "priority": "medium"
+        },
+        "TG": {
+          "effect": "Intermediate risk",
+          "interpretation": "For g894t (glu298asp), your NOS3 variant is one contributing factor — asp298glu variant may affect endothelial function This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Cardiovascular risk awareness",
+            "Blood pressure Tracking"
+          ],
+          "priority": "medium"
+        }
+      }
+    },
+    "rs699": {
+      "gene": "AGT",
+      "name": "M268T",
+      "category": "cardiometabolic",
+      "chrom": "1",
+      "pos": 230710048,
+      "display": "Angiotensinogen M268T",
+      "evidenceTier": 2,
+      "interpretations": {
+        "GG": {
+          "effect": "Higher angiotensinogen levels (Thr268/Thr268)",
+          "interpretation": "Elevated angiotensinogen — elevated RAAS activation, higher risk for hypertension and gestational hypertension; may have stronger blood pressure response to sodium and stress This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "DASH or low-sodium diet (<1500mg/day sodium) especially impactful",
+            "Regular blood pressure Tracking (home cuff)",
+            "Aerobic exercise 150+ min/week (strongest lifestyle antihypertensive)",
+            "Limit alcohol: even moderate use elevates BP in AGT GG individuals",
+            "Discuss ACE inhibitor prophylaxis with physician if BP trending elevated"
+          ],
+          "priority": "moderate"
+        },
+        "AG": {
+          "effect": "Intermediate angiotensinogen levels",
+          "interpretation": "For m268t, your AGT variant is one contributing factor — one thr268 allele — moderately elevated angiotensinogen and intermediate hypertension risk",
+          "recommendations": [
+            "Low-sodium diet and regular BP Tracking beneficial",
+            "Aerobic exercise worth considering"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Normal/lower angiotensinogen levels (Met268/Met268)",
+          "interpretation": "For m268t, your AGT variant is one contributing factor — standard angiotensinogen and raas activity — normal hypertension risk from this variant",
+          "recommendations": [
+            "Standard cardiovascular health practices"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs3798220": {
+      "gene": "LPA",
+      "name": "Ile4399Met",
+      "category": "cardiometabolic",
+      "chrom": "6",
+      "pos": 160961137,
+      "display": "Lp(a) Cardiovascular Risk (Ile4399Met)",
+      "evidenceTier": 1,
+      "interpretations": {
+        "11": {
+          "effect": "High expressor",
+          "interpretation": "For ile4399met, your LPA variant is one contributing factor — two long alleles - high serotonin transporter",
+          "recommendations": [
+            "Standard stress resilience"
+          ],
+          "priority": "low"
+        },
+        "12": {
+          "effect": "Intermediate",
+          "interpretation": "For ile4399met, your LPA variant is one contributing factor — one long, one short allele",
+          "recommendations": [
+            "Moderate stress sensitivity"
+          ],
+          "priority": "low"
+        },
+        "22": {
+          "effect": "Low expressor",
+          "interpretation": "Two short alleles - lower transporter This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Increased anxiety vulnerability with stress",
+            "Therapy worth considering"
+          ],
+          "priority": "medium"
+        },
+        "CC": {
+          "effect": "High LPA",
+          "interpretation": "notably elevated LPA - substantially elevated cardiovascular disease risk This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Priority cardiovascular screening",
+            "Consider LPA-lowering therapies"
+          ],
+          "priority": "high"
+        },
+        "TC": {
+          "effect": "Elevated LPA",
+          "interpretation": "Met variant linked to elevated LPA levels - elevated cardiovascular risk This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Lipid panel including LPA measurement",
+            "Aggressive cardiovascular risk management"
+          ],
+          "priority": "medium"
+        },
+        "TT": {
+          "effect": "Normal LPA",
+          "interpretation": "For ile4399met, your LPA variant is one contributing factor — standard lipoprotein(a) levels",
+          "recommendations": [
+            "Standard cardiovascular risk management"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs1042714": {
+      "gene": "ADRB2",
+      "name": "R16G",
+      "category": "cardiometabolic",
+      "chrom": "5",
+      "pos": 148826877,
+      "display": "ADRB2 Beta-2 Adrenergic",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal beta-2 receptor function",
+          "interpretation": "For r16g, your ADRB2 variant is one contributing factor — standard bronchodilator response and fat mobilization",
+          "recommendations": [
+            "Normal response to beta-2 agonists if used"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "Moderately reduced response",
+          "interpretation": "Heterozygous - may have lower bronchodilator response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "May benefit from pre-workout warm-up",
+            "Consider slightly longer warm-up for cardio"
+          ],
+          "priority": "medium"
+        },
+        "AA": {
+          "effect": "Significantly reduced beta-2 response",
+          "interpretation": "Homozygous - substantially lower bronchodilator response and fat mobilization during exercise This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Extended warm-up important",
+            "Consider inhaled beta-2 if prescribed",
+            "Longer cardio sessions may be more effective",
+            "Fat oxidation may be reduced during high intensity"
+          ],
+          "priority": "high"
+        },
+        "C/C": {
+          "effect": "Variant in ADRB2",
+          "interpretation": "Your ADRB2 genotype is one of several genetic factors linked to r16g. Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of ADRB2 in r16g",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "bibliography": [
+        "Levine JA, Eberhardt NL, et al. Role of nonexercise activity thermogenesis in resistance to fat gain in",
+        "humans. Science. 1999 Jan 8;283(5399):212-4.",
+        "Ishida Y, Matsushita M, et al. Genetic evidence for involvement of β2-adrenergic receptor in brown adipose",
+        "tissue thermogenesis in humans. International Journal of Obesity.",
+        "Oomen JM, van Rossum CTM, et al. β2-Adrenergic Receptor Polymorphisms and Salbutamol-Stimulated",
+        "Energy Expenditure. The Journal of Clinical Endocrinology & Metabolism, Volume 90, Issue 4, 1 April 2005,",
+        "Pages 23012307.",
+        "Reguero M, Gómez de Cedrón M, et al. Precision Nutrition to Activate Thermogenesis as a Complementary",
+        "Approach to Target Obesity and Associated-Metabolic-Disorders. Cancers (Basel). 2021 Feb; 13(4): 866.",
+        "Kiani AK, Medori MC, et al. Clinical assessment for diet prescription. J Prev Med Hyg. 2022 Oct 17;63(2",
+        "Suppl 3):E102-E124.",
+        "Ricquier D. Fundamental mechanisms of thermogenesis. Comptes Rendus. Biologies, Volume 329 (2006)",
+        "no. 8, pp. 578-586."
+      ],
+      "technical_report": "Some of the latest scientific studies have shown an increasing interest in the ADRB2 and\n\nADRB3 genes because of their role in the regulation of thermogenesis and energy\nmetabolism, especially in the context of brown adipose tissue (BAT) and obesity. The β2-adrenergic receptor (β2-AR), encoded by the ADRB2 gene, is involved in the\nthermogenic and lipolytic response. Variations in the ADRB2 gene have been associated\nwith BAT function and thermogenesis. These variations also affect glucose homeostasis\nand may influence susceptibility to obesity and cardiovascular disease. In particular, ADRB2\ngenotypes could influence the function of blood vessels near the BAT, thus affecting\nhemodynamics and body temperature. Specific ADRB2 variants, such as rs1042713, have shown correlations with thermogenic\nresponse and blood flow regulation in the BAT. These variants affect the blood flow\nresponse to isoproterenol, a beta agonist, which may influence the thermogenic capacity of\nthe BAT and thus the regulation of body temperature and energy balance. On the other hand, the β3-adrenergic receptor (β3-AR), encoded by the ADRB3 gene, is\ncrucial for BAT activation and non-shivering thermogenesis. This receptor is predominantly\n\n\fexpressed in brown and white adipose tissue. Activation of β3-AR in brown adipocytes leads\nto increased fatty acid oxidation and heat production, contributing significantly to energy\nexpenditure and body weight regulation. Although the relationship of these genes with temperature regulation has been known for\nyears, the scientific evidence is still somewhat limited and more studies are needed to\nevaluate this association in depth, especially in different populations.",
+      "description": "PDF\n\nHeat production in response to cold\nThermogenesis is a vital process for the maintenance of body temperature and energy\nbalance in mammals. Research on BAT (brown adipose tissue) and its activation pathways\noffers promising prospects for the treatment and prevention of obesity and its related\nmetabolic complications."
+    },
+    "rs1042713": {
+      "gene": "ADRB2",
+      "name": "Arg16Gly",
+      "category": "cardiometabolic",
+      "chrom": "5",
+      "pos": 148206440,
+      "display": "ADRB2 Arg16Gly Beta-2 Adrenergic",
+      "evidenceTier": 2,
+      "interpretations": {
+        "GG": {
+          "effect": "Gly16/Gly16 — enhanced agonist-promoted downregulation",
+          "interpretation": "For arg16gly, your ADRB2 variant is one contributing factor — beta-2 adrenergic receptor gly16 — greater receptor downregulation with prolonged agonist stimulation; relevant for bronchodilator response in asthma and sympathomimetic response during exercise",
+          "recommendations": [
+            "If using beta-2 agonist inhalers (asthma): tolerance develops faster; discuss step-up therapy with physician",
+            "High-intensity interval training may be less stimulant-dependent for performance due to receptor sensitivity",
+            "Caffeine (indirect sympathomimetic) may have attenuated ergogenic effect compared to Arg16 individuals"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "Arg16/Gly16 — intermediate receptor regulation",
+          "interpretation": "For arg16gly, your ADRB2 variant is one contributing factor — intermediate adrb2 downregulation phenotype",
+          "recommendations": [
+            "Standard ergogenic supplementation guidelines apply"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Arg16/Arg16 — sustained beta-2 receptor response",
+          "interpretation": "For arg16gly, your ADRB2 variant is one contributing factor — slower receptor downregulation — more sustained beta-2 agonist response; better long-term bronchodilator response and potentially greater catecholamine effect during sustained exercise",
+          "recommendations": [
+            "Caffeine ergogenic effect may be more pronounced (sustained receptor availability)",
+            "Consider regular versus as-needed inhaler strategy with physician if asthmatic (Arg16 shows better sustained response to LABA)"
+          ],
+          "priority": "low"
+        },
+        "A/A": {
+          "effect": "Variant in ADRB2",
+          "interpretation": "Your ADRB2 genotype is one of several genetic factors linked to arg16gly. Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of ADRB2 in arg16gly",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "bibliography": [
+        "Levine JA, Eberhardt NL, et al. Role of nonexercise activity thermogenesis in resistance to fat gain in",
+        "humans. Science. 1999 Jan 8;283(5399):212-4.",
+        "Ishida Y, Matsushita M, et al. Genetic evidence for involvement of β2-adrenergic receptor in brown adipose",
+        "tissue thermogenesis in humans. International Journal of Obesity.",
+        "Oomen JM, van Rossum CTM, et al. β2-Adrenergic Receptor Polymorphisms and Salbutamol-Stimulated",
+        "Energy Expenditure. The Journal of Clinical Endocrinology & Metabolism, Volume 90, Issue 4, 1 April 2005,",
+        "Pages 23012307.",
+        "Reguero M, Gómez de Cedrón M, et al. Precision Nutrition to Activate Thermogenesis as a Complementary",
+        "Approach to Target Obesity and Associated-Metabolic-Disorders. Cancers (Basel). 2021 Feb; 13(4): 866.",
+        "Kiani AK, Medori MC, et al. Clinical assessment for diet prescription. J Prev Med Hyg. 2022 Oct 17;63(2",
+        "Suppl 3):E102-E124.",
+        "Ricquier D. Fundamental mechanisms of thermogenesis. Comptes Rendus. Biologies, Volume 329 (2006)",
+        "no. 8, pp. 578-586."
+      ],
+      "technical_report": "Some of the latest scientific studies have shown an increasing interest in the ADRB2 and\n\nADRB3 genes because of their role in the regulation of thermogenesis and energy\nmetabolism, especially in the context of brown adipose tissue (BAT) and obesity. The β2-adrenergic receptor (β2-AR), encoded by the ADRB2 gene, is involved in the\nthermogenic and lipolytic response. Variations in the ADRB2 gene have been associated\nwith BAT function and thermogenesis. These variations also affect glucose homeostasis\nand may influence susceptibility to obesity and cardiovascular disease. In particular, ADRB2\ngenotypes could influence the function of blood vessels near the BAT, thus affecting\nhemodynamics and body temperature. Specific ADRB2 variants, such as rs1042713, have shown correlations with thermogenic\nresponse and blood flow regulation in the BAT. These variants affect the blood flow\nresponse to isoproterenol, a beta agonist, which may influence the thermogenic capacity of\nthe BAT and thus the regulation of body temperature and energy balance. On the other hand, the β3-adrenergic receptor (β3-AR), encoded by the ADRB3 gene, is\ncrucial for BAT activation and non-shivering thermogenesis. This receptor is predominantly\n\n\fexpressed in brown and white adipose tissue. Activation of β3-AR in brown adipocytes leads\nto increased fatty acid oxidation and heat production, contributing significantly to energy\nexpenditure and body weight regulation. Although the relationship of these genes with temperature regulation has been known for\nyears, the scientific evidence is still somewhat limited and more studies are needed to\nevaluate this association in depth, especially in different populations.",
+      "description": "PDF\n\nHeat production in response to cold\nThermogenesis is a vital process for the maintenance of body temperature and energy\nbalance in mammals. Research on BAT (brown adipose tissue) and its activation pathways\noffers promising prospects for the treatment and prevention of obesity and its related\nmetabolic complications."
+    },
+    "rs5186": {
+      "gene": "AGTR1",
+      "name": "A1166C",
+      "category": "cardiometabolic",
+      "chrom": "3",
+      "pos": 148459988,
+      "display": "AGTR1 A1166C",
+      "interpretations": {
+        "AA": {
+          "effect": "Normal AGTR1 function",
+          "interpretation": "For a1166c, your AGTR1 variant is one contributing factor — standard angiotensin receptor function",
+          "recommendations": [
+            "Maintain cardiovascular health"
+          ],
+          "priority": "low"
+        },
+        "AC": {
+          "effect": "Altered AGTR1",
+          "interpretation": "For a1166c, your AGTR1 variant is one contributing factor — one copy of a1166c - may affect blood pressure regulation This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Track blood pressure",
+            "Low salt diet if indicated"
+          ],
+          "priority": "medium"
+        },
+        "CC": {
+          "effect": "Altered AGTR1",
+          "interpretation": "Two copies - potentially elevated cardiovascular sensitivity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Cardiovascular Tracking",
+            "Lifestyle modifications",
+            "Consider ACE inhibitor use"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs10455872": {
+      "gene": "LPA",
+      "name": "Gly492Arg",
+      "category": "cardiometabolic",
+      "chrom": "6",
+      "pos": 160989447,
+      "display": "LPA Gly492Arg",
+      "interpretations": {
+        "AA": {
+          "effect": "Normal LPA",
+          "interpretation": "For gly492arg, your LPA variant is one contributing factor — no gly492arg variant - standard lpa levels",
+          "recommendations": [
+            "Standard cardiovascular risk"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "Elevated LPA",
+          "interpretation": "One Arg copy - linked to elevated LPA and cardiovascular risk This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Track cardiovascular health",
+            "Consider LPA testing"
+          ],
+          "priority": "medium"
+        },
+        "GG": {
+          "effect": "High LPA",
+          "interpretation": "Two Arg copies -  linked to elevated LPA This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Aggressive cardiovascular risk reduction",
+            "LPA-specific interventions if available"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs505151": {
+      "gene": "PCSK9",
+      "name": "Gly496Glu",
+      "category": "cardiometabolic",
+      "chrom": "1",
+      "pos": 55063514,
+      "display": "PCSK9 Gly496Glu",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal LDL receptor",
+          "interpretation": "For gly496glu, your PCSK9 variant is one contributing factor — standard pcsk9 function",
+          "recommendations": [
+            "Standard LDL management"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Increased LDL",
+          "interpretation": "For gly496glu, your PCSK9 variant is one contributing factor — gain-of-function variant - elevated ldl cholesterol This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Lipid panel Tracking",
+            "Consider statin therapy"
+          ],
+          "priority": "medium"
+        },
+        "AA": {
+          "effect": "Significantly elevated LDL",
+          "interpretation": "For gly496glu, your PCSK9 variant is one contributing factor — homozygous gain-of-function - very high ldl possible This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Aggressive lipid-lowering therapy",
+            "Family screening worth considering"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs562556": {
+      "gene": "PCSK9",
+      "name": "Val474Ile",
+      "category": "cardiometabolic",
+      "chrom": "1",
+      "pos": 55058564,
+      "display": "PCSK9 Val474Ile",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal PCSK9",
+          "interpretation": "No variant",
+          "recommendations": [
+            "Standard LDL management"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Intermediate",
+          "interpretation": "lower LDL receptor recycling This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Track lipids",
+            "Heart-healthy lifestyle"
+          ],
+          "priority": "medium"
+        },
+        "AA": {
+          "effect": "Reduced receptor function",
+          "interpretation": "For val474ile, your PCSK9 variant is one contributing factor — may have higher baseline ldl This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Lipid management important"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs708272": {
+      "gene": "CETP",
+      "name": "TaqB1",
+      "category": "cardiometabolic",
+      "chrom": "16",
+      "pos": 56962376,
+      "display": "CETP TaqB1",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal CETP activity",
+          "interpretation": "For taqb1, your CETP variant is one contributing factor — standard cholesteryl ester transfer",
+          "recommendations": [
+            "Standard lipid profile"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Higher HDL",
+          "interpretation": "B1 allele linked to higher HDL and lower CETP activity",
+          "recommendations": [
+            "Higher HDL may be protective",
+            "Maintain healthy lifestyle"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Significantly elevated HDL",
+          "interpretation": "B1/B1 - markedly elevated HDL due to lower CETP",
+          "recommendations": [
+            "Very high HDL - may be protective but uncertain clinical benefit"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs5882": {
+      "gene": "CETP",
+      "name": "Val422Ile",
+      "category": "cardiometabolic",
+      "chrom": "16",
+      "pos": 56982180,
+      "display": "CETP Val422Ile",
+      "interpretations": {
+        "GG": {
+          "effect": "Ile/Ile — normal CETP activity",
+          "interpretation": "For val422ile, your CETP variant is one contributing factor — standard cetp activity — no inherited hdl longevity advantage; hdl levels depend more heavily on lifestyle This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Aerobic exercise and Mediterranean diet especially important for HDL optimization without this genetic advantage",
+            "Consider niacin discussion with physician if HDL persistently below 40 mg/dL"
+          ],
+          "priority": "moderate"
+        },
+        "GA": {
+          "effect": "Intermediate",
+          "interpretation": "For val422ile, your CETP variant is one contributing factor — some cetp reduction - moderately elevated hdl",
+          "recommendations": [
+            "Good HDL levels",
+            "Continue healthy habits"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Val/Val — lowest CETP activity, highest HDL, longevity-associated",
+          "interpretation": "lower cholesteryl ester transfer protein — notably higher HDL particle count and size; overrepresented in Ashkenazi Jewish centenarians (Barzilai 2003, JAMA); linked to lower coronary artery disease incidence",
+          "recommendations": [
+            "Maintain this favorable lipid phenotype with Mediterranean diet",
+            "Regular aerobic exercise (further raises HDL)",
+            "Avoid trans fats and refined carbohydrates",
+            "HDL > 60 mg/dL is a realistic target with this genotype"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "Ile/Val — intermediate CETP activity",
+          "interpretation": "For val422ile, your CETP variant is one contributing factor — intermediate cetp activity — moderately elevated hdl and partial longevity signal",
+          "recommendations": [
+            "Mediterranean diet and exercise to maximize HDL benefit"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs11591147": {
+      "gene": "PCSK9",
+      "name": "R46L",
+      "category": "cardiometabolic",
+      "chrom": "1",
+      "pos": 55241638,
+      "display": "PCSK9 R46L",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal PCSK9",
+          "interpretation": "For r46l, your PCSK9 variant is one contributing factor — standard ldl receptor recycling",
+          "recommendations": [
+            "Standard lipid management"
+          ],
+          "priority": "low"
+        },
+        "GT": {
+          "effect": "Reduced LDL",
+          "interpretation": "One copy - linked to lower LDL (~15mg/dL reduction)",
+          "recommendations": [
+            "May have reduced cardiovascular risk",
+            "Continue healthy lifestyle"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Significantly reduced LDL",
+          "interpretation": "Homozygous - linked to very low LDL",
+          "recommendations": [
+            "Naturally lower cardiovascular risk",
+            "Statin may still be beneficial if LDL elevated"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs112180569": {
+      "gene": "PLTP",
+      "name": "PLTP (cholesterol in small HDL)",
+      "displayName": "PLTP – cholesterol in small HDL",
+      "category": "cardiometabolic",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "cholesterol in small HDL measurement",
+      "gwas_domain": "cardiovascular",
+      "gwas_p": 0,
+      "gwas_n": 241027,
+      "interpretations": {
+        "TT": {
+          "effect": "Common genotype — standard cholesterol in small HDL",
+          "interpretation": "For pltp (cholesterol in small hdl), your PLTP variant is one contributing factor — common genotype for cholesterol in small hdl at pltp; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard cholesterol in small HDL management applies"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "One PLTP protective allele — strong cholesterol in small HDL benefit",
+          "interpretation": "For pltp (cholesterol in small hdl), your PLTP variant is one contributing factor — one copy of the gwas-identified protective allele for cholesterol in small hdl",
+          "recommendations": [
+            "One protective PLTP allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Homozygous PLTP protective allele — maximum cholesterol in small HDL benefit",
+          "interpretation": "For pltp (cholesterol in small hdl), your PLTP variant is one contributing factor — homozygous for the gwas protective allele at pltp",
+          "recommendations": [
+            "Favorable PLTP variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs116843064": {
+      "gene": "ANGPTL4",
+      "name": "ANGPTL4 (triglyceride:HDL cholesterol ratio)",
+      "displayName": "ANGPTL4 – triglyceride:HDL cholesterol ratio",
+      "category": "cardiometabolic",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "triglyceride:HDL cholesterol ratio",
+      "gwas_domain": "cardiovascular",
+      "gwas_p": 1e-189,
+      "gwas_n": 382129,
+      "interpretations": {
+        "GG": {
+          "effect": "Common genotype — standard triglyceride:HDL cholesterol ratio",
+          "interpretation": "For angptl4 (triglyceride:hdl cholesterol ratio), your ANGPTL4 variant is one contributing factor — common genotype for triglyceride:hdl cholesterol ratio at angptl4; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard triglyceride:HDL cholesterol ratio management applies"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "One ANGPTL4 protective allele — strong triglyceride:HDL cholesterol ratio benefit",
+          "interpretation": "For angptl4 (triglyceride:hdl cholesterol ratio), your ANGPTL4 variant is one contributing factor — one copy of the gwas-identified protective allele for triglyceride:hdl cholesterol ratio",
+          "recommendations": [
+            "One protective ANGPTL4 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Homozygous ANGPTL4 protective allele — maximum triglyceride:HDL cholesterol ratio benefit",
+          "interpretation": "For angptl4 (triglyceride:hdl cholesterol ratio), your ANGPTL4 variant is one contributing factor — homozygous for the gwas protective allele at angptl4",
+          "recommendations": [
+            "Favorable ANGPTL4 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs2859337": {
+      "gene": "EDN1",
+      "name": "EDN1 (high density lipoprotein cholesterol)",
+      "displayName": "EDN1 – high density lipoprotein cholesterol",
+      "category": "cardiometabolic",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "high density lipoprotein cholesterol measurement",
+      "gwas_domain": "cardiovascular",
+      "gwas_p": 4e-15,
+      "gwas_n": 394642,
+      "interpretations": {
+        "AA": {
+          "effect": "Common genotype — standard high density lipoprotein cholesterol",
+          "interpretation": "For edn1 (high density lipoprotein cholesterol), your EDN1 variant is one contributing factor — common genotype for high density lipoprotein cholesterol at edn1; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard high density lipoprotein cholesterol management applies"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "One EDN1 protective allele — strong high density lipoprotein cholesterol benefit",
+          "interpretation": "For edn1 (high density lipoprotein cholesterol), your EDN1 variant is one contributing factor — one copy of the gwas-identified protective allele for high density lipoprotein cholesterol",
+          "recommendations": [
+            "One protective EDN1 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Homozygous EDN1 protective allele — maximum high density lipoprotein cholesterol benefit",
+          "interpretation": "For edn1 (high density lipoprotein cholesterol), your EDN1 variant is one contributing factor — homozygous for the gwas protective allele at edn1",
+          "recommendations": [
+            "Favorable EDN1 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs4970836": {
+      "gene": "CELSR2",
+      "name": "CELSR2 (total cholesterol)",
+      "displayName": "CELSR2 – total cholesterol",
+      "category": "cardiometabolic",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "total cholesterol measurement",
+      "gwas_domain": "cardiovascular",
+      "gwas_p": 0,
+      "gwas_n": 507850,
+      "interpretations": {
+        "GG": {
+          "effect": "Common genotype — standard total cholesterol",
+          "interpretation": "For celsr2 (total cholesterol), your CELSR2 variant is one contributing factor — common genotype for total cholesterol at celsr2; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard total cholesterol management applies"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "One CELSR2 protective allele — strong total cholesterol benefit",
+          "interpretation": "For celsr2 (total cholesterol), your CELSR2 variant is one contributing factor — one copy of the gwas-identified protective allele for total cholesterol",
+          "recommendations": [
+            "One protective CELSR2 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Homozygous CELSR2 protective allele — maximum total cholesterol benefit",
+          "interpretation": "For celsr2 (total cholesterol), your CELSR2 variant is one contributing factor — homozygous for the gwas protective allele at celsr2",
+          "recommendations": [
+            "Favorable CELSR2 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs964184": {
+      "gene": "ZPR1",
+      "name": "ZPR1 (triglyceride, phospholipid level)",
+      "displayName": "ZPR1 – triglyceride, phospholipid level",
+      "category": "cardiometabolic",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "triglyceride measurement, phospholipid level",
+      "gwas_domain": "cardiovascular",
+      "gwas_p": 0,
+      "gwas_n": 120241,
+      "interpretations": {
+        "TT": {
+          "effect": "Common genotype — standard triglyceride, phospholipid level",
+          "interpretation": "For zpr1 (triglyceride, phospholipid level), your ZPR1 variant is one contributing factor — common genotype for triglyceride, phospholipid level at zpr1; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard triglyceride, phospholipid level management applies"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "One ZPR1 protective allele — strong triglyceride, phospholipid level benefit",
+          "interpretation": "For zpr1 (triglyceride, phospholipid level), your ZPR1 variant is one contributing factor — one copy of the gwas-identified protective allele for triglyceride, phospholipid level",
+          "recommendations": [
+            "One protective ZPR1 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Homozygous ZPR1 protective allele — maximum triglyceride, phospholipid level benefit",
+          "interpretation": "For zpr1 (triglyceride, phospholipid level), your ZPR1 variant is one contributing factor — homozygous for the gwas protective allele at zpr1",
+          "recommendations": [
+            "Favorable ZPR1 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs4299376": {
+      "gene": "ABCG8",
+      "name": "ABCG8 (non-high density lipoprotein cholesterol)",
+      "displayName": "ABCG8 – non-high density lipoprotein cholesterol",
+      "category": "cardiometabolic",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "non-high density lipoprotein cholesterol measurement",
+      "gwas_domain": "cardiovascular",
+      "gwas_p": 2e-258,
+      "gwas_n": 1320016,
+      "interpretations": {
+        "AA": {
+          "effect": "Common genotype — standard non-high density lipoprotein cholesterol",
+          "interpretation": "For abcg8 (non-high density lipoprotein cholesterol), your ABCG8 variant is one contributing factor — common genotype for non-high density lipoprotein cholesterol at abcg8; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard non-high density lipoprotein cholesterol management applies"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "One ABCG8 protective allele — strong non-high density lipoprotein cholesterol benefit",
+          "interpretation": "For abcg8 (non-high density lipoprotein cholesterol), your ABCG8 variant is one contributing factor — one copy of the gwas-identified protective allele for non-high density lipoprotein cholesterol",
+          "recommendations": [
+            "One protective ABCG8 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Homozygous ABCG8 protective allele — maximum non-high density lipoprotein cholesterol benefit",
+          "interpretation": "For abcg8 (non-high density lipoprotein cholesterol), your ABCG8 variant is one contributing factor — homozygous for the gwas protective allele at abcg8",
+          "recommendations": [
+            "Favorable ABCG8 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs12643599": {
+      "gene": "GUCY1A1",
+      "name": "GUCY1A1 (systolic blood pressure)",
+      "displayName": "GUCY1A1 – systolic blood pressure",
+      "category": "cardiometabolic",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "systolic blood pressure",
+      "gwas_domain": "cardiovascular",
+      "gwas_p": 3e-24,
+      "gwas_n": 507850,
+      "interpretations": {
+        "GG": {
+          "effect": "Common genotype — standard systolic blood pressure",
+          "interpretation": "For gucy1a1 (systolic blood pressure), your GUCY1A1 variant is one contributing factor — common genotype for systolic blood pressure at gucy1a1; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard systolic blood pressure management applies"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "One GUCY1A1 protective allele — strong systolic blood pressure benefit",
+          "interpretation": "For gucy1a1 (systolic blood pressure), your GUCY1A1 variant is one contributing factor — one copy of the gwas-identified protective allele for systolic blood pressure",
+          "recommendations": [
+            "One protective GUCY1A1 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Homozygous GUCY1A1 protective allele — maximum systolic blood pressure benefit",
+          "interpretation": "For gucy1a1 (systolic blood pressure), your GUCY1A1 variant is one contributing factor — homozygous for the gwas protective allele at gucy1a1",
+          "recommendations": [
+            "Favorable GUCY1A1 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs10260606": {
+      "gene": "NPC1L1",
+      "name": "NPC1L1 (low density lipoprotein cholesterol)",
+      "displayName": "NPC1L1 – low density lipoprotein cholesterol",
+      "category": "cardiometabolic",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "low density lipoprotein cholesterol measurement",
+      "gwas_domain": "cardiovascular",
+      "gwas_p": 4e-31,
+      "gwas_n": 343621,
+      "interpretations": {
+        "TT": {
+          "effect": "Common genotype — standard low density lipoprotein cholesterol",
+          "interpretation": "For npc1l1 (low density lipoprotein cholesterol), your NPC1L1 variant is one contributing factor — common genotype for low density lipoprotein cholesterol at npc1l1; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard low density lipoprotein cholesterol management applies"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "One NPC1L1 protective allele — strong low density lipoprotein cholesterol benefit",
+          "interpretation": "For npc1l1 (low density lipoprotein cholesterol), your NPC1L1 variant is one contributing factor — one copy of the gwas-identified protective allele for low density lipoprotein cholesterol",
+          "recommendations": [
+            "One protective NPC1L1 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Homozygous NPC1L1 protective allele — maximum low density lipoprotein cholesterol benefit",
+          "interpretation": "For npc1l1 (low density lipoprotein cholesterol), your NPC1L1 variant is one contributing factor — homozygous for the gwas protective allele at npc1l1",
+          "recommendations": [
+            "Favorable NPC1L1 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs6453131": {
+      "gene": "HMGCR",
+      "name": "HMGCR (total cholesterol)",
+      "displayName": "HMGCR – total cholesterol",
+      "category": "cardiometabolic",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "total cholesterol measurement",
+      "gwas_domain": "cardiovascular",
+      "gwas_p": 0,
+      "gwas_n": 507850,
+      "interpretations": {
+        "CC": {
+          "effect": "Common genotype — standard total cholesterol",
+          "interpretation": "For hmgcr (total cholesterol), your HMGCR variant is one contributing factor — common genotype for total cholesterol at hmgcr; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard total cholesterol management applies"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "One HMGCR protective allele — strong total cholesterol benefit",
+          "interpretation": "For hmgcr (total cholesterol), your HMGCR variant is one contributing factor — one copy of the gwas-identified protective allele for total cholesterol",
+          "recommendations": [
+            "One protective HMGCR allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Homozygous HMGCR protective allele — maximum total cholesterol benefit",
+          "interpretation": "For hmgcr (total cholesterol), your HMGCR variant is one contributing factor — homozygous for the gwas protective allele at hmgcr",
+          "recommendations": [
+            "Favorable HMGCR variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs4986970": {
+      "gene": "LCAT",
+      "name": "LCAT (total lipids in large LDL)",
+      "displayName": "LCAT – total lipids in large LDL",
+      "category": "cardiometabolic",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "total lipids in large LDL",
+      "gwas_domain": "cardiovascular",
+      "gwas_p": 4e-83,
+      "gwas_n": 434646,
+      "interpretations": {
+        "CC": {
+          "effect": "Common genotype — standard total lipids in large LDL",
+          "interpretation": "For lcat (total lipids in large ldl), your LCAT variant is one contributing factor — common genotype for total lipids in large ldl at lcat; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard total lipids in large LDL management applies"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "One LCAT protective allele — strong total lipids in large LDL benefit",
+          "interpretation": "For lcat (total lipids in large ldl), your LCAT variant is one contributing factor — one copy of the gwas-identified protective allele for total lipids in large ldl",
+          "recommendations": [
+            "One protective LCAT allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Homozygous LCAT protective allele — maximum total lipids in large LDL benefit",
+          "interpretation": "For lcat (total lipids in large ldl), your LCAT variant is one contributing factor — homozygous for the gwas protective allele at lcat",
+          "recommendations": [
+            "Favorable LCAT variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs775677524": {
+      "gene": "ANGPTL3",
+      "name": "ANGPTL3 (cholesterol to total lipids in small HDL)",
+      "displayName": "ANGPTL3 – cholesterol to total lipids in small HDL percentag",
+      "category": "cardiometabolic",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "cholesterol to total lipids in small HDL percentage",
+      "gwas_domain": "cardiovascular",
+      "gwas_p": 0,
+      "gwas_n": 434646,
+      "interpretations": {
+        "GG": {
+          "effect": "Common genotype — standard cholesterol to total lipids in small HDL percentage",
+          "interpretation": "For angptl3 (cholesterol to total lipids in small hdl), your ANGPTL3 variant is one contributing factor — common genotype for cholesterol to total lipids in small hdl percentage at angptl3; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard cholesterol to total lipids in small HDL percentage management applies"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "One ANGPTL3 protective allele — strong cholesterol to total lipids in small HDL percentage benefit",
+          "interpretation": "For angptl3 (cholesterol to total lipids in small hdl), your ANGPTL3 variant is one contributing factor — one copy of the gwas-identified protective allele for cholesterol to total lipids in small hdl percentage",
+          "recommendations": [
+            "One protective ANGPTL3 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Homozygous ANGPTL3 protective allele — maximum cholesterol to total lipids in small HDL percentage benefit",
+          "interpretation": "For angptl3 (cholesterol to total lipids in small hdl), your ANGPTL3 variant is one contributing factor — homozygous for the gwas protective allele at angptl3",
+          "recommendations": [
+            "Favorable ANGPTL3 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs7116797": {
+      "gene": "APOA1",
+      "name": "APOA1 (diastolic blood pressure)",
+      "displayName": "APOA1 – diastolic blood pressure",
+      "category": "cardiometabolic",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 3,
+      "gwas": true,
+      "gwas_trait": "diastolic blood pressure",
+      "gwas_domain": "cardiovascular",
+      "gwas_p": 2e-9,
+      "gwas_n": 295529,
+      "interpretations": {
+        "GG": {
+          "effect": "Common genotype — standard diastolic blood pressure",
+          "interpretation": "For apoa1 (diastolic blood pressure), your APOA1 variant is one contributing factor — common genotype for diastolic blood pressure at apoa1; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard diastolic blood pressure management applies"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "One APOA1 protective allele — strong diastolic blood pressure benefit",
+          "interpretation": "For apoa1 (diastolic blood pressure), your APOA1 variant is one contributing factor — one copy of the gwas-identified protective allele for diastolic blood pressure",
+          "recommendations": [
+            "One protective APOA1 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Homozygous APOA1 protective allele — maximum diastolic blood pressure benefit",
+          "interpretation": "For apoa1 (diastolic blood pressure), your APOA1 variant is one contributing factor — homozygous for the gwas protective allele at apoa1",
+          "recommendations": [
+            "Favorable APOA1 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs71655999": {
+      "gene": "SORT1",
+      "name": "SORT1 (low density lipoprotein cholesterol)",
+      "displayName": "SORT1 – low density lipoprotein cholesterol",
+      "category": "cardiometabolic",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "low density lipoprotein cholesterol measurement",
+      "gwas_domain": "cardiovascular",
+      "gwas_p": 2e-20,
+      "gwas_n": 341875,
+      "interpretations": {
+        "CC": {
+          "effect": "Common genotype — standard low density lipoprotein cholesterol",
+          "interpretation": "For sort1 (low density lipoprotein cholesterol), your SORT1 variant is one contributing factor — common genotype for low density lipoprotein cholesterol at sort1; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard low density lipoprotein cholesterol management applies"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "One SORT1 protective allele — strong low density lipoprotein cholesterol benefit",
+          "interpretation": "For sort1 (low density lipoprotein cholesterol), your SORT1 variant is one contributing factor — one copy of the gwas-identified protective allele for low density lipoprotein cholesterol",
+          "recommendations": [
+            "One protective SORT1 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Homozygous SORT1 protective allele — maximum low density lipoprotein cholesterol benefit",
+          "interpretation": "For sort1 (low density lipoprotein cholesterol), your SORT1 variant is one contributing factor — homozygous for the gwas protective allele at sort1",
+          "recommendations": [
+            "Favorable SORT1 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs111617668": {
+      "gene": "ABCG5",
+      "name": "ABCG5 (triglycerides to total lipids in small V)",
+      "displayName": "ABCG5 – triglycerides to total lipids in small VLDL percen",
+      "category": "cardiometabolic",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "triglycerides to total lipids in small VLDL percentage",
+      "gwas_domain": "cardiovascular",
+      "gwas_p": 5e-31,
+      "gwas_n": 434646,
+      "interpretations": {
+        "CC": {
+          "effect": "Common genotype — standard triglycerides to total lipids in small VLDL percentage",
+          "interpretation": "For abcg5 (triglycerides to total lipids in small v), your ABCG5 variant is one contributing factor — common genotype for triglycerides to total lipids in small vldl percentage at abcg5; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard triglycerides to total lipids in small VLDL percentage management applies"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "One ABCG5 protective allele — strong triglycerides to total lipids in small VLDL percentage benefit",
+          "interpretation": "For abcg5 (triglycerides to total lipids in small v), your ABCG5 variant is one contributing factor — one copy of the gwas-identified protective allele for triglycerides to total lipids in small vldl percentage",
+          "recommendations": [
+            "One protective ABCG5 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Homozygous ABCG5 protective allele — maximum triglycerides to total lipids in small VLDL percentage benefit",
+          "interpretation": "For abcg5 (triglycerides to total lipids in small v), your ABCG5 variant is one contributing factor — homozygous for the gwas protective allele at abcg5",
+          "recommendations": [
+            "Favorable ABCG5 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs28551743": {
+      "gene": "CYP11B1",
+      "name": "CYP11B1 (diastolic blood pressure)",
+      "displayName": "CYP11B1 – diastolic blood pressure",
+      "category": "cardiometabolic",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "diastolic blood pressure",
+      "gwas_domain": "cardiovascular",
+      "gwas_p": 3e-14,
+      "gwas_n": 526001,
+      "interpretations": {
+        "GG": {
+          "effect": "Common genotype — standard diastolic blood pressure",
+          "interpretation": "For cyp11b1 (diastolic blood pressure), your CYP11B1 variant is one contributing factor — common genotype for diastolic blood pressure at cyp11b1; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard diastolic blood pressure management applies"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "One CYP11B1 protective allele — strong diastolic blood pressure benefit",
+          "interpretation": "For cyp11b1 (diastolic blood pressure), your CYP11B1 variant is one contributing factor — one copy of the gwas-identified protective allele for diastolic blood pressure",
+          "recommendations": [
+            "One protective CYP11B1 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Homozygous CYP11B1 protective allele — maximum diastolic blood pressure benefit",
+          "interpretation": "For cyp11b1 (diastolic blood pressure), your CYP11B1 variant is one contributing factor — homozygous for the gwas protective allele at cyp11b1",
+          "recommendations": [
+            "Favorable CYP11B1 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs564427867": {
+      "gene": "PCSK9",
+      "name": "PCSK9 – Likely pathogenic variant",
+      "displayName": "PCSK9 Likely pathogenic",
+      "category": "cardiometabolic",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 1,
+      "clinvar": true,
+      "clinvar_sig": "Likely pathogenic",
+      "clinvar_review": "multiple submitters",
+      "interpretations": {
+        "GG": {
+          "effect": "No PCSK9 pathogenic variant at this position",
+          "interpretation": "Reference genotype — this position does not carry the known PCSK9 Likely pathogenic variant linked to Familial hypercholesterolemia (gain-of-function)",
+          "recommendations": [
+            "No action needed for this specific variant"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "PCSK9 Likely pathogenic carrier — Familial hypercholesterolemia (gain-of-function)",
+          "interpretation": "Heterozygous Likely pathogenic variant in PCSK9, linked to Homozygous familial hypercholesterolemia,PCSK9-related disorder,,Familial hypercholesterolemia,Hypercholesterolemia, autosomal dominant, 3,Cardiovascular phenotype,Hypercholesterolemia, familial, 1 This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss with a genetic counselor or medical geneticist urgently",
+            "Discuss Familial hypercholesterolemia (gain-of-function) screening and prevention with your physician",
+            "Consider informing first-degree relatives who may benefit from testing"
+          ],
+          "priority": "high"
+        },
+        "AA": {
+          "effect": "PCSK9 Likely pathogenic — homozygous, Familial hypercholesterolemia (gain-of-function)",
+          "interpretation": "For pcsk9 – likely pathogenic variant, your PCSK9 variant is one contributing factor — homozygous likely pathogenic variant in pcsk9 This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Urgent: Discuss with a genetic counselor or medical geneticist",
+            "Immediate clinical evaluation for Familial hypercholesterolemia (gain-of-function)"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs28942111": {
+      "gene": "PCSK9",
+      "name": "PCSK9 – Likely pathogenic variant",
+      "displayName": "PCSK9 Likely pathogenic",
+      "category": "cardiometabolic",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 1,
+      "clinvar": true,
+      "clinvar_sig": "Likely pathogenic",
+      "clinvar_review": "multiple submitters",
+      "interpretations": {
+        "TT": {
+          "effect": "No PCSK9 pathogenic variant at this position",
+          "interpretation": "Reference genotype — this position does not carry the known PCSK9 Likely pathogenic variant linked to Familial hypercholesterolemia (gain-of-function)",
+          "recommendations": [
+            "No action needed for this specific variant"
+          ],
+          "priority": "low"
+        },
+        "AT": {
+          "effect": "PCSK9 Likely pathogenic carrier — Familial hypercholesterolemia (gain-of-function)",
+          "interpretation": "Heterozygous Likely pathogenic variant in PCSK9, linked to Familial hypercholesterolemia,Hypercholesterolemia, familial, 1,Hypercholesterolemia, autosomal dominant, 3 This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss with a genetic counselor or medical geneticist urgently",
+            "Discuss Familial hypercholesterolemia (gain-of-function) screening and prevention with your physician",
+            "Consider informing first-degree relatives who may benefit from testing"
+          ],
+          "priority": "high"
+        },
+        "AA": {
+          "effect": "PCSK9 Likely pathogenic — homozygous, Familial hypercholesterolemia (gain-of-function)",
+          "interpretation": "For pcsk9 – likely pathogenic variant, your PCSK9 variant is one contributing factor — homozygous likely pathogenic variant in pcsk9 This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Urgent: Discuss with a genetic counselor or medical geneticist",
+            "Immediate clinical evaluation for Familial hypercholesterolemia (gain-of-function)"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs794728683": {
+      "gene": "PCSK9",
+      "name": "PCSK9 – Likely pathogenic variant",
+      "displayName": "PCSK9 Likely pathogenic",
+      "category": "cardiometabolic",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 1,
+      "clinvar": true,
+      "clinvar_sig": "Likely pathogenic",
+      "clinvar_review": "multiple submitters",
+      "interpretations": {
+        "GG": {
+          "effect": "No PCSK9 pathogenic variant at this position",
+          "interpretation": "Reference genotype — this position does not carry the known PCSK9 Likely pathogenic variant linked to Familial hypercholesterolemia (gain-of-function)",
+          "recommendations": [
+            "No action needed for this specific variant"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "PCSK9 Likely pathogenic carrier — Familial hypercholesterolemia (gain-of-function)",
+          "interpretation": "Heterozygous Likely pathogenic variant in PCSK9, linked to Cardiovascular phenotype,,Homozygous familial hypercholesterolemia,Familial hypercholesterolemia,Hypercholesterolemia, familial, 1,Hypercholesterolemia, autosomal dominant, 3 This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss with a genetic counselor or medical geneticist urgently",
+            "Discuss Familial hypercholesterolemia (gain-of-function) screening and prevention with your physician",
+            "Consider informing first-degree relatives who may benefit from testing"
+          ],
+          "priority": "high"
+        },
+        "AA": {
+          "effect": "PCSK9 Likely pathogenic — homozygous, Familial hypercholesterolemia (gain-of-function)",
+          "interpretation": "For pcsk9 – likely pathogenic variant, your PCSK9 variant is one contributing factor — homozygous likely pathogenic variant in pcsk9 This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Urgent: Discuss with a genetic counselor or medical geneticist",
+            "Immediate clinical evaluation for Familial hypercholesterolemia (gain-of-function)"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs137852912": {
+      "gene": "PCSK9",
+      "name": "PCSK9 – Likely pathogenic variant",
+      "displayName": "PCSK9 Likely pathogenic",
+      "category": "cardiometabolic",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 1,
+      "clinvar": true,
+      "clinvar_sig": "Likely pathogenic",
+      "clinvar_review": "multiple submitters",
+      "interpretations": {
+        "GG": {
+          "effect": "No PCSK9 pathogenic variant at this position",
+          "interpretation": "Reference genotype — this position does not carry the known PCSK9 Likely pathogenic variant linked to Familial hypercholesterolemia (gain-of-function)",
+          "recommendations": [
+            "No action needed for this specific variant"
+          ],
+          "priority": "low"
+        },
+        "GT": {
+          "effect": "PCSK9 Likely pathogenic carrier — Familial hypercholesterolemia (gain-of-function)",
+          "interpretation": "Heterozygous Likely pathogenic variant in PCSK9, linked to Familial hypercholesterolemia,Hypercholesterolemia, familial, 1,Hypercholesterolemia, autosomal dominant, 3,Cardiovascular phenotype This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss with a genetic counselor or medical geneticist urgently",
+            "Discuss Familial hypercholesterolemia (gain-of-function) screening and prevention with your physician",
+            "Consider informing first-degree relatives who may benefit from testing"
+          ],
+          "priority": "high"
+        },
+        "TT": {
+          "effect": "PCSK9 Likely pathogenic — homozygous, Familial hypercholesterolemia (gain-of-function)",
+          "interpretation": "For pcsk9 – likely pathogenic variant, your PCSK9 variant is one contributing factor — homozygous likely pathogenic variant in pcsk9 This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Urgent: Discuss with a genetic counselor or medical geneticist",
+            "Immediate clinical evaluation for Familial hypercholesterolemia (gain-of-function)"
+          ],
+          "priority": "high"
+        }
+      }
+    }
+  }
+}

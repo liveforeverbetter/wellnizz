@@ -1,0 +1,931 @@
+{
+  "version": "2.0.0",
+  "updated": "2026-07-20",
+  "description": "Brain function, personality, mood, sleep, and behavioral tendencies",
+  "markers": {
+    "rs1801260": {
+      "gene": "CLOCK",
+      "name": "T3111C",
+      "category": "cognitive",
+      "chrom": "4",
+      "pos": 56294068,
+      "display": "CLOCK T3111C",
+      "interpretations": {
+        "TT": {
+          "effect": "Reference circadian rhythm",
+          "interpretation": "For t3111c, your CLOCK variant is one contributing factor — normal clock function - typical sleep-wake cycle",
+          "recommendations": [
+            "Standard sleep hygiene"
+          ],
+          "priority": "low"
+        },
+        "TC": {
+          "effect": "Intermediate",
+          "interpretation": "For t3111c, your CLOCK variant is one contributing factor — some evening preference possible",
+          "recommendations": [
+            "Be mindful of sleep timing",
+            "Morning light exposure"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Evening preference",
+          "interpretation": "C allele linked to delayed sleep phase, longer sleep duration",
+          "recommendations": [
+            "Adjust schedule to natural tendencies where possible",
+            "Evening chronotype common"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs2304672": {
+      "gene": "PER2",
+      "name": "T>C",
+      "category": "cognitive",
+      "chrom": "1",
+      "pos": 78885106,
+      "display": "PER2 T>C",
+      "interpretations": {
+        "TT": {
+          "effect": "Normal circadian",
+          "interpretation": "For t>c, your PER2 variant is one contributing factor — standard circadian rhythm",
+          "recommendations": [
+            "Consistent sleep schedule"
+          ],
+          "priority": "low"
+        },
+        "TC": {
+          "effect": "Intermediate",
+          "interpretation": "For t>c, your PER2 variant is one contributing factor — some alteration in circadian period",
+          "recommendations": [
+            "Maintain regular sleep-wake times"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Altered circadian",
+          "interpretation": "For t>c, your PER2 variant is one contributing factor — may have longer circadian period, morning person tendency",
+          "recommendations": [
+            "Bright light exposure in morning helpful"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 3
+    },
+    "rs4680": {
+      "gene": "COMT",
+      "name": "Val158Met",
+      "category": "cognitive",
+      "chrom": "22",
+      "pos": 19951271,
+      "display": "COMT Val158Met",
+      "interpretations": {
+        "GG": {
+          "effect": "Fast COMT (Warrior)",
+          "interpretation": "For val158met, your COMT variant is one contributing factor — rapid dopamine breakdown - stress resilient, better working memory under pressure",
+          "recommendations": [
+            "Higher stress tolerance",
+            "Good performance under pressure",
+            "Standard stimulant response"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "Intermediate COMT",
+          "interpretation": "For val158met, your COMT variant is one contributing factor — balanced dopamine levels - moderate stress response",
+          "recommendations": [
+            "Moderate approach to stimulants and stress",
+            "Mindful of caffeine intake"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Slow COMT (Worrier)",
+          "interpretation": "For val158met, your COMT variant is one contributing factor — slow dopamine breakdown - higher baseline dopamine, sensitive to stress This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Mindful caffeine intake",
+            "Prioritize relaxation techniques",
+            "Meditation beneficial"
+          ],
+          "priority": "medium",
+          "supplements": [
+            {
+              "compound": "L-Theanine",
+              "dosage": "100-200mg",
+              "timing": "morning",
+              "brands": [
+                "NOW Foods",
+                "Thorne",
+                "Life Extension"
+              ]
+            },
+            {
+              "compound": "Magnesium Glycinate",
+              "dosage": "200-400mg",
+              "timing": "night",
+              "brands": [
+                "Thorne",
+                "Pure Encapsulations",
+                "NOW Foods"
+              ]
+            }
+          ],
+          "theWhy": "Your COMT variant means dopamine clears more slowly, leaving you more sensitive to stress and stimulants",
+          "scienceSimplified": "Your body's stress-response system stays active longer due to slower dopamine processing"
+        },
+        "G/A": {
+          "effect": "Variant in COMT",
+          "interpretation": "Your COMT genotype is one of several genetic factors linked to val158met. Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of COMT in val158met",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "bibliography": [
+        "Chen J, Song J, Yuan P, et al. Orientation and cellular distribution of membrane-bound catechol-Omethyltransferase in cortical neurons: implications for drug development. J Biol Chem. 2011 Oct",
+        "7;286(40):34752-60.",
+        "Morris KA, Grace SA, Woods W, et al. The influence of COMT rs4680 on functional connectivity in healthy",
+        "adults: A systematic review. Eur J Neurosci. 2020 Oct;52(8):3851-3878.",
+        "Munafò MR, Johnstone EC, Guo B, et al. Association of COMT Val108/158Met genotype with smoking",
+        "cessation. Pharmacogenet Genomics. 2008 Feb;18(2):121-8.",
+        "Serrano JM, Banks JB, Fagan TJ, et al. The influence of Val158Met COMT on physiological stress",
+        "responsivity. Stress. 2019 Mar;22(2):276-279.",
+        "Smith SB, Reenilä I, Männistö PT, et al. Epistasis between polymorphisms in COMT, ESR1, and GCH1",
+        "influences COMT enzyme activity and pain. Pain. 2014 Nov;155(11):2390-9."
+      ],
+      "technical_report": "Among the polymorphisms described in COMT, Val158Met, also known as V158M, c.472,\nG>A or rs4680, stands out.G>A or rs4680. This is a common variant, present in 50% of\nCaucasians, which produces a change of an amino acid valine (Val) to a methionine (Met) at\ncodon 158 resulting in a less stable enzyme with three to four times lower reduced activity\ncompared to non-carriers of the variant (Val/Val genotype). The A allele (Met) is associated\nwith lower COMT activity resulting in increased dopamine levels at neuronal synapses,\nprimarily in the prefrontal cortex (Smith et al., 2014). Val158Met and antidepressant response: since the COMT enzyme is involved in the\nresponse to antidepressant treatment, it was initially thought that the GG genotype (Val/Val)\nwas likely to influence the antidepressant response to selective serotonin reuptake\ninhibitors or SSRIs. However, in more recent studies it has not been possible to confirm this\nassociation in different populations so its clinical application is not yet possible. Val158Met and the treatment of low back pain (morphine, opioids, remifentanil and\npropranolol): According to several studies, patients with the GG genotype (Val/Val) who\nreceive treatment with opioids for pain may present a lower response to morphine, opioids,\nremifentanil and propranolol compared to patients with the AG (Met/Val) and AA (Met/Met)\ngenotype. However, more studies are needed and there is no consensus on its usefulness in\n\n\fclinical practice. Other genetic and clinical factors may also influence a patient's opioid\ndose and response. Val158Met and smoking cessation treatment: Dopamine is a neurotransmitter linked to\nnicotine addiction. The Val158Met polymorphism has been extensively researched for its influence\non the effectiveness of pharmacological treatments for smoking cessation and its potential\nrelationship to smoking addiction. Patients with the GG (Val/Val) genotype who are treated\nwith nicotine replacement therapy may have a lower likelihood of smoking cessation and a\nhigher risk of relapse compared to patients with the AA (Met/Met) genotype (Munafò et al.,\n2008). However, it is suggested that genetic and clinical factors may also influence patient\nresponse to nicotine replacement therapy. Val158Met and human behavior: The \"warrior/worrier\" model refers to how different\nvariants of the COMT gene can influence a person's behavior and emotional regulation. This\nmodel primarily examines the Val158Met polymorphism of the COMT gene, which has a\nmarked effect on the activity of the enzyme. In healthy adults, free of psychiatric or\nneurological disorders, the G (Val) allele is associated with lower synaptic dopamine levels\nand lower postsynaptic activity resulting in improved stress resilience, a higher pain\nthreshold and slightly diminished executive cognitive performance. Whereas the presence of\nan A (Met) allele predicts a lower pain threshold, increased vulnerability to stress and\nanxiety, and greater efficiency in information processing. COMT studies are an active field\nof research, and results are sometimes contradictory or not fully replicable because of the\ninteraction between multiple genes and environmental factors (Morris et al., 2020). Val158Met and disease: multiple studies have linked the Val158Met variant as a possible\nrisk factor for schizophrenia, bipolar disorder, panic disorder, anxiety, obsessive-compulsive\ndisorder, eating disorders, and attention deficit hyperactivity disorder. Studies suggest that\nthese conditions can be related to inefficient information processing in the prefrontal\ncortex. However, it is important to consider that these disorders are complex and influenced\nby multiple risk factors.",
+      "description": "Gene COMT\nThe COMT gene is expressed in the brain where it plays a fundamental role in the regulation\nof neurotransmitters such as dopamine and is also found in other tissues such as liver,\nkidneys and blood where it participates in the control of the levels of certain hormones."
+    },
+    "rs6265": {
+      "gene": "BDNF",
+      "name": "Val66Met",
+      "category": "cognitive",
+      "chrom": "11",
+      "pos": 27679916,
+      "display": "BDNF Val66Met",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal BDNF secretion",
+          "interpretation": "For val66met, your BDNF variant is one contributing factor — full brain-derived neurotrophic factor function - efficient activity-dependent release",
+          "recommendations": [
+            "Standard cognitive function",
+            "Normal memory consolidation"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Reduced BDNF",
+          "interpretation": "Met carrier - altered activity-dependent BDNF secretion, affects memory consolidation This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Regular aerobic exercise boosts BDNF",
+            "Omega-3 supplementation may help",
+            "Cognitive exercises"
+          ],
+          "priority": "medium"
+        },
+        "TT": {
+          "effect": "Significantly reduced",
+          "interpretation": "Met/Met - altered neuroplasticity, lower hippocampal function This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Prioritize regular exercise",
+            "Memory training activities",
+            "Consider omega-3s"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3
+    },
+    "rs1800544": {
+      "gene": "ADRA2A",
+      "name": "C-1291G",
+      "category": "cognitive",
+      "chrom": "10",
+      "pos": 112837647,
+      "display": "ADRA2A C-1291G",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal adrenergic receptor function",
+          "interpretation": "For c-1291g, your ADRA2A variant is one contributing factor — standard alpha-2a receptor expression - normal stress response",
+          "recommendations": [
+            "Standard stress management"
+          ],
+          "priority": "low"
+        },
+        "GC": {
+          "effect": "Intermediate",
+          "interpretation": "For c-1291g, your ADRA2A variant is one contributing factor — altered receptor expression may affect stress and blood pressure regulation",
+          "recommendations": [
+            "Track stress response",
+            "Blood pressure awareness"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Increased receptor expression",
+          "interpretation": "May have elevated stress reactivity, higher baseline anxiety This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Stress management techniques particularly important",
+            "Consider relaxation practices"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3
+    },
+    "rs7794745": {
+      "gene": "SLC6A4",
+      "name": "5-HTTLPR",
+      "category": "cognitive",
+      "chrom": "17",
+      "pos": 28563676,
+      "display": "SLC6A4 5-HTTLPR",
+      "interpretations": {
+        "AA": {
+          "effect": "High serotonin transporter expression",
+          "interpretation": "For 5-httlpr, your SLC6A4 variant is one contributing factor — long allele homozygote - efficient serotonin reuptake, resilience to stress",
+          "recommendations": [
+            "Standard stress resilience",
+            "Normal SSRI response expected"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "Intermediate expression",
+          "interpretation": "For 5-httlpr, your SLC6A4 variant is one contributing factor — heterozygous - moderate serotonin transporter activity",
+          "recommendations": [
+            "Moderate stress sensitivity",
+            "Mindfulness practices beneficial"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Reduced transporter expression",
+          "interpretation": "Short allele homozygote - lower serotonin reuptake, elevated anxiety vulnerability This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Higher stress sensitivity",
+            "Meditation and CBT particularly beneficial",
+            "May have slower SSRI response"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3
+    },
+    "rs6313": {
+      "gene": "HTR2A",
+      "name": "His452Tyr",
+      "category": "cognitive",
+      "chrom": "13",
+      "pos": 46887000,
+      "display": "HTR2A His452Tyr",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal HTR2A function",
+          "interpretation": "For his452tyr, your HTR2A variant is one contributing factor — standard serotonin 2a receptor function",
+          "recommendations": [
+            "Standard serotonin-related health"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Altered receptor",
+          "interpretation": "For his452tyr, your HTR2A variant is one contributing factor — may affect serotonin signaling and psychiatric medication response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Awareness of psychiatric medication sensitivity",
+            "Some atypical antipsychotics may be more effective"
+          ],
+          "priority": "medium"
+        },
+        "TT": {
+          "effect": "Significantly altered",
+          "interpretation": "May notably affect serotonin signaling, altered medication response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss with before starting serotonin medications",
+            "Different atypical antipsychotic response"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3
+    },
+    "rs2839940": {
+      "gene": "CYP2D6",
+      "name": "*41",
+      "category": "cognitive",
+      "chrom": "22",
+      "pos": 42526844,
+      "display": "CYP2D6 *41",
+      "interpretations": {
+        "TT": {
+          "effect": "Normal CYP2D6",
+          "interpretation": "For *41, your CYP2D6 variant is one contributing factor — normal function affects cns medications",
+          "recommendations": [
+            "Standard response to CNS drugs metabolized by CYP2D6"
+          ],
+          "priority": "low"
+        },
+        "TC": {
+          "effect": "Reduced CYP2D6",
+          "interpretation": "lower metabolism of some psychiatric medications This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "May have altered response to certain antidepressants, opioids"
+          ],
+          "priority": "medium"
+        },
+        "CC": {
+          "effect": "Poor metabolizer",
+          "interpretation": "notably lower CYP2D6 activity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Many psychiatric medications affected",
+            "Discuss with physician"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs1800497": {
+      "gene": "ANKK1",
+      "name": "Taq1A",
+      "category": "cognitive",
+      "chrom": "11",
+      "pos": 113270828,
+      "display": "ANKK1 Taq1A",
+      "tag": "ℹ️ Research Context",
+      "interpretations": {
+        "GG": {
+          "effect": "No A1 allele detected",
+          "interpretation": "For taq1a, your ANKK1 variant is one contributing factor — this is the common genotype at the ankk1 taq1a marker",
+          "recommendations": [
+            "Do not use this genotype to predict behavior or substance-use risk"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "One A1 allele",
+          "interpretation": "One A1 allele has been linked to lower striatal dopamine D2/3 receptor availability in some healthy-control imaging studies",
+          "recommendations": [
+            "Base behavioral or substance-use decisions on personal history and clinical assessment, not this marker"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Two A1 alleles",
+          "interpretation": "For taq1a, your ANKK1 variant is one contributing factor — two a1 alleles are uncommon",
+          "recommendations": [
+            "Do not interpret this genotype as an addiction diagnosis or personality profile"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "reviewedAt": "2026-07-19",
+        "genomeBuild": "GRCh37",
+        "referenceAllele": "G",
+        "commonAlleles": [
+          "G",
+          "A"
+        ],
+        "sources": [
+          {
+            "id": "ensembl-grch37-rs1800497",
+            "label": "Ensembl GRCh37 variant record",
+            "url": "https://grch37.ensembl.org/Homo_sapiens/Variation/Explore?v=rs1800497",
+            "type": "variant_identity"
+          },
+          {
+            "id": "PMID:26926883",
+            "label": "Taq1A and striatal dopamine receptor binding meta-analysis",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/26926883/",
+            "type": "systematic_review"
+          },
+          {
+            "id": "PMID:31702801",
+            "label": "Taq1A addiction association re-evaluation",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/31702801/",
+            "type": "primary_study"
+          }
+        ],
+        "limitations": [
+          "Evidence for addiction and behavioral outcomes is inconsistent and not clinically predictive.",
+          "This locus is in ANKK1 and should not be presented as a deterministic DRD2 personality test."
+        ]
+      }
+    },
+    "rs6295": {
+      "gene": "HTR1A",
+      "name": "C-1019G",
+      "category": "cognitive",
+      "chrom": "5",
+      "pos": 147965176,
+      "display": "HTR1A C-1019G",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal HTR1A",
+          "interpretation": "For c-1019g, your HTR1A variant is one contributing factor — standard serotonin receptor 1a expression",
+          "recommendations": [
+            "Standard stress response"
+          ],
+          "priority": "low"
+        },
+        "CG": {
+          "effect": "Intermediate",
+          "interpretation": "For c-1019g, your HTR1A variant is one contributing factor — one copy - may affect antidepressant response",
+          "recommendations": [
+            "May respond differently to some SSRIs"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Altered HTR1A",
+          "interpretation": "G allele linked to elevated risk of depression and suicide This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Stress management important",
+            "Consider CBT",
+            "Track mental health"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3
+    },
+    "rs6323": {
+      "gene": "MAOA",
+      "name": "u VNTR",
+      "category": "cognitive",
+      "chrom": "X",
+      "pos": 43245376,
+      "display": "MAOA uVNTR",
+      "interpretations": {
+        "3": {
+          "effect": "Low MAOA activity",
+          "interpretation": "For u vntr, your MAOA variant is one contributing factor — 3-repeat allele - lower enzyme activity, less efficient dopamine/serotonin breakdown This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Be aware of mood fluctuations",
+            "Stress management helps"
+          ],
+          "priority": "medium"
+        },
+        "4": {
+          "effect": "High MAOA activity",
+          "interpretation": "For u vntr, your MAOA variant is one contributing factor — 4-repeat allele - higher enzyme activity, efficient neurotransmitter breakdown",
+          "recommendations": [
+            "Standard dopamine/serotonin metabolism"
+          ],
+          "priority": "low"
+        },
+        "5": {
+          "effect": "Very high MAOA",
+          "interpretation": "For u vntr, your MAOA variant is one contributing factor — 5-repeat allele - highest activity, rapid neurotransmitter breakdown",
+          "recommendations": [
+            "Standard mental health outlook"
+          ],
+          "priority": "low"
+        },
+        "3.5": {
+          "effect": "Intermediate",
+          "interpretation": "For u vntr, your MAOA variant is one contributing factor — intermediate activity",
+          "recommendations": [
+            "Standard mental health maintenance"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 3
+    },
+    "rs4570625": {
+      "gene": "TPH2",
+      "name": "G-703T",
+      "category": "cognitive",
+      "chrom": "12",
+      "pos": 72188966,
+      "display": "TPH2 G-703T",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal TPH2",
+          "interpretation": "For g-703t, your TPH2 variant is one contributing factor — standard tryptophan hydroxylase 2 - normal serotonin synthesis",
+          "recommendations": [
+            "Standard mood regulation"
+          ],
+          "priority": "low"
+        },
+        "GT": {
+          "effect": "Intermediate",
+          "interpretation": "One copy - may have slightly lower brain serotonin",
+          "recommendations": [
+            "Omega-3 and tryptophan support may help"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Reduced serotonin",
+          "interpretation": "linked to lower brain serotonin and mood disorder susceptibility This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Prioritize mood-supporting lifestyle",
+            "Consider amino acid support",
+            "Track for mood changes"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3
+    },
+    "rs27072": {
+      "gene": "SLC6A3",
+      "name": "DAT1 VNTR",
+      "category": "cognitive",
+      "chrom": "5",
+      "pos": 144915714,
+      "display": "DAT1 VNTR",
+      "interpretations": {
+        "10/10": {
+          "effect": "Normal dopamine transport",
+          "interpretation": "For dat1 vntr, your SLC6A3 variant is one contributing factor — 10-repeat homozygote - standard dopamine reuptake",
+          "recommendations": [
+            "Standard reward and attention function"
+          ],
+          "priority": "low"
+        },
+        "9/10": {
+          "effect": "Intermediate",
+          "interpretation": "One 9-copy allele - slightly elevated dopamine in synapse",
+          "recommendations": [
+            "May have slightly higher attention span"
+          ],
+          "priority": "low"
+        },
+        "9/9": {
+          "effect": "Increased synaptic dopamine",
+          "interpretation": "9-repeat homozygote - lower dopamine reuptake, more dopamine in synapse This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "May have better attention but also higher hyperactivity risk"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3
+    },
+    "rs53576": {
+      "gene": "OXTR",
+      "name": "A>G",
+      "category": "cognitive",
+      "chrom": "3",
+      "pos": 8804371,
+      "display": "OXTR oxytocin receptor",
+      "interpretations": {
+        "GG": {
+          "effect": "Higher OXTR expression",
+          "interpretation": "For a>g, your OXTR variant is one contributing factor — optimal oxytocin receptor sensitivity — enhanced empathy, social reward, and stress buffering from positive relationships; lower cortisol response to psychosocial stress",
+          "recommendations": [
+            "Social connection is a key health lever for your genotype",
+            "Relationship quality strongly predicts health outcomes for GG carriers",
+            "Oxytocin-boosting activities: physical affection, group exercise, shared meals"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "Intermediate OXTR sensitivity",
+          "interpretation": "For a>g, your OXTR variant is one contributing factor — moderate oxytocin receptor expression — standard social bonding with some stress buffering capacity",
+          "recommendations": [
+            "Cultivate close social relationships as part of health strategy"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Lower OXTR expression",
+          "interpretation": "lower oxytocin receptor sensitivity — less social buffering of stress, stronger cortisol response to social stressors, loneliness has a larger impact on health outcomes This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Actively cultivate close relationships and community — the health impact of loneliness is larger for AA carriers",
+            "Mindfulness and compassion practices may compensate for lower social buffering",
+            "Outdoor and group exercise more beneficial than solo training"
+          ],
+          "priority": "medium",
+          "scienceSimplified": "Your oxytocin system is wired to be less reactive to social signals, which means the stress-buffering effect of relationships is less automatic — you benefit most from deliberately building social infrastructure"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs324420": {
+      "gene": "FAAH",
+      "name": "Pro129Thr (C385A)",
+      "category": "cognitive",
+      "chrom": "1",
+      "pos": 46893629,
+      "display": "FAAH endocannabinoid system",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal FAAH activity",
+          "interpretation": "For pro129thr (c385a), your FAAH variant is one contributing factor — standard endocannabinoid tone — normal anandamide breakdown, typical fear memory strength and stress reactivity",
+          "recommendations": [
+            "Standard anxiety management: exercise, sleep, mindfulness"
+          ],
+          "priority": "low"
+        },
+        "AC": {
+          "effect": "Reduced FAAH activity",
+          "interpretation": "For pro129thr (c385a), your FAAH variant is one contributing factor — moderately elevated endocannabinoid levels — somewhat blunted stress response, easier fear extinction",
+          "recommendations": [
+            "Likely lower baseline anxiety than CC carriers",
+            "CBD supplementation has less added effect at moderate doses"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Markedly reduced FAAH activity (bliss molecule effect)",
+          "interpretation": "Persistently elevated anandamide (the 'bliss molecule') — notably lower anxiety, stronger natural fear extinction, more resilient stress response, better placebo response; linked to lower endocannabinoid-related pain",
+          "recommendations": [
+            "Your endocannabinoid system already runs at high tone — CBD supplementation redundant at typical doses",
+            "Exercise amplifies this advantage (exercise-induced anandamide surge)",
+            "Focus on fear memory extinction through exposure to novelty and challenge"
+          ],
+          "priority": "low",
+          "scienceSimplified": "Your FAAH enzyme breaks down anandamide slowly — anandamide is your body's natural cannabis-like molecule that reduces anxiety and fear. You have a naturally elevated baseline of it."
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs701492": {
+      "gene": "CRHR1",
+      "name": "A>G",
+      "category": "cognitive",
+      "chrom": "17",
+      "pos": 43696601,
+      "display": "CRHR1 Stress Hormone Receptor",
+      "evidenceTier": 2,
+      "interpretations": {
+        "GG": {
+          "effect": "CRH receptor variant — altered HPA axis stress reactivity",
+          "interpretation": "Corticotropin-releasing hormone receptor 1 variant — linked to elevated risk for depression and anxiety under adversity; stress-sensitization phenotype; altered CRH receptor feedback This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Stress resilience training is especially high-ROI: regular mindfulness, HRV biofeedback",
+            "CRH system is calmed by exercise — 150+ min/week aerobic is the most potent HPA axis regulator",
+            "Cognitive behavioral therapy shown to be more effective in CRHR1 risk genotypes (biological basis for resilience building)",
+            "Avoid chronic stress exposure; prioritize psychological safety in work/relationships"
+          ],
+          "priority": "moderate"
+        },
+        "AG": {
+          "effect": "Intermediate CRHR1 sensitivity",
+          "interpretation": "For a>g, your CRHR1 variant is one contributing factor — one variant allele — moderate hpa axis stress reactivity",
+          "recommendations": [
+            "Stress management practices and aerobic exercise beneficial"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Normal CRHR1 signaling",
+          "interpretation": "For a>g, your CRHR1 variant is one contributing factor — wild-type crh receptor — standard stress hormone feedback response",
+          "recommendations": [
+            "Standard stress management"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs1051004": {
+      "gene": "NET1",
+      "name": "A>G",
+      "category": "cognitive",
+      "chrom": "16",
+      "pos": 55813091,
+      "display": "NET1 Norepinephrine Transporter",
+      "evidenceTier": 2,
+      "interpretations": {
+        "GG": {
+          "effect": "Higher norepinephrine transporter expression — more efficient NE reuptake",
+          "interpretation": "Faster norepinephrine clearance from synapses — lower noradrenergic tone; linked to lower reactivity to stress, calmer baseline state, potentially reduced ADHD symptoms",
+          "recommendations": [
+            "Lower noradrenergic tone can mean lower alertness/drive in some contexts — aerobic exercise compensates",
+            "Caffeine and stimulant ergogenic effects may be reduced (lower NE target availability)"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "Intermediate NET1 expression",
+          "interpretation": "For a>g, your NET1 variant is one contributing factor — moderate norepinephrine reuptake efficiency",
+          "recommendations": [
+            "Standard neurological health practices"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Lower NET1 expression — slower NE reuptake",
+          "interpretation": "Slower norepinephrine reuptake — elevated noradrenergic tone; linked to higher stress reactivity, better fight-or-flight response, and greater alertness/arousal",
+          "recommendations": [
+            "Higher noradrenergic tone benefits from stress management training",
+            "HRV biofeedback and mindfulness directly downregulate NE system overactivation"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs1861435": {
+      "gene": "STRN",
+      "name": "STRN (brain attribute)",
+      "displayName": "STRN – brain attribute",
+      "category": "cognitive",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "brain attribute",
+      "gwas_domain": "brain_cognitive",
+      "gwas_p": 5e-177,
+      "gwas_n": 33748,
+      "interpretations": {
+        "GG": {
+          "effect": "Common genotype — baseline brain attribute",
+          "interpretation": "For strn (brain attribute), your STRN variant is one contributing factor — most common genotype for brain attribute at strn locus; no elevated gwas risk signal",
+          "recommendations": [
+            "No action needed — favorable common genotype"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "One STRN risk allele — strong brain attribute association",
+          "interpretation": "For strn (brain attribute), your STRN variant is one contributing factor — carrier of one gwas-identified risk allele for brain attribute This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Awareness of modest brain attribute risk variant; standard screening applies"
+          ],
+          "priority": "medium"
+        },
+        "AA": {
+          "effect": "Homozygous STRN risk allele — elevated brain attribute",
+          "interpretation": "Homozygous for the GWAS risk allele linked to brain attribute This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss STRN GWAS finding with a healthcare provider",
+            "Track brain attribute via regular checkups"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs1953352": {
+      "gene": "KTN1",
+      "name": "KTN1 (brain attribute)",
+      "displayName": "KTN1 – brain attribute",
+      "category": "cognitive",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "brain attribute",
+      "gwas_domain": "brain_cognitive",
+      "gwas_p": 5e-324,
+      "gwas_n": 34794,
+      "interpretations": {
+        "TT": {
+          "effect": "Common genotype at KTN1",
+          "interpretation": "For ktn1 (brain attribute), your KTN1 variant is one contributing factor — common genotype at the ktn1 gwas locus for brain attribute",
+          "recommendations": [
+            "No action needed"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Heterozygous at KTN1 — associated with brain attribute",
+          "interpretation": "For ktn1 (brain attribute), your KTN1 variant is one contributing factor — carrier of one gwas-significant allele at ktn1 (n=34,794, p=5e-324)",
+          "recommendations": [
+            "Heterozygous KTN1 variant; moderate attention warranted"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Homozygous effect allele at KTN1 — brain attribute association",
+          "interpretation": "For ktn1 (brain attribute), your KTN1 variant is one contributing factor — homozygous for effect allele at ktn1 This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Note KTN1 variant for brain attribute; discuss with healthcare provider"
+          ],
+          "priority": "medium"
+        }
+      }
+    },
+    "rs9616947": {
+      "gene": "SHANK3",
+      "name": "SHANK3 (self reported educational attainment)",
+      "displayName": "SHANK3 – self reported educational attainment",
+      "category": "cognitive",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "self reported educational attainment",
+      "gwas_domain": "brain_cognitive",
+      "gwas_p": 2e-20,
+      "gwas_n": 1311438,
+      "interpretations": {
+        "CC": {
+          "effect": "Common genotype — standard self reported educational attainment",
+          "interpretation": "For shank3 (self reported educational attainment), your SHANK3 variant is one contributing factor — common genotype for self reported educational attainment at shank3; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard self reported educational attainment management applies"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "One SHANK3 protective allele — strong self reported educational attainment benefit",
+          "interpretation": "For shank3 (self reported educational attainment), your SHANK3 variant is one contributing factor — one copy of the gwas-identified protective allele for self reported educational attainment",
+          "recommendations": [
+            "One protective SHANK3 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Homozygous SHANK3 protective allele — maximum self reported educational attainment benefit",
+          "interpretation": "For shank3 (self reported educational attainment), your SHANK3 variant is one contributing factor — homozygous for the gwas protective allele at shank3",
+          "recommendations": [
+            "Favorable SHANK3 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs62140599": {
+      "gene": "NRXN1",
+      "name": "NRXN1 (educational attainment)",
+      "displayName": "NRXN1 – educational attainment",
+      "category": "cognitive",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "educational attainment",
+      "gwas_domain": "brain_cognitive",
+      "gwas_p": 1e-35,
+      "gwas_n": 3037499,
+      "interpretations": {
+        "GG": {
+          "effect": "Common genotype — standard educational attainment",
+          "interpretation": "For nrxn1 (educational attainment), your NRXN1 variant is one contributing factor — common genotype for educational attainment at nrxn1; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard educational attainment management applies"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "One NRXN1 protective allele — strong educational attainment benefit",
+          "interpretation": "For nrxn1 (educational attainment), your NRXN1 variant is one contributing factor — one copy of the gwas-identified protective allele for educational attainment",
+          "recommendations": [
+            "One protective NRXN1 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Homozygous NRXN1 protective allele — maximum educational attainment benefit",
+          "interpretation": "For nrxn1 (educational attainment), your NRXN1 variant is one contributing factor — homozygous for the gwas protective allele at nrxn1",
+          "recommendations": [
+            "Favorable NRXN1 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs6474359": {
+      "gene": "BDNF",
+      "name": "C270T",
+      "category": "cognitive",
+      "chrom": "11",
+      "pos": 27715706,
+      "display": "BDNF C270T",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal BDNF",
+          "interpretation": "For c270t, your BDNF variant is one contributing factor — standard brain-derived neurotrophic factor",
+          "recommendations": [
+            "Standard cognitive health"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Slightly altered BDNF",
+          "interpretation": "One copy - may have slightly lower activity",
+          "recommendations": [
+            "Regular aerobic exercise",
+            "Omega-3 supplementation"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Reduced BDNF",
+          "interpretation": "Homozygous - lower neuroplasticity and cognitive reserve This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Prioritize regular exercise",
+            "Cognitive stimulation activities",
+            "Consider omega-3s"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2
+    }
+  }
+}

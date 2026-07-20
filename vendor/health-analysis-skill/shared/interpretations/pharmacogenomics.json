@@ -1,0 +1,2558 @@
+{
+  "version": "2.0.0",
+  "updated": "2026-07-20",
+  "description": "Drug efficacy, metabolism, dosage guidance, and adverse reaction risk",
+  "markers": {
+    "rs12248560": {
+      "gene": "CYP2C19",
+      "name": "*17 (c.-806C>T)",
+      "category": "pharmacogenomics",
+      "chrom": "10",
+      "pos": 96521657,
+      "display": "CYP2C19 *17",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal activity",
+          "interpretation": "For *17 (c.-806c>t), your CYP2C19 variant is one contributing factor — standard cyp2c19 promoter — normal enzyme expression",
+          "recommendations": [
+            "Standard drug dosing"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Rapid metabolizer",
+          "interpretation": "elevated CYP2C19 expression — faster drug clearance This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Standard dosing",
+            "Track for reduced PPI efficacy"
+          ],
+          "priority": "medium"
+        },
+        "TT": {
+          "effect": "Ultrarapid metabolizer",
+          "interpretation": "notably elevated CYP2C19 — very rapid drug clearance This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "May need higher PPI doses",
+            "Track therapeutic efficacy"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs4244285": {
+      "gene": "CYP2C19",
+      "name": "*2 (c.681G>A)",
+      "category": "pharmacogenomics",
+      "chrom": "10",
+      "pos": 96541616,
+      "display": "CYP2C19 *2",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal metabolizer",
+          "interpretation": "For *2 (c.681g>a), your CYP2C19 variant is one contributing factor — standard cyp2c19 activity — normal clopidogrel activation",
+          "recommendations": [
+            "Standard clopidogrel dosing",
+            "Standard PPI metabolism"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Intermediate metabolizer",
+          "interpretation": "lower CYP2C19 activity — lower clopidogrel active metabolite This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Consider alternative antiplatelet",
+            "Dose-adjust PPIs metabolized by CYP2C19"
+          ],
+          "priority": "high"
+        },
+        "AA": {
+          "effect": "Poor metabolizer",
+          "interpretation": "Severely lower CYP2C19 — clopidogrel ineffective This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Use alternative antiplatelet required",
+            "Prasugrel, ticagrelor worth considering"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs28399504": {
+      "gene": "CYP2C19",
+      "name": "*4",
+      "category": "pharmacogenomics",
+      "chrom": "10",
+      "pos": 96523525,
+      "display": "CYP2C19 *4",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal metabolizer",
+          "interpretation": "For *4, your CYP2C19 variant is one contributing factor — no *4 allele - standard function",
+          "recommendations": [
+            "Standard dosing"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Intermediate metabolizer",
+          "interpretation": "For *4, your CYP2C19 variant is one contributing factor — heterozygous *4 allele This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Track drug response",
+            "May need dose adjustment"
+          ],
+          "priority": "medium"
+        },
+        "AA": {
+          "effect": "Poor metabolizer",
+          "interpretation": "For *4, your CYP2C19 variant is one contributing factor — homozygous *4 - no functional enzyme This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Avoid CYP2C19 substrate drugs",
+            "Discuss with pharmacogenomics specialist"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs41243324": {
+      "gene": "CYP2C19",
+      "name": "*9",
+      "category": "pharmacogenomics",
+      "chrom": "10",
+      "pos": 96540616,
+      "display": "CYP2C19 *9",
+      "interpretations": {
+        "AA": {
+          "effect": "Normal metabolizer",
+          "interpretation": "For *9, your CYP2C19 variant is one contributing factor — no *9 allele",
+          "recommendations": [
+            "Standard dosing"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "Intermediate metabolizer",
+          "interpretation": "Heterozygous *9 - mildly lower function",
+          "recommendations": [
+            "Standard caution with narrow therapeutic drugs"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Reduced metabolizer",
+          "interpretation": "Homozygous *9 - lower CYP2C19 activity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Track for drug accumulation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs3892097": {
+      "gene": "CYP2D6",
+      "name": "*4",
+      "category": "pharmacogenomics",
+      "chrom": "22",
+      "pos": 42523259,
+      "display": "CYP2D6 *4",
+      "interpretations": {
+        "AA": {
+          "effect": "Normal metabolizer",
+          "interpretation": "For *4, your CYP2D6 variant is one contributing factor — no *4 allele - standard cyp2d6 function",
+          "recommendations": [
+            "Standard drug metabolism"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "Intermediate metabolizer",
+          "interpretation": "Heterozygous *4 - lower enzyme activity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "May have reduced response to codeine/oxycodone",
+            "Track for drug effects"
+          ],
+          "priority": "medium"
+        },
+        "GG": {
+          "effect": "Poor metabolizer",
+          "interpretation": "Homozygous *4 - notably altered drug metabolism This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Avoid codeine for pain relief",
+            "Many psychiatric drugs affected",
+            "Discuss with physician"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs5030655": {
+      "gene": "CYP2D6",
+      "name": "*3",
+      "category": "pharmacogenomics",
+      "chrom": "22",
+      "pos": 42523233,
+      "display": "CYP2D6 *3",
+      "interpretations": {
+        "TT": {
+          "effect": "Normal metabolizer",
+          "interpretation": "For *3, your CYP2D6 variant is one contributing factor — no *3 allele",
+          "recommendations": [
+            "Standard drug metabolism"
+          ],
+          "priority": "low"
+        },
+        "Tdel": {
+          "effect": "Poor metabolizer",
+          "interpretation": "For *3, your CYP2D6 variant is one contributing factor — *3 causes frameshift - no functional enzyme This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Avoid codeine",
+            "Many psychiatric medications affected"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs5030656": {
+      "gene": "CYP2D6",
+      "name": "*6",
+      "category": "pharmacogenomics",
+      "chrom": "22",
+      "pos": 42524925,
+      "display": "CYP2D6 *6",
+      "interpretations": {
+        "TT": {
+          "effect": "Normal metabolizer",
+          "interpretation": "For *6, your CYP2D6 variant is one contributing factor — no *6 allele",
+          "recommendations": [
+            "Standard drug metabolism"
+          ],
+          "priority": "low"
+        },
+        "Tdel": {
+          "effect": "Poor metabolizer",
+          "interpretation": "For *6, your CYP2D6 variant is one contributing factor — *6 causes frameshift - no functional enzyme This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Avoid codeine",
+            "Discuss with physician for medication choices"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs1065852": {
+      "gene": "CYP2D6",
+      "name": "*10",
+      "category": "pharmacogenomics",
+      "chrom": "22",
+      "pos": 42523268,
+      "display": "CYP2D6 *10",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal metabolizer",
+          "interpretation": "For *10, your CYP2D6 variant is one contributing factor — no *10 allele",
+          "recommendations": [
+            "Standard drug metabolism"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Intermediate metabolizer",
+          "interpretation": "lower CYP2D6 activity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "May have reduced response to some drugs",
+            "Track closely"
+          ],
+          "priority": "medium"
+        },
+        "AA": {
+          "effect": "Poor metabolizer",
+          "interpretation": "Homozygous *10 - lower enzyme activity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Dose adjustments needed for many medications"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs2012825": {
+      "gene": "CYP2D6",
+      "name": "*41",
+      "category": "pharmacogenomics",
+      "chrom": "22",
+      "pos": 42526844,
+      "display": "CYP2D6 *41",
+      "interpretations": {
+        "TT": {
+          "effect": "Normal metabolizer",
+          "interpretation": "For *41, your CYP2D6 variant is one contributing factor — no *41 allele",
+          "recommendations": [
+            "Standard drug metabolism"
+          ],
+          "priority": "low"
+        },
+        "TC": {
+          "effect": "Intermediate metabolizer",
+          "interpretation": "*41 - splice site variant with lower function This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Consider dose adjustments",
+            "Avoid prodrugs like codeine"
+          ],
+          "priority": "medium"
+        },
+        "CC": {
+          "effect": "Poor metabolizer",
+          "interpretation": "Homozygous *41 - altered CYP2D6 function This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Multiple drug metabolism affected",
+            "Discuss with physician"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs1799853": {
+      "gene": "CYP2C9",
+      "name": "*2 (c.430C>T)",
+      "category": "pharmacogenomics",
+      "chrom": "10",
+      "pos": 96702047,
+      "display": "CYP2C9 *2",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal metabolizer",
+          "interpretation": "For *2 (c.430c>t), your CYP2C9 variant is one contributing factor — standard cyp2c9 activity — normal warfarin metabolism",
+          "recommendations": [
+            "Standard warfarin dosing based on clinical factors"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Intermediate metabolizer",
+          "interpretation": "lower warfarin clearance ~30% — elevated bleeding risk This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Reduce warfarin starting dose 20-30%",
+            "Track INR closely"
+          ],
+          "priority": "high"
+        },
+        "TT": {
+          "effect": "Poor metabolizer",
+          "interpretation": "Severely lower warfarin clearance — high bleeding risk This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Reduce warfarin dose 40-50%",
+            "Consider alternative anticoagulant"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs1057910": {
+      "gene": "CYP2C9",
+      "name": "*3 (c.1075A>C)",
+      "category": "pharmacogenomics",
+      "chrom": "10",
+      "pos": 96741053,
+      "display": "CYP2C9 *3",
+      "interpretations": {
+        "AA": {
+          "effect": "Normal metabolizer",
+          "interpretation": "For *3 (c.1075a>c), your CYP2C9 variant is one contributing factor — standard cyp2c9 activity",
+          "recommendations": [
+            "Standard warfarin dosing"
+          ],
+          "priority": "low"
+        },
+        "AC": {
+          "effect": "Intermediate metabolizer",
+          "interpretation": "notably lower warfarin clearance This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Reduce warfarin starting dose 20-30%",
+            "Track INR closely"
+          ],
+          "priority": "high"
+        },
+        "CC": {
+          "effect": "Poor metabolizer",
+          "interpretation": "For *3 (c.1075a>c), your CYP2C9 variant is one contributing factor — very low cyp2c9 activity — severe warfarin sensitivity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Reduce warfarin dose 40-50%",
+            "Strongly consider alternative anticoagulant"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs2740574": {
+      "gene": "CYP3A4",
+      "name": "*1B",
+      "category": "pharmacogenomics",
+      "chrom": "7",
+      "pos": 99382079,
+      "display": "CYP3A4 *1B",
+      "interpretations": {
+        "AA": {
+          "effect": "Reference metabolizer",
+          "interpretation": "For *1b, your CYP3A4 variant is one contributing factor — standard cyp3a4 activity",
+          "recommendations": [
+            "Standard drug metabolism"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "Increased expression",
+          "interpretation": "*1B promoter variant - elevated enzyme production",
+          "recommendations": [
+            "May have faster clearance of CYP3A4 substrates"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Increased expression",
+          "interpretation": "Homozygous for elevated expression variant",
+          "recommendations": [
+            "May need higher doses for some drugs"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs35599367": {
+      "gene": "CYP3A4",
+      "name": "*22",
+      "category": "pharmacogenomics",
+      "chrom": "7",
+      "pos": 99366316,
+      "display": "CYP3A4 *22",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal metabolizer",
+          "interpretation": "For *22, your CYP3A4 variant is one contributing factor — no *22 allele - standard cyp3a4 function",
+          "recommendations": [
+            "Standard drug metabolism"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Intermediate metabolizer",
+          "interpretation": "lower CYP3A4 activity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "May need lower doses of some drugs"
+          ],
+          "priority": "medium"
+        },
+        "TT": {
+          "effect": "Poor metabolizer",
+          "interpretation": "Homozygous *22 - notably lower CYP3A4 This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Reduced clearance of many drugs",
+            "Dose adjustments needed"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs776746": {
+      "gene": "CYP3A5",
+      "name": "*3",
+      "category": "pharmacogenomics",
+      "chrom": "7",
+      "pos": 99262839,
+      "display": "CYP3A5 *3",
+      "interpretations": {
+        "AA": {
+          "effect": "CYP3A5 expressor",
+          "interpretation": "For *3, your CYP3A5 variant is one contributing factor — can express cyp3a5 enzyme - normal metabolism of tacrolimus, sirolimus This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Standard tacrolimus dosing may be effective"
+          ],
+          "priority": "medium"
+        },
+        "AG": {
+          "effect": "Intermediate expressor",
+          "interpretation": "For *3, your CYP3A5 variant is one contributing factor — some cyp3a5 expression This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "May need dose adjustments for calcineurin inhibitors"
+          ],
+          "priority": "medium"
+        },
+        "GG": {
+          "effect": "Non-expressor",
+          "interpretation": "For *3, your CYP3A5 variant is one contributing factor — cannot express functional cyp3a5 - relies on cyp3a4 only",
+          "recommendations": [
+            "Standard CYP3A4-based dosing for immunosuppressants"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs41383333": {
+      "gene": "CYP3A5",
+      "name": "*6",
+      "category": "pharmacogenomics",
+      "chrom": "7",
+      "pos": 99270505,
+      "display": "CYP3A5 *6",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal metabolizer",
+          "interpretation": "For *6, your CYP3A5 variant is one contributing factor — no *6 allele",
+          "recommendations": [
+            "Standard drug metabolism"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Intermediate",
+          "interpretation": "One *6 copy - lower expression This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Track tacrolimus levels closely"
+          ],
+          "priority": "medium"
+        },
+        "AA": {
+          "effect": "Poor expressor",
+          "interpretation": "For *6, your CYP3A5 variant is one contributing factor — homozygous *6 - no functional cyp3a5 This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Use CYP3A4-based dosing calculations"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs55951658": {
+      "gene": "CYP3A5",
+      "name": "*7",
+      "category": "pharmacogenomics",
+      "chrom": "7",
+      "pos": 99248742,
+      "display": "CYP3A5 *7",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal metabolizer",
+          "interpretation": "For *7, your CYP3A5 variant is one contributing factor — no *7 allele",
+          "recommendations": [
+            "Standard drug metabolism"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Intermediate",
+          "interpretation": "For *7, your CYP3A5 variant is one contributing factor — one *7 copy - aberrant splicing This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Track drug levels"
+          ],
+          "priority": "medium"
+        },
+        "TT": {
+          "effect": "Non-expressor",
+          "interpretation": "For *7, your CYP3A5 variant is one contributing factor — homozygous *7 - no cyp3a5 expression This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Use standard CYP3A4-based dosing"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs1801280": {
+      "gene": "NAT2",
+      "name": "*4",
+      "category": "pharmacogenomics",
+      "chrom": "8",
+      "pos": 18298234,
+      "display": "NAT2 *4 (341T>C)",
+      "interpretations": {
+        "TT": {
+          "effect": "Fast acetylator",
+          "interpretation": "For *4, your NAT2 variant is one contributing factor — rapid drug and chemical metabolism",
+          "recommendations": [
+            "Standard isoniazid/sulfonamide response"
+          ],
+          "priority": "low"
+        },
+        "TC": {
+          "effect": "Intermediate acetylator",
+          "interpretation": "For *4, your NAT2 variant is one contributing factor — moderate drug clearance rate",
+          "recommendations": [
+            "Most people are intermediate acetylators"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Fast acetylator",
+          "interpretation": "For *4, your NAT2 variant is one contributing factor — rapid acetylator phenotype",
+          "recommendations": [
+            "May need more frequent dosing for some drugs"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs1799929": {
+      "gene": "NAT2",
+      "name": "*5",
+      "category": "pharmacogenomics",
+      "chrom": "8",
+      "pos": 18297777,
+      "display": "NAT2 *5 (481T>G)",
+      "interpretations": {
+        "TT": {
+          "effect": "Normal acetylator",
+          "interpretation": "For *5, your NAT2 variant is one contributing factor — no *5 allele",
+          "recommendations": [
+            "Standard drug metabolism"
+          ],
+          "priority": "low"
+        },
+        "TG": {
+          "effect": "Intermediate acetylator",
+          "interpretation": "lower NAT2 activity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Track isoniazid toxicity",
+            "Slower drug clearance"
+          ],
+          "priority": "medium"
+        },
+        "GG": {
+          "effect": "Slow acetylator",
+          "interpretation": "Homozygous *5 - notably lower acetylator capacity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Increased risk of isoniazid peripheral neuropathy",
+            "Consider pyridoxine supplementation"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs1801279": {
+      "gene": "NAT2",
+      "name": "*7",
+      "category": "pharmacogenomics",
+      "chrom": "8",
+      "pos": 18314572,
+      "display": "NAT2 *7 (857G>A)",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal acetylator",
+          "interpretation": "For *7, your NAT2 variant is one contributing factor — no *7 allele",
+          "recommendations": [
+            "Standard drug metabolism"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Intermediate acetylator",
+          "interpretation": "One *7 copy - lower function This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Track drug response"
+          ],
+          "priority": "medium"
+        },
+        "AA": {
+          "effect": "Slow acetylator",
+          "interpretation": "Homozygous *7 - altered acetylation This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Slow drug clearance",
+            "Extended drug effects and toxicities"
+          ],
+          "priority": "medium"
+        },
+        "G/G": {
+          "effect": "Typical NAT2 function",
+          "interpretation": "Your NAT2 genotype is the most common form in reference populations. This does not rule out *7 risk from other genes, environmental exposures, or rare variants not covered by standard genotyping.",
+          "recommendations": [
+            "No specific NAT2-directed intervention indicated, but standard health screening still applies",
+            "Other genetic and environmental factors contribute to *7 — genotype alone is not the full picture"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 1,
+      "bibliography": [
+        "Kuznetsov IB, McDuffie M, Moslehi R. A web server for inferring the human N-acetyltransferase-2 (NAT2)",
+        "enzymatic phenotype from NAT2 genotype. Bioinformatics. 2009 May 1;25(9):1185-6."
+      ],
+      "technical_report": "N-acetyltransferases, such as NAT2, are enzymes that act primarily in the liver to detoxify a\nlarge number of chemicals, including some drugs such as amifampridine. Variants in the NAT2 gene that can affect NAT2 acetylation function are important because\nof the role they play in the activation and/or deactivation of many drugs and chemicals,\nincluding those produced by tobacco, as well as drugs composed of aromatic amines and\nhydrazine that are used medicinally. In turn, the presence of deleterious polymorphisms in\nNAT2 can affect an individual's risk of cancer. Certain variants in the NAT2 gene can affect the rate and extent of amifampridine\nmetabolism. NAT2 poor metabolizers, known as slow acetylators, are those carrying two\nalleles with reduced function. In slow acetylators the drug concentrations in the body are\nhigher than in intermediate and fast acetylators, with one and two functional alleles,\nrespectively. Therefore, slow NAT2 acetylators have a higher risk of adverse effects if\ntreated with amifampridine. In the general population, the prevalence of poor metabolizers for NAT2 is 40-60% in\nCaucasian and African-American populations, and 10-30% in Asian populations.",
+      "description": "PDF\n\nAmifampridine (Dosage)\nAmifampridine is a potassium channel inhibitor drug used in the treatment of\nmyasthenic syndromes such as Lambert-Eaton syndrome. Polymorphisms\nin the NAT2 gene can determine the plasma concentrations of the drug and\nits genotyping can be useful for the adjustment of the appropriate dose.\n\nYour result is\n\nProbably rapid NAT2 acetylator. Usual dose\n\nSNP\n\nrs1801279\nGEN OR REGION\n\nNAT2\nGENOTYPE\n\nG/G\nRESULT\n\nYou do not have variant c.191G>A.\n\nSNP\n\nrs1799930\nGEN OR REGION\n\nNAT2\nGENOTYPE\n\nG/G\nRESULT\n\nYou do not have the c.590G>A variant.\n\nSNP\n\n\frs1799931\nGEN OR REGION\n\nFor obtaining your results, variants associated with drug metabolism, efficacy, response, and transport are evaluated.\nThe technique used is Whole Genome Sequencing (WGS 30x).\n\nAmifampridine is a drug that acts on the nervous system for the symptomatic treatment of\nLambert-Eaton myasthenic syndrome.\nMECHANISM OF ACTION\nAmifampridine blocks voltage-dependent potassium channels by prolonging the\ndepolarization of the presynaptic cell membrane, thus promoting calcium entry into the\nnerve ending. The resulting increase in intracellular calcium concentrations facilitates\nexocytosis of acetylcholine-containing vesicles, which in turn increases neuromuscular\ntransmission. The result is an increase in muscle strength and resting compound muscle\naction potential amplitudes.\nCONTRAINDICATIONS\nHypersensitivity to amifampridine; epileptic patients; patients with uncontrolled asthma;\npatients with congenital cardiac QT interval syndromes.\nAmifampridine is contraindicated in concomitance with sultopride, with drugs that can\nprolong QTc and with drugs with narrow therapeutic margin.\nDo not use during pregnancy. Not for use during lactation since it is not known whether\namifampridine is excreted in human breast milk.\nPRECAUTIONS\nExtreme caution should be exercised when amifampridine is prescribed in patients with\nhepatic or renal insufficiency. Caution in patients at risk of epileptic seizures: if a seizure\noccurs immediately discontinue treatment with amifampridine. A clinical and\nelectrocardiographic control should always be performed at the beginning of treatment and\nonce a year thereafter. Amifampridine is not indicated to treat children under 18 years of\nage since there are no safety and efficacy data.\nSIDE EFFECTS\nPeripheral and peribuccal paresthesias; epigastralgia, diarrhea, nausea, abdominal pain;\nsleep disorders; convulsions, anxiety, dizziness, weakness, tiredness, headache, chorea,\nmyoclonus; blurred vision; heart rhythm disturbances, palpitations; Raynaud's syndrome,\ncold extremities; cough, bronchial hypersecretion, asthma attacks in asthmatics or with a\nhistory of asthma; elevation of transaminases.\nPHARMACOLOGICAL INTERACTIONS\n\n\fAmifampridine increases the risk of seizures with: antidepressants (tricyclics, selective\nserotonin reuptake inhibitors), neuroleptics (phenothiazines and butyrophenones),\nmefloquine, bupropion, tramadol.\nAmifampridine increases the effect of direct or indirect cholinesterase inhibitors, and\ndecreases the effect of both inhibitors if amifampridine is taken concomitantly with:\nmivacurium, pipercurium, suxamethonium. Extreme precautions should be taken\nwhen administered concomitantly with drugs that are eliminated by metabolism or\nactive secretion.\nBRAND NAMES\nFirdapse®\nRusurgui®\n\nDose\nThe FDA (U.S. Food and Drug Administration) indicates in the package insert of\nRusurgui®(amifampiridine) that poor NAT2 metabolizers may present an increase in the\nsystemic concentration of amifampiridine and a higher risk of adverse effects. They\nindicate that in NAT2 poor metabolizers, the lowest recommended starting dose should be\nused and adverse reactions should be monitored."
+    },
+    "rs1208228": {
+      "gene": "NAT2",
+      "name": "*14",
+      "category": "pharmacogenomics",
+      "chrom": "8",
+      "pos": 18297971,
+      "display": "NAT2 *14",
+      "interpretations": {
+        "TT": {
+          "effect": "Normal acetylator",
+          "interpretation": "For *14, your NAT2 variant is one contributing factor — no *14 allele",
+          "recommendations": [
+            "Standard drug metabolism"
+          ],
+          "priority": "low"
+        },
+        "TC": {
+          "effect": "Intermediate",
+          "interpretation": "lower NAT2 activity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Track for drug effects"
+          ],
+          "priority": "medium"
+        },
+        "CC": {
+          "effect": "Slow acetylator",
+          "interpretation": "Homozygous *14 - lower acetylator capacity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Increased risk of drug toxicity"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs1800462": {
+      "gene": "TPMT",
+      "name": "*3B",
+      "category": "pharmacogenomics",
+      "chrom": "6",
+      "pos": 31409600,
+      "display": "TPMT *3B",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal TPMT activity",
+          "interpretation": "For *3b, your TPMT variant is one contributing factor — standard thiopurine metabolism",
+          "recommendations": [
+            "Standard azathioprine/mercaptopurine/thioguanine dosing"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Intermediate TPMT",
+          "interpretation": "Heterozygous - lower enzyme activity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Reduce thiopurine dose to 30-50%",
+            "Track for myelosuppression"
+          ],
+          "priority": "high"
+        },
+        "AA": {
+          "effect": "Absent TPMT activity",
+          "interpretation": "For *3b, your TPMT variant is one contributing factor — homozygous poor metabolizer - high risk of myelosuppression This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Avoid thiopurines at standard doses",
+            "Consider alternative immunosuppression"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs1142346": {
+      "gene": "TPMT",
+      "name": "*3C",
+      "category": "pharmacogenomics",
+      "chrom": "6",
+      "pos": 31432647,
+      "display": "TPMT *3C",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal TPMT activity",
+          "interpretation": "For *3c, your TPMT variant is one contributing factor — no *3c allele",
+          "recommendations": [
+            "Standard thiopurine dosing"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Intermediate TPMT",
+          "interpretation": "lower thiopurine metabolism This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Reduce dose significantly",
+            "Frequent blood count Tracking"
+          ],
+          "priority": "high"
+        },
+        "AA": {
+          "effect": "Poor metabolizer",
+          "interpretation": "For *3c, your TPMT variant is one contributing factor — homozygous *3c - very low enzyme activity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Avoid thiopurines or use very low doses",
+            "Alternative agents worth considering"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs1800584": {
+      "gene": "TPMT",
+      "name": "*2",
+      "category": "pharmacogenomics",
+      "chrom": "6",
+      "pos": 31409071,
+      "display": "TPMT *2",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal TPMT activity",
+          "interpretation": "For *2, your TPMT variant is one contributing factor — no *2 allele",
+          "recommendations": [
+            "Standard thiopurine dosing"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Intermediate TPMT",
+          "interpretation": "lower enzyme activity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Dose reduction required",
+            "Track CBC frequently"
+          ],
+          "priority": "high"
+        },
+        "AA": {
+          "effect": "Poor metabolizer",
+          "interpretation": "For *2, your TPMT variant is one contributing factor — homozygous *2 - absent activity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Avoid thiopurine drugs"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs3918290": {
+      "gene": "DPYD",
+      "name": "*2A (c.1905+1G>A)",
+      "category": "pharmacogenomics",
+      "chrom": "1",
+      "pos": 97915614,
+      "display": "DPYD *2A",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal DPD activity",
+          "interpretation": "For *2a (c.1905+1g>a), your DPYD variant is one contributing factor — standard fluoropyrimidine metabolism",
+          "recommendations": [
+            "Standard 5-FU/capecitabine dosing"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Intermediate DPD activity",
+          "interpretation": "lower fluorouracil clearance — elevated toxicity risk This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Reduce starting dose 50%",
+            "Track for severe toxicity"
+          ],
+          "priority": "high"
+        },
+        "AA": {
+          "effect": "Low DPD activity",
+          "interpretation": "For *2a (c.1905+1g>a), your DPYD variant is one contributing factor — severe dpd deficiency — life-threatening toxicity risk with standard doses This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Avoid fluoropyrimidines",
+            "Use alternative chemotherapy"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs55886062": {
+      "gene": "DPYD",
+      "name": "*13",
+      "category": "pharmacogenomics",
+      "chrom": "1",
+      "pos": 97540399,
+      "display": "DPYD *13",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal DPD",
+          "interpretation": "For *13, your DPYD variant is one contributing factor — no *13 allele",
+          "recommendations": [
+            "Standard fluoropyrimidine dosing"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Intermediate DPD",
+          "interpretation": "lower DPD activity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Significant dose reduction worth considering",
+            "Track closely"
+          ],
+          "priority": "high"
+        },
+        "AA": {
+          "effect": "Poor metabolizer",
+          "interpretation": "For *13, your DPYD variant is one contributing factor — homozygous *13 - complete dpd deficiency This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Avoid fluoropyrimidines"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs67376798": {
+      "gene": "DPYD",
+      "name": "*9A",
+      "category": "pharmacogenomics",
+      "chrom": "1",
+      "pos": 97547312,
+      "display": "DPYD *9A",
+      "interpretations": {
+        "TT": {
+          "effect": "Normal DPD",
+          "interpretation": "For *9a, your DPYD variant is one contributing factor — no *9a allele",
+          "recommendations": [
+            "Standard dosing"
+          ],
+          "priority": "low"
+        },
+        "TA": {
+          "effect": "Intermediate DPD",
+          "interpretation": "lower enzyme activity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Reduced starting dose",
+            "Close toxicity Tracking"
+          ],
+          "priority": "high"
+        },
+        "AA": {
+          "effect": "Poor metabolizer",
+          "interpretation": "For *9a, your DPYD variant is one contributing factor — homozygous *9a - deficient dpd This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Avoid standard fluoropyrimidine dosing"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs56038477": {
+      "gene": "DPYD",
+      "name": "*5",
+      "category": "pharmacogenomics",
+      "chrom": "1",
+      "pos": 97549245,
+      "display": "DPYD *5",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal DPD",
+          "interpretation": "For *5, your DPYD variant is one contributing factor — no *5 allele",
+          "recommendations": [
+            "Standard dosing"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Intermediate DPD",
+          "interpretation": "lower enzyme function This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Dose adjustment needed"
+          ],
+          "priority": "high"
+        },
+        "TT": {
+          "effect": "Poor metabolizer",
+          "interpretation": "For *5, your DPYD variant is one contributing factor — homozygous *5 - dpd deficiency This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Fluoropyrimidine toxicity risk - avoid standard dosing"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs4148323": {
+      "gene": "UGT1A1",
+      "name": "*28",
+      "category": "pharmacogenomics",
+      "chrom": "2",
+      "pos": 234683992,
+      "display": "UGT1A1 *28",
+      "interpretations": {
+        "AA": {
+          "effect": "Normal UGT1A1 activity",
+          "interpretation": "For *28, your UGT1A1 variant is one contributing factor — no *28 - normal bilirubin metabolism, irinotecan tolerance",
+          "recommendations": [
+            "Standard irinotecan dosing"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "Intermediate activity",
+          "interpretation": "For *28, your UGT1A1 variant is one contributing factor — heterozygous *28 - gilbert syndrome trait",
+          "recommendations": [
+            "Mild hyperbilirubinemia possible",
+            "Standard irinotecan usually tolerated"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Reduced activity",
+          "interpretation": "Homozygous *28 - Gilbert syndrome - lower irinotecan clearance This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Reduced irinotecan dose may be needed",
+            "Track bilirubin"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs34993457": {
+      "gene": "UGT1A1",
+      "name": "*6",
+      "category": "pharmacogenomics",
+      "chrom": "2",
+      "pos": 234669950,
+      "display": "UGT1A1 *6",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal metabolizer",
+          "interpretation": "For *6, your UGT1A1 variant is one contributing factor — no *6 allele",
+          "recommendations": [
+            "Standard drug metabolism"
+          ],
+          "priority": "low"
+        },
+        "CG": {
+          "effect": "Intermediate",
+          "interpretation": "lower UGT1A1 activity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Track bilirubin levels"
+          ],
+          "priority": "medium"
+        },
+        "GG": {
+          "effect": "Poor metabolizer",
+          "interpretation": "Homozygous *6 - notably lower glucuronidation This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Risk of drug toxicity",
+            "Consider dose reduction for affected drugs"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs34389590": {
+      "gene": "UGT1A1",
+      "name": "*37",
+      "category": "pharmacogenomics",
+      "chrom": "2",
+      "pos": 234683471,
+      "display": "UGT1A1 *37",
+      "interpretations": {
+        "TT": {
+          "effect": "Normal metabolizer",
+          "interpretation": "For *37, your UGT1A1 variant is one contributing factor — no *37 allele",
+          "recommendations": [
+            "Standard drug metabolism"
+          ],
+          "priority": "low"
+        },
+        "TG": {
+          "effect": "Intermediate",
+          "interpretation": "lower UGT1A1 activity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Track for drug accumulation"
+          ],
+          "priority": "medium"
+        },
+        "GG": {
+          "effect": "Poor metabolizer",
+          "interpretation": "For *37, your UGT1A1 variant is one contributing factor — homozygous *37 - crigler-najjar type ii or gilbert syndrome This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Increased risk of hyperbilirubinemia with certain drugs"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs4363657": {
+      "gene": "SLCO1B1",
+      "name": "C521T",
+      "category": "pharmacogenomics",
+      "chrom": "12",
+      "pos": 21178695,
+      "display": "SLCO1B1 C521T",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal transporter",
+          "interpretation": "For c521t, your SLCO1B1 variant is one contributing factor — no c521t variant",
+          "recommendations": [
+            "Standard statin dosing"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Intermediate",
+          "interpretation": "lower OATP1B1 activity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Increased statin plasma levels",
+            "Start with lower statin dose"
+          ],
+          "priority": "medium"
+        },
+        "TT": {
+          "effect": "Poor transporter",
+          "interpretation": "notably lower hepatic uptake - high statin levels This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Avoid high-dose statins",
+            "Increased myopathy risk"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs2303285": {
+      "gene": "SLCO1B1",
+      "name": "-3T>C",
+      "category": "pharmacogenomics",
+      "chrom": "12",
+      "pos": 21176812,
+      "display": "SLCO1B1 -3T>C",
+      "interpretations": {
+        "TT": {
+          "effect": "Normal",
+          "interpretation": "No variant",
+          "recommendations": [
+            "Standard statin response"
+          ],
+          "priority": "low"
+        },
+        "TC": {
+          "effect": "Intermediate",
+          "interpretation": "For -3t>c, your SLCO1B1 variant is one contributing factor — some reduction in transporter activity",
+          "recommendations": [
+            "Track for statin-related symptoms"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Reduced",
+          "interpretation": "For -3t>c, your SLCO1B1 variant is one contributing factor — altered transporter function This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Consider dose adjustment if symptomatic"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs2290595": {
+      "gene": "NUDT15",
+      "name": "C415G",
+      "category": "pharmacogenomics",
+      "chrom": "6",
+      "pos": 147427945,
+      "display": "NUDT15 C415G",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal NUDT15 activity",
+          "interpretation": "For c415g, your NUDT15 variant is one contributing factor — standard thiopurine metabolism",
+          "recommendations": [
+            "Standard azathioprine/mercaptopurine dosing"
+          ],
+          "priority": "low"
+        },
+        "CG": {
+          "effect": "Intermediate metabolizer",
+          "interpretation": "lower NUDT15 activity - elevated thiopurine toxicity risk This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Reduce thiopurine dose significantly",
+            "Frequent CBC Tracking"
+          ],
+          "priority": "high"
+        },
+        "GG": {
+          "effect": "Poor metabolizer",
+          "interpretation": "For c415g, your NUDT15 variant is one contributing factor — homozygous variant - high risk of severe myelosuppression This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Avoid thiopurines or use very low doses",
+            "Consider alternative immunosuppression"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs116855232": {
+      "gene": "NUDT15",
+      "name": "G36del",
+      "category": "pharmacogenomics",
+      "chrom": "6",
+      "pos": 147427929,
+      "display": "NUDT15 G36del",
+      "interpretations": {
+        "del/del": {
+          "effect": "Absent NUDT15 activity",
+          "interpretation": "For g36del, your NUDT15 variant is one contributing factor — no functional enzyme - extreme thiopurine sensitivity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Avoid thiopurines",
+            "Life-threatening myelosuppression risk"
+          ],
+          "priority": "high"
+        },
+        "C/del": {
+          "effect": "Intermediate",
+          "interpretation": "lower NUDT15 function This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Major dose reduction required",
+            "Close Tracking important"
+          ],
+          "priority": "high"
+        },
+        "CC": {
+          "effect": "Normal",
+          "interpretation": "For g36del, your NUDT15 variant is one contributing factor — no variant - standard thiopurine tolerance",
+          "recommendations": [
+            "Standard dosing"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs1045642": {
+      "gene": "ABCB1",
+      "name": "C3435T",
+      "category": "pharmacogenomics",
+      "chrom": "7",
+      "pos": 87138645,
+      "display": "ABCB1 C3435T (MDR1)",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal P-glycoprotein",
+          "interpretation": "For c3435t, your ABCB1 variant is one contributing factor — standard drug efflux transporter activity",
+          "recommendations": [
+            "Normal drug absorption for substrates"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Intermediate activity",
+          "interpretation": "Moderately lower P-gp - affects digoxin, many other drugs This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Track digoxin levels closely",
+            "May affect opioid absorption"
+          ],
+          "priority": "medium"
+        },
+        "TT": {
+          "effect": "Reduced P-glycoprotein",
+          "interpretation": "Homozygous - notably lower drug efflux This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Increased bioavailability of many drugs",
+            "Lower digoxin doses may be needed"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs2032582": {
+      "gene": "ABCB1",
+      "name": "G2677T",
+      "category": "pharmacogenomics",
+      "chrom": "7",
+      "pos": 87179618,
+      "display": "ABCB1 G2677T",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal ABCB1",
+          "interpretation": "For g2677t, your ABCB1 variant is one contributing factor — standard transporter function",
+          "recommendations": [
+            "Normal drug response"
+          ],
+          "priority": "low"
+        },
+        "GT": {
+          "effect": "Intermediate",
+          "interpretation": "For g2677t, your ABCB1 variant is one contributing factor — altered drug absorption patterns This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "May have altered response to P-gp substrates"
+          ],
+          "priority": "medium"
+        },
+        "TT": {
+          "effect": "Altered transporter",
+          "interpretation": "notably changed drug pharmacokinetics This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss with physician for drug dosing adjustments"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs7788342": {
+      "gene": "CYP2B6",
+      "name": "*6",
+      "category": "pharmacogenomics",
+      "chrom": "19",
+      "pos": 41515891,
+      "display": "CYP2B6 *6",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal metabolizer",
+          "interpretation": "For *6, your CYP2B6 variant is one contributing factor — standard cyp2b6 function",
+          "recommendations": [
+            "Standard efavirenz/methadone dosing"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Intermediate metabolizer",
+          "interpretation": "lower CYP2B6 activity - slower drug clearance This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Consider lower efavirenz doses",
+            "Track for CNS effects"
+          ],
+          "priority": "medium"
+        },
+        "AA": {
+          "effect": "Poor metabolizer",
+          "interpretation": "Homozygous *6 - notably lower enzyme activity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Reduced efavirenz dose needed",
+            "Increased CNS toxicity risk at standard doses"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs8192878": {
+      "gene": "CYP1A2",
+      "name": "*1F",
+      "category": "pharmacogenomics",
+      "chrom": "15",
+      "pos": 75041726,
+      "display": "CYP1A2 *1F (-3860G>A)",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal inducible metabolizer",
+          "interpretation": "For *1f, your CYP1A2 variant is one contributing factor — standard cyp1a2 activity and induction",
+          "recommendations": [
+            "Normal caffeine tolerance"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Increased induction",
+          "interpretation": "For *1f, your CYP1A2 variant is one contributing factor — one *1f copy - higher inducibility",
+          "recommendations": [
+            "Smokers may metabolize faster",
+            "Standard caffeine response when non-smoking"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Highly inducible",
+          "interpretation": "For *1f, your CYP1A2 variant is one contributing factor — homozygous - maximum cyp1a2 induction capacity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Smokers may need higher drug doses",
+            "Non-smokers are slow metabolizers"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs4819756": {
+      "gene": "IFNL3",
+      "name": "G>T",
+      "category": "pharmacogenomics",
+      "chrom": "19",
+      "pos": 39738680,
+      "display": "IFNL3 (IL28B) G>T",
+      "interpretations": {
+        "GG": {
+          "effect": "Favorable response",
+          "interpretation": "For g>t, your IFNL3 variant is one contributing factor — cc genotype - better response to pegylated interferon for hcv",
+          "recommendations": [
+            "Standard hepatitis C treatment likely effective"
+          ],
+          "priority": "low"
+        },
+        "GT": {
+          "effect": "Intermediate response",
+          "interpretation": "For g>t, your IFNL3 variant is one contributing factor — one copy of favorable allele This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "May have reduced treatment response",
+            "Longer treatment may be needed"
+          ],
+          "priority": "medium"
+        },
+        "TT": {
+          "effect": "Reduced response",
+          "interpretation": "For g>t, your IFNL3 variant is one contributing factor — tt genotype - poorer response to interferon-based hcv treatment This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Consider newer DAAs instead of interferon-based regimens",
+            "Extended treatment may be needed"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs11711441": {
+      "gene": "ABCB1",
+      "name": "G1199A",
+      "category": "pharmacogenomics",
+      "chrom": "7",
+      "pos": 87138618,
+      "display": "ABCB1 G1199A",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal",
+          "interpretation": "No variant",
+          "recommendations": [
+            "Standard drug absorption"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Intermediate",
+          "interpretation": "For g1199a, your ABCB1 variant is one contributing factor — altered p-gp function This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Track drug response for P-gp substrates"
+          ],
+          "priority": "medium"
+        },
+        "AA": {
+          "effect": "Altered",
+          "interpretation": "For g1199a, your ABCB1 variant is one contributing factor — modified drug transporter efficiency This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Some drugs may have altered bioavailability"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs10276036": {
+      "gene": "ABCB1",
+      "name": "10276036",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "ABCB1 — Tramadol response",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (ABCB1)",
+          "interpretation": "For 10276036, your ABCB1 variant is one contributing factor — relevant to tramadol response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Tramadol metabolism may be altered — consider dose adjustment or alternative analgesic",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs2235020": {
+      "gene": "ABCB1",
+      "name": "2235020",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "ABCB1 — Tramadol response",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (ABCB1)",
+          "interpretation": "For 2235020, your ABCB1 variant is one contributing factor — relevant to tramadol response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Tramadol metabolism may be altered — consider dose adjustment or alternative analgesic",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs1016793": {
+      "gene": "ABCB1",
+      "name": "1016793",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "ABCB1 — Tramadol response",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (ABCB1)",
+          "interpretation": "For 1016793, your ABCB1 variant is one contributing factor — relevant to tramadol response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Tramadol metabolism may be altered — consider dose adjustment or alternative analgesic",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs2235013": {
+      "gene": "ABCB1",
+      "name": "2235013",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "ABCB1 — Tramadol response",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (ABCB1)",
+          "interpretation": "For 2235013, your ABCB1 variant is one contributing factor — relevant to tramadol response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Tramadol metabolism may be altered — consider dose adjustment or alternative analgesic",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs34427887": {
+      "gene": "OPRM1",
+      "name": "34427887",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "OPRM1 — Tramadol response",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (OPRM1)",
+          "interpretation": "For 34427887, your OPRM1 variant is one contributing factor — relevant to tramadol response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Tramadol metabolism may be altered — consider dose adjustment or alternative analgesic",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs11185644": {
+      "gene": "ClinVar",
+      "name": "11185644",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "Levothyroxine response",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response",
+          "interpretation": "For 11185644, your ClinVar variant is one contributing factor — relevant to levothyroxine response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Levothyroxine dosing may need adjustment — Track TSH levels",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs37973": {
+      "gene": "GLCCI1",
+      "name": "37973",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "GLCCI1 — Glucocorticoid therapy, response to",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (GLCCI1)",
+          "interpretation": "For 37973, your GLCCI1 variant is one contributing factor — relevant to glucocorticoid therapy, response to This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs650245": {
+      "gene": "OPRM1",
+      "name": "650245",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "OPRM1 — Tramadol response",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (OPRM1)",
+          "interpretation": "For 650245, your OPRM1 variant is one contributing factor — relevant to tramadol response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Tramadol metabolism may be altered — consider dose adjustment or alternative analgesic",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs7759388": {
+      "gene": "OPRM1",
+      "name": "7759388",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "OPRM1 — Tramadol response",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (OPRM1)",
+          "interpretation": "For 7759388, your OPRM1 variant is one contributing factor — relevant to tramadol response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Tramadol metabolism may be altered — consider dose adjustment or alternative analgesic",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs868755": {
+      "gene": "ABCB1",
+      "name": "868755",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "ABCB1 — Tramadol response",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (ABCB1)",
+          "interpretation": "For 868755, your ABCB1 variant is one contributing factor — relevant to tramadol response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Tramadol metabolism may be altered — consider dose adjustment or alternative analgesic",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs2073547": {
+      "gene": "ClinVar",
+      "name": "2073547",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "Statins, attenuated cholesterol lowering by",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response",
+          "interpretation": "For 2073547, your ClinVar variant is one contributing factor — relevant to statins, attenuated cholesterol lowering by This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Statin response may be attenuated — discuss alternative lipid-lowering strategies",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs713598": {
+      "gene": "TAS2R38",
+      "name": "713598",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "TAS2R38 — Phenylthiocarbamide tasting",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (TAS2R38)",
+          "interpretation": "For 713598, your TAS2R38 variant is one contributing factor — relevant to phenylthiocarbamide tasting This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs2075572": {
+      "gene": "OPRM1",
+      "name": "2075572",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "OPRM1 — Tramadol response",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (OPRM1)",
+          "interpretation": "For 2075572, your OPRM1 variant is one contributing factor — relevant to tramadol response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Tramadol metabolism may be altered — consider dose adjustment or alternative analgesic",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs9282821": {
+      "gene": "OPRM1",
+      "name": "9282821",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "OPRM1 — Tramadol response",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (OPRM1)",
+          "interpretation": "For 9282821, your OPRM1 variant is one contributing factor — relevant to tramadol response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Tramadol metabolism may be altered — consider dose adjustment or alternative analgesic",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs675026": {
+      "gene": "OPRM1",
+      "name": "675026",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "OPRM1 — Tramadol response",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (OPRM1)",
+          "interpretation": "For 675026, your OPRM1 variant is one contributing factor — relevant to tramadol response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Tramadol metabolism may be altered — consider dose adjustment or alternative analgesic",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs540825": {
+      "gene": "OPRM1",
+      "name": "540825",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "OPRM1 — Tramadol response",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (OPRM1)",
+          "interpretation": "For 540825, your OPRM1 variant is one contributing factor — relevant to tramadol response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Tramadol metabolism may be altered — consider dose adjustment or alternative analgesic",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs1202170": {
+      "gene": "ABCB1",
+      "name": "1202170",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "ABCB1 — Tramadol response",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (ABCB1)",
+          "interpretation": "For 1202170, your ABCB1 variant is one contributing factor — relevant to tramadol response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Tramadol metabolism may be altered — consider dose adjustment or alternative analgesic",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs4673993": {
+      "gene": "ClinVar",
+      "name": "4673993",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "rs4673993 clinical variant",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response",
+          "interpretation": "For 4673993, your ClinVar variant is one contributing factor — pharmacogenomic variant affecting drug metabolism or response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        },
+        "T/T": {
+          "effect": "Typical ClinVar function",
+          "interpretation": "Your ClinVar genotype is the most common form in reference populations. This does not rule out 4673993 risk from other genes, environmental exposures, or rare variants not covered by standard genotyping.",
+          "recommendations": [
+            "No specific ClinVar-directed intervention indicated, but standard health screening still applies",
+            "Other genetic and environmental factors contribute to 4673993 — genotype alone is not the full picture"
+          ],
+          "priority": "low"
+        }
+      },
+      "bibliography": [
+        "Abdallah HY, Ibrahim ME, Abd El-Fadeal NM, et al. Pharmacogenomics of Methotrexate Pathway in",
+        "Rheumatoid Arthritis Patients: Approach toward Personalized Medicine. Diagnostics (Basel). 2022",
+        "Jun 27;12(7):1560.",
+        "Chen Y, Zou K, Sun J, et al. Are gene polymorphisms related to treatment outcomes of methotrexate in",
+        "patients with rheumatoid arthritis? A systematic review and meta-analysis. Pharmacogenomics. 2017",
+        "Jan;18(2):175-195.",
+        "Lee YH, Song GG. A meta-analysis of the association between the ATIC 347 C/G polymorphism",
+        "and methotrexate responsiveness and toxicity in rheumatoid arthritis. Semin Arthritis Rheum.",
+        "2024 Feb;64:152337.",
+        "Lima A, Bernardes M, Azevedo R, et al. Moving toward personalized medicine in rheumatoid arthritis: SNPs",
+        "in methotrexate intracellular pathways are associated with methotrexate therapeutic outcome.",
+        "Pharmacogenomics. 2016 Oct;17(15):1649-1674."
+      ],
+      "technical_report": "Methotrexate is the most frequently prescribed antirheumatic drug to treat the symptoms of\nrheumatoid arthritis, being even prescribed as monotherapy in many cases. Methotrexate\nenters cells and glutamic acid residues are added to it, forming methotrexate polyglutamate\nwhich promotes inhibition of the methionine, folate and adenosine pathways. It promotes\nthe synthesis of pririmidines and purines that are essential for exerting the antiproliferative\nand anti-inflammatory properties of methotrexate. Although methotrexate is well tolerated by patients, it is estimated that one third of patients\ndo not respond well, due to insufficient efficacy or adverse effects. This lack of response\ncan be due, in part, to variations in certain genes of folate metabolism or other genes, and a\nlarge number of pharmacogenetic studies are being carried out to obtain markers of\nresponse to methotrexate, without much success as yet. The SLC19A1 (Solute Carrier Family 19 Member 1) gene encoding for reduced folate\ntransporter 1 mediates the transport of methotrexate into cells. The rs1051266\nvariant of SLC19A1 is the most studied and patients with the TT genotype have been\nobserved to have an increased response to the drug compared to CC and CT genotypes\n(Chen et al., 2017). It is believed that certain variants of SLC19A1 may influence transporter\nfunction and entry of methotrexate into cells thereby affecting treatment. Another gene of interest in the response to methotrexate is ATIC (aminoimidazole\ncarboxamide adenosine ribonucleotide transformylase) which codes for an enzyme involved\nin purine synthesis. Methotrexate polyglutamate directly inhibits the ATIC enzyme. One of\nthe ATIC variants associated with methotrexate response is rs4673993 which is located in\nan intron and is thought to interfere with gene transcription. Patients with CC genotype have\na greater response to methotrexate compared to patients with CT and TT genotypes (Lima\net al., 2014). It should be taken into consideration that, these variants alone cannot explain the variability\nin drug response observed between patients so other genes and associated factors are\nbelieved to be involved. In addition, further large studies in different populations are\nrequired to confirm both associations.",
+      "description": "PDF\n\nMethotrexate in rheumatoid arthritis (Efficacy)\nMethotrexate is a structural analog of folic acid widely used in the treatment of some\ntypes of cancer and rheumatic diseases such as rheumatoid arthritis. However,\nthere is a high percentage of individuals who do not experience improvement\nwith treatment, which could be associated with certain genetic markers.\n\nYour result is\n\nDecreased response to treatment\n\nSNP\n\nrs4673993\nGEN OR REGION\n\nATIC\nGENOTYPE\n\nT/T\nRESULT\n\nYou do not have the c.675T>C variant. The response to methotrexate is less effective than in\npatients with CC genotype.\n\nSNP\n\nrs1051266\nGEN OR REGION\n\nSLC19A1\nGENOTYPE\n\nC/C\nRESULT\n\nYou have two copies of the c.80A>G variant. The response to methotrexate is less effective than in\npatients with TT genotype.\n\n\fFor obtaining your results, variants associated with drug metabolism, efficacy, response, and transport are evaluated.\nThe technique used is Whole Genome Sequencing (WGS 30x).\n\nMethotrexate is a drug pertaining to the antimetabolites family of drugs that presents\nseveral indications. It is used to treat rheumatoid arthritis, severe psoriasis, certain types\nof cancer (lymphomas, leukemias, uterus, breast, lung, head and neck) and is also used as\nan immunosuppressant in organ transplants to prevent rejection. Methotrexate can treat\nrheumatoid arthritis by decreasing the activity of the immune system. Methotrexate treats\ncancer by slowing the growth of cancer cells. Methotrexate treats psoriasis by slowing the\ngrowth of skin cells to interrupt desquamation. Methotrexate is used to prevent rejection of\nthe graft in transplants since it decreases the activity of the immune system.\nMethotrexate is also sometimes used to treat Crohn's disease, multiple sclerosis,\nautoimmune diseases, and other conditions that develop when the immune system attacks\nhealthy cells in the body by mistake.\nACTION MECHANISM\nAntineoplastic and immunosuppressant antagonist of folic acid. Methotrexate interferes in\nprocesses of DNA synthesis, repair and cellular replication; It can decrease the\ndevelopment of malignant tissues without irreversible damage in normal tissues.\nCONTRAINDICATIONS\nPregnancy, breastfeeding, existing or recent chickenpox, herpes zoster. Should be\nevaluated the risk-benefit ratio in patients suffering ascites, gastrointestinal obstruction,\nperitoneal or pleural effusion, renal dysfunction, depression of the bone marrow, history\nof gout, kidney stones, liver dysfunction, infection, peptic ulcer and ulcerative colitis.\nCaution should also be exercised in patients undergoing treatment with cytotoxic drugs or\nradiation therapy.\nSIDE EFFECTS\nMany adverse reactions are unavoidable and represent the pharmacological action of\nmethotrexate; for example, leucopenia and thrombocytopenia, which are used as indicators\nof the effectiveness of the medication and facilitate the adjustment of the individual\ndosage. The development of side effects require medical attention only if they persist or\nare annoying: anorexia, nausea and vomiting. The side effects that are more frequent and\nrequire medical attention are: hematemesis, diarrhea, hematuria, arthralgia and edema.\nWith intrathecal administration may appear: blurred vision, confusion, dizziness,\ndrowsiness, headaches, seizures or unusual fatigue. Alopecia does not require medical\nattention. The development of certain side effects can indicate possible toxicity of the\ncentral nervous system: blurred vision, confusion, dizziness and headaches. Side effects\nare more likely to occur in very young or elderly patients.\n\n\fWhen used as an antineoplastic the side effects that can be developed are the following:\nLeukocytopenia, thrombocytopenia, anemia; headache, fatigue, drowsiness, paresthesia;\npulmonary complications due to interstitial alveolitis/pneumonitis (typical symptoms:\nmalaise, irritating and dry cough, respiratory distress that progresses to dyspnea at rest,\nchest pain, fever); loss of appetite, nausea, vomiting, abdominal pain, inflammation and\nulceration of the mucous membrane of the mouth and throat, stomatitis, dyspepsia,\ndiarrhea; rash, erythema, pruritus; increase in liver enzymes (ALAT, ASAT, alkaline\nphosphatase and bilirubin).\nIf an overdose of methotrexate occurs, it should be rescued with folinic acid by intravenous\ninfusion in doses of up to 75 mg in the first 12 hours followed by folinic acid 15 mg oral or\nintravenous every 6 hours at least 4 doses, until the serum levels of methotrexate are less\nthan 5x10-7 M. A treatment with intravenous and intrathecal carboxypeptidase G2 has been\npublished to accelerate the clearance of methotrexate.\nPHARMACOLOGIC INTERACTIONS\nThe simultaneous administration of intrathecal methotrexate with acyclovir can produce\nneurological abnormalities. Methotrexate increases the risk of hepatotoxicity with alcohol\nor hepatotoxic medications. Methotrexate increases the concentration of uric acid in the\nblood, so it is necessary to readjust the dosage of allopurinol, colchicine or probenecid.\nMethotrexate increases the anticoagulant activity and the risk of hemorrhages by reducing\nthe hepatic synthesis of the coagulation factors, for this reason the dose of anticoagulants\nderived from coumarin needs to be regulated. The use of NSAIDs increases the risk of\nagranulocytosis (phenylbutazone). Asparaginase can block the effects of methotrexate by\ninhibiting cell replication. The administration of cytarabine after initiation of therapy with\nmethotrexate may produce a synergistic cytotoxic effect. Folic acid can interfere with the\nantifolate effects of methotrexate. Oral kanamycin increases the absorption of oral\nmethotrexate. Oral neomycin decreases the absorption of oral methotrexate. Probenecid\nand salicylates can inhibit renal excretion of methotrexate. Pyrimethamine, triamterene or\ntrimethoprim may increase the toxic effects of methotrexate due to their similar actions as\nfolic acid antagonists.\nIf you wish to know all the substances that we analyze in our DNA test, please consult the\npharmacological compatibility or pharmacogenetic section.\nBRAND NAMES\nRheumatrex®\nTrexall®\nBertanel®\nMetoject®\nEmthexate®"
+    },
+    "rs2235046": {
+      "gene": "ABCB1",
+      "name": "2235046",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "ABCB1 — Tramadol response",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (ABCB1)",
+          "interpretation": "For 2235046, your ABCB1 variant is one contributing factor — relevant to tramadol response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Tramadol metabolism may be altered — consider dose adjustment or alternative analgesic",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs9479798": {
+      "gene": "OPRM1",
+      "name": "9479798",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "OPRM1 — Tramadol response",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (OPRM1)",
+          "interpretation": "For 9479798, your OPRM1 variant is one contributing factor — relevant to tramadol response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Tramadol metabolism may be altered — consider dose adjustment or alternative analgesic",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs497332": {
+      "gene": "OPRM1",
+      "name": "497332",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "OPRM1 — Tramadol response",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (OPRM1)",
+          "interpretation": "For 497332, your OPRM1 variant is one contributing factor — relevant to tramadol response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Tramadol metabolism may be altered — consider dose adjustment or alternative analgesic",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs2235021": {
+      "gene": "ABCB1",
+      "name": "2235021",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "ABCB1 — Tramadol response",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (ABCB1)",
+          "interpretation": "For 2235021, your ABCB1 variant is one contributing factor — relevant to tramadol response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Tramadol metabolism may be altered — consider dose adjustment or alternative analgesic",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs7557402": {
+      "gene": "ClinVar",
+      "name": "7557402",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "rs7557402 clinical variant",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response",
+          "interpretation": "For 7557402, your ClinVar variant is one contributing factor — pharmacogenomic variant affecting drug metabolism or response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs562859": {
+      "gene": "OPRM1",
+      "name": "562859",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "OPRM1 — Tramadol response",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (OPRM1)",
+          "interpretation": "For 562859, your OPRM1 variant is one contributing factor — relevant to tramadol response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Tramadol metabolism may be altered — consider dose adjustment or alternative analgesic",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs1202168": {
+      "gene": "ABCB1",
+      "name": "1202168",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "ABCB1 — Tramadol response",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (ABCB1)",
+          "interpretation": "For 1202168, your ABCB1 variant is one contributing factor — relevant to tramadol response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Tramadol metabolism may be altered — consider dose adjustment or alternative analgesic",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs2235544": {
+      "gene": "DIO1",
+      "name": "2235544",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "DIO1 — Levothyroxine response",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (DIO1)",
+          "interpretation": "For 2235544, your DIO1 variant is one contributing factor — relevant to levothyroxine response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Levothyroxine dosing may need adjustment — Track TSH levels",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs1211152": {
+      "gene": "ABCB1",
+      "name": "1211152",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "ABCB1 — Tramadol response",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (ABCB1)",
+          "interpretation": "For 1211152, your ABCB1 variant is one contributing factor — relevant to tramadol response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Tramadol metabolism may be altered — consider dose adjustment or alternative analgesic",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs2235033": {
+      "gene": "ABCB1",
+      "name": "2235033",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "ABCB1 — Tramadol response",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (ABCB1)",
+          "interpretation": "For 2235033, your ABCB1 variant is one contributing factor — relevant to tramadol response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Tramadol metabolism may be altered — consider dose adjustment or alternative analgesic",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs2214102": {
+      "gene": "ABCB1",
+      "name": "2214102",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "ABCB1 — Tramadol response",
+      "interpretations": {
+        "*": {
+          "effect": "Altered drug response (ABCB1)",
+          "interpretation": "For 2214102, your ABCB1 variant is one contributing factor — relevant to tramadol response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss pharmacogenomic findings with prescribing physician",
+            "Tramadol metabolism may be altered — consider dose adjustment or alternative analgesic",
+            "Include pharmacogenomic profile in medical record for future prescribing decisions"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs4713916": {
+      "gene": "FKBP5",
+      "name": "T>C",
+      "category": "pharmacogenomics",
+      "chrom": "6",
+      "pos": 35548029,
+      "display": "FKBP5 Stress Response / Antidepressant",
+      "evidenceTier": 2,
+      "interpretations": {
+        "TT": {
+          "effect": "High FKBP5 expression — slow glucocorticoid receptor reset",
+          "interpretation": "Slower HPA axis recovery after stress — elevated PTSD risk, lower antidepressant response, prolonged cortisol exposure after stressors This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Ashwagandha 600mg KSM-66 (most-studied for cortisol reduction)",
+            "Phosphatidylserine 400mg (blunts cortisol response to exercise stress)",
+            "Strict sleep schedule — stabilises diurnal cortisol rhythm",
+            "HRV biofeedback for autonomic resilience training",
+            "Discuss cortisol/DHEA-S testing with physician"
+          ],
+          "priority": "moderate"
+        },
+        "TC": {
+          "effect": "Intermediate FKBP5 expression",
+          "interpretation": "For t>c, your FKBP5 variant is one contributing factor — moderate hpa axis recovery delay — partial stress response sensitization",
+          "recommendations": [
+            "Stress management practices beneficial",
+            "Ashwagandha may provide cortisol-modulating benefit"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Normal FKBP5 expression — efficient GR reset",
+          "interpretation": "For t>c, your FKBP5 variant is one contributing factor — normal stress recovery — glucocorticoid receptor resensitizes efficiently after cortisol exposure",
+          "recommendations": [
+            "Standard stress resilience practices"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs4646903": {
+      "gene": "CYP1A1",
+      "name": "T>C (MspI)",
+      "category": "pharmacogenomics",
+      "chrom": "15",
+      "pos": 75041878,
+      "display": "CYP1A1 Carcinogen Activation",
+      "evidenceTier": 2,
+      "interpretations": {
+        "CC": {
+          "effect": "High CYP1A1 inducibility — more carcinogen activation",
+          "interpretation": "For t>c (mspi), your CYP1A1 variant is one contributing factor — higher induction of cyp1a1 by pahs — disproportionate conversion of polycyclic aromatic hydrocarbons (tobacco smoke, charred food) into dna-reactive epoxide carcinogens This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Avoid tobacco smoke entirely — risk disproportionately elevated vs. other genotypes",
+            "Minimize charred, smoked, and barbecued foods",
+            "Cruciferous vegetables and sulforaphane inhibit CYP1A1 induction",
+            "Quercetin and resveratrol — CYP1A1 modulators"
+          ],
+          "priority": "high"
+        },
+        "TC": {
+          "effect": "Intermediate CYP1A1 inducibility",
+          "interpretation": "For t>c (mspi), your CYP1A1 variant is one contributing factor — one high-inducibility allele — moderately elevated carcinogen activation risk This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Limit smoke and charred food exposure",
+            "Cruciferous vegetables protective"
+          ],
+          "priority": "moderate"
+        },
+        "TT": {
+          "effect": "Baseline CYP1A1 inducibility",
+          "interpretation": "For t>c (mspi), your CYP1A1 variant is one contributing factor — standard carcinogen activation — normal pah metabolism",
+          "recommendations": [
+            "Standard dietary antioxidant support"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs9934438": {
+      "gene": "VKORC1",
+      "name": "G>A",
+      "category": "pharmacogenomics",
+      "chrom": "16",
+      "pos": 31093557,
+      "display": "VKORC1 Warfarin Sensitivity (rs9934438)",
+      "evidenceTier": 1,
+      "interpretations": {
+        "AA": {
+          "effect": "Low VKORC1 expression — very high warfarin sensitivity",
+          "interpretation": "High warfarin sensitivity — requires notably lower maintenance dose (~2-3mg/day vs 5mg standard); bleeding risk at standard doses This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "CRITICAL: Inform all prescribing physicians before warfarin or acenocoumarol therapy",
+            "Genotype-guided dosing algorithms required (IWPC, EU-PACT)",
+            "More frequent INR Tracking when initiating anticoagulation",
+            "Carry genetic result card to all healthcare encounters"
+          ],
+          "priority": "high"
+        },
+        "GA": {
+          "effect": "Intermediate VKORC1 expression — moderate warfarin sensitivity",
+          "interpretation": "Moderately elevated warfarin sensitivity — typically requires ~30% lower dose than population average This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Inform prescribers of this variant for anticoagulant therapy",
+            "Genotype-guided dose calculation worth considering"
+          ],
+          "priority": "moderate"
+        },
+        "GG": {
+          "effect": "Normal VKORC1 expression — standard warfarin dose",
+          "interpretation": "For g>a, your VKORC1 variant is one contributing factor — standard warfarin sensitivity — typical maintenance dose (~5mg/day) expected",
+          "recommendations": [
+            "Standard anticoagulation dosing protocols apply"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs662": {
+      "gene": "PON1",
+      "name": "Q192R",
+      "category": "pharmacogenomics",
+      "chrom": "7",
+      "pos": 94945905,
+      "display": "PON1 Q192R Antioxidant Enzyme",
+      "evidenceTier": 2,
+      "interpretations": {
+        "GG": {
+          "effect": "High PON1 paraoxonase activity (Arg/Arg)",
+          "interpretation": "For q192r, your PON1 variant is one contributing factor — high pon1 activity — efficient hydrolysis of oxidized ldl phospholipids, organophosphate pesticides, and homocysteine thiolactone",
+          "recommendations": [
+            "Maintain HDL levels (PON1 travels on HDL); regular aerobic exercise",
+            "Extra-virgin olive oil polyphenols upregulate PON1 expression",
+            "Pomegranate juice — shown to increase PON1 activity"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "Intermediate PON1 activity (Gln/Arg)",
+          "interpretation": "For q192r, your PON1 variant is one contributing factor — intermediate paraoxonase activity — moderate protection against lipid oxidation",
+          "recommendations": [
+            "Olive oil and pomegranate support PON1 activity"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Low PON1 activity (Gln/Gln)",
+          "interpretation": "lower PON1 enzyme activity — lower protection against oxidized LDL and organophosphate toxins; elevated cardiovascular and pesticide sensitivity risk This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Organic produce worth considering (reduced organophosphate exposure)",
+            "Extra-virgin olive oil and pomegranate daily to maximize PON1 expression",
+            "Regular HDL Tracking; target HDL > 60 mg/dL",
+            "CoQ10 200mg — supports HDL-carried antioxidant capacity"
+          ],
+          "priority": "moderate"
+        }
+      }
+    },
+    "rs1142345": {
+      "gene": "TPMT",
+      "name": "Cisplatin (Adverse Reactions)",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "TPMT - Cisplatin (Adverse Reactions)",
+      "interpretations": {
+        "T/T": {
+          "effect": "Typical TPMT function",
+          "interpretation": "Your TPMT genotype is the most common form in reference populations. This does not rule out cisplatin (adverse reactions) risk from other genes, environmental exposures, or rare variants not covered by standard genotyping.",
+          "recommendations": [
+            "No specific TPMT-directed intervention indicated, but standard health screening still applies",
+            "Other genetic and environmental factors contribute to cisplatin (adverse reactions) — genotype alone is not the full picture"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Ghosh S. Cisplatin: The first metal based anticancer drug. Bioorg Chem. 2019 Jul;88:102925.",
+        "Lee JW, Pussegoda K, Rassekh SR, et al. Clinical Practice Recommendations for the Management and",
+        "Prevention of Cisplatin-Induced Hearing Loss Using Pharmacogenetic Markers. Ther Drug Monit. 2016",
+        "Aug;38(4):423-31.",
+        "Thiesen S, Yin P, Jorgensen AL, et al. TPMT, COMT and ACYP2 genetic variants in paediatric cancer",
+        "patients with cisplatin-induced ototoxicity. Pharmacogenet Genomics. 2017 Jun;27(6):213-222."
+      ],
+      "technical_report": "It is believed that the adverse effect of cisplatin-induced hearing loss is due to its\ninterference with signal transduction in the cochlea, which is part of the inner ear. Studies\nsuggest that cisplatin could cause apoptosis in the outer hair cells of the organ of Corti, the\nspiral ganglion, and the stria vascularis. However, the underlying mechanism that triggers\napoptosis in hair cells is not fully understood. Certain factors can influence the risk of\ndeveloping cisplatin-induced ototoxicity, such as cisplatin dosage, age, presence of preexisting hearing impairments, use alongside aminoglycosides, and cranial irradiation. These\nfactors have a cumulative effect on the risk. In addition, variation in genes involved in the\nmetabolism, transport, and targets of cisplatin has been observed to be another important\nfactor. Thiopurine S-methyltransferase (TPMT) is an enzyme that serves a key function\nin the metabolism of cisplatin and other chemotherapeutic drugs. evidence suggests that\ngenetic polymorphisms in TPMT contribute to the risk of cisplatin-induced ototoxicity in\nchildren. Patients carrying at least one loss-of-function TPMT allele respond worse to\ncisplatin chemotherapy than those patients carrying both functional alleles. Currently, the\nCPNDS (Canadian Pharmacogenomics Network for Drug Safety) pharmacogenomic clinical\nguideline recommends genotyping for 3 of the TPMT variants that define the loss-offunction alleles *3A, *3B, *3C, and the loss-of-function allele TPMT*2 in pediatric patients\nwho are to be treated with cisplatin. The study of these variants explains approximately 25%\nof cases of cisplatin-induced ototoxicity and has a high positive predictive value (92%). Other less frequent variants in TPMT have been described that could influence its enzymatic\nactivity and are not included in the CPNDS guideline recommendations or in this analysis.",
+      "description": "PDF\n\nCisplatin (Adverse Reactions)\nCisplatin is an alkylating agent widely used in chemotherapy against different types of\ncancer in both children and adults. The TPMT enzyme is involved in its metabolism, so\npolymorphisms in this gene are associated with adverse treatment reactions such as\nhearing loss.\n\nYour result is\n\nTypical risk of ototoxicity\n\nSNP\n\nrs1142345\nGEN OR REGION\n\nTPMT\nGENOTYPE\n\nT/T\nRESULT\n\nYou do not have the c.719A>G variant that defines the TPMT*3A and TPMT*3C loss-of-function\nalleles.\n\nSNP\n\nrs1800460\nGEN OR REGION\n\nTPMT\nGENOTYPE\n\nC/C\nRESULT\n\nYou do not have thec.460G>A variant that defines the TPMT*3A and TPMT*3B loss-of-function\nalleles.\n\n\fSNP\n\nrs1800462\nFor obtaining your results, variants associated with drug metabolism, efficacy, response, and transport are evaluated.\nThe technique used is Whole Genome Sequencing (WGS 30x).\n\nCisplatin, or cis-diamminedichloroplatinum(II), is a well-known metal-based\nchemotherapeutic drug used in the standard treatment of various solid cancers such as\ntesticular, breast, ovarian, head and neck, bladder, lung, cervical, stomach, melanoma,\nneuroblastoma, osteosarcoma, and lymphomas. Depending on the type of cancer, cisplatin\ncan be used alone or with other compounds such as, for example, paclitaxel, in the\ntreatment of ovarian cancer.\nTwo of the main limitations of cisplatin use are treatment resistance and toxicity. Multiple\nplatinum compounds have been produced to minimize the development of treatment\nresistance and improve pharmacokinetic properties. Some of the platinum compounds\nalternative to cisplatin are carboplatin, oxaliplatin, satraplatin, and nedaplatin.\nThe main toxicities derived from cisplatin treatment are nephrotoxicity, ototoxicity,\nhepatotoxicity, gastrointestinal toxicity, and neurotoxicity.\nMECHANISM OF ACTION\nThe main mechanism through which cisplatin exerts its action is the interaction with\ngenomic and mitochondrial DNA and the generation of damage in its structure, activating\napoptosis (cell death).\nCONTRAINDICATIONS\nCisplatin should be avoided in patients with hypersensitivity to cisplatin or other platinumbased compounds, renal dysfunction, dehydration, myelosuppression, hearing impairment,\nor neuropathy caused by cisplatin.\nSIDE EFFECTS\nCisplatin is a medication that can cause toxicity and multiple adverse effects including:\ninfections, sepsis, hematological disorders (leukopenia, thrombocytopenia, and anemia),\nlow blood sodium levels, venous thromboembolism, peripheral neuropathy, hearing loss,\nvertigo, cardiac arrhythmia, erythema, skin ulcer, and localized edema.\nCisplatin ototoxicity is one of the most frequent adverse reactions, manifesting as\npermanent bilateral hearing loss, affecting 10-25% of adults and 26-90% of children.\nTRADE NAMES\nPlatinol®\n\n\fPlatinol-AQ®"
+    },
+    "rs1800460": {
+      "gene": "TPMT",
+      "name": "Cisplatin (Adverse Reactions)",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "TPMT - Cisplatin (Adverse Reactions)",
+      "interpretations": {
+        "C/C": {
+          "effect": "Typical TPMT function",
+          "interpretation": "Your TPMT genotype is the most common form in reference populations. This does not rule out cisplatin (adverse reactions) risk from other genes, environmental exposures, or rare variants not covered by standard genotyping.",
+          "recommendations": [
+            "No specific TPMT-directed intervention indicated, but standard health screening still applies",
+            "Other genetic and environmental factors contribute to cisplatin (adverse reactions) — genotype alone is not the full picture"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Ghosh S. Cisplatin: The first metal based anticancer drug. Bioorg Chem. 2019 Jul;88:102925.",
+        "Lee JW, Pussegoda K, Rassekh SR, et al. Clinical Practice Recommendations for the Management and",
+        "Prevention of Cisplatin-Induced Hearing Loss Using Pharmacogenetic Markers. Ther Drug Monit. 2016",
+        "Aug;38(4):423-31.",
+        "Thiesen S, Yin P, Jorgensen AL, et al. TPMT, COMT and ACYP2 genetic variants in paediatric cancer",
+        "patients with cisplatin-induced ototoxicity. Pharmacogenet Genomics. 2017 Jun;27(6):213-222."
+      ],
+      "technical_report": "It is believed that the adverse effect of cisplatin-induced hearing loss is due to its\ninterference with signal transduction in the cochlea, which is part of the inner ear. Studies\nsuggest that cisplatin could cause apoptosis in the outer hair cells of the organ of Corti, the\nspiral ganglion, and the stria vascularis. However, the underlying mechanism that triggers\napoptosis in hair cells is not fully understood. Certain factors can influence the risk of\ndeveloping cisplatin-induced ototoxicity, such as cisplatin dosage, age, presence of preexisting hearing impairments, use alongside aminoglycosides, and cranial irradiation. These\nfactors have a cumulative effect on the risk. In addition, variation in genes involved in the\nmetabolism, transport, and targets of cisplatin has been observed to be another important\nfactor. Thiopurine S-methyltransferase (TPMT) is an enzyme that serves a key function\nin the metabolism of cisplatin and other chemotherapeutic drugs. evidence suggests that\ngenetic polymorphisms in TPMT contribute to the risk of cisplatin-induced ototoxicity in\nchildren. Patients carrying at least one loss-of-function TPMT allele respond worse to\ncisplatin chemotherapy than those patients carrying both functional alleles. Currently, the\nCPNDS (Canadian Pharmacogenomics Network for Drug Safety) pharmacogenomic clinical\nguideline recommends genotyping for 3 of the TPMT variants that define the loss-offunction alleles *3A, *3B, *3C, and the loss-of-function allele TPMT*2 in pediatric patients\nwho are to be treated with cisplatin. The study of these variants explains approximately 25%\nof cases of cisplatin-induced ototoxicity and has a high positive predictive value (92%). Other less frequent variants in TPMT have been described that could influence its enzymatic\nactivity and are not included in the CPNDS guideline recommendations or in this analysis.",
+      "description": "PDF\n\nCisplatin (Adverse Reactions)\nCisplatin is an alkylating agent widely used in chemotherapy against different types of\ncancer in both children and adults. The TPMT enzyme is involved in its metabolism, so\npolymorphisms in this gene are associated with adverse treatment reactions such as\nhearing loss.\n\nYour result is\n\nTypical risk of ototoxicity\n\nSNP\n\nrs1142345\nGEN OR REGION\n\nTPMT\nGENOTYPE\n\nT/T\nRESULT\n\nYou do not have the c.719A>G variant that defines the TPMT*3A and TPMT*3C loss-of-function\nalleles.\n\nSNP\n\nrs1800460\nGEN OR REGION\n\nTPMT\nGENOTYPE\n\nC/C\nRESULT\n\nYou do not have thec.460G>A variant that defines the TPMT*3A and TPMT*3B loss-of-function\nalleles.\n\n\fSNP\n\nrs1800462\nFor obtaining your results, variants associated with drug metabolism, efficacy, response, and transport are evaluated.\nThe technique used is Whole Genome Sequencing (WGS 30x).\n\nCisplatin, or cis-diamminedichloroplatinum(II), is a well-known metal-based\nchemotherapeutic drug used in the standard treatment of various solid cancers such as\ntesticular, breast, ovarian, head and neck, bladder, lung, cervical, stomach, melanoma,\nneuroblastoma, osteosarcoma, and lymphomas. Depending on the type of cancer, cisplatin\ncan be used alone or with other compounds such as, for example, paclitaxel, in the\ntreatment of ovarian cancer.\nTwo of the main limitations of cisplatin use are treatment resistance and toxicity. Multiple\nplatinum compounds have been produced to minimize the development of treatment\nresistance and improve pharmacokinetic properties. Some of the platinum compounds\nalternative to cisplatin are carboplatin, oxaliplatin, satraplatin, and nedaplatin.\nThe main toxicities derived from cisplatin treatment are nephrotoxicity, ototoxicity,\nhepatotoxicity, gastrointestinal toxicity, and neurotoxicity.\nMECHANISM OF ACTION\nThe main mechanism through which cisplatin exerts its action is the interaction with\ngenomic and mitochondrial DNA and the generation of damage in its structure, activating\napoptosis (cell death).\nCONTRAINDICATIONS\nCisplatin should be avoided in patients with hypersensitivity to cisplatin or other platinumbased compounds, renal dysfunction, dehydration, myelosuppression, hearing impairment,\nor neuropathy caused by cisplatin.\nSIDE EFFECTS\nCisplatin is a medication that can cause toxicity and multiple adverse effects including:\ninfections, sepsis, hematological disorders (leukopenia, thrombocytopenia, and anemia),\nlow blood sodium levels, venous thromboembolism, peripheral neuropathy, hearing loss,\nvertigo, cardiac arrhythmia, erythema, skin ulcer, and localized edema.\nCisplatin ototoxicity is one of the most frequent adverse reactions, manifesting as\npermanent bilateral hearing loss, affecting 10-25% of adults and 26-90% of children.\nTRADE NAMES\nPlatinol®\n\n\fPlatinol-AQ®"
+    },
+    "rs17863783": {
+      "gene": "UGT1A6",
+      "name": "Daunorubicin, Doxorubicin (Adverse Reactions)",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "UGT1A6 - Daunorubicin, Doxorubicin (Adverse Reactions)",
+      "interpretations": {
+        "G/G": {
+          "effect": "Typical UGT1A6 function",
+          "interpretation": "Your UGT1A6 genotype is the most common form in reference populations. This does not rule out daunorubicin, doxorubicin (adverse reactions) risk from other genes, environmental exposures, or rare variants not covered by standard genotyping.",
+          "recommendations": [
+            "No specific UGT1A6-directed intervention indicated, but standard health screening still applies",
+            "Other genetic and environmental factors contribute to daunorubicin, doxorubicin (adverse reactions) — genotype alone is not the full picture"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Aminkeng F, Ross CJ, Rassekh SR, et al. Recommendations for genetic testing to reduce the incidence of",
+        "anthracycline-induced cardiotoxicity. Br J Clin Pharmacol. 2016 Sep;82(3):683-95.",
+        "Antoniadi K, Thomaidis N, Nihoyannopoulos P, et al. Prognostic Factors for Cardiotoxicity among Children",
+        "with Cancer: Definition, Causes, and Diagnosis with Omics Technologies. Diagnostics (Basel). 2023",
+        "May 26;13(11):1864.",
+        "Chang VY, Wang JJ. Pharmacogenetics of Chemotherapy-Induced Cardiotoxicity. Curr Oncol Rep. 2018",
+        "Apr 30;20(7):52."
+      ],
+      "technical_report": "There is clear evidence of the role of pharmacogenetics and pharmacogenomics in\nsusceptibility to cardiotoxicity induced by drugs used for cancer treatment. The most\nstudied are the anthracyclines daunorubicin and doxorubicin. Cardiotoxic effects can range from coronary heart disease, pericardial disease, valvular\nheart disease, cardiomyopathy, and arrhythmias. Congestive heart failure (also called heart\nfailure) is the main cardiomyopathy induced by these chemotherapeutic agents. In addition to genetics, there are other factors that can influence the risk of anthracyclineinduced cardiotoxicity, which have a cumulative effect, such as concomitant treatment with\nradiotherapy, high doses of anthracyclines, shorter intravenous perfusion time, the presence\nof cardiovascular diseases, dyslipidemia, age over 65 years and female sex. Currently, the CPNDS (Canadian Pharmacogenomics Network for Drug Safety)\npharmacogenomic clinical guideline recommends genotyping of the three variants RARG\nrs2229774, SLC28A3 rs7853758 and UGT1A6*4 (rs17863783). Increased RARG activity decreases the expression of the topoisomerase II gene (TOP2B),\nand it has been shown that TOP2B reduction has a cardioprotective effect. The RARG\nrs2229774 variant reduces the ability of RARG to decrease TOP2B expression, which\nnegatively affects cardioprotection. The SLC28A3 gene encodes an anthracycline transporter protein, the SLC28A3 rs7853758\nvariant produces a decrease in gene expression, thereby reducing the entry of\nanthracyclines into cardiac cells. Therefore, the rs7853758 variant is considered to have a\nprotective effect against anthracycline-induced cardiotoxicity. UGT1A6 is a UDP-glucuronosyltransferase enzyme that participates in the detoxification of\ndrugs and other xenobiotics. The rs17863783 variant represents the UGT1A6*4 allele, which\nis an allele that reduces UGT1A6-mediated glucuronidation activity. It has been observed\nthat the presence of this variant increases the amount of cardiotoxic metabolites, thereby\nincreasing the likelihood of anthracycline-induced cardiotoxicity.",
+      "description": "PDF\n\nDaunorubicin, Doxorubicin (Adverse Reactions)\nThe most severe adverse reaction caused by the use of anthracyclines as\nchemotherapeutic agents is cardiotoxicity, which can lead to cardiac dysfunction and heart\nfailure. Variants of the ARG, UGT1A6, and SLC28A3 genes influence the risk of suffering\nthis adverse effect, and their analysis is becoming increasingly relevant when assessing\nthe most suitable treatment for each patient.\n\nYour result is\n\nModerate risk of cardiotoxicity\n\nSNP\n\nrs17863783\nGEN OR REGION\n\nUGT1A6\nGENOTYPE\n\nG/G\nRESULT\n\nYou do not have the c.627G>T variant.\n\nSNP\n\nrs7853758\nGEN OR REGION\n\nSLC28A3\nGENOTYPE\n\nG/G\nRESULT\n\nYou do not have the c.1381C>T variant.\n\n\fSNP\n\nrs2229774\nGEN OR REGION\n\nFor obtaining your results, variants associated with drug metabolism, efficacy, response, and transport are evaluated.\nThe technique used is Whole Genome Sequencing (WGS 30x).\n\nAnthracyclines have been used for over 60 years in cancer treatment and have saved many\nlives. However, a significant limitation of their use is cardiotoxicity.\nDaunorubicin is an anthracycline used to treat acute myeloid leukemia and acute lymphoid\nleukemia in children, although it can also be used in adult patients.\nDoxorubicin is used to treat certain types of cancer of the urinary bladder, breast, lung,\nstomach, and ovary, Ewing's sarcoma, Hodgkin's lymphoma (Hodgkin's disease) and nonHodgkin's lymphoma, Wilms' tumor, thyroid cancer, neuroblastoma, and certain leukemias.\nMECHANISM OF ACTION\nAnthracyclines alter DNA by interfering with topoisomerase, an enzyme essential for DNA\nreplication and synthesis, thereby causing cell cycle arrest and programmed cell death.\nCONTRAINDICATIONS\nTreatment with anthracyclines is contraindicated in cases of hypersensitivity to\nanthracyclines and anthracenediones, persistent myelosuppression, severe infections,\nsevere hepatic impairment, heart failure, recent myocardial infarction, severe arrhythmias,\nprevious treatments with the same or another cardiotoxic anthracycline, pregnancy,\nand lactation.\nSIDE EFFECTS\nNausea, vomiting, and stomach pain\nMouth and throat sores\nWeight loss or gain\nMuscle weakness\nHair loss\nTingling in the hands and feet\nYou should contact your doctor immediately if you develop hives, rash, itching, difficulty\nbreathing or swallowing, or seizures.\nAs mentioned, cardiotoxicity is an adverse effect that limits its use and can occur acutely\n(during treatment), early (during the first year of treatment), or late (years or decades\nlater). Therefore, close monitoring of patients should be carried out before, during, and\n\n\fafter cancer therapy. The determination of LVEF (left ventricular ejection fraction) by\nechocardiography or with the technique of multiple-gated acquisition (MUGA) scan and\nmagnetic resonance imaging are tests that are performed to assess for cardiotoxicity.\nBiochemical markers that can be used for early detection of cardiac damage are troponin T\nand N-terminal pro-brain natriuretic peptide (NT-proBNP).\nBRAND NAMES\nAdriamycin®\nCerubidine®\nDoxil®\nMyocet®\nRubex®\nVyxeos®"
+    },
+    "rs7853758": {
+      "gene": "SLC28A3",
+      "name": "Daunorubicin, Doxorubicin (Adverse Reactions)",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "SLC28A3 - Daunorubicin, Doxorubicin (Adverse Reactions)",
+      "interpretations": {
+        "G/G": {
+          "effect": "Typical SLC28A3 function",
+          "interpretation": "Your SLC28A3 genotype is the most common form in reference populations. This does not rule out daunorubicin, doxorubicin (adverse reactions) risk from other genes, environmental exposures, or rare variants not covered by standard genotyping.",
+          "recommendations": [
+            "No specific SLC28A3-directed intervention indicated, but standard health screening still applies",
+            "Other genetic and environmental factors contribute to daunorubicin, doxorubicin (adverse reactions) — genotype alone is not the full picture"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Aminkeng F, Ross CJ, Rassekh SR, et al. Recommendations for genetic testing to reduce the incidence of",
+        "anthracycline-induced cardiotoxicity. Br J Clin Pharmacol. 2016 Sep;82(3):683-95.",
+        "Antoniadi K, Thomaidis N, Nihoyannopoulos P, et al. Prognostic Factors for Cardiotoxicity among Children",
+        "with Cancer: Definition, Causes, and Diagnosis with Omics Technologies. Diagnostics (Basel). 2023",
+        "May 26;13(11):1864.",
+        "Chang VY, Wang JJ. Pharmacogenetics of Chemotherapy-Induced Cardiotoxicity. Curr Oncol Rep. 2018",
+        "Apr 30;20(7):52."
+      ],
+      "technical_report": "There is clear evidence of the role of pharmacogenetics and pharmacogenomics in\nsusceptibility to cardiotoxicity induced by drugs used for cancer treatment. The most\nstudied are the anthracyclines daunorubicin and doxorubicin. Cardiotoxic effects can range from coronary heart disease, pericardial disease, valvular\nheart disease, cardiomyopathy, and arrhythmias. Congestive heart failure (also called heart\nfailure) is the main cardiomyopathy induced by these chemotherapeutic agents. In addition to genetics, there are other factors that can influence the risk of anthracyclineinduced cardiotoxicity, which have a cumulative effect, such as concomitant treatment with\nradiotherapy, high doses of anthracyclines, shorter intravenous perfusion time, the presence\nof cardiovascular diseases, dyslipidemia, age over 65 years and female sex. Currently, the CPNDS (Canadian Pharmacogenomics Network for Drug Safety)\npharmacogenomic clinical guideline recommends genotyping of the three variants RARG\nrs2229774, SLC28A3 rs7853758 and UGT1A6*4 (rs17863783). Increased RARG activity decreases the expression of the topoisomerase II gene (TOP2B),\nand it has been shown that TOP2B reduction has a cardioprotective effect. The RARG\nrs2229774 variant reduces the ability of RARG to decrease TOP2B expression, which\nnegatively affects cardioprotection. The SLC28A3 gene encodes an anthracycline transporter protein, the SLC28A3 rs7853758\nvariant produces a decrease in gene expression, thereby reducing the entry of\nanthracyclines into cardiac cells. Therefore, the rs7853758 variant is considered to have a\nprotective effect against anthracycline-induced cardiotoxicity. UGT1A6 is a UDP-glucuronosyltransferase enzyme that participates in the detoxification of\ndrugs and other xenobiotics. The rs17863783 variant represents the UGT1A6*4 allele, which\nis an allele that reduces UGT1A6-mediated glucuronidation activity. It has been observed\nthat the presence of this variant increases the amount of cardiotoxic metabolites, thereby\nincreasing the likelihood of anthracycline-induced cardiotoxicity.",
+      "description": "PDF\n\nDaunorubicin, Doxorubicin (Adverse Reactions)\nThe most severe adverse reaction caused by the use of anthracyclines as\nchemotherapeutic agents is cardiotoxicity, which can lead to cardiac dysfunction and heart\nfailure. Variants of the ARG, UGT1A6, and SLC28A3 genes influence the risk of suffering\nthis adverse effect, and their analysis is becoming increasingly relevant when assessing\nthe most suitable treatment for each patient.\n\nYour result is\n\nModerate risk of cardiotoxicity\n\nSNP\n\nrs17863783\nGEN OR REGION\n\nUGT1A6\nGENOTYPE\n\nG/G\nRESULT\n\nYou do not have the c.627G>T variant.\n\nSNP\n\nrs7853758\nGEN OR REGION\n\nSLC28A3\nGENOTYPE\n\nG/G\nRESULT\n\nYou do not have the c.1381C>T variant.\n\n\fSNP\n\nrs2229774\nGEN OR REGION\n\nFor obtaining your results, variants associated with drug metabolism, efficacy, response, and transport are evaluated.\nThe technique used is Whole Genome Sequencing (WGS 30x).\n\nAnthracyclines have been used for over 60 years in cancer treatment and have saved many\nlives. However, a significant limitation of their use is cardiotoxicity.\nDaunorubicin is an anthracycline used to treat acute myeloid leukemia and acute lymphoid\nleukemia in children, although it can also be used in adult patients.\nDoxorubicin is used to treat certain types of cancer of the urinary bladder, breast, lung,\nstomach, and ovary, Ewing's sarcoma, Hodgkin's lymphoma (Hodgkin's disease) and nonHodgkin's lymphoma, Wilms' tumor, thyroid cancer, neuroblastoma, and certain leukemias.\nMECHANISM OF ACTION\nAnthracyclines alter DNA by interfering with topoisomerase, an enzyme essential for DNA\nreplication and synthesis, thereby causing cell cycle arrest and programmed cell death.\nCONTRAINDICATIONS\nTreatment with anthracyclines is contraindicated in cases of hypersensitivity to\nanthracyclines and anthracenediones, persistent myelosuppression, severe infections,\nsevere hepatic impairment, heart failure, recent myocardial infarction, severe arrhythmias,\nprevious treatments with the same or another cardiotoxic anthracycline, pregnancy,\nand lactation.\nSIDE EFFECTS\nNausea, vomiting, and stomach pain\nMouth and throat sores\nWeight loss or gain\nMuscle weakness\nHair loss\nTingling in the hands and feet\nYou should contact your doctor immediately if you develop hives, rash, itching, difficulty\nbreathing or swallowing, or seizures.\nAs mentioned, cardiotoxicity is an adverse effect that limits its use and can occur acutely\n(during treatment), early (during the first year of treatment), or late (years or decades\nlater). Therefore, close monitoring of patients should be carried out before, during, and\n\n\fafter cancer therapy. The determination of LVEF (left ventricular ejection fraction) by\nechocardiography or with the technique of multiple-gated acquisition (MUGA) scan and\nmagnetic resonance imaging are tests that are performed to assess for cardiotoxicity.\nBiochemical markers that can be used for early detection of cardiac damage are troponin T\nand N-terminal pro-brain natriuretic peptide (NT-proBNP).\nBRAND NAMES\nAdriamycin®\nCerubidine®\nDoxil®\nMyocet®\nRubex®\nVyxeos®"
+    },
+    "rs530517316": {
+      "gene": "BCHE",
+      "name": "Mivacurium and succinylcholine (Adverse Reactions)",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "BCHE - Mivacurium and succinylcholine (Adverse Reactions)",
+      "interpretations": {
+        "G/G": {
+          "effect": "Typical BCHE function",
+          "interpretation": "Your BCHE genotype is the most common form in reference populations. This does not rule out mivacurium and succinylcholine (adverse reactions) risk from other genes, environmental exposures, or rare variants not covered by standard genotyping.",
+          "recommendations": [
+            "No specific BCHE-directed intervention indicated, but standard health screening still applies",
+            "Other genetic and environmental factors contribute to mivacurium and succinylcholine (adverse reactions) — genotype alone is not the full picture"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Alvarellos ML, McDonagh EM, Patel S, et al. PharmGKB summary: succinylcholine pathway,",
+        "pharmacokinetics/pharmacodynamics. Pharmacogenet Genomics. 2015 Dec;25(12):622-30.",
+        "Trujillo R, West WP. Pseudocholinesterase Deficiency. 2023 Jul 10. In: StatPearls [Internet]. Treasure",
+        "Island (FL): StatPearls Publishing; 2024 Jan.",
+        "Wichmann S, Færk G, Bundgaard JR, Gätke MR. Patients with prolonged effect of succinylcholine or",
+        "mivacurium had novel mutations in the butyrylcholinesterase gene. Pharmacogenet Genomics. 2016",
+        "Jul;26(7):351-6.",
+        "Zhu GD, Dawson E, Huskey A, et al. Genetic Testing for BCHE Variants Identifies Patients at Risk of",
+        "Prolonged Neuromuscular Blockade in Response to Succinylcholine. Pharmgenomics Pers Med. 2020 Sep",
+        "30;13:405-414."
+      ],
+      "technical_report": "Pseudocholinesterase is a plasma enzyme produced in the liver that metabolizes anesthetic\ndrugs such as succinylcholine and mivacurium, as well as ester-type local anesthetics such\nas cocaine. Genetically, BChE deficiency is an autosomal recessive trait found in 1 in 100,000 people of\nEuropean descent and varying across populations. The incidence in Jewish communities is\napproximately 1 in 400 individuals. Some variants of the BCHE gene result in reduced enzymatic activity and others in a\ndecrease in the amount of circulating active enzyme. In people with a normal functional\nenzyme, these drugs are rapidly metabolized, resulting in a short action (less than 10\nminutes for succinylcholine). However, if there is BChE deficiency, the drug takes longer to\nbe metabolized and eliminated from the body, prolonging neuromuscular paralysis. The severity of this adverse effect depends on the genotype; carriers of one copy of a\nheterozygous BCHE variant exhibit moderate block, while carriers of two copies or\nhomozygotes may experience muscle paralysis for more than 2 hours. The most common variant in Caucasians is the atypical (A) variant rs1799807 (c.293A>G,\np.Asp70Gly) followed by the Kalow (K) variant rs1803274 (c.1699G>A, p. Ala539Tyr). Less\ncommon variants of the BCHE gene include three fluoride-resistant or F variants such as\nrs28933389 (c.812C>T, p.Thr271Met), rs28933390 (c.1253G>T, p.Gly418Val)\nand rs121918557 (c.1072T>A, p.Leu358Ile) and silent variants called S variants. Some S variants lead to drastic reductions in BCHE activity such as rs104893684\n(c.1004T>C, p.Leu335Pro). It is important to consider that BChE deficiency can be acquired and not due to genetic\nalterations. Prolongation of neuromuscular block due to pseudocholinesterase deficiency\ncan be influenced by other factors such as increasing age, pregnancy, severe renal or\nhepatic disease, cancer, burn injuries, malnutrition, and drug interactions.",
+      "description": "PDF\n\nMivacurium and succinylcholine (Adverse Reactions)\nPseudocholinesterase deficiency is a rare enzymatic alteration that leads to an increased\nrisk of adverse effects from certain muscle relaxants, such as mivacurium and\nsuccinylcholine, used during general anesthesia in certain countries.\n\nYour result is\n\nLow risk of prolonged neuromuscular blockade\n\nSNP\n\nrs530517316\nGEN OR REGION\n\nBCHE\nGENOTYPE\n\nG/G\nRESULT\n\nYou do not have the c.1354C>T variant.\n\nSNP\n\nrs28933390\nGEN OR REGION\n\nBCHE\nGENOTYPE\n\nC/C\nRESULT\n\nYou do not have the c.1253G>T variant.\n\nSNP\n\nrs115129687\n\n\fGEN OR REGION\n\nBCHE\nFor obtaining your results, variants associated with drug metabolism, efficacy, response, and transport are evaluated.\nThe technique used is Whole Genome Sequencing (WGS 30x).\n\nMivacurium is a short-acting, non-depolarizing neuromuscular blocking agent used as an\nadjunct in general anesthesia to relax skeletal muscles. This medication works by\ncompetitively binding to cholinergic receptors at the motor endplate, blocking the action of\nacetylcholine, and consequently inhibiting neuromuscular transmission.\nMeanwhile, succinylcholine (or suxamethonium) is an ultra-short-acting muscle relaxant\nbelonging to the class of depolarizing neuromuscular blocking agents, mainly used to\nfacilitate tracheal intubation and muscle relaxation in surgical procedures.\nBoth mivacurium and succinylcholine are rapidly metabolized by enzymatic hydrolysis\ncatalyzed by the enzyme pseudocholinesterase or butyrylcholinesterase (BChE) in plasma.\nHowever, a rare but potentially serious adverse effect is prolonged apnea after\nadministration of these agents under general anesthesia. This risk is associated with\ndefects in the BChE enzyme, which may be caused by mutations in the BCHE gene that\nencodes this enzyme. Generally, people with BChE deficiency do not show symptoms until\nthey receive drugs such as mivacurium or succinylcholine.\nIf you have a family history of BChE deficiency or a family member who has experienced\nproblems related to anesthesia, it is essential to inform your doctor before undergoing any\nprocedure that requires anesthesia.\nTRADE NAMES\nMivacron® (mivacurium)\nAnectine® (succinylcholine)\nQuelicin® (succinylcholine)"
+    },
+    "rs28933390": {
+      "gene": "BCHE",
+      "name": "Mivacurium and succinylcholine (Adverse Reactions)",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "BCHE - Mivacurium and succinylcholine (Adverse Reactions)",
+      "interpretations": {
+        "C/C": {
+          "effect": "Typical BCHE function",
+          "interpretation": "Your BCHE genotype is the most common form in reference populations. This does not rule out mivacurium and succinylcholine (adverse reactions) risk from other genes, environmental exposures, or rare variants not covered by standard genotyping.",
+          "recommendations": [
+            "No specific BCHE-directed intervention indicated, but standard health screening still applies",
+            "Other genetic and environmental factors contribute to mivacurium and succinylcholine (adverse reactions) — genotype alone is not the full picture"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Alvarellos ML, McDonagh EM, Patel S, et al. PharmGKB summary: succinylcholine pathway,",
+        "pharmacokinetics/pharmacodynamics. Pharmacogenet Genomics. 2015 Dec;25(12):622-30.",
+        "Trujillo R, West WP. Pseudocholinesterase Deficiency. 2023 Jul 10. In: StatPearls [Internet]. Treasure",
+        "Island (FL): StatPearls Publishing; 2024 Jan.",
+        "Wichmann S, Færk G, Bundgaard JR, Gätke MR. Patients with prolonged effect of succinylcholine or",
+        "mivacurium had novel mutations in the butyrylcholinesterase gene. Pharmacogenet Genomics. 2016",
+        "Jul;26(7):351-6.",
+        "Zhu GD, Dawson E, Huskey A, et al. Genetic Testing for BCHE Variants Identifies Patients at Risk of",
+        "Prolonged Neuromuscular Blockade in Response to Succinylcholine. Pharmgenomics Pers Med. 2020 Sep",
+        "30;13:405-414."
+      ],
+      "technical_report": "Pseudocholinesterase is a plasma enzyme produced in the liver that metabolizes anesthetic\ndrugs such as succinylcholine and mivacurium, as well as ester-type local anesthetics such\nas cocaine. Genetically, BChE deficiency is an autosomal recessive trait found in 1 in 100,000 people of\nEuropean descent and varying across populations. The incidence in Jewish communities is\napproximately 1 in 400 individuals. Some variants of the BCHE gene result in reduced enzymatic activity and others in a\ndecrease in the amount of circulating active enzyme. In people with a normal functional\nenzyme, these drugs are rapidly metabolized, resulting in a short action (less than 10\nminutes for succinylcholine). However, if there is BChE deficiency, the drug takes longer to\nbe metabolized and eliminated from the body, prolonging neuromuscular paralysis. The severity of this adverse effect depends on the genotype; carriers of one copy of a\nheterozygous BCHE variant exhibit moderate block, while carriers of two copies or\nhomozygotes may experience muscle paralysis for more than 2 hours. The most common variant in Caucasians is the atypical (A) variant rs1799807 (c.293A>G,\np.Asp70Gly) followed by the Kalow (K) variant rs1803274 (c.1699G>A, p. Ala539Tyr). Less\ncommon variants of the BCHE gene include three fluoride-resistant or F variants such as\nrs28933389 (c.812C>T, p.Thr271Met), rs28933390 (c.1253G>T, p.Gly418Val)\nand rs121918557 (c.1072T>A, p.Leu358Ile) and silent variants called S variants. Some S variants lead to drastic reductions in BCHE activity such as rs104893684\n(c.1004T>C, p.Leu335Pro). It is important to consider that BChE deficiency can be acquired and not due to genetic\nalterations. Prolongation of neuromuscular block due to pseudocholinesterase deficiency\ncan be influenced by other factors such as increasing age, pregnancy, severe renal or\nhepatic disease, cancer, burn injuries, malnutrition, and drug interactions.",
+      "description": "PDF\n\nMivacurium and succinylcholine (Adverse Reactions)\nPseudocholinesterase deficiency is a rare enzymatic alteration that leads to an increased\nrisk of adverse effects from certain muscle relaxants, such as mivacurium and\nsuccinylcholine, used during general anesthesia in certain countries.\n\nYour result is\n\nLow risk of prolonged neuromuscular blockade\n\nSNP\n\nrs530517316\nGEN OR REGION\n\nBCHE\nGENOTYPE\n\nG/G\nRESULT\n\nYou do not have the c.1354C>T variant.\n\nSNP\n\nrs28933390\nGEN OR REGION\n\nBCHE\nGENOTYPE\n\nC/C\nRESULT\n\nYou do not have the c.1253G>T variant.\n\nSNP\n\nrs115129687\n\n\fGEN OR REGION\n\nBCHE\nFor obtaining your results, variants associated with drug metabolism, efficacy, response, and transport are evaluated.\nThe technique used is Whole Genome Sequencing (WGS 30x).\n\nMivacurium is a short-acting, non-depolarizing neuromuscular blocking agent used as an\nadjunct in general anesthesia to relax skeletal muscles. This medication works by\ncompetitively binding to cholinergic receptors at the motor endplate, blocking the action of\nacetylcholine, and consequently inhibiting neuromuscular transmission.\nMeanwhile, succinylcholine (or suxamethonium) is an ultra-short-acting muscle relaxant\nbelonging to the class of depolarizing neuromuscular blocking agents, mainly used to\nfacilitate tracheal intubation and muscle relaxation in surgical procedures.\nBoth mivacurium and succinylcholine are rapidly metabolized by enzymatic hydrolysis\ncatalyzed by the enzyme pseudocholinesterase or butyrylcholinesterase (BChE) in plasma.\nHowever, a rare but potentially serious adverse effect is prolonged apnea after\nadministration of these agents under general anesthesia. This risk is associated with\ndefects in the BChE enzyme, which may be caused by mutations in the BCHE gene that\nencodes this enzyme. Generally, people with BChE deficiency do not show symptoms until\nthey receive drugs such as mivacurium or succinylcholine.\nIf you have a family history of BChE deficiency or a family member who has experienced\nproblems related to anesthesia, it is essential to inform your doctor before undergoing any\nprocedure that requires anesthesia.\nTRADE NAMES\nMivacron® (mivacurium)\nAnectine® (succinylcholine)\nQuelicin® (succinylcholine)"
+    },
+    "rs1799732": {
+      "gene": "DRD2",
+      "name": "Olanzapine (Adverse effects)",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "DRD2 - Olanzapine (Adverse effects)",
+      "interpretations": {
+        "T/TG": {
+          "effect": "Elevated-risk DRD2 genotype",
+          "interpretation": "Population studies link your DRD2 variant to altered probability for olanzapine (adverse effects). This reflects group-level statistics; individual risk depends substantially on lifestyle, family history, and other genes.",
+          "recommendations": [
+            "Discuss olanzapine (adverse effects) screening with a healthcare provider if family history is present",
+            "Lifestyle modifications often reduce genetic risk — diet, exercise, and avoiding known triggers matter"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Alenius M, Wadelius M, Dahl ML, et al. Gene polymorphism influencing treatment response in psychotic",
+        "patients in a naturalistic setting. J Psychiatr Res. 2008 Sep;42(11):884-93.",
+        "López-Rodríguez R, Cabaleiro T, Ochoa D, et al. Pharmacodynamic genetic variants related to antipsychotic",
+        "adverse reactions in healthy volunteers. Pharmacogenomics. 2013 Jul;14(10):1203-14.",
+        "Zhang JP, Malhotra AK.Pharmacogenetics and antipsychotics: therapeutic efficacy and side effects",
+        "prediction. Expert Opin Drug Metab Toxicol. 2011 Jan;7(1):9-37.",
+        "Zubiaur P, Soria-Chacartegui P, Villapalos-García G, et al. The pharmacogenetics of treatment with",
+        "olanzapine. Pharmacogenomics. 2021 Sep;22(14):939-958."
+      ],
+      "technical_report": "According to several studies, DRD2 has been shown to be an important gene in the\ndevelopment of schizophrenia. DRD2, encodes for the dopamine receptor type 2 which is a\nrelevant presynaptic receptor. The rs1800497 variant, also known as c.2137G>A or Taq1A is\nlocated in the ANKK1(ankyrin repeat and kinase domain containing 1) gene. This variant is\nlocated 10 Kb from the DRD2 gene and correlates with lower DRD2 expression. Taq1A has been studied for its importance in the response to antipsychotics and also\nfor its association with substance abuse, alcohol dependence, eating disorders and\nsmoking cessation. The rs1800497 AA (ANKK1) genotype is associated with an increased risk of Headache\nwhen treated with olanzapine, quetiapine or risperidone in healthy individuals compared to\nthe GG genotype (Lopez-Rodriguez et al., 2013). Another well-studied DRD2 variant is -141C\nIns/Del or c.-486_-485insC (rs1799732) located in the 5 promoter region of the gene. This\npolymorphism may influence the density of D2 receptors in the striatum of healthy\nvolunteers not treated with antipsychotics. It has been observed, that schizophrenic\npatients carrying the Del allele might have a poor response to olanzapine and risperidone\n(Zhang and Malhotra. 2011). Finally, we analyzed the rs7997012 variant of the HTR2A gene have also been correlated\nwith antipsychotic treatment response and side effects. It is important to take into consideration that there are other factors that may influence\nthe response to olanzapine treatment. At present, the genetic variants analyzed here\nrequire further studies to confirm previous relationships before they can be employed in\nclinical practice.",
+      "description": "PDF\n\nOlanzapine (Adverse effects)\nOlanzapine is a medication belonging to the antipsychotic family used in\nthe treatment of schizophrenia, manic episodes, or bipolar disorder. Weight\ngain, one of the main side effects, has been associated with the presence\nof certain polymorphic variants in genes that interact with olanzapine.\n\nYour result is\n\nIncreased likelihood of certain adverse effects\n\nSNP\n\nrs1799732\nGEN OR REGION\n\nDRD2\nGENOTYPE\n\nT/TG\nRESULT\n\nYou have the c.-486_-485insC variant. Increased likelihood of weight gain and drowsiness.\n\nSNP\n\nrs7997012\nGEN OR REGION\n\nHTR2A\nGENOTYPE\n\nG/G\nRESULT\n\nYou have the c.614-2211T>C variant. Lower probability of adverse effects.\n\n\fFor obtaining your results, variants associated with drug metabolism, efficacy, response, and transport are evaluated.\nThe technique used is Whole Genome Sequencing (WGS 30x).\n\nOlanzapine is in a class of medications called atypical antipsychotics, structurally similar\nto clozapine and having the same mechanism of action. Olanzapine binds to alpha-1,\ndopaminergic, histaminic H1, muscarinic and serotoninergic (type 5-HT2) receptors.\nCompared to the typical antipsychotics, olanzapine has more reduced cardiovascular\neffects and induces less hyperprolactinemia and extrapyramidal reactions. From a clinical\npoint of view, olanzapine is effective in treating the symptoms of schizophrenia and is also\nused in treating acute mania with bipolar disorder, and in reducing agitation and other\npsychotic symptoms in dementia.\nOlanzapine is an atypical neuroleptic with effects similar to other neuroleptics on is used\nto treat both negative and positive symptoms of schizophrenia, and is also effective for\npersistent positive symptoms. It works by changing the activity of certain natural\nsubstances in the brain.\nWeight gain is one of the most important side effects associated with antipsychotic drug\ntreatment. It has a negative influence on one's health (associated with diabetes, heart\ndisease, and other serious disorders) and the personal well-being of the patient with a\nreduced fulfillment of treatment and the possible risk of recurrence of the illness. The\nimportance of this problem was shown by Fontaine et al. who found that clozapine, in spite\nof preventing suicide in 492 out of 100,000 schizophrenic patients treated over a 10 year\nperiod, could also be considered responsible for 416 deaths caused by the consequences\nof weight gain induced by antipsychotics.\nAmong the atypical neuroleptic drugs, olanzapine and clozapine have been associated with\na greater weight gain, with an average gain of 5 kg over short-term treatment and 6.7 kg\nover long-term treatment.\nGenetic factors are believed to play an important role in an individual's response to\nantipsychotic drugs, both in the benefits of treatment and in the susceptibility to side\neffects. The variations in the gene sequence, called polymorphism, could influence the\nproperties of the coded proteins and the results in individual response to the drugs.\nIf you wish to know all the substances that we analyze in our DNA test, please consult the\npharmacological compatibility or pharmacogenetic section."
+    },
+    "rs6280": {
+      "gene": "DRD3",
+      "name": "Olanzapine (Efficacy)",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "DRD3 - Olanzapine (Efficacy)",
+      "interpretations": {
+        "C/T": {
+          "effect": "Elevated-risk DRD3 genotype",
+          "interpretation": "Population studies link your DRD3 variant to altered probability for olanzapine (efficacy). This reflects group-level statistics; individual risk depends substantially on lifestyle, family history, and other genes.",
+          "recommendations": [
+            "Discuss olanzapine (efficacy) screening with a healthcare provider if family history is present",
+            "Lifestyle modifications often reduce genetic risk — diet, exercise, and avoiding known triggers matter"
+          ],
+          "priority": "high"
+        },
+        "AA": {
+          "effect": "Gly9/Gly9 — higher D3 receptor affinity for dopamine",
+          "interpretation": "Higher dopamine D3 receptor sensitivity — linked to greater impulsivity, novelty-seeking, and susceptibility to addiction and compulsive behaviors; D3 is highly expressed in limbic reward circuits This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Structure > spontaneity for high-stakes decisions (D3 high-affinity genotype responds more to immediate rewards)",
+            "Regular aerobic exercise — normalizes D3 receptor density",
+            "Mindfulness and meditation for impulse regulation"
+          ],
+          "priority": "moderate"
+        },
+        "GA": {
+          "effect": "Heterozygous — intermediate D3 receptor affinity",
+          "interpretation": "For olanzapine (efficacy), your DRD3 variant is one contributing factor — intermediate dopamine d3 receptor sensitivity — partial impulsivity tendency",
+          "recommendations": [
+            "Standard behavioral strategies for impulse management"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Ser9/Ser9 — normal D3 receptor affinity",
+          "interpretation": "For olanzapine (efficacy), your DRD3 variant is one contributing factor — standard dopamine d3 signaling — normal reward-circuit impulsivity profile",
+          "recommendations": [
+            "Standard cognitive health practices"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Adams DH, Close S, Farmen M, et al. Dopamine receptor D3 genotype association with greater acute",
+        "positive symptom remission with olanzapine therapy in predominantly Caucasian patients with chronic",
+        "schizophrenia or schizoaffective disorder. Hum Psychopharmacol. 2008 Jun;23(4):267-74.",
+        "Czerwensky F, Leucht S, Steimer W. CYP1A2*1D and *1F polymorphisms have a significant impact on",
+        "olanzapine serum concentrations. Ther Drug Monit. 2015 Apr;37(2):152-60.",
+        "Lencz T, Robinson DG, Xu K, et al. DRD2 promoter region variation as a predictor of sustained",
+        "response to antipsychotic medication in first-episode schizophrenia patients. Am J Psychiatry. 2006",
+        "Mar;163(3):529-31.",
+        "Zubiaur P, Soria-Chacartegui P, Villapalos-García G, et al. The pharmacogenetics of treatment with",
+        "olanzapine. Pharmacogenomics. 2021 Sep;22(14):939-958."
+      ],
+      "technical_report": "Olanzapine is transformed into its main metabolite, olanzapine-10-N-glucuronide, by the\nenzyme UGT1A4. However, other enzymes are involved in its transformation, one of the\nmain ones being CYP1A2, while CYP2D6 plays a minor role. research indicates that\npatients presenting two copies of the CYP1A2*1F allele which is defined by the presence of\nthe -163C>A, c.-9-154C>A or rs762551 variant respond worse to olanzapine treatment than\npatients who do not carry the CYP1A2*1F allele. Another gene that could be related to olanzapine response is ABCB1 or MDR1 which\nencodes for a transporter protein called P-gp or P-glycoprotein. This transporter is\nexpressed in multiple tissues and transports xenobiotics out of the tissue or organ where it\nis expressed. Olanzapine is one of the substances it can transport and it has been shown\nthat variants in the gene encoding it, such as rs1045642 or c.3435T>C can influence the\nresponse to treatment. The Ser9Gly or rs6280 variant is a polymorphism located in the DRD3 gene (dopamine D3\nreceptor). It appears that olanzapine interacts with this receptor and therefore, variations in\nits sequence can affect the activity of olanzapine. research indicates that the presence of\nthe T or Ser allele is associated with a higher probability of worse response to olanzapine\ntreatment and greater weight gain. In the study by Adams et al. it was observed that\nolanzapine-treated patients with CC genotype for rs6280 in the DRD3 gene more efficiently\ndecreased their symptoms compared to patients with CT or TT genotypes. The DRD2 gene encodes for the dopaminergic D2 receptor. Mutations in this gene have been\nassociated with schizophrenia and also with response to olanzapine. One of the most\nstudied variants is rs1799978 or A-241G, the presence of one copy of the C allele in patients\nwith schizophrenia is associated with a faster response to olanzapine. Another well-studied\nvariant in this same gene is a small deletion called rs1799732, c.-486_-485insC, or -141C\nIns/Del that has been linked to a lower response to multiple antipsychotic drugs. It should be kept in mind that the biomarkers analyzed here require confirmation in larger\nstudies covering different populations and that, in addition, there are other factors that may\ninterfere with response to olanzapine treatment. Therefore, these markers are not yet used\nin clinical practice.",
+      "description": "PDF\n\nOlanzapine (Efficacy)\nOlanzapine is an atypical antipsychotic used in the treatment of schizophrenia, depressive\nepisodes and bipolar disorder. The presence of polymorphisms in the dopamine\nreceptor gene (DRD3) may affect the activity of olanzapine, and therefore its efficacy.\n\nYour result is\n\nProbable worse response to treatment\n\nSNP\n\nrs6280\nGEN OR REGION\n\nDRD3\nGENOTYPE\n\nC/T\nRESULT\n\nYou have the c.25G>A variant. Increased likelihood of worse response to treatment.\n\nSNP\n\nrs1799732\nGEN OR REGION\n\nDRD2\nGENOTYPE\n\nT/TG\nRESULT\n\nYou have the c.-486_-485insC variant. Increased likelihood of worse response to treatment.\n\nSNP\n\nrs1799978\n\n\fGEN OR REGION\n\nDRD2\nFor obtaining your results, variants associated with drug metabolism, efficacy, response, and transport are evaluated.\nThe technique used is Whole Genome Sequencing (WGS 30x).\n\nOlanzapine is an antipsychotic agent, chemically related to clozapine and with the same\nmechanism of action. Olanzapine binds to alpha-1, dopaminergic, histamine H1,\nmuscarinic and serotonergic (5-HT2 type) receptors. Compared to typical antipsychotics,\nolanzapine shows reduced cardiovascular effects and induces less hyperprolactinemia and\nextrapyramidal reactions. From a clinical point of view, olanzapine is effective in the\ntreatment of schizophrenia symptoms and is also used in the treatment of acute mania\nwith bipolar disorders and to reduce agitation and other psychotic symptoms of dementia.\nWhen olanzapine is used, therapeutic failure may occur in some patients due to the\npresence of adverse effects or because the treatment is not effective and good symptom\ncontrol is not achieved. The presence of certain variants in genes involved in its\nmetabolism, transport and receptors involved in the response could explain part of the\nvariability observed among patients.\nBRAND NAMES\nZyprexa®\nZydis®"
+    },
+    "rs3087374": {
+      "gene": "POLG",
+      "name": "Valproic Acid (Adverse effects)",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "POLG - Valproic Acid (Adverse effects)",
+      "interpretations": {
+        "C/C": {
+          "effect": "Typical POLG function",
+          "interpretation": "Your POLG genotype is the most common form in reference populations. This does not rule out valproic acid (adverse effects) risk from other genes, environmental exposures, or rare variants not covered by standard genotyping.",
+          "recommendations": [
+            "No specific POLG-directed intervention indicated, but standard health screening still applies",
+            "Other genetic and environmental factors contribute to valproic acid (adverse effects) — genotype alone is not the full picture"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Harju T, Hurme-Niiranen A, Suo-Palosaari M, et al. DNA polymerase gamma variants and hepatotoxicity",
+        "during maintenance therapy of childhood acute lymphoblastic leukemia: is there a causal relationship?",
+        "Pharmacogenomics J. 2023 Sep;23(5):105-111.",
+        "Saneto RP, Lee IC, Koenig MK, et al. POLG DNA testing as an emerging standard of care before instituting",
+        "valproic acid therapy for pediatric seizure disorders. Seizure. 2010 Apr;19(3):140-6.",
+        "Sitarz KS, Elliott HR, Karaman BS, et al.Valproic acid triggers increased mitochondrial biogenesis in POLGdeficient fibroblasts. Mol Genet Metab. 2014 May;112(1):57-63.",
+        "Stewart JD, Horvath R, Baruffini E, et al. Polymerase γ gene POLG determines the risk of sodium valproateinduced liver toxicity. Hepatology. 2010 Nov;52(5):1791-6."
+      ],
+      "technical_report": "VPA is one of the most widely used antiepileptic drugs worldwide to treat the manic phases\nof bipolar disorder and also in other psychiatric disorders. Recently, VPA, alone or in\ncombination with other anti-tumor drugs, has started to be used for the treatment of several\ncancers. It has also been shown that it may have a neuroprotective effect in patients with\nAlzheimer's disease. Although VPA is generally well tolerated, research indicates that exceptionally it can\nproduce severe hepatotoxicity. This adverse effect correlates with the presence\nof variants in the POLG gene that codes for the catalytic subunit of mitochondrial\nDNA polymerase. More than 150 different pathogenic variants have been described in POLG that can produce\nmultiple clinical phenotypes such as Alpers-Huttenlocher syndrome. Among them, the most\nfrequent is rs113994095, also called c.1399G> A or A467T, which significantly reduces\nenzyme activity to only 4% of normal activity. Another variant that markedly decreases\nactivity is rs113994097, c.2243G>C or W748S. Stewart et al. conducted a prospective study in patients from different centers in the United\nStates included in the Drug Induced Liver Injury Network (DILIN) from 2004 to 2008. This\nstudy demonstrated that the presence of a single copy of a pathogenic variant in POLG\ncould lead to liver damage during treatment with VPA. When there is suspicion that a patient may have a mitochondrial disease (e.g. AlpersHuttenlocher syndrome, autosomal recessive inheritance) caused by mutations in POLG,\nthe gene should be analyzed before VPA is used. Treatment with VPA is contraindicated in\nthese patients. The detection of variants in the POLG gene can be helpful in deciding whether to use VPA as\nan antiepileptic or bipolar disorder treatment, as well as in adjusting the dose of VPA in\npatients with prolonged treatment while minimizing the risk of liver damage. Recent studies,\nsuch as the one carried out by Harju et al. suggest that it could also be of interest to know\nwhether a patient carries pathogenic variants in POLG in therapies combining VPA with\nantitumor drugs.",
+      "description": "PDF\n\nValproic Acid (Adverse effects)\nValproic acid is an antiepileptic and mood stabilizing drug used for the\ntreatment of epilepsy and bipolar disorder. Polymorphisms in the POLG gene\nhave been associated with an increase in associated hepatic toxic reactions.\n\nYour result is\n\nNo variations in liver toxicity risk\n\nSNP\n\nrs3087374\nGEN OR REGION\n\nPOLG\nGENOTYPE\n\nC/C\nRESULT\n\nYou do not have the c.3708G>T allele. In the absence of another loss-of-function allele the VPA\nwill be well tolerated.\n\nSNP\n\nrs139590686\nGEN OR REGION\n\nPOLG\nGENOTYPE\n\nT/T\nRESULT\n\nYou do not have the c.2740A>C allele. In the absence of another loss-of-function allele the VPA\nwill be well tolerated.\n\n\fSNP\n\nFor obtaining your results, variants associated with drug metabolism, efficacy, response, and transport are evaluated.\nThe technique used is Whole Genome Sequencing (WGS 30x).\n\nValproic acid (VPA), also known as sodium valproate, magnesium valproate, or simply\nvalproate, is an antiepileptic drug and mood stabilizer used in the treatment of conditions\nsuch as epilepsy or bipolar disorder. VPA increases brain GABA levels, decreases excitatory\namino acid levels, and modifies potassium conductance.\nValproic acid is used to treat disorders such as epilepsy and bipolar disorder. Although it is\nvery effective in controlling seizures, its use must be carefully monitored due to side\neffects and interactions with other medications.\nIf you wish to know all the substances we analyze in our DNA test, consult the drug\ncompatibility section or pharmacogenomics.\n\nCONTRAINDICATIONS\nHypersensitivity to sodium valproate.\nAcute hepatitis, chronic hepatitis, personal or family history of severe hepatitis, hepatic\nporphyria, previous or current liver disease and/or severe liver or pancreatic dysfunction,\nbranched-chain amino acid or urea cycle metabolism disorders, known mitochondrial\ndisorders caused by mutations in the nuclear gene encoding the mitochondrial enzyme\npolymerase gamma, such as Alpers-Huttenlocher syndrome. It is contraindicated in\nchildren under 2 years of age suspected of having a polymerase gamma-related disorder.\n\nPRECAUTIONS\nRenal insufficiency. In systemic lupus erythematosus, assess benefit-risk. Severe liver\nfailure has been reported, with maximum risk in infants and children under 3 years of age\nwith brain injury, mental retardation, or metabolic or genetic degenerative disease: evaluate\nliver function before starting treatment and monitor it periodically during the first 6 months\nof treatment.\nIn children under 3 years of age, monotherapy is recommended, and concomitant use with\nsalicylates should be avoided due to the risk of liver toxicity. Discontinue in case of\npancreatitis. Perform hematological tests before starting treatment, before surgical\nintervention, and in case of spontaneous bruises or hemorrhages.\nDo not consume alcohol. In case of suspected urea cycle enzyme deficiency, perform\nmetabolic examinations.\n\n\fPossible weight gain at the start of treatment. Changes in treatment or\ngradual discontinuation.\nDo not administer to girls, adolescent women, women of childbearing age, and pregnant\nwomen unless alternative treatments are not effective or tolerated; the teratogenic\npotential and the risk of developing developmental disorders in children in utero are high.\nWomen of childbearing potential must use an effective contraceptive method, and the risks\nin case of pregnancy should be explained to them. If pregnancy occurs, an assessment of\nthe benefits and risks of continuing treatment should be made, considering other\ntherapeutic alternatives.\nMonitor for signs of suicidal ideation and behavior.\nIn patients suspected of or presenting with mitochondrial disease (clinical signs of these\nunderlying mitochondrial diseases caused by mitochondrial DNA mutations, as well as the\nnuclear gene encoding polymerase gamma, may be triggered or worsened), perform\npolymerase gamma mutation tests in accordance with current clinical practice for the\ndiagnostic evaluation of such disorders.\n\nSIDE EFFECTS\nValproic acid can cause anemia, thrombocytopenia, weight gain, tremor, extrapyramidal\ndisorders, stupor, somnolence, seizures, memory failure, headache, nystagmus, dizziness\nafter injection, deafness, nausea, abdominal pain, diarrhea, hypersensitivity, alopecia\n(transient, dose-related), hyponatremia, hemorrhage, liver injury, dysmenorrhea,\nconfusional state, aggression, agitation, and attention disorders. In some cases, cognitive\nfunction may be impaired, especially with long-term treatment.\n\nDRUG INTERACTIONS\nVPA potentiates the effect of neuroleptics, MAOIs, antidepressants, and benzodiazepines.\nVPA intake increases plasma concentrations of phenobarbital, free phenytoin, primidone,\ncarbamazepine, lamotrigine, zidovudine, nimodipine, and ethosuximide.\nSerum concentrations of valproic acid are decreased by: phenytoin, phenobarbital,\ncarbamazepine, and carbapenems.\nSerum concentrations of valproic acid are increased by: felbamate, cimetidine, fluoxetine,\nand erythromycin.\nVPA decreases the clearance of felbamate. There is a risk of hemorrhage if prescribed\nconcomitantly with anticoagulants and ASA.\nThe antibiotic mefloquine is contraindicated with the use of valproic acid due to the risk of\nseizures, which can aggravate the patient's condition.\n\n\fLiver toxicity exacerbated by alcohol.\nAdjust dose if prescribed concomitantly with rifampicin.\nRisk of encephalopathy and/or hyperammonemia if taken concomitantly with topiramate.\nVPA increases propofol exposure, so it is recommended to reduce the propofol dose during\nvalproic treatment.\nVPA intake may give false positives in ketone body excretion tests.\n\nBRAND NAMES\nDepakine®\nValproic acid®."
+    },
+    "rs139590686": {
+      "gene": "POLG",
+      "name": "Valproic Acid (Adverse effects)",
+      "category": "pharmacogenomics",
+      "chrom": "",
+      "pos": 0,
+      "display": "POLG - Valproic Acid (Adverse effects)",
+      "interpretations": {
+        "T/T": {
+          "effect": "Typical POLG function",
+          "interpretation": "Your POLG genotype is the most common form in reference populations. This does not rule out valproic acid (adverse effects) risk from other genes, environmental exposures, or rare variants not covered by standard genotyping.",
+          "recommendations": [
+            "No specific POLG-directed intervention indicated, but standard health screening still applies",
+            "Other genetic and environmental factors contribute to valproic acid (adverse effects) — genotype alone is not the full picture"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Harju T, Hurme-Niiranen A, Suo-Palosaari M, et al. DNA polymerase gamma variants and hepatotoxicity",
+        "during maintenance therapy of childhood acute lymphoblastic leukemia: is there a causal relationship?",
+        "Pharmacogenomics J. 2023 Sep;23(5):105-111.",
+        "Saneto RP, Lee IC, Koenig MK, et al. POLG DNA testing as an emerging standard of care before instituting",
+        "valproic acid therapy for pediatric seizure disorders. Seizure. 2010 Apr;19(3):140-6.",
+        "Sitarz KS, Elliott HR, Karaman BS, et al.Valproic acid triggers increased mitochondrial biogenesis in POLGdeficient fibroblasts. Mol Genet Metab. 2014 May;112(1):57-63.",
+        "Stewart JD, Horvath R, Baruffini E, et al. Polymerase γ gene POLG determines the risk of sodium valproateinduced liver toxicity. Hepatology. 2010 Nov;52(5):1791-6."
+      ],
+      "technical_report": "VPA is one of the most widely used antiepileptic drugs worldwide to treat the manic phases\nof bipolar disorder and also in other psychiatric disorders. Recently, VPA, alone or in\ncombination with other anti-tumor drugs, has started to be used for the treatment of several\ncancers. It has also been shown that it may have a neuroprotective effect in patients with\nAlzheimer's disease. Although VPA is generally well tolerated, research indicates that exceptionally it can\nproduce severe hepatotoxicity. This adverse effect correlates with the presence\nof variants in the POLG gene that codes for the catalytic subunit of mitochondrial\nDNA polymerase. More than 150 different pathogenic variants have been described in POLG that can produce\nmultiple clinical phenotypes such as Alpers-Huttenlocher syndrome. Among them, the most\nfrequent is rs113994095, also called c.1399G> A or A467T, which significantly reduces\nenzyme activity to only 4% of normal activity. Another variant that markedly decreases\nactivity is rs113994097, c.2243G>C or W748S. Stewart et al. conducted a prospective study in patients from different centers in the United\nStates included in the Drug Induced Liver Injury Network (DILIN) from 2004 to 2008. This\nstudy demonstrated that the presence of a single copy of a pathogenic variant in POLG\ncould lead to liver damage during treatment with VPA. When there is suspicion that a patient may have a mitochondrial disease (e.g. AlpersHuttenlocher syndrome, autosomal recessive inheritance) caused by mutations in POLG,\nthe gene should be analyzed before VPA is used. Treatment with VPA is contraindicated in\nthese patients. The detection of variants in the POLG gene can be helpful in deciding whether to use VPA as\nan antiepileptic or bipolar disorder treatment, as well as in adjusting the dose of VPA in\npatients with prolonged treatment while minimizing the risk of liver damage. Recent studies,\nsuch as the one carried out by Harju et al. suggest that it could also be of interest to know\nwhether a patient carries pathogenic variants in POLG in therapies combining VPA with\nantitumor drugs.",
+      "description": "PDF\n\nValproic Acid (Adverse effects)\nValproic acid is an antiepileptic and mood stabilizing drug used for the\ntreatment of epilepsy and bipolar disorder. Polymorphisms in the POLG gene\nhave been associated with an increase in associated hepatic toxic reactions.\n\nYour result is\n\nNo variations in liver toxicity risk\n\nSNP\n\nrs3087374\nGEN OR REGION\n\nPOLG\nGENOTYPE\n\nC/C\nRESULT\n\nYou do not have the c.3708G>T allele. In the absence of another loss-of-function allele the VPA\nwill be well tolerated.\n\nSNP\n\nrs139590686\nGEN OR REGION\n\nPOLG\nGENOTYPE\n\nT/T\nRESULT\n\nYou do not have the c.2740A>C allele. In the absence of another loss-of-function allele the VPA\nwill be well tolerated.\n\n\fSNP\n\nFor obtaining your results, variants associated with drug metabolism, efficacy, response, and transport are evaluated.\nThe technique used is Whole Genome Sequencing (WGS 30x).\n\nValproic acid (VPA), also known as sodium valproate, magnesium valproate, or simply\nvalproate, is an antiepileptic drug and mood stabilizer used in the treatment of conditions\nsuch as epilepsy or bipolar disorder. VPA increases brain GABA levels, decreases excitatory\namino acid levels, and modifies potassium conductance.\nValproic acid is used to treat disorders such as epilepsy and bipolar disorder. Although it is\nvery effective in controlling seizures, its use must be carefully monitored due to side\neffects and interactions with other medications.\nIf you wish to know all the substances we analyze in our DNA test, consult the drug\ncompatibility section or pharmacogenomics.\n\nCONTRAINDICATIONS\nHypersensitivity to sodium valproate.\nAcute hepatitis, chronic hepatitis, personal or family history of severe hepatitis, hepatic\nporphyria, previous or current liver disease and/or severe liver or pancreatic dysfunction,\nbranched-chain amino acid or urea cycle metabolism disorders, known mitochondrial\ndisorders caused by mutations in the nuclear gene encoding the mitochondrial enzyme\npolymerase gamma, such as Alpers-Huttenlocher syndrome. It is contraindicated in\nchildren under 2 years of age suspected of having a polymerase gamma-related disorder.\n\nPRECAUTIONS\nRenal insufficiency. In systemic lupus erythematosus, assess benefit-risk. Severe liver\nfailure has been reported, with maximum risk in infants and children under 3 years of age\nwith brain injury, mental retardation, or metabolic or genetic degenerative disease: evaluate\nliver function before starting treatment and monitor it periodically during the first 6 months\nof treatment.\nIn children under 3 years of age, monotherapy is recommended, and concomitant use with\nsalicylates should be avoided due to the risk of liver toxicity. Discontinue in case of\npancreatitis. Perform hematological tests before starting treatment, before surgical\nintervention, and in case of spontaneous bruises or hemorrhages.\nDo not consume alcohol. In case of suspected urea cycle enzyme deficiency, perform\nmetabolic examinations.\n\n\fPossible weight gain at the start of treatment. Changes in treatment or\ngradual discontinuation.\nDo not administer to girls, adolescent women, women of childbearing age, and pregnant\nwomen unless alternative treatments are not effective or tolerated; the teratogenic\npotential and the risk of developing developmental disorders in children in utero are high.\nWomen of childbearing potential must use an effective contraceptive method, and the risks\nin case of pregnancy should be explained to them. If pregnancy occurs, an assessment of\nthe benefits and risks of continuing treatment should be made, considering other\ntherapeutic alternatives.\nMonitor for signs of suicidal ideation and behavior.\nIn patients suspected of or presenting with mitochondrial disease (clinical signs of these\nunderlying mitochondrial diseases caused by mitochondrial DNA mutations, as well as the\nnuclear gene encoding polymerase gamma, may be triggered or worsened), perform\npolymerase gamma mutation tests in accordance with current clinical practice for the\ndiagnostic evaluation of such disorders.\n\nSIDE EFFECTS\nValproic acid can cause anemia, thrombocytopenia, weight gain, tremor, extrapyramidal\ndisorders, stupor, somnolence, seizures, memory failure, headache, nystagmus, dizziness\nafter injection, deafness, nausea, abdominal pain, diarrhea, hypersensitivity, alopecia\n(transient, dose-related), hyponatremia, hemorrhage, liver injury, dysmenorrhea,\nconfusional state, aggression, agitation, and attention disorders. In some cases, cognitive\nfunction may be impaired, especially with long-term treatment.\n\nDRUG INTERACTIONS\nVPA potentiates the effect of neuroleptics, MAOIs, antidepressants, and benzodiazepines.\nVPA intake increases plasma concentrations of phenobarbital, free phenytoin, primidone,\ncarbamazepine, lamotrigine, zidovudine, nimodipine, and ethosuximide.\nSerum concentrations of valproic acid are decreased by: phenytoin, phenobarbital,\ncarbamazepine, and carbapenems.\nSerum concentrations of valproic acid are increased by: felbamate, cimetidine, fluoxetine,\nand erythromycin.\nVPA decreases the clearance of felbamate. There is a risk of hemorrhage if prescribed\nconcomitantly with anticoagulants and ASA.\nThe antibiotic mefloquine is contraindicated with the use of valproic acid due to the risk of\nseizures, which can aggravate the patient's condition.\n\n\fLiver toxicity exacerbated by alcohol.\nAdjust dose if prescribed concomitantly with rifampicin.\nRisk of encephalopathy and/or hyperammonemia if taken concomitantly with topiramate.\nVPA increases propofol exposure, so it is recommended to reduce the propofol dose during\nvalproic treatment.\nVPA intake may give false positives in ketone body excretion tests.\n\nBRAND NAMES\nDepakine®\nValproic acid®."
+    }
+  }
+}

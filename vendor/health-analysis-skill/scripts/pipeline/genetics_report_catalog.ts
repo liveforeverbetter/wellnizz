@@ -19,8 +19,8 @@ export type GeneticsReportCategory =
   | 'pharmacogenetics'
   | 'hereditary_conditions'
   | 'personal_traits'
-  | 'wellness'
-  | 'ancestry';
+  | 'metabolism'
+  | 'physical-traits';
 
 export type GeneticsReportSourceType =
   | 'curated_marker'
@@ -93,18 +93,18 @@ const INTERPRETATION_CATEGORY_MAP: Record<string, GeneticsReportCategory> = {
   hereditary: 'hereditary_conditions',
   personality: 'personal_traits',
   performance: 'personal_traits',
-  wellness: 'wellness',
-  ancestry: 'ancestry',
+  wellness: 'metabolism',
+  ancestry: 'physical-traits',
 };
 
 const INTERPRETATION_FILES: Array<{ file: string; sourceCategory: string }> = [
   { file: 'vulnerability.json', sourceCategory: 'vulnerability' },
-  { file: 'pharmacology.json', sourceCategory: 'pharmacology' },
-  { file: 'hereditary.json', sourceCategory: 'hereditary' },
-  { file: 'personality.json', sourceCategory: 'personality' },
-  { file: 'performance.json', sourceCategory: 'performance' },
-  { file: 'wellness.json', sourceCategory: 'wellness' },
-  { file: 'ancestry.json', sourceCategory: 'ancestry' },
+  { file: 'pharmacology.json', sourceCategory: 'pharmacogenomics' },
+  { file: 'hereditary.json', sourceCategory: 'inherited-conditions' },
+  { file: 'personality.json', sourceCategory: 'cognitive' },
+  { file: 'performance.json', sourceCategory: 'superpowers' },
+  { file: 'wellness.json', sourceCategory: 'metabolism' },
+  { file: 'ancestry.json', sourceCategory: 'physical-traits' },
 ];
 
 const PERSONAL_PRS = new Set([
@@ -176,7 +176,7 @@ function isValidEntry(entry: GeneticsReportCatalogEntry): string | undefined {
 
 function inferPrsCategory(trait: string): GeneticsReportCategory {
   if (PERSONAL_PRS.has(trait)) return 'personal_traits';
-  if (WELLNESS_PRS.has(trait)) return 'wellness';
+  if (WELLNESS_PRS.has(trait)) return 'metabolism';
   return 'genetic_vulnerability';
 }
 
@@ -193,7 +193,7 @@ function inferKnowledgeGraphCategory(topic: string): GeneticsReportCategory {
   if (/(fitness|performance|strength|exercise|sleep|circadian|dopamine|serotonin|neuroplasticity|neurotransmitter|alcohol|caffeine|lactose|histamine|body_composition|thermogenesis)/i.test(topic)) {
     return 'personal_traits';
   }
-  return 'wellness';
+  return 'metabolism';
 }
 
 function addEntry(
@@ -344,7 +344,7 @@ function addKnowledgeGraphTopics(packageDir: string, entriesById: Map<string, Ge
       label: titleize(topic),
       source_type: 'knowledge_graph_topic',
       evidence_source: 'shared/knowledge_graph_data.json',
-      evidence_tier: inferKnowledgeGraphCategory(topic) === 'wellness' ? 3 : 2,
+      evidence_tier: inferKnowledgeGraphCategory(topic) === 'metabolism' ? 3 : 2,
       capability: 'trait_to_protocol_mapping',
     });
   }

@@ -849,7 +849,7 @@ function mapProtocolToTraits(protocol: LongevityProtocol): Array<{
     ["tcf7l2", "insulin_signaling"],
     ["agtr1", "blood_pressure"],
     ["hfe", "iron_metabolism"],
-    ["foxo3", "longevity"],
+    ["foxo3", "cellular-health"],
     ["tert", "telomere_maintenance"],
     ["lpa", "cardiovascular_risk"],
     ["cetp", "cholesterol_transport"],
@@ -2638,12 +2638,12 @@ function mapCategoryGLI(
   categoryGli: Record<string, number>
 ): Record<string, number> {
   const groups: Record<string, number[]> = {
-    vulnerability: [],
-    pharmacology: [],
-    hereditary: [],
+    'health-vulnerability': [],
+    pharmacogenomics: [],
+    'inherited-conditions': [],
     traits: [],
-    wellness: [],
-    ancestry: [],
+    metabolism: [],
+    'physical-traits': [],
   };
 
   for (const [key, score] of Object.entries(categoryGli)) {
@@ -2785,12 +2785,12 @@ function mapCategoryGLI(
  */
 function getCategoryMarkerCounts(): Record<string, number> {
   const counts: Record<string, number> = {
-    vulnerability: 0,
-    pharmacology: 0,
-    hereditary: 0,
+    'health-vulnerability': 0,
+    pharmacogenomics: 0,
+    'inherited-conditions': 0,
     traits: 0,
-    wellness: 0,
-    ancestry: 0,
+    metabolism: 0,
+    'physical-traits': 0,
   };
   const interpretationsDir = path.join(
     path.dirname(fileURLToPath(import.meta.url)),
@@ -2802,14 +2802,14 @@ function getCategoryMarkerCounts(): Record<string, number> {
 
   // Category file name → dashboard category mapping
   const catMap: Record<string, string> = {
-    "vulnerability.json": "vulnerability",
-    "pharmacology.json": "pharmacology",
-    "hereditary.json": "hereditary",
-    "personality.json": "traits",
-    "performance.json": "traits", // performance markers contribute to the traits category
-    "wellness.json": "wellness",
-    "ancestry.json": "ancestry",
-    "longevity.json": "longevity",
+    "health-vulnerability.json": "vulnerability",
+    "pharmacogenomics.json": "pharmacology",
+    "inherited-conditions.json": "hereditary",
+    "cognitive.json": "traits",
+    "superpowers.json": "traits", // performance markers contribute to the traits category
+    "metabolism.json": "wellness",
+    "physical-traits.json": "ancestry",
+    "cellular-health.json": "cellular-health",
   };
 
   for (const [fileName, cat] of Object.entries(catMap)) {
@@ -2829,21 +2829,21 @@ function getCategoryMarkerCounts(): Record<string, number> {
 }
 
 const CATEGORY_SUBITEMS: Record<string, string[][]> = {
-  vulnerability: [
+  'health-vulnerability': [
     ["Cardiovascular Risk (APOE, LPA)", "LPA/APOB/LDLR polygenic"],
     ["Metabolic Health (TCF7L2, FTO)", "Insulin/glucose GWAS"],
     ["Inflammatory Markers (IL6, IL6R)", "CRP/TNFα pathway"],
     ["Thrombosis Panel (F5, F2, F13A1)", "Clotting cascade"],
     ["DNA Repair Capacity (XRCC1, OGG1)", "BER/NER pathway"],
   ],
-  pharmacology: [
+  pharmacogenomics: [
     ["CYP2D6 Metabolism", "Antidepressants/opioids"],
     ["CYP2C19 Metabolism", "Clopidogrel/PPIs"],
     ["CYP2C9 Metabolism", "Warfarin/NSAIDs"],
     ["CYP3A4/3A5 Metabolism", "Statins/immunosuppressants"],
     ["SLCO1B1 Transporter", "Statin myopathy risk"],
   ],
-  hereditary: [
+  'inherited-conditions': [
     ["Hereditary Hemochromatosis (HFE)", "Iron overload"],
     ["Cystic Fibrosis Carrier (CFTR)", "Respiratory"],
     ["G6PD Deficiency", "Hemolytic anemia"],
@@ -2857,14 +2857,14 @@ const CATEGORY_SUBITEMS: Record<string, string[][]> = {
     ["BDNF Val66Met", "Neuroplasticity"],
     ["Muscle Fiber Type (ACTN3)", "Fast vs endurance"],
   ],
-  wellness: [
+  metabolism: [
     ["Methylation Cycle (MTHFR, MTR)", "Folate/B12"],
     ["Vitamin D Receptor (VDR)", "Bone/immune"],
     ["Omega-3 Metabolism (FADS1/2)", "Anti-inflammatory"],
     ["Antioxidant Defense (SOD2, GPX1)", "Oxidative stress"],
     ["NAD+ Metabolism (NAMPT, SIRT1)", "Energy/aging"],
   ],
-  ancestry: [
+  'physical-traits': [
     ["Y-Chromosomal Haplogroup", "Paternal lineage"],
     ["Mitochondrial Haplogroup", "Maternal lineage"],
     ["Neanderthal Admixture", "Archaic introgression"],
@@ -2901,17 +2901,17 @@ function buildCategories(categoryGli: Record<string, number>): Category[] {
   const markerCounts = getCategoryMarkerCounts();
 
   const descs: Record<string, string> = {
-    vulnerability:
+    'health-vulnerability':
       "Disease-associated markers assessing polygenic risk for cardiometabolic, neurological, and inflammatory conditions.",
-    pharmacology:
+    pharmacogenomics:
       "Pharmacogenetic markers across CYP450 family and drug transporters. These influence how your body processes medications.",
-    hereditary:
+    'inherited-conditions':
       "Monogenic condition markers. These check for carrier status of single-gene conditions.",
     traits:
       "Markers related to cognition, neurotransmitter function, and behavioral tendencies.",
-    wellness:
+    metabolism:
       "Markers covering nutrition absorption, methylation, metabolism, and inflammation.",
-    ancestry:
+    'physical-traits':
       "Markers tracing your deep ancestry through Y-chromosomal and mitochondrial haplogroups.",
   };
 
@@ -3448,7 +3448,7 @@ const PRS_CATEGORY_MAP: Record<
   string,
   {
     category:
-      | "longevity"
+      | "cellular-health"
       | "wellness"
       | "disease_risk"
       | "metabolic"
@@ -3457,18 +3457,18 @@ const PRS_CATEGORY_MAP: Record<
     displayName: string;
   }
 > = {
-  telomere_length: { category: "longevity", displayName: "Telomere Length" },
+  telomere_length: { category: "cellular-health", displayName: "Telomere Length" },
   epigenetic_age_grimage: {
-    category: "longevity",
+    category: "cellular-health",
     displayName: "Epigenetic Aging (GrimAge)",
   },
   vo2max: {
-    category: "longevity",
+    category: "cellular-health",
     displayName: "VO₂ Max (Cardiorespiratory Fitness)",
   },
-  grip_strength: { category: "longevity", displayName: "Grip Strength" },
-  lean_body_mass: { category: "longevity", displayName: "Lean Body Mass" },
-  igf1_levels: { category: "longevity", displayName: "IGF-1 Levels" },
+  grip_strength: { category: "cellular-health", displayName: "Grip Strength" },
+  lean_body_mass: { category: "cellular-health", displayName: "Lean Body Mass" },
+  igf1_levels: { category: "cellular-health", displayName: "IGF-1 Levels" },
   bone_density: { category: "wellness", displayName: "Bone Density" },
   sleep_duration: { category: "wellness", displayName: "Sleep Duration" },
   chronotype_morningness: {
@@ -3521,7 +3521,7 @@ function buildPRSExpanded(prsScores: PRSScore[]): {
     DashboardPRSScore & {
       displayName: string;
       category:
-        | "longevity"
+        | "cellular-health"
         | "wellness"
         | "disease_risk"
         | "metabolic"
@@ -3533,7 +3533,7 @@ function buildPRSExpanded(prsScores: PRSScore[]): {
     DashboardPRSScore & {
       displayName: string;
       category:
-        | "longevity"
+        | "cellular-health"
         | "wellness"
         | "disease_risk"
         | "metabolic"
@@ -3545,7 +3545,7 @@ function buildPRSExpanded(prsScores: PRSScore[]): {
     DashboardPRSScore & {
       displayName: string;
       category:
-        | "longevity"
+        | "cellular-health"
         | "wellness"
         | "disease_risk"
         | "metabolic"
@@ -3557,7 +3557,7 @@ function buildPRSExpanded(prsScores: PRSScore[]): {
   type PRSEntry = DashboardPRSScore & {
     displayName: string;
     category:
-      | "longevity"
+      | "cellular-health"
       | "wellness"
       | "disease_risk"
       | "metabolic"
@@ -3567,7 +3567,7 @@ function buildPRSExpanded(prsScores: PRSScore[]): {
   const categorized: Record<string, PRSEntry[]> = {
     disease_risk: [],
     longevity: [],
-    wellness: [],
+    metabolism: [],
     metabolic: [],
     inflammation: [],
     cognitive: [],
@@ -3597,7 +3597,7 @@ function buildPRSExpanded(prsScores: PRSScore[]): {
       sourceUrl: score.sourceUrl,
       sourceRelease: score.sourceRelease,
       genomeBuild: score.genomeBuild,
-      ancestry: score.ancestry,
+      'physical-traits': score.ancestry,
       ancestryDisclosure: score.ancestryDisclosure,
       buildDisclosure: score.buildDisclosure,
       coverageDisclosure: score.coverageDisclosure,
@@ -3605,7 +3605,7 @@ function buildPRSExpanded(prsScores: PRSScore[]): {
 
     if (mapping.category === "disease_risk")
       categorized.disease_risk.push(entry);
-    else if (mapping.category === "longevity")
+    else if (mapping.category === "cellular-health")
       categorized.longevity.push(entry);
     else if (mapping.category === "inflammation")
       categorized.inflammation.push(entry);
@@ -3940,7 +3940,7 @@ export function transformToDashboardData(
       sourceUrl: p.sourceUrl,
       sourceRelease: p.sourceRelease,
       genomeBuild: p.genomeBuild,
-      ancestry: p.ancestry,
+      'physical-traits': p.ancestry,
       ancestryDisclosure: p.ancestryDisclosure,
       buildDisclosure: p.buildDisclosure,
       coverageDisclosure: p.coverageDisclosure,
@@ -5300,7 +5300,7 @@ export function buildDashboardJSON(
     genomicCoverage,
     polygenic,
     strengths,
-    hereditary: hereditaryVariants,
+    'inherited-conditions': hereditaryVariants,
     drugGene,
     hallmarks,
     gwasTraits: output.metadata.gwas_traits ?? null,

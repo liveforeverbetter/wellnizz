@@ -212,14 +212,14 @@ interface MarkerInterpretation {
 
 // Default tags based on category
 const CATEGORY_TAGS: Record<string, string> = {
-  vulnerability: "🛑 Risk Mitigation",
-  wellness: "ℹ️ Dietary Rule",
-  pharmacology: "⚠️ Medical Alert",
-  performance: "🟢 Superpower",
-  personality: "🟢 Superpower",
-  hereditary: "⚠️ Medical Alert",
-  ancestry: "🟢 Superpower",
-  longevity: "⏳ Longevity Signal",
+  'health-vulnerability': "🛑 Risk Mitigation",
+  metabolism: "ℹ️ Metabolic Insight",
+  pharmacogenomics: "⚠️ Medical Alert",
+  superpowers: "🟢 Superpower",
+  cognitive: "🧠 Cognitive Trait",
+  'inherited-conditions': "⚠️ Medical Alert",
+  'physical-traits': "🔬 Physical Trait",
+  'cellular-health': "⏳ Cellular Health",
 };
 
 // Default supplements for common genes
@@ -407,14 +407,14 @@ function loadInterpretations(
 ): Map<string, MarkerInterpretation> {
   const markers = new Map<string, MarkerInterpretation>();
   const files = [
-    "wellness.json",
-    "pharmacology.json",
-    "personality.json",
-    "performance.json",
-    "vulnerability.json",
-    "hereditary.json",
-    "ancestry.json",
-    "longevity.json",
+    "metabolism.json",
+    "pharmacogenomics.json",
+    "cognitive.json",
+    "superpowers.json",
+    "health-vulnerability.json",
+    "inherited-conditions.json",
+    "physical-traits.json",
+    "cellular-health.json",
   ];
 
   for (const file of files) {
@@ -1600,7 +1600,7 @@ export async function analyzeVCF(
 
   // Save protocol if requested
   const outputDir = customOutputDir || vcfDir;
-  const protocolPath = path.join(outputDir, "longevity-protocol.json");
+  const protocolPath = path.join(outputDir, "cellular-health-protocol.json");
   if (save) {
     if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir, { recursive: true });

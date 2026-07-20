@@ -30,11 +30,11 @@ const PACKAGE_ROOT = path.resolve(__dirname, '..', '..');
 
 export type CatalogModality =
   | 'genetic-vulnerability'
-  | 'hereditary'
-  | 'pharmacology'
-  | 'personality'
-  | 'wellness'
-  | 'ancestry';
+  | 'inherited-conditions'
+  | 'pharmacogenomics'
+  | 'cognitive'
+  | 'metabolism'
+  | 'physical-traits';
 
 export interface CatalogEntry {
   id: number;
@@ -101,7 +101,7 @@ function readJsonSafe<T>(filePath: string): T | null {
 }
 
 function addSyntheticHereditaryCancerPanel(catalog: ConditionCatalog): ConditionCatalog {
-  if (catalog.modality !== 'hereditary') return catalog;
+  if (catalog.modality !== 'inherited-conditions') return catalog;
   const id = String(HEREDITARY_CANCER_PANEL_ID);
   if (catalog.geneMap[id]) return catalog;
 
@@ -145,11 +145,11 @@ export function loadCatalog(modality: CatalogModality): ConditionCatalog {
 export function loadAllCatalogs(): Record<CatalogModality, ConditionCatalog> {
   const modalities: CatalogModality[] = [
     'genetic-vulnerability',
-    'hereditary',
-    'pharmacology',
-    'personality',
-    'wellness',
-    'ancestry',
+    'inherited-conditions',
+    'pharmacogenomics',
+    'cognitive',
+    'metabolism',
+    'physical-traits',
   ];
   return modalities.reduce((acc, m) => {
     acc[m] = loadCatalog(m);
@@ -189,12 +189,12 @@ export function surfaceForGenes(catalog: ConditionCatalog, userGenes: Set<string
 }
 
 export function loadPharmacogeneList(): string[] {
-  const dir = path.join(PACKAGE_ROOT, 'pharmacology', 'catalog');
+  const dir = path.join(PACKAGE_ROOT, 'pharmacogenomics', 'catalog');
   return readJsonSafe<string[]>(path.join(dir, 'pharmacogene_list.json')) ?? [];
 }
 
 export function loadPharmacogeneVariantCatalog(): PharmacogeneVariantCatalog {
-  const dir = path.join(PACKAGE_ROOT, 'pharmacology', 'catalog');
+  const dir = path.join(PACKAGE_ROOT, 'pharmacogenomics', 'catalog');
   return readJsonSafe<PharmacogeneVariantCatalog>(path.join(dir, 'pharmacogene_variant_catalog.json')) ?? {};
 }
 

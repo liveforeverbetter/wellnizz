@@ -1,0 +1,972 @@
+{
+  "version": "2.0.0",
+  "updated": "2026-07-20",
+  "description": "Appearance, sensory traits, blood type, and physical characteristics",
+  "markers": {
+    "rs17602729": {
+      "gene": "AMPD1",
+      "name": "Myoadenylate deaminase (AMPD1 gene)",
+      "category": "physical-traits",
+      "chrom": "",
+      "pos": 0,
+      "display": "AMPD1 - Myoadenylate deaminase (AMPD1 gene)",
+      "interpretations": {
+        "G/G": {
+          "effect": "Typical AMPD1 function",
+          "interpretation": "Your AMPD1 genotype is the most common form in reference populations. This does not rule out myoadenylate deaminase (ampd1 gene) risk from other genes, environmental exposures, or rare variants not covered by standard genotyping.",
+          "recommendations": [
+            "No specific AMPD1-directed intervention indicated, but standard health screening still applies",
+            "Other genetic and environmental factors contribute to myoadenylate deaminase (ampd1 gene) — genotype alone is not the full picture"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Two common AMPD1 alleles",
+          "interpretation": "For myoadenylate deaminase (ampd1 gene), your AMPD1 variant is one contributing factor — no c34t loss-of-function allele was detected at this marker",
+          "recommendations": [
+            "Use actual training response and performance tests to guide programming"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "One AMPD1 C34T-associated allele",
+          "interpretation": "For myoadenylate deaminase (ampd1 gene), your AMPD1 variant is one contributing factor — one loss-of-function-associated allele was observed",
+          "recommendations": [
+            "Compare symptoms with workload, sleep, fueling, iron status, and measured recovery",
+            "Seek clinical evaluation for persistent or disproportionate exercise intolerance"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Two AMPD1 C34T-associated alleles",
+          "interpretation": "For myoadenylate deaminase (ampd1 gene), your AMPD1 variant is one contributing factor — two loss-of-function-associated alleles can reduce skeletal-muscle amp deaminase activity, but symptoms and exercise capacity vary This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss persistent exercise intolerance, cramps, or unusual fatigue with a qualified clinician",
+            "Use symptom-guided pacing while other common causes are assessed"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Del Coso J, Lucia A. Genetic Influence in Exercise Performance. Genes (Basel). 2021 Apr 27;12(5):651.",
+        "Urtizberea JA, Severa G, Malfatti E. Metabolic Myopathies in the Era of Next-Generation Sequencing.",
+        "Genes (Basel). 2023 Apr 22;14(5):954.",
+        "Leońska-Duniec A, Maculewicz E, Humińska-Lisowska K, et al. AMPD1 C34T Polymorphism (rs17602729)",
+        "Is Not Associated with Post-Exercise Changes of Body Weight, Body Composition, and Biochemical",
+        "Parameters in Caucasian Females. Genes (Basel). 2020 May 16;11(5):558.",
+        "Lopez-Schenk R, Collins NL, Schenk NA, Beard DA. Integrated Functions of Cardiac Energetics, Mechanics,",
+        "and Purine Nucleotide Metabolism. Compr Physiol. 2023 Dec 29;14(1):5345-5369.",
+        "Noury JB, Zagnoli F, Petit F, et al. Exercise efficiency impairment in metabolic myopathies. Sci Rep. 2020",
+        "May 29;10(1):8765.",
+        "Rannou F, Scotet V, Marcorelles P, Monnoyer R, Le Maréchal C. Effects of AMPD1 common mutation on the",
+        "metabolic-chronotropic relationship: Insights from patients with myoadenylate deaminase deficiency.",
+        "PLoS One. 2017 Nov 2;12(11):e0187266."
+      ],
+      "technical_report": "The AMPD1 gene produces the enzyme adenosine monophosphate deaminase 1 or\nmyoadenylate deaminase in skeletal muscle where it plays a relevant role in metabolism by\ncatalyzing the deamination of adenosine monophosphate to inosine monophosphate and\npromoting ATP resynthesis (Del Coso and Lucia, 2021). For many years, MAD has been considered a myopathy of metabolic nature. The c.34C>T\nor p.Gln12Ter (rs17602729) variant in the AMPD1 gene is the best known and produces\na stop codon that results in a truncated protein and a reduction in myoadenylate\ndeaminase activity. The c.34C>T variant has an allele frequency of 12% in the non-Finnish European population. Only a minority of carriers of two copies of c.34C>T develop deficiency-related myopathy\nso that the c.34C>T variant is currently not considered pathogenic, but as a variant of\nuncertain significance. The information on the c.34C>T variant should be interpreted with caution because,\nalthough initially considered pathogenic, it has a considerable frequency in the general\npopulation and it is believed that this deficiency is compensated by other metabolic\npathways (Urtizberea et al., 2023). On the other hand, there are studies suggesting that increased levels of c.34C>T adenosine\ncould have a cardioprotective effect and have observed a correlation between the c.34C>T\ngenotype and a better evolution of patients with heart failure, coronary artery disease,\nischemic cardiomyopathy and cardiac transplantation (Rannou et al., 2017; Lopez-Schenk et\nal., 2023).",
+      "description": "PDF\n\nMyoadenylate deaminase (AMPD1 gene)\nMyoadenylate deaminase deficiency is one of the most common causes of metabolic\nmyopathy. It affects 1 to 2% of the European population, although in most people it does\nnot cause any symptoms."
+    },
+    "rs4481887": {
+      "gene": "OR2M7",
+      "name": "Asparagus odor detection",
+      "category": "physical-traits",
+      "chrom": "",
+      "pos": 0,
+      "display": "OR2M7 - Asparagus odor detection",
+      "interpretations": {
+        "G/G": {
+          "effect": "Variant in OR2M7",
+          "interpretation": "Your OR2M7 genotype is one of several genetic factors linked to asparagus odor detection. Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of OR2M7 in asparagus odor detection",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Pelchat ML, Bykowski C, Duke FF, Reed DR. Excretion and Perception of a Characteristic Odor in Urine after",
+        "Asparagus Ingestion: a Psychophysical and Genetic Study. Chem Senses, 2011; 36(1):917.",
+        "Eriksson, Nicholas et al. Web-based, participant-driven studies yield novel genetic associations for",
+        "common traits. PLoS genetics vol. 6,6 e1000993. 24 Jun. 2010."
+      ],
+      "technical_report": "It appears that the ability to detect asparagus odor in urine, produced by chemical\ncompounds metabolized after ingestion, is related to a single nucleotide polymorphism near\nthe OR2M7 gene, which codes for an olfactory receptor. This genotype-phenotype\n\n\frelationship is similar to that of other olfactory receptor alleles that reduce the ability to\nsmell androstenone and isovaleric acid. The polymorphism is found within a large group of\nolfactory receptors on chromosomal region 1q44. OR2M7 itself responds to other odorant\ncompounds such as geraniol and cintrone. This result is important because it informs us about a possible anosmia, i.e., a specific loss\nof the sense of smell due to loss of function in one or more olfactory receptors.",
+      "description": "Asparagus odor detection\nAfter ingesting asparagus, some people can detect an unmistakable aroma in their urine.\nNot all people have this ability, which is influenced by genetics."
+    },
+    "rs8176747": {
+      "gene": "ABO",
+      "name": "Blood Group ABO/Rh",
+      "category": "physical-traits",
+      "chrom": "",
+      "pos": 0,
+      "display": "ABO - Blood Group ABO/Rh",
+      "interpretations": {
+        "C/C": {
+          "effect": "Variant in ABO",
+          "interpretation": "Your ABO genotype is one of several genetic factors linked to blood group abo/rh. Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of ABO in blood group abo/rh",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Dean L. Blood Groups and Red Cell Antigens. National Center for Biotechnology Information [May 2022].",
+        "ABO blood group system. Encyclopedia Britannica, [May 2022]",
+        "National Health Services. Blood Groups [May 2022]"
+      ],
+      "technical_report": "The anchoring of antigens on the surface of red blood cells that determines the blood group\ndepends on the genetics of each individual. Based on several studies, 4 markers associated\nwith antigen production have been identified. These polymorphisms are found in the ABO\nand RHD genes. The ABO gene codes for a differential glycosyltransferase enzyme that\ncatalyzes the addition of the corresponding monosaccharide on the so-called H antigen, a\nmolecule present on the surface of red blood cells from which the A and B antigens are\nformed. The A antigen is produced by an enzyme that adds a molecule of N-acetyl\ngalactosamine to the H antigen, while the B antigen is produced by an enzyme that adds a\nD-galactose to the H antigen. On the other hand, the ability to produce the Rh antigen is\ndetermined by the genotype in the RHD gene. This gene is also linked to the RHCE gene, so\nthat their genotypes are inherited together and both can be used to determine the Rh group. IMPORTANT: With this analysis we make a prediction of a person's blood type thanks to the\ngenetic variants described for each blood group. The reliability of this technique is 90%, so\nthere can be cases (10%) in which genetics do not match the blood group. Therefore, to\nknow exactly your blood type, you must perform a blood biochemical analysis.",
+      "description": "Blood Group ABO/Rh\nThe blood group of each individual is determined by the surface proteins expressed on the\nmembrane of the red blood cells. Of the multitude of systems described, the most relevant,\nespecially for human-to-human compatibility, are the ABO and Rh systems."
+    },
+    "rs8176746": {
+      "gene": "ABO",
+      "name": "Blood Group ABO/Rh",
+      "category": "physical-traits",
+      "chrom": "",
+      "pos": 0,
+      "display": "ABO - Blood Group ABO/Rh",
+      "interpretations": {
+        "G/G": {
+          "effect": "Variant in ABO",
+          "interpretation": "Your ABO genotype is one of several genetic factors linked to blood group abo/rh. Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of ABO in blood group abo/rh",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Dean L. Blood Groups and Red Cell Antigens. National Center for Biotechnology Information [May 2022].",
+        "ABO blood group system. Encyclopedia Britannica, [May 2022]",
+        "National Health Services. Blood Groups [May 2022]"
+      ],
+      "technical_report": "The anchoring of antigens on the surface of red blood cells that determines the blood group\ndepends on the genetics of each individual. Based on several studies, 4 markers associated\nwith antigen production have been identified. These polymorphisms are found in the ABO\nand RHD genes. The ABO gene codes for a differential glycosyltransferase enzyme that\ncatalyzes the addition of the corresponding monosaccharide on the so-called H antigen, a\nmolecule present on the surface of red blood cells from which the A and B antigens are\nformed. The A antigen is produced by an enzyme that adds a molecule of N-acetyl\ngalactosamine to the H antigen, while the B antigen is produced by an enzyme that adds a\nD-galactose to the H antigen. On the other hand, the ability to produce the Rh antigen is\ndetermined by the genotype in the RHD gene. This gene is also linked to the RHCE gene, so\nthat their genotypes are inherited together and both can be used to determine the Rh group. IMPORTANT: With this analysis we make a prediction of a person's blood type thanks to the\ngenetic variants described for each blood group. The reliability of this technique is 90%, so\nthere can be cases (10%) in which genetics do not match the blood group. Therefore, to\nknow exactly your blood type, you must perform a blood biochemical analysis.",
+      "description": "Blood Group ABO/Rh\nThe blood group of each individual is determined by the surface proteins expressed on the\nmembrane of the red blood cells. Of the multitude of systems described, the most relevant,\nespecially for human-to-human compatibility, are the ABO and Rh systems."
+    },
+    "rs3827760": {
+      "gene": "EDAR",
+      "name": "Earlobe type",
+      "category": "physical-traits",
+      "chrom": "",
+      "pos": 0,
+      "display": "EDAR - Earlobe type",
+      "interpretations": {
+        "A/A": {
+          "effect": "Variant in EDAR",
+          "interpretation": "Your EDAR genotype is one of several genetic factors linked to earlobe type. Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of EDAR in earlobe type",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Shaffer JR, Li J, Lee MK, Roosenboom J, Orlova E, Adhikari K, et al. Multiethnic GWAS Reveals Polygenic",
+        "Architecture of Earlobe Attachment. Am J Hum Genet, 2017; 101(6):91324.",
+        "Adhikari K, Reales G, Smith AJP, Konka E, Palmen J, Quinto-Sanchez M, et al. A genome-wide association",
+        "study identifies multiple loci for variation in human ear morphology. Nat Commun, 2015; 6(1):7500."
+      ],
+      "technical_report": "The degree of separation of the earlobe from the head is a polygenic trait (depends on\nseveral genes) and is not an \"all or nothing\" genetic trait, but rather there is a continuous\ndistribution and there are degrees of earlobe attachment.tically responds to an \"all or\nnothing\", but rather there is a continuous distribution and there are degrees of earlobe\nattachment. Furthermore, it is a trait that is highly determined by the geographic ancestry of\nthe individual. Based on a genome-wide association study (GWAS) involving 75,000 individuals of different\ngeographic ancestries, 3 markers associated with the likelihood of having the earlobe more\nor less separated from the rest of the head have been identified. The identified markers are found in genes such as the EDAR gene, which produces the\nectodysplasin A receptor protein, which plays an important role in the development of\nectodermal tissues such as skin; the ITGA8 gene, related to wound healing and\norganogenesis; and the ADAMTS9-AS2 gene, used as a possible marker in the development\nof some types of cancers. The study of this trait is important because on certain occasions this phenotypic trait may\nbe associated with certain developmental disorders and malformations (e.g., defects in the\njaw musculature and defects in the morphology of the jaw).The study of this trait is\nimportant because the genes that are associated with the type of earlobe a person has are\nalso involved in development.",
+      "description": "Earlobe type\nThe separation of the earlobe from the skin of the head is a polygenic trait that is largely\ninfluenced by the genetic factor and the origin of the individual."
+    },
+    "rs2244503": {
+      "gene": "ADAMTS9-AS2",
+      "name": "Earlobe type",
+      "category": "physical-traits",
+      "chrom": "",
+      "pos": 0,
+      "display": "ADAMTS9-AS2 - Earlobe type",
+      "interpretations": {
+        "G/A": {
+          "effect": "Variant in ADAMTS9-AS2",
+          "interpretation": "Your ADAMTS9-AS2 genotype is one of several genetic factors linked to earlobe type. Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of ADAMTS9-AS2 in earlobe type",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Shaffer JR, Li J, Lee MK, Roosenboom J, Orlova E, Adhikari K, et al. Multiethnic GWAS Reveals Polygenic",
+        "Architecture of Earlobe Attachment. Am J Hum Genet, 2017; 101(6):91324.",
+        "Adhikari K, Reales G, Smith AJP, Konka E, Palmen J, Quinto-Sanchez M, et al. A genome-wide association",
+        "study identifies multiple loci for variation in human ear morphology. Nat Commun, 2015; 6(1):7500."
+      ],
+      "technical_report": "The degree of separation of the earlobe from the head is a polygenic trait (depends on\nseveral genes) and is not an \"all or nothing\" genetic trait, but rather there is a continuous\ndistribution and there are degrees of earlobe attachment.tically responds to an \"all or\nnothing\", but rather there is a continuous distribution and there are degrees of earlobe\nattachment. Furthermore, it is a trait that is highly determined by the geographic ancestry of\nthe individual. Based on a genome-wide association study (GWAS) involving 75,000 individuals of different\ngeographic ancestries, 3 markers associated with the likelihood of having the earlobe more\nor less separated from the rest of the head have been identified. The identified markers are found in genes such as the EDAR gene, which produces the\nectodysplasin A receptor protein, which plays an important role in the development of\nectodermal tissues such as skin; the ITGA8 gene, related to wound healing and\norganogenesis; and the ADAMTS9-AS2 gene, used as a possible marker in the development\nof some types of cancers. The study of this trait is important because on certain occasions this phenotypic trait may\nbe associated with certain developmental disorders and malformations (e.g., defects in the\njaw musculature and defects in the morphology of the jaw).The study of this trait is\nimportant because the genes that are associated with the type of earlobe a person has are\nalso involved in development.",
+      "description": "Earlobe type\nThe separation of the earlobe from the skin of the head is a polygenic trait that is largely\ninfluenced by the genetic factor and the origin of the individual."
+    },
+    "rs17822931": {
+      "gene": "ABCC11",
+      "name": "Earwax type / Armpit odor",
+      "category": "physical-traits",
+      "chrom": "",
+      "pos": 0,
+      "display": "ABCC11 - Earwax type / Armpit odor",
+      "interpretations": {
+        "C/T": {
+          "effect": "Variant in ABCC11",
+          "interpretation": "Your ABCC11 genotype is one of several genetic factors linked to earwax type / armpit odor. Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of ABCC11 in earwax type / armpit odor",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Yoshiura K, Kinoshita A, Ishida T, Ninokata A, Ishikawa T, Kaname T, et al. A SNP in the ABCC11 gene is the",
+        "determinant of human earwax type. Nat Genet, 2006; 38(3):32430.",
+        "Prokop-Prigge KA, Mansfield CJ, Parker MR, Thaler E, Grice EA, Wysocki CJ, et al. Ethnic/racial and genetic",
+        "influences on cerumen odorant profiles. J Chem Ecol, 2015; 41(1):6774.",
+        "Ohashi J, Naka I, Tsuchiya N. The Impact of Natural Selection on an ABCC11 SNP Determining Earwax",
+        "Type. Mol Biol Evol, 2011; 28(1):84957.",
+        "Martin A, Saathoff M, Kuhn F, Max H, Terstegen L, Natsch A. A functional ABCC11 allele is essential in the",
+        "biochemical formation of human axillary odor. J Invest Dermatol, 2010; 130(2):52940.",
+        "Harker M, Carvell A-M, Marti VPJ, Riazanskaia S, Kelso H, Taylor D, et al. Functional characterisation of a",
+        "SNP in the ABCC11 allele - effects on axillary skin metabolism, odour generation and associated",
+        "behaviours. J Dermatol Sci, 2014; 73(1):2330."
+      ],
+      "technical_report": "The type of cerumen and the intensity of axillary odor are related traits influenced by\ngenetic factors. Several studies have determined the presence of a marker in the ABCC11\n\n\fgene associated with these characteristics and whose allelic frequencies are strongly\ndetermined by the geographic ancestry of the individual. Thus, the different genotypes of the marker found have been associated with a dry,\ncolorless and crumbly cerumen, or a moist, dark and sticky cerumen, respectively. On the other hand, the genotype found associated with a moist cerumen has also been\nassociated with a higher production of volatile substances, which translates into a cerumen\nwith a higher amount of aromatic substances and a higher body odor through the secretions\nof the axillae. The ABCC11 gene encodes for a cellular transporter found in the membranes of various cell\ntypes and is involved in the transport of small molecules as well as external agents (e.g. a\nvariety of drugs). The ABCC1 transporter is found in the membranes of the cells that secrete\ncerumen in the ear as well as in the cells of the glands that secrete sweat in the armpits,\nhence the relationship between the presence of polymorphisms in this gene - the type of\nwax - the type of sweat.",
+      "description": "PDF\n\nEarwax type / Armpit odor\nThe intensity of axillary odor and the type of cerumen that people have are interrelated\ntraits, since they share elements between them, such as their transporter in the membranes\nof the cells where these traits are manifested."
+    },
+    "rs7559271": {
+      "gene": "PAX3",
+      "name": "Nasion prominence",
+      "category": "physical-traits",
+      "chrom": "",
+      "pos": 0,
+      "display": "PAX3 - Nasion prominence",
+      "interpretations": {
+        "A/A": {
+          "effect": "Typical PAX3 function",
+          "interpretation": "Your PAX3 genotype is the most common form in reference populations. This does not rule out nasion prominence risk from other genes, environmental exposures, or rare variants not covered by standard genotyping.",
+          "recommendations": [
+            "No specific PAX3-directed intervention indicated, but standard health screening still applies",
+            "Other genetic and environmental factors contribute to nasion prominence — genotype alone is not the full picture"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Liu F et al. A genome-wide association study identifies five loci influencing facial morphology in",
+        "Europeans. Gibson G, editor. PLoS Genet, 2012; 8(9): e1002932.",
+        "Paternoster L et al. Genome-wide association study of three-dimensional facial morphology identifies a",
+        "variant in PAX3 associated with nasion position. Am J Hum Genet, 2012; 90(3):47885."
+      ],
+      "technical_report": "Twin, family, and animal evidence suggests that heredity plays an important role in\ndetermining craniofacial morphology. Several genome-wide association studies have\nidentified 1 marker associated with nasion prominence in people. This marker is found in\nthe PAX3 gene. PAX3 encodes a developmentally important transcription factor that is\nexpressed in neural crest cells, which contribute to most differentiated cell types of the\nvertebrate face. In humans, moreover, PAX3 is one of six genes mutated in Waardenburg\nsyndrome, which is characterized by a number of neural crest-related phenotypes, including\nminor facial dysmorphia manifested as a broad nasal root and increased distance between\nthe medial canthi or corners of the eye.",
+      "description": "Nasion prominence\nFacial morphology is one of the most complex and variable features of each individual that\ndetermine part of the physical identity of the face. Part of this physical identity is\ndetermined by the degree of prominence of the nasion, the bony fusion point of the nasal\nbones and the frontal bone of each person."
+    },
+    "rs2281845": {
+      "gene": "CACNA1S",
+      "name": "Permanent tooth eruption",
+      "category": "physical-traits",
+      "chrom": "",
+      "pos": 0,
+      "display": "CACNA1S - Permanent tooth eruption",
+      "interpretations": {
+        "C/C": {
+          "effect": "Variant in CACNA1S",
+          "interpretation": "Your CACNA1S genotype is one of several genetic factors linked to permanent tooth eruption. Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of CACNA1S in permanent tooth eruption",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Geller F et al. Genome-Wide Association Study Identifies Four Loci Associated with Eruption of Permanent",
+        "Teeth. PLoS Genet. 2011;7(9):e1002275.",
+        "WebMD. Dental Health and your childrens teeth [May 2022]",
+        "Kurosaka H et al. Development of dentition: From initiation to occlusion and related diseases. J Oral",
+        "Biosci. 2022 Jun;64(2):159-164."
+      ],
+      "technical_report": "Many dental traits are known to be substantially influenced by genetic factors. The time it\ntakes for permanent teeth to erupt is thought to be highly heritable and may have important\nimplications for the risk of malocclusion, crowding, and periodontal disease. Based on a\ngenome-wide association study, 4 markers associated with tooth eruption have been\nidentified. Delayed tooth eruption was also associated with the production of fewer\npermanent teeth. Among the genes that condition the eruption of permanent teeth we can\nfind the CACNA1S gene or the ADK gene.",
+      "description": "Permanent tooth eruption\nDental maturation is the process that includes the loss of primary teeth and the eruption\nand calcification of permanent teeth. This process of tooth replacement begins in infancy\nand ends practically at the onset of puberty and can be influenced by numerous variables\nthat determine both the time elapsed and the tooth structure."
+    },
+    "rs4491709": {
+      "gene": "LOC101928278",
+      "name": "Permanent tooth eruption",
+      "category": "physical-traits",
+      "chrom": "",
+      "pos": 0,
+      "display": "LOC101928278 - Permanent tooth eruption",
+      "interpretations": {
+        "T/C": {
+          "effect": "Variant in LOC101928278",
+          "interpretation": "Your LOC101928278 genotype is one of several genetic factors linked to permanent tooth eruption. Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of LOC101928278 in permanent tooth eruption",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Geller F et al. Genome-Wide Association Study Identifies Four Loci Associated with Eruption of Permanent",
+        "Teeth. PLoS Genet. 2011;7(9):e1002275.",
+        "WebMD. Dental Health and your childrens teeth [May 2022]",
+        "Kurosaka H et al. Development of dentition: From initiation to occlusion and related diseases. J Oral",
+        "Biosci. 2022 Jun;64(2):159-164."
+      ],
+      "technical_report": "Many dental traits are known to be substantially influenced by genetic factors. The time it\ntakes for permanent teeth to erupt is thought to be highly heritable and may have important\nimplications for the risk of malocclusion, crowding, and periodontal disease. Based on a\ngenome-wide association study, 4 markers associated with tooth eruption have been\nidentified. Delayed tooth eruption was also associated with the production of fewer\npermanent teeth. Among the genes that condition the eruption of permanent teeth we can\nfind the CACNA1S gene or the ADK gene.",
+      "description": "Permanent tooth eruption\nDental maturation is the process that includes the loss of primary teeth and the eruption\nand calcification of permanent teeth. This process of tooth replacement begins in infancy\nand ends practically at the onset of puberty and can be influenced by numerous variables\nthat determine both the time elapsed and the tooth structure."
+    },
+    "rs10427255": {
+      "gene": "2q22.3",
+      "name": "Photic sneeze reflex",
+      "category": "physical-traits",
+      "chrom": "",
+      "pos": 0,
+      "display": "2q22.3 - Photic sneeze reflex",
+      "interpretations": {
+        "T/T": {
+          "effect": "Variant in 2q22.3",
+          "interpretation": "Your 2q22.3 genotype is one of several genetic factors linked to photic sneeze reflex. Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of 2q22.3 in photic sneeze reflex",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Eriksson N, Macpherson JM, Tung JY, Hon LS, Naughton B, Saxonov S, et al. Web-based, participant-driven",
+        "studies yield novel genetic associations for common traits. PLoS Genet. 2010;6(6):120.",
+        "Wang M, Sun X, Shi Y, Song X, Mi H. A genome-wide association study on photic sneeze reflex in the",
+        "Chinese population. Sci Rep. 2019 Mar 21;9(1):4993."
+      ],
+      "technical_report": "The fact of responding involuntarily with a sneeze when exposed to bright light is a trait that\npossibly follows an autosomal dominant pattern of inheritance, although studies are\ninconclusive and suggest that more genes can be involved. The genome-wide association study carried out by Eriksson et al. suggests that this trait is\nassociated with a region of chromosome 2 (2q22.3), close to the ZEB2 gene. research indicates that certain variants with a low frequency in the general population\nfound in the ZEB2 gene produce Mowat-Wilson syndrome, which manifests with seizures\nand photosensitivity, among other symptoms. This suggests that there can be a\nrelationship between photosensitive epileptic seizures and the photic sneeze reflex.",
+      "description": "Photic sneeze reflex\nThe explanation why some people tend to sneeze when exposed to bright light remains an\nenigma. There are indications that certain variants may increase vulnerability to this\nparticular trait"
+    },
+    "rs12896399": {
+      "gene": "14q32.12",
+      "name": "Pigmented rings on the iris",
+      "category": "physical-traits",
+      "chrom": "",
+      "pos": 0,
+      "display": "14q32.12 - Pigmented rings on the iris",
+      "interpretations": {
+        "T/T": {
+          "effect": "Variant in 14q32.12",
+          "interpretation": "Your 14q32.12 genotype is one of several genetic factors linked to pigmented rings on the iris. Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of 14q32.12 in pigmented rings on the iris",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Larsson M, et al. GWAS findings for human iris patterns: associations with variants in genes that influence",
+        "normal neuronal pattern development. Am J Hum Genet. 2011 Aug 12;89(2):334-43.",
+        "Mackey DA, Wilkinson CH, Kearns LS, Hewitt AW. Classification of iris colour: review and refinement of a",
+        "classification schema. Clin Exp Ophthalmol. 2011 Jul;39(5):462-71."
+      ],
+      "technical_report": "It has been estimated that the structure and patterning of iris development can be inherited\nup to 70-95%, so genetics is a major contributor to the expression of its associated traits. Through a GWAS study of 2600 individuals of European ancestry, the role of a marker close\nto the SLC24A4 gene has been identified, which correlates with the development\nof a ring of pigmentation in the iris, surrounding the pupil, which depends on the amount of\nmelanin surrounding the pupil, being the ring uniform or uneven. The results of the study further reported that melanin pigment rings surrounding the pupil\nwere smaller in males than in females, while females had a greater number of crypts, oval\nshapes formed in the iris as a function of eye development.",
+      "description": "PDF\n\nPigmented rings on the iris\nThe iris is the colored part of the eye that surrounds the pupil. As with fingerprints, iris color\npatterns are very complex and unique to each individual."
+    },
+    "rs1805007": {
+      "gene": "MC1R",
+      "name": "Probability of having red hair",
+      "category": "physical-traits",
+      "chrom": "",
+      "pos": 0,
+      "display": "MC1R - Probability of having red hair",
+      "interpretations": {
+        "C/C": {
+          "effect": "Variant in MC1R",
+          "interpretation": "Your MC1R genotype is one of several genetic factors linked to probability of having red hair. Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of MC1R in probability of having red hair",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Liu F et al. Colorful DNA polymorphisms in humans. Semin Cell Dev Biol. 2013;24(6-7):562-75.",
+        "Ito S et al. Diversity of human hair pigmentation as studied by chemical analysis of eumelanin and",
+        "pheomelanin. J Eur Acad Dermatol Venereol. 2011;25(12):1369-80.",
+        "Eriksson N et al. Web-based, participant-driven studies yield novel genetic associations for common traits.",
+        "PLoS Genet. 2010;6(6):120.",
+        "Han J et al. A genome-wide association study identifies novel alleles associated with hair color and skin",
+        "pigmentation. PLoS Genet. 2008;4(5).",
+        "Sulem P et al. Two newly identified genetic determinants of pigmentation in Europeans. Nat Genet.",
+        "2008;40(7):8357.p>"
+      ],
+      "technical_report": "Hair color is a highly heritable trait with a complex genetic architecture. It is a trait whose\nfrequency is greatly affected by the geographical origin of the individual. Four markers\nassociated with the probability of having red hair color have been identified from studies\ninvolving people of European ancestry, including genome-wide association studies (GWAS). These markers are found in the MC1R gene, a gene that produces the melanocortin 1\nreceptor, a protein involved in the development of skin color and hair color in mammals from\nmelanin synthesis by melanocytes. It is estimated that approximately 70% of people with\ntwo variants in the MCR1 gene have red hair.",
+      "description": "Probability of having red hair\nRed hair color is the result of the combination of two types of melanin pigments in specific\namounts, which ultimately determines the characteristic orange color. In addition, this\ncharacteristic production of melanin pigments can also determine the color of the skin or\neven the eyes together."
+    },
+    "rs1805008": {
+      "gene": "MC1R",
+      "name": "Probability of having red hair",
+      "category": "physical-traits",
+      "chrom": "",
+      "pos": 0,
+      "display": "MC1R - Probability of having red hair",
+      "interpretations": {
+        "C/C": {
+          "effect": "Variant in MC1R",
+          "interpretation": "Your MC1R genotype is one of several genetic factors linked to probability of having red hair. Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of MC1R in probability of having red hair",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Liu F et al. Colorful DNA polymorphisms in humans. Semin Cell Dev Biol. 2013;24(6-7):562-75.",
+        "Ito S et al. Diversity of human hair pigmentation as studied by chemical analysis of eumelanin and",
+        "pheomelanin. J Eur Acad Dermatol Venereol. 2011;25(12):1369-80.",
+        "Eriksson N et al. Web-based, participant-driven studies yield novel genetic associations for common traits.",
+        "PLoS Genet. 2010;6(6):120.",
+        "Han J et al. A genome-wide association study identifies novel alleles associated with hair color and skin",
+        "pigmentation. PLoS Genet. 2008;4(5).",
+        "Sulem P et al. Two newly identified genetic determinants of pigmentation in Europeans. Nat Genet.",
+        "2008;40(7):8357.p>"
+      ],
+      "technical_report": "Hair color is a highly heritable trait with a complex genetic architecture. It is a trait whose\nfrequency is greatly affected by the geographical origin of the individual. Four markers\nassociated with the probability of having red hair color have been identified from studies\ninvolving people of European ancestry, including genome-wide association studies (GWAS). These markers are found in the MC1R gene, a gene that produces the melanocortin 1\nreceptor, a protein involved in the development of skin color and hair color in mammals from\nmelanin synthesis by melanocytes. It is estimated that approximately 70% of people with\ntwo variants in the MCR1 gene have red hair.",
+      "description": "Probability of having red hair\nRed hair color is the result of the combination of two types of melanin pigments in specific\namounts, which ultimately determines the characteristic orange color. In addition, this\ncharacteristic production of melanin pigments can also determine the color of the skin or\neven the eyes together."
+    },
+    "rs6591536": {
+      "gene": "OR5A1",
+      "name": "Smell",
+      "category": "physical-traits",
+      "chrom": "",
+      "pos": 0,
+      "display": "OR5A1 - Smell",
+      "interpretations": {
+        "A/A": {
+          "effect": "Variant in OR5A1",
+          "interpretation": "Your OR5A1 genotype is one of several genetic factors linked to smell. Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of OR5A1 in smell",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Jaeger SR, McRae JF, Bava CM, Beresford MK, Hunter D, Jia Y, et al. A mendelian trait for",
+        "olfactory sensitivity affects odor experience and food selection. Curr Biol [Internet]. Elsevier Ltd;",
+        "2013;23(16):16015.",
+        "Aloum L, Alefishat E, Adem A, Petroianu G. Ionone Is More than a Violet's Fragrance: A Review. Molecules.",
+        "2020 Dec 10;25(24):5822. doi: 10.3390/molecules25245822. PMID: 33321809; PMCID: PMC7764282."
+      ],
+      "technical_report": "The ability to determine to a greater or lesser extent b-ionone compounds is strongly\nconditioned by genetics. Several studies have determined that the only major region of\ngenetic association for b-ionone sensitivity discovered so far is located on human\nchromosome 11, in the OR5A1 gene, which mediates producing the olfactory\nreceptor 5A1 that initiates a neuronal response that triggers odor perception. Individuals carrying genotypes for b-ionone can more easily differentiate between olfactory\nstimuli and foods and beverages with and without added b-ionone. These responses\n\n\fassociated with the genotypes of the marker found in the OR5A1 gene were confirmed in\n96% of the individuals who participated in the study conducted.",
+      "description": "Smell\nPeople can discern thousands of odors, although there is great variability among people in\nthe ability to detect particular odors. Some of the differences in this detection ability are\nbelieved to be genetically determined."
+    },
+    "rs904": {
+      "gene": "MT-ND1",
+      "name": "G15884A",
+      "category": "physical-traits",
+      "chrom": "M",
+      "pos": 15884,
+      "display": "MT-ND1 A15884G",
+      "interpretations": {
+        "AA": {
+          "effect": "Standard mitochondrial lineage",
+          "interpretation": "For g15884a, your MT-ND1 variant is one contributing factor — common variant used for haplogroup determination",
+          "recommendations": [
+            "Mitochondrial haplogroup determination requires full sequence"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "Mitochondrial variant",
+          "interpretation": "For g15884a, your MT-ND1 variant is one contributing factor — may indicate specific mitochondrial haplogroup",
+          "recommendations": [
+            "Full mtDNA sequencing for haplogroup classification"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Mitochondrial variant",
+          "interpretation": "linked to specific mitochondrial haplogroup lineage",
+          "recommendations": [
+            "Full mtDNA sequencing for haplogroup classification"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs1294558": {
+      "gene": "ASB3",
+      "name": "C15389T",
+      "category": "physical-traits",
+      "chrom": "17",
+      "pos": 15389,
+      "display": "ASB3 C15389T (Neanderthal)",
+      "interpretations": {
+        "CC": {
+          "effect": "Modern human variant",
+          "interpretation": "For c15389t, your ASB3 variant is one contributing factor — standard modern human haplotype",
+          "recommendations": [
+            "Standard ancestry composition applies"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Possible Neanderthal introgression",
+          "interpretation": "For c15389t, your ASB3 variant is one contributing factor — one copy of ancestral allele - possible archaic ancestry",
+          "recommendations": [
+            "Consider full archaic ancestry analysis"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Neanderthal-derived variant",
+          "interpretation": "Two copies -  suggests Neanderthal ancestry at this locus",
+          "recommendations": [
+            "This variant indicates Neanderthal ancestry contribution"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs1861685": {
+      "gene": "DPYD",
+      "name": "T5346C",
+      "category": "physical-traits",
+      "chrom": "1",
+      "pos": 5346,
+      "display": "DPYD T5346C (Neanderthal)",
+      "interpretations": {
+        "TT": {
+          "effect": "Modern human variant",
+          "interpretation": "For t5346c, your DPYD variant is one contributing factor — reference allele - typical modern human",
+          "recommendations": [
+            "Standard ancestry composition"
+          ],
+          "priority": "low"
+        },
+        "TC": {
+          "effect": "Possible archaic ancestry",
+          "interpretation": "For t5346c, your DPYD variant is one contributing factor — heterozygous for ancestral allele",
+          "recommendations": [
+            "Consider archaic ancestry testing"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Ancestral variant",
+          "interpretation": "For t5346c, your DPYD variant is one contributing factor — homozygous ancestral - elevated neanderthal ancestry",
+          "recommendations": [
+            "Elevated Neanderthal ancestry at this locus"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs4659768": {
+      "gene": "SLC16A7",
+      "name": "G10514C",
+      "category": "physical-traits",
+      "chrom": "6",
+      "pos": 10514,
+      "display": "SLC16A7 G10514C (Neanderthal)",
+      "interpretations": {
+        "GG": {
+          "effect": "Modern human variant",
+          "interpretation": "For g10514c, your SLC16A7 variant is one contributing factor — standard modern human haplotype",
+          "recommendations": [
+            "Standard ancestry composition"
+          ],
+          "priority": "low"
+        },
+        "GC": {
+          "effect": "Possible archaic introgression",
+          "interpretation": "For g10514c, your SLC16A7 variant is one contributing factor — one ancestral allele detected",
+          "recommendations": [
+            "Check other archaic markers for confirmation"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Ancestral/archaic variant",
+          "interpretation": "For g10514c, your SLC16A7 variant is one contributing factor — two ancestral copies - suggests neanderthal lineage",
+          "recommendations": [
+            "Consistent with Neanderthal ancestry contribution"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs688146": {
+      "gene": "ADAM12",
+      "name": "G39271A",
+      "category": "physical-traits",
+      "chrom": "10",
+      "pos": 39271,
+      "display": "ADAM12 G39271A (Neanderthal)",
+      "interpretations": {
+        "GG": {
+          "effect": "Modern human variant",
+          "interpretation": "For g39271a, your ADAM12 variant is one contributing factor — standard modern human allele",
+          "recommendations": [
+            "Standard ancestry markers"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Possible archaic ancestry",
+          "interpretation": "For g39271a, your ADAM12 variant is one contributing factor — one copy of ancestral variant",
+          "recommendations": [
+            "Evaluate with other archaic ancestry markers"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Ancestral variant",
+          "interpretation": "For g39271a, your ADAM12 variant is one contributing factor — two ancestral copies - elevated neanderthal signal",
+          "recommendations": [
+            "Elevated archaic ancestry contribution"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs2839944": {
+      "gene": "CYTB",
+      "name": "G20752A",
+      "category": "physical-traits",
+      "chrom": "M",
+      "pos": 20752,
+      "display": "CYTB G20752A (Mitochondrial)",
+      "interpretations": {
+        "GG": {
+          "effect": "Standard mitochondrial genome",
+          "interpretation": "For g20752a, your CYTB variant is one contributing factor — reference allele for mitochondrial haplogroup",
+          "recommendations": [
+            "Standard mitochondrial haplogroup determination"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Mitochondrial variant",
+          "interpretation": "For g20752a, your CYTB variant is one contributing factor — may indicate specific mitochondrial lineage",
+          "recommendations": [
+            "Full mtDNA analysis for haplogroup"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Mitochondrial variant",
+          "interpretation": "linked to specific mitochondrial haplogroup",
+          "recommendations": [
+            "Mitochondrial haplogroup classification worth considering"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs910916": {
+      "gene": "SNX29",
+      "name": "G18136A",
+      "category": "physical-traits",
+      "chrom": "16",
+      "pos": 18136,
+      "display": "SNX29 G18136A",
+      "interpretations": {
+        "GG": {
+          "effect": "Reference allele",
+          "interpretation": "For g18136a, your SNX29 variant is one contributing factor — standard haplotype for this region",
+          "recommendations": [
+            "Standard ancestry composition"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Heterozygous variant",
+          "interpretation": "For g18136a, your SNX29 variant is one contributing factor — may indicate ancestry mixture",
+          "recommendations": [
+            "Evaluate with other ancestry markers"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Variant allele",
+          "interpretation": "May be linked to specific population ancestry",
+          "recommendations": [
+            "Consider population-specific ancestry analysis"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs132557": {
+      "gene": "TCF25",
+      "name": "C9097T",
+      "category": "physical-traits",
+      "chrom": "17",
+      "pos": 9097,
+      "display": "TCF25 C9097T",
+      "interpretations": {
+        "CC": {
+          "effect": "Standard variant",
+          "interpretation": "For c9097t, your TCF25 variant is one contributing factor — reference allele for ancestry determination",
+          "recommendations": [
+            "Standard ancestry markers"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Heterozygous",
+          "interpretation": "For c9097t, your TCF25 variant is one contributing factor — may indicate ancestry mixture",
+          "recommendations": [
+            "Evaluate with other ancestry markers"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Variant",
+          "interpretation": "For c9097t, your TCF25 variant is one contributing factor — may reflect specific ancestral background",
+          "recommendations": [
+            "Population-specific ancestry analysis"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs7358558": {
+      "gene": "FOXP2",
+      "name": "G31424A",
+      "category": "physical-traits",
+      "chrom": "7",
+      "pos": 31424,
+      "display": "FOXP2 G31424A",
+      "interpretations": {
+        "GG": {
+          "effect": "Reference allele",
+          "interpretation": "For g31424a, your FOXP2 variant is one contributing factor — standard foxp2 variant",
+          "recommendations": [
+            "Standard ancestry composition"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Heterozygous variant",
+          "interpretation": "For g31424a, your FOXP2 variant is one contributing factor — may indicate population-specific ancestry",
+          "recommendations": [
+            "Evaluate with broader ancestry panel"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Variant allele",
+          "interpretation": "linked to certain population frequencies",
+          "recommendations": [
+            "Population-specific analysis worth considering"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs12506325": {
+      "gene": "LRP1B",
+      "name": "G49792A",
+      "category": "physical-traits",
+      "chrom": "2",
+      "pos": 49792,
+      "display": "LRP1B G49792A",
+      "interpretations": {
+        "GG": {
+          "effect": "Reference allele",
+          "interpretation": "For g49792a, your LRP1B variant is one contributing factor — standard haplotype",
+          "recommendations": [
+            "Standard ancestry composition"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Heterozygous",
+          "interpretation": "For g49792a, your LRP1B variant is one contributing factor — may indicate admixture",
+          "recommendations": [
+            "Genome-wide ancestry analysis worth considering"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Variant allele",
+          "interpretation": "For g49792a, your LRP1B variant is one contributing factor — may be enriched in specific populations",
+          "recommendations": [
+            "Consider population-specific ancestry evaluation"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs20321": {
+      "gene": "MT-TL1",
+      "name": "C3303T",
+      "category": "physical-traits",
+      "chrom": "M",
+      "pos": 3303,
+      "display": "MT-TL1 C3303T (Mitochondrial)",
+      "interpretations": {
+        "CC": {
+          "effect": "Reference mitochondrial",
+          "interpretation": "For c3303t, your MT-TL1 variant is one contributing factor — standard mtdna haplotype",
+          "recommendations": [
+            "Full mtDNA sequencing for haplogroup"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Mitochondrial variant",
+          "interpretation": "For c3303t, your MT-TL1 variant is one contributing factor — may indicate specific mitochondrial lineage",
+          "recommendations": [
+            "Full mtDNA sequencing for haplogroup determination"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Mitochondrial variant",
+          "interpretation": "linked to specific haplogroup - elevated stroke risk with MELAS This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Full mtDNA analysis for classification",
+            "Clinical evaluation if symptomatic"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs4135331": {
+      "gene": "MT-ND5",
+      "name": "A12358G",
+      "category": "physical-traits",
+      "chrom": "M",
+      "pos": 12358,
+      "display": "MT-ND5 A12358G (Mitochondrial)",
+      "interpretations": {
+        "AA": {
+          "effect": "Reference allele",
+          "interpretation": "For a12358g, your MT-ND5 variant is one contributing factor — standard mitochondrial haplotype",
+          "recommendations": [
+            "Standard mitochondrial function"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "Mitochondrial variant",
+          "interpretation": "For a12358g, your MT-ND5 variant is one contributing factor — may indicate specific mitochondrial lineage",
+          "recommendations": [
+            "Full mtDNA sequencing for haplogroup"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Mitochondrial variant",
+          "interpretation": "linked to MELAS syndrome in some contexts This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Clinical correlation if symptomatic",
+            "Full mtDNA analysis"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs7897552": {
+      "gene": "MT-TS2",
+      "name": "G7521A",
+      "category": "physical-traits",
+      "chrom": "M",
+      "pos": 7521,
+      "display": "MT-TS2 G7521A",
+      "interpretations": {
+        "GG": {
+          "effect": "Reference mitochondrial",
+          "interpretation": "For g7521a, your MT-TS2 variant is one contributing factor — standard mitochondrial genome",
+          "recommendations": [
+            "Standard mtDNA haplogroup determination"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Mitochondrial variant",
+          "interpretation": "For g7521a, your MT-TS2 variant is one contributing factor — may indicate specific mitochondrial haplogroup",
+          "recommendations": [
+            "Full mtDNA analysis"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Mitochondrial variant",
+          "interpretation": "May be linked to MERFF syndrome in certain contexts This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Clinical correlation if symptomatic"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs117116303": {
+      "gene": "SRY",
+      "name": "T14104C",
+      "category": "physical-traits",
+      "chrom": "Y",
+      "pos": 14104,
+      "display": "SRY T14104C (Y-chromosome)",
+      "interpretations": {
+        "TT": {
+          "effect": "Reference Y-chromosome",
+          "interpretation": "For t14104c, your SRY variant is one contributing factor — standard y-chromosome haplotype",
+          "recommendations": [
+            "Y-chromosome haplogroup analysis"
+          ],
+          "priority": "low"
+        },
+        "TC": {
+          "effect": "Y-chromosome variant",
+          "interpretation": "For t14104c, your SRY variant is one contributing factor — may indicate specific y-lineage",
+          "recommendations": [
+            "Full Y-chromosome sequencing for haplogroup"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Y-chromosome variant",
+          "interpretation": "linked to specific Y-chromosome haplogroup",
+          "recommendations": [
+            "Y-chromosome haplogroup determination"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2
+    }
+  }
+}

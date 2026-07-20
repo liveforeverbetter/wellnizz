@@ -183,7 +183,7 @@ const CATEGORY_RULES: Array<{ pattern: RegExp; category: string }> = [
 
 function assignCategory(diseaseName: string, geneInfo: string, significance: string): string {
   const sig = classifySignificance(significance);
-  if (sig === 'drug_response') return 'pharmacology';
+  if (sig === 'drug_response') return 'pharmacogenomics';
 
   const text = `${diseaseName} ${geneInfo}`;
   for (const rule of CATEGORY_RULES) {
@@ -191,9 +191,9 @@ function assignCategory(diseaseName: string, geneInfo: string, significance: str
   }
 
   // Default: if it's pathogenic and in a known disease gene, it's hereditary
-  if (sig === 'pathogenic' || sig === 'likely_pathogenic') return 'hereditary';
-  if (sig === 'risk_factor') return 'vulnerability';
-  return 'vulnerability';
+  if (sig === 'pathogenic' || sig === 'likely_pathogenic') return 'inherited-conditions';
+  if (sig === 'risk_factor') return 'health-vulnerability';
+  return 'health-vulnerability';
 }
 
 // ============================================================================

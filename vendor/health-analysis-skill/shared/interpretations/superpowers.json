@@ -1,0 +1,3673 @@
+{
+  "version": "2.0.0",
+  "updated": "2026-07-20",
+  "description": "Protective variants, athletic gifts, longevity advantages, and disease resistance",
+  "markers": {
+    "rs10156191": {
+      "gene": "DAO",
+      "name": "C>T",
+      "category": "superpowers",
+      "chrom": "7",
+      "pos": 150545939,
+      "display": "DAO C>T",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal DAO activity",
+          "interpretation": "For c>t, your DAO variant is one contributing factor — standard histamine metabolism",
+          "recommendations": [
+            "Standard histamine tolerance"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Mildly reduced",
+          "interpretation": "For c>t, your DAO variant is one contributing factor — heterozygous variant reduces dao activity",
+          "recommendations": [
+            "Reduce fermented foods if symptomatic"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Reduced DAO activity",
+          "interpretation": "Homozygous variant notably impairs histamine breakdown This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Avoid high-histamine foods",
+            "Consider DAO supplementation"
+          ],
+          "priority": "medium"
+        },
+        "C/T": {
+          "effect": "Elevated-risk DAO genotype",
+          "interpretation": "Population studies link your DAO variant to altered probability for c>t. This reflects group-level statistics; individual risk depends substantially on lifestyle, family history, and other genes.",
+          "recommendations": [
+            "Discuss c>t screening with a healthcare provider if family history is present",
+            "Lifestyle modifications often reduce genetic risk — diet, exercise, and avoiding known triggers matter"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Ayuso P., García-Martín E., et al. Genetic variability of human diamine oxidase: occurrence of three",
+        "nonsynonymous polymorphisms and study of their effect on serum enzyme activity. Pharmacogenet",
+        "Genomics. 2007 Sep;17(9):687-93.",
+        "Comas-Basté O., Sánchez-Pérez S., et al. Histamine Intolerance: The Current State of the Arts.",
+        "Biomolecules. 2020 Aug 14;10(8):1181.",
+        "García-Martín E., Ayuso P., et al. Histamine pharmacogenomics. Pharmacogenomics. 2009",
+        "May;10(5):867-83.",
+        "García-Martín E., Martínez C.., et al. Diamine oxidase rs10156191 and rs2052129 variants are associated",
+        "with the risk for migraine. Headache. 2015 Feb;55(2):276-86."
+      ],
+      "technical_report": "Histamine needs to be metabolized in the body to prevent its accumulation and adverse\neffects. To do this, histamine can follow two pathways: by means of the enzyme diamine\noxidase (DAO) or by means of histamine-N-methyltransferase (HNMT). The function of the DAO enzyme can be altered by several factors\nGenetic variations. Binding of biogenic amines that can be present in certain foods (putrescine, cadaverine,\nagamatine). They are usually present in fermented foods or foods that are altered by\nmicroorganisms. Interaction with alcohol and its metabolites (acetaldehyde). Antibiotics such as clavulanic acid, cholestimate and cefuroxime, the antihypertensives\nverapamil and dihydralazine, the analgesic metamizole, the antihistaminesThe\nantidepressant amitriptyline, the muscle relaxant suxamethonium, ascorbic acid (vitamin\nC) and thiamine (vitamin B1). The vast majority of studies that have analyzed the relationship between genetics and\nhistamine intolerance have focused mainly on the study of variations in the AOC1 gene,\nwhich codes for the production of the enzyme DAO, which is the main pathway for histamine\ndegradation. From these studies it has been shown that individuals who are carriers of\nvariants in AOC1 produce a DAO enzyme with lower activity, which increases the likelihood\nof accumulating histamine in the body. The most relevant variants in the AOC1 gene that affect the function of the DAO enzyme in\nCaucasians are Thr16Met, Ser332Phe, and especially His645Asp. Another well-known\nvariant is G4586T, which is found in the promoter region of the AOC1 gene and has been\nrelated to a decrease in its expression. Knowing the genetic predisposition to histamine intolerance can be helpful in determining\nthe origin of the intolerance. However, it alone does not explain why a person will eventually\ndevelop histamine intolerance, so your results cannot be considered a diagnostic test. As\npreviously mentioned, other factors such as the presence of intestinal diseases, alcohol\nconsumption and drugs that inhibit DAO activity are known to play a role and if you have any\nsymptoms you should consult your physician for a proper evaluation.",
+      "description": "Histamine intolerance\nHistaminosis or excess histamine in the blood occurs when there is a high intake of\nhistamine in our diet or when it is not metabolized and eliminated correctly."
+    },
+    "rs174548": {
+      "gene": "FADS2",
+      "name": "C>T",
+      "category": "superpowers",
+      "chrom": "11",
+      "pos": 61580299,
+      "display": "FADS2 C>T",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal fatty acid metabolism",
+          "interpretation": "For c>t, your FADS2 variant is one contributing factor — standard delta-6 desaturase function",
+          "recommendations": [
+            "Balanced important fatty acid intake"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Moderate fatty acid conversion",
+          "interpretation": "For c>t, your FADS2 variant is one contributing factor — heterozygous variant affects omega-6/omega-3 balance This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Increase EPA/DHA intake",
+            "Reduce omega-6 oils"
+          ],
+          "priority": "medium"
+        },
+        "TT": {
+          "effect": "Altered fatty acid metabolism",
+          "interpretation": "For c>t, your FADS2 variant is one contributing factor — homozygous variant affects critical fatty acid conversion This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Direct omega-3 supplementation",
+            "Track omega-6:omega-3 ratio"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs953767": {
+      "gene": "ELOVL2",
+      "name": "C>T",
+      "category": "superpowers",
+      "chrom": "6",
+      "pos": 11057964,
+      "display": "ELOVL2 C>T",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal EPA elongation",
+          "interpretation": "For c>t, your ELOVL2 variant is one contributing factor — good long-chain omega-3 synthesis",
+          "recommendations": [
+            "Standard omega-3 approach"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Moderate EPA elongation",
+          "interpretation": "For c>t, your ELOVL2 variant is one contributing factor — heterozygous variant reduces epa to dpa/dha conversion This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Prefer direct DHA supplementation"
+          ],
+          "priority": "medium"
+        },
+        "TT": {
+          "effect": "Reduced EPA elongation",
+          "interpretation": "For c>t, your ELOVL2 variant is one contributing factor — homozygous variant impairs long-chain omega-3 synthesis This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Take DHA directly rather than relying on EPA conversion"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs8191359": {
+      "gene": "PPARGC1A",
+      "name": "G482S",
+      "category": "superpowers",
+      "chrom": "4",
+      "pos": 238063674,
+      "display": "PPARGC1A G482S",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal PGC-1alpha",
+          "interpretation": "For g482s, your PPARGC1A variant is one contributing factor — standard mitochondrial biogenesis",
+          "recommendations": [
+            "Standard endurance training response"
+          ],
+          "priority": "low"
+        },
+        "GT": {
+          "effect": "Moderate mitochondrial function",
+          "interpretation": "For g482s, your PPARGC1A variant is one contributing factor — heterozygous variant may slightly reduce endurance capacity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Allow extra recovery time",
+            "Gradual training progression"
+          ],
+          "priority": "medium"
+        },
+        "TT": {
+          "effect": "Reduced PGC-1alpha",
+          "interpretation": "Homozygous variant linked to lower VO2max and training response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Longer adaptation periods",
+            "Consider citrulline/arginine supplementation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs2234767": {
+      "gene": "HMOX1",
+      "name": "G>T",
+      "category": "superpowers",
+      "chrom": "22",
+      "pos": 35786301,
+      "display": "HMOX1 G>T",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal heme oxygenase",
+          "interpretation": "For g>t, your HMOX1 variant is one contributing factor — standard antioxidant response",
+          "recommendations": [
+            "Standard oxidative stress management"
+          ],
+          "priority": "low"
+        },
+        "GT": {
+          "effect": "Moderate HMOX1",
+          "interpretation": "For g>t, your HMOX1 variant is one contributing factor — heterozygous variant may reduce stress response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Ensure adequate antioxidants",
+            "Avoid smoking"
+          ],
+          "priority": "medium"
+        },
+        "TT": {
+          "effect": "Reduced HMOX1 induction",
+          "interpretation": "For g>t, your HMOX1 variant is one contributing factor — short promoter - lower enzyme induction under stress This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Prioritize antioxidant support",
+            "Avoid heme iron excess",
+            "Consume bilberry/plum"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs7412": {
+      "gene": "APOE",
+      "name": "e2",
+      "category": "superpowers",
+      "chrom": "19",
+      "pos": 45412079,
+      "display": "APOE e2",
+      "interpretations": {
+        "CC": {
+          "effect": "No e2 allele",
+          "interpretation": "For e2, your APOE variant is one contributing factor — standard cardiovascular and alzheimer's risk profile",
+          "recommendations": [
+            "Standard risk profiles apply"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "One e2 allele",
+          "interpretation": "e2/e3 - slightly lower cardiovascular risk, possible reduced Alzheimer's risk",
+          "recommendations": [
+            "May have lower cardiovascular disease risk than average"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Two e2 alleles",
+          "interpretation": "e2/e2 - linked to lower cardiovascular risk but possible elevated type III hyperlipidemia This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Lipid profile Tracking worth considering",
+            "Lower cardiovascular baseline risk"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs700518": {
+      "gene": "CYP19A1",
+      "name": "C>T",
+      "category": "superpowers",
+      "chrom": "15",
+      "pos": 51538793,
+      "display": "CYP19A1 Aromatase Activity",
+      "evidenceTier": 2,
+      "interpretations": {
+        "TT": {
+          "effect": "Higher aromatase activity — elevated estrogen conversion from androgens",
+          "interpretation": "elevated conversion of androgens to estrogens — in men: potential for higher estradiol, lower free testosterone ratio; in women: higher estrogen exposure and estrogen-sensitive tissue effects This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Men: Track testosterone/estradiol ratio; symptoms of high estrogen include water retention, mood changes, low libido",
+            "Men: cruciferous vegetables (DIM/I3C) help support estrogen clearance",
+            "Women: regular breast and gynecologic screening per guidelines",
+            "Both: limit alcohol (potent aromatase inducer) and excess body fat (primary aromatase tissue)",
+            "Exercise reduces adipose-driven aromatase activity"
+          ],
+          "priority": "moderate"
+        },
+        "CT": {
+          "effect": "Intermediate aromatase activity",
+          "interpretation": "For c>t, your CYP19A1 variant is one contributing factor — moderate aromatase expression — intermediate androgen-to-estrogen conversion",
+          "recommendations": [
+            "Standard hormonal health Tracking",
+            "Maintain healthy body composition"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Normal/lower aromatase activity",
+          "interpretation": "For c>t, your CYP19A1 variant is one contributing factor — baseline aromatase expression — standard androgen-to-estrogen conversion rate",
+          "recommendations": [
+            "Standard hormonal Tracking per age and sex guidelines"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs7578326": {
+      "gene": "IRS1",
+      "name": "G>A",
+      "category": "superpowers",
+      "chrom": "2",
+      "pos": 227093769,
+      "display": "IRS-1 Insulin Signaling",
+      "evidenceTier": 2,
+      "interpretations": {
+        "GG": {
+          "effect": "Impaired IRS-1 signaling — higher insulin resistance risk",
+          "interpretation": "lower insulin receptor substrate-1 function — elevated type 2 diabetes risk (~1.5x) and higher fasting insulin; IRS-1 is the primary intracellular signal from the insulin receptor This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Low-glycemic index diet Worth prioritizing (reduces IRS-1 demand)",
+            "Resistance training 3x/week — increases GLUT4 expression independent of IRS-1 pathway",
+            "Berberine 500mg twice daily (AMPK activator, IRS-1 independent insulin sensitizer)",
+            "Magnesium 400mg (required cofactor for insulin receptor kinase; often depleted in IR)",
+            "Continuous glucose Tracking if available — optimise postprandial spikes"
+          ],
+          "priority": "moderate"
+        },
+        "GA": {
+          "effect": "Intermediate IRS-1 function",
+          "interpretation": "For g>a, your IRS1 variant is one contributing factor — one risk allele — mild reduction in insulin signaling efficiency",
+          "recommendations": [
+            "Low-glycemic diet and regular resistance training",
+            "Magnesium supplementation"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Normal IRS-1 function",
+          "interpretation": "For g>a, your IRS1 variant is one contributing factor — standard insulin receptor substrate signaling — no genetically elevated insulin resistance from this variant",
+          "recommendations": [
+            "Standard metabolic health practices"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs2228675": {
+      "gene": "PPARG",
+      "name": "P12A",
+      "category": "superpowers",
+      "chrom": "3",
+      "pos": 12393136,
+      "display": "PPARG P12A",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal PPARG",
+          "interpretation": "For p12a, your PPARG variant is one contributing factor — standard insulin sensitivity and lipid metabolism",
+          "recommendations": [
+            "Normal metabolic response to exercise"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Improved insulin sensitivity",
+          "interpretation": "For p12a, your PPARG variant is one contributing factor — one copy - may have better metabolic adaptation to endurance training",
+          "recommendations": [
+            "May respond well to endurance training",
+            "Standard approach to fitness"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Enhanced insulin sensitivity",
+          "interpretation": "For p12a, your PPARG variant is one contributing factor — homozygous - improved glucose and lipid metabolism",
+          "recommendations": [
+            "Good metabolic fitness potential",
+            "Continue regular endurance activity"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs8192678": {
+      "gene": "PPARGC1B",
+      "name": "A148V",
+      "category": "superpowers",
+      "chrom": "5",
+      "pos": 149742297,
+      "display": "PPARGC1B A148V",
+      "interpretations": {
+        "CC": {
+          "effect": "Two Gly482-associated forward-strand alleles",
+          "interpretation": "For a148v, your PPARGC1B variant is one contributing factor — the cc genotype corresponds to the coding-strand gly/gly genotype used in many studies",
+          "recommendations": [
+            "Measure aerobic response across a consistent training block"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Gly482Ser heterozygous genotype",
+          "interpretation": "For a148v, your PPARGC1B variant is one contributing factor — the ct genotype corresponds to one gly and one ser coding-strand allele",
+          "recommendations": [
+            "Compare measured VO2max or standardized field performance before and after training"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Two Ser482-associated forward-strand alleles",
+          "interpretation": "For a148v, your PPARGC1B variant is one contributing factor — the tt genotype corresponds to the coding-strand ser/ser genotype",
+          "recommendations": [
+            "Use an 8-12 week training block and objective performance measures before changing programming",
+            "Do not add supplements from this genotype alone"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs1143634": {
+      "gene": "IL1B",
+      "name": "C>T",
+      "category": "superpowers",
+      "chrom": "2",
+      "pos": 113594993,
+      "display": "IL1B C>T",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal IL-1B",
+          "interpretation": "For c>t, your IL1B variant is one contributing factor — standard inflammasome activity",
+          "recommendations": [
+            "Standard anti-inflammatory approach"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Elevated IL-1B",
+          "interpretation": "Heterozygous - elevated inflammatory cytokine This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Anti-inflammatory diet",
+            "NLRP3 modulation",
+            "Quercetin"
+          ],
+          "priority": "medium"
+        },
+        "TT": {
+          "effect": "High IL-1B",
+          "interpretation": "For c>t, your IL1B variant is one contributing factor — tt - substantially elevated inflammatory response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Prioritize anti-inflammatory lifestyle",
+            "Consider IL-1 targeted intervention"
+          ],
+          "priority": "high"
+        },
+        "G/A": {
+          "effect": "Beneficial IL1B variant",
+          "interpretation": "C>T — your IL1B genotype suggests a favorable profile that may confer some natural advantage. This is a statistical association from population studies, not a guarantee of any outcome.",
+          "recommendations": [
+            "Continue healthy lifestyle habits that support c>t",
+            "Genotype alone does not override environmental and behavioral factors"
+          ],
+          "priority": "low"
+        }
+      },
+      "rs4880": {
+        "gene": "SOD2",
+        "name": "Ala16Val",
+        "category": "metabolism",
+        "chrom": "6",
+        "pos": 31766803,
+        "display": "SOD2 Ala16Val",
+        "interpretations": {
+          "CC": {
+            "effect": "Normal antioxidant protection",
+            "interpretation": "Standard SOD2 function - normal mitochondrial antioxidant defense",
+            "recommendations": [
+              "Maintain adequate antioxidant intake"
+            ],
+            "priority": "low"
+          },
+          "CT": {
+            "effect": "Moderately reduced SOD2 activity",
+            "interpretation": "Heterozygous variant - reduced mitochondrial antioxidant capacity",
+            "recommendations": [
+              "Increase antioxidant intake",
+              "Consider NAC supplementation",
+              "Support glutathione production"
+            ],
+            "priority": "medium"
+          },
+          "TT": {
+            "effect": "Significantly reduced SOD2 activity",
+            "interpretation": "Homozygous variant - impaired mitochondrial antioxidant defense",
+            "recommendations": [
+              "Prioritize antioxidant support",
+              "NAC 600-1200mg daily",
+              "CoQ10 supplementation",
+              "Monitor oxidative stress markers"
+            ],
+            "priority": "high",
+            "supplements": [
+              {
+                "compound": "NAC",
+                "dosage": "600-1200mg",
+                "timing": "morning",
+                "brands": [
+                  "NOW Foods",
+                  "Thorne",
+                  "Pure Encapsulations"
+                ]
+              },
+              {
+                "compound": "CoQ10",
+                "dosage": "100-200mg",
+                "timing": "morning",
+                "brands": [
+                  "Qunol",
+                  "Now Foods",
+                  "Thorne"
+                ]
+              }
+            ],
+            "theWhy": "SOD2 variant reduces mitochondrial antioxidant protection",
+            "scienceSimplified": "Your mitochondria have reduced ability to neutralize superoxide radicals"
+          }
+        }
+      },
+      "rs662": {
+        "gene": "PON1",
+        "name": "Q192R",
+        "category": "metabolism",
+        "chrom": "7",
+        "pos": 94937323,
+        "display": "PON1 Q192R",
+        "interpretations": {
+          "AA": {
+            "effect": "Normal PON1 activity",
+            "interpretation": "Standard paraoxonase activity - normal HDL antioxidant function",
+            "recommendations": [
+              "Maintain healthy HDL function"
+            ],
+            "priority": "low"
+          },
+          "AG": {
+            "effect": "Moderately reduced PON1",
+            "interpretation": "Heterozygous variant - reduced HDL antioxidant capacity",
+            "recommendations": [
+              "Increase antioxidant intake",
+              "Focus on omega-3 fatty acids"
+            ],
+            "priority": "medium"
+          },
+          "GG": {
+            "effect": "Significantly reduced PON1",
+            "interpretation": "Homozygous variant - markedly reduced HDL antioxidant function",
+            "recommendations": [
+              "Prioritize cardiovascular antioxidants",
+              "Consider HDL-supportive supplements",
+              "Regular lipid monitoring"
+            ],
+            "priority": "high",
+            "supplements": [
+              {
+                "compound": "Omega-3",
+                "dosage": "2-4g",
+                "timing": "morning",
+                "brands": [
+                  "Nordic Naturals",
+                  "Life Extension"
+                ]
+              },
+              {
+                "compound": "Vitamin C",
+                "dosage": "500-1000mg",
+                "timing": "morning",
+                "brands": [
+                  "Thorne",
+                  "Pure Encapsulations"
+                ]
+              }
+            ],
+            "theWhy": "PON1 variant impairs HDL's ability to protect against oxidative damage",
+            "scienceSimplified": "Your protective HDL enzymes are less effective at neutralizing oxidized lipids"
+          }
+        }
+      },
+      "rs1051730": {
+        "gene": "CHRNA3",
+        "name": "rs1051730",
+        "category": "metabolism",
+        "chrom": "15",
+        "pos": 78882922,
+        "display": "CHRNA3 Nicotine Response",
+        "interpretations": {
+          "CC": {
+            "effect": "Standard nicotine receptor",
+            "interpretation": "Normal neuronal nicotinic receptor function",
+            "recommendations": [
+              "Standard sensitivity to nicotine"
+            ],
+            "priority": "low"
+          },
+          "CT": {
+            "effect": "Increased nicotine response",
+            "interpretation": "Heterozygous - higher sensitivity to nicotine effects",
+            "recommendations": [
+              "Increased awareness of nicotine addiction risk",
+              "Avoid smoking initiation"
+            ],
+            "priority": "medium"
+          },
+          "TT": {
+            "effect": "Significantly increased nicotine response",
+            "interpretation": "Homozygous - very high sensitivity to nicotine, increased addiction risk",
+            "recommendations": [
+              "Strict nicotine avoidance",
+              "Be aware of secondhand smoke exposure"
+            ],
+            "priority": "high"
+          }
+        }
+      },
+      "rs3769823": {
+        "gene": "FADS1",
+        "name": "rs3769823",
+        "category": "metabolism",
+        "chrom": "11",
+        "pos": 61773519,
+        "display": "FADS1 PUFA Metabolism",
+        "interpretations": {
+          "CC": {
+            "effect": "Normal fatty acid metabolism",
+            "interpretation": "Standard conversion of plant-based omega-3 to DHA/EPA",
+            "recommendations": [
+              "Standard omega-3 recommendations apply"
+            ],
+            "priority": "low"
+          },
+          "CT": {
+            "effect": "Reduced fatty acid desaturase activity",
+            "interpretation": "Heterozygous - moderately reduced conversion of ALA to EPA/DHA",
+            "recommendations": [
+              "Increase direct EPA/DHA intake",
+              "Consider algae-based omega-3",
+              "Monitor omega-3 status"
+            ],
+            "priority": "medium"
+          },
+          "TT": {
+            "effect": "Significantly reduced FADS1 activity",
+            "interpretation": "Homozygous - markedly reduced conversion of plant omega-3 to DHA/EPA",
+            "recommendations": [
+              "Prioritize pre-formed EPA/DHA supplementation",
+              "Regular omega-3 monitoring",
+              "Higher fish intake"
+            ],
+            "priority": "high",
+            "supplements": [
+              {
+                "compound": "Omega-3 DHA/EPA",
+                "dosage": "2-4g combined EPA/DHA",
+                "timing": "morning",
+                "brands": [
+                  "Nordic Naturals Ultimate Omega",
+                  "Carlson Labs",
+                  "Thorne"
+                ]
+              }
+            ],
+            "theWhy": "FADS1 variant impairs endogenous synthesis of long-chain omega-3 fatty acids",
+            "scienceSimplified": "Your body converts plant-based omega-3 (ALA) to heart/brain-active DHA/EPA less efficiently"
+          }
+        }
+      },
+      "rs174548": {
+        "gene": "FADS2",
+        "name": "rs174548",
+        "category": "metabolism",
+        "chrom": "11",
+        "pos": 61772358,
+        "display": "FADS2 Fatty Acid Desaturase",
+        "interpretations": {
+          "CC": {
+            "effect": "Normal fatty acid metabolism",
+            "interpretation": "Standard omega-6/omega-3 balance",
+            "recommendations": [
+              "Maintain balanced omega-6/omega-3 ratio"
+            ],
+            "priority": "low"
+          },
+          "CT": {
+            "effect": "Altered fatty acid metabolism",
+            "interpretation": "Heterozygous - may have elevated omega-6/omega-3 ratio",
+            "recommendations": [
+              "Reduce omega-6 intake",
+              "Increase omega-3 supplementation"
+            ],
+            "priority": "medium"
+          },
+          "TT": {
+            "effect": "Significantly altered fatty acid metabolism",
+            "interpretation": "Homozygous - unfavorable omega-6/omega-3 ratio",
+            "recommendations": [
+              "Aggressive omega-6 reduction",
+              "High-dose omega-3 supplementation",
+              "Monitor fatty acid ratios"
+            ],
+            "priority": "high"
+          }
+        }
+      },
+      "rs4149268": {
+        "gene": "ABCA1",
+        "name": "rs4149268",
+        "category": "metabolism",
+        "chrom": "9",
+        "pos": 119731550,
+        "display": "ABCA1 HDL Metabolism",
+        "interpretations": {
+          "GG": {
+            "effect": "Normal ABCA1 function",
+            "interpretation": "Standard reverse cholesterol transport",
+            "recommendations": [
+              "Maintain healthy HDL levels"
+            ],
+            "priority": "low"
+          },
+          "AG": {
+            "effect": "Moderately reduced ABCA1",
+            "interpretation": "Heterozygous - moderately reduced HDL cholesterol efflux capacity",
+            "recommendations": [
+              "Focus on HDL-supportive lifestyle",
+              "Niacin may be beneficial"
+            ],
+            "priority": "medium"
+          },
+          "AA": {
+            "effect": "Significantly reduced ABCA1",
+            "interpretation": "Homozygous - markedly reduced reverse cholesterol transport",
+            "recommendations": [
+              "Prioritize cardiovascular prevention",
+              "Consider niacin supplementation",
+              "Regular HDL monitoring"
+            ],
+            "priority": "high"
+          }
+        }
+      },
+      "rs1883969": {
+        "gene": "FGF21",
+        "name": "rs1883969",
+        "category": "metabolism",
+        "chrom": "5",
+        "pos": 127220969,
+        "display": "FGF21 Fasting Response",
+        "interpretations": {
+          "GG": {
+            "effect": "Normal FGF21 response",
+            "interpretation": "Standard sensitivity to fasting and metabolic state",
+            "recommendations": [
+              "Standard fasting protocols"
+            ],
+            "priority": "low"
+          },
+          "AG": {
+            "effect": "Reduced FGF21 sensitivity",
+            "interpretation": "Heterozygous - may benefit from longer fasting adaptation",
+            "recommendations": [
+              "Gradual fasting adaptation",
+              "Consider shorter fasts initially"
+            ],
+            "priority": "medium"
+          },
+          "AA": {
+            "effect": "Significantly reduced FGF21 sensitivity",
+            "interpretation": "Homozygous - blunted response to fasting hormones",
+            "recommendations": [
+              "Longer adaptation periods for fasting",
+              "More gradual approach to dietary changes",
+              "Monitor metabolic markers"
+            ],
+            "priority": "high"
+          }
+        }
+      },
+      "rs12903168": {
+        "gene": "HIF1A",
+        "name": "rs12903168",
+        "category": "metabolism",
+        "chrom": "14",
+        "pos": 62223332,
+        "display": "HIF1A Hypoxia Response",
+        "interpretations": {
+          "CC": {
+            "effect": "Normal hypoxia response",
+            "interpretation": "Standard HIF1A-mediated adaptive response to low oxygen",
+            "recommendations": [
+              "Standard altitude adaptation"
+            ],
+            "priority": "low"
+          },
+          "CT": {
+            "effect": "Altered hypoxia response",
+            "interpretation": "Heterozygous - may have reduced efficiency in low-oxygen adaptation",
+            "recommendations": [
+              "Allow more time for altitude acclimatization",
+              "Consider oxygen support at altitude"
+            ],
+            "priority": "medium"
+          },
+          "TT": {
+            "effect": "Significantly altered hypoxia response",
+            "interpretation": "Homozygous - markedly reduced hypoxic adaptation capacity",
+            "recommendations": [
+              "Extended altitude acclimatization",
+              "Avoid rapid altitude changes",
+              "Consider altitude simulation training"
+            ],
+            "priority": "high"
+          }
+        }
+      },
+      "rs5750865": {
+        "gene": "BDNF",
+        "name": "rs5750865",
+        "category": "metabolism",
+        "chrom": "11",
+        "pos": 27721809,
+        "display": "BDNF Cognitive Function",
+        "interpretations": {
+          "CC": {
+            "effect": "Normal BDNF activity",
+            "interpretation": "Standard brain-derived neurotrophic factor levels",
+            "recommendations": [
+              "Standard cognitive support measures"
+            ],
+            "priority": "low"
+          },
+          "CT": {
+            "effect": "Moderately reduced BDNF",
+            "interpretation": "Heterozygous - moderately reduced neuroplasticity support",
+            "recommendations": [
+              "Prioritize BDNF-supportive activities",
+              "Consider omega-3 supplementation",
+              "Aerobic exercise beneficial"
+            ],
+            "priority": "medium"
+          },
+          "TT": {
+            "effect": "Significantly reduced BDNF",
+            "interpretation": "Homozygous - markedly reduced neurotrophic support",
+            "recommendations": [
+              "Aggressive neuroplasticity support",
+              "High-dose omega-3",
+              "Regular aerobic exercise",
+              "Consider magnesium",
+              "Prioritize sleep quality"
+            ],
+            "priority": "high",
+            "supplements": [
+              {
+                "compound": "Omega-3 DHA",
+                "dosage": "1-2g",
+                "timing": "morning",
+                "brands": [
+                  "Nordic Naturals",
+                  "Thorne"
+                ]
+              },
+              {
+                "compound": "Magnesium L-Threonate",
+                "dosage": "1-2g",
+                "timing": "night",
+                "brands": [
+                  "NeuroScience",
+                  "Now Foods"
+                ]
+              }
+            ],
+            "theWhy": "BDNF variant affects neuroplasticity and cognitive function",
+            "scienceSimplified": "Your brain's ability to form new connections and adapt is reduced"
+          }
+        }
+      },
+      "rs2833": {
+        "gene": "NQO1",
+        "name": "rs2833",
+        "category": "metabolism",
+        "chrom": "16",
+        "pos": 69714444,
+        "display": "NQO1 Detoxification Capacity",
+        "interpretations": {
+          "CC": {
+            "effect": "Normal NQO1 activity",
+            "interpretation": "Standard quinone detoxification capacity",
+            "recommendations": [
+              "Standard detoxification support"
+            ],
+            "priority": "low"
+          },
+          "CT": {
+            "effect": "Moderately reduced NQO1",
+            "interpretation": "Heterozygous - moderately reduced quinone detox",
+            "recommendations": [
+              "Minimize quinone exposure",
+              "Increase antioxidant support",
+              "Support phase 2 detoxification"
+            ],
+            "priority": "medium"
+          },
+          "TT": {
+            "effect": "Significantly reduced NQO1",
+            "interpretation": "Homozygous - markedly impaired quinone detoxification",
+            "recommendations": [
+              "Avoid quinone-rich foods (e.g., black tea, some preserved foods)",
+              "Aggressive antioxidant support",
+              "Consider NQO1-supportive supplements"
+            ],
+            "priority": "high",
+            "supplements": [
+              {
+                "compound": "Riboflavin",
+                "dosage": "25-50mg",
+                "timing": "morning",
+                "brands": [
+                  "Thorne",
+                  "NOW Foods"
+                ]
+              },
+              {
+                "compound": "NAC",
+                "dosage": "600-1200mg",
+                "timing": "morning",
+                "brands": [
+                  "NOW Foods",
+                  "Thorne"
+                ]
+              }
+            ],
+            "theWhy": "NQO1 variant significantly impairs detoxification of quinone compounds",
+            "scienceSimplified": "Your body's ability to neutralize certain toxic compounds is reduced"
+          }
+        }
+      },
+      "rs4925": {
+        "gene": "NAT2",
+        "name": "rs4925",
+        "category": "metabolism",
+        "chrom": "8",
+        "pos": 18248755,
+        "display": "NAT2 Acetylation Capacity",
+        "interpretations": {
+          "GG": {
+            "effect": "Normal acetylation",
+            "interpretation": "Standard NAT2-mediated drug and toxin metabolism",
+            "recommendations": [
+              "Standard phase 2 detoxification"
+            ],
+            "priority": "low"
+          },
+          "AG": {
+            "effect": "Intermediate acetylation",
+            "interpretation": "Heterozygous - intermediate acetylation capacity",
+            "recommendations": [
+              "Be cautious with drug dosing",
+              "Support detoxification pathways"
+            ],
+            "priority": "medium"
+          },
+          "AA": {
+            "effect": "Slow acetylation",
+            "interpretation": "Homozygous - slow acetylator phenotype",
+            "recommendations": [
+              "Start with lower drug doses",
+              "Allow more time between doses",
+              "Avoid prolonged drug exposure",
+              "Support glutathione pathways"
+            ],
+            "priority": "high",
+            "supplements": [
+              {
+                "compound": " glutathione",
+                "dosage": "250-500mg",
+                "timing": "morning",
+                "brands": [
+                  "Setria",
+                  "NOW Foods"
+                ]
+              },
+              {
+                "compound": "Magnesium",
+                "dosage": "400mg",
+                "timing": "night",
+                "brands": [
+                  "Thorne",
+                  "Pure Encapsulations"
+                ]
+              }
+            ],
+            "theWhy": "NAT2 slow acetylator phenotype affects drug and toxin metabolism",
+            "scienceSimplified": "Your liver processes certain drugs and toxins more slowly than average"
+          }
+        }
+      },
+      "rs1800796": {
+        "gene": "IL6",
+        "name": "rs1800796",
+        "category": "metabolism",
+        "chrom": "7",
+        "pos": 22727033,
+        "display": "IL6 -174G>C",
+        "interpretations": {
+          "GG": {
+            "effect": "Normal IL6 regulation",
+            "interpretation": "Standard inflammatory response to infection/trauma",
+            "recommendations": [
+              "Standard anti-inflammatory lifestyle"
+            ],
+            "priority": "low"
+          },
+          "GC": {
+            "effect": "Elevated IL6 expression",
+            "interpretation": "Heterozygous - may have elevated baseline IL6",
+            "recommendations": [
+              "Prioritize anti-inflammatory diet",
+              "Regular omega-3 intake",
+              "Stress management"
+            ],
+            "priority": "medium"
+          },
+          "CC": {
+            "effect": "Significantly elevated IL6",
+            "interpretation": "Homozygous - markedly elevated inflammatory response",
+            "recommendations": [
+              "Aggressive anti-inflammatory protocol",
+              "High-dose omega-3",
+              "Curcumin supplementation",
+              "CRP monitoring",
+              "Stress reduction priority"
+            ],
+            "priority": "high",
+            "supplements": [
+              {
+                "compound": "Omega-3",
+                "dosage": "3-4g",
+                "timing": "morning",
+                "brands": [
+                  "Nordic Naturals",
+                  "Carlson Labs"
+                ]
+              },
+              {
+                "compound": "Curcumin",
+                "dosage": "500-1000mg",
+                "timing": "morning",
+                "brands": [
+                  "Thorne Meriva",
+                  "Now Foods"
+                ]
+              },
+              {
+                "compound": "Vitamin D3",
+                "dosage": "4000-5000IU",
+                "timing": "morning",
+                "brands": [
+                  "Thorne",
+                  "NOW Foods"
+                ]
+              }
+            ],
+            "theWhy": "IL6 variant is associated with elevated baseline inflammation",
+            "scienceSimplified": "Your inflammatory set point is elevated, increasing baseline chronic disease risk"
+          }
+        }
+      },
+      "rs1800629": {
+        "gene": "TNF",
+        "name": "rs1800629",
+        "category": "metabolism",
+        "chrom": "6",
+        "pos": 31542152,
+        "display": "TNF -308G>A",
+        "interpretations": {
+          "GG": {
+            "effect": "Normal TNF expression",
+            "interpretation": "Standard TNF-mediated inflammatory response",
+            "recommendations": [
+              "Standard anti-inflammatory measures"
+            ],
+            "priority": "low"
+          },
+          "GA": {
+            "effect": "Elevated TNF expression",
+            "interpretation": "Heterozygous - moderately elevated TNF-alpha",
+            "recommendations": [
+              "Anti-inflammatory diet priority",
+              "Omega-3 support",
+              "Stress management critical"
+            ],
+            "priority": "medium"
+          },
+          "AA": {
+            "effect": "Significantly elevated TNF",
+            "interpretation": "Homozygous - markedly elevated TNF-alpha response",
+            "recommendations": [
+              "Aggressive TNF suppression protocol",
+              "Avoid TNF-elevating foods",
+              "Consider natural TNF inhibitors",
+              "Monitor hs-CRP"
+            ],
+            "priority": "high",
+            "supplements": [
+              {
+                "compound": "Omega-3",
+                "dosage": "3-4g",
+                "timing": "morning",
+                "brands": [
+                  "Nordic Naturals",
+                  "Thorne"
+                ]
+              },
+              {
+                "compound": "Zinc",
+                "dosage": "15-30mg",
+                "timing": "morning",
+                "brands": [
+                  "NOW Foods",
+                  "Thorne"
+                ]
+              },
+              {
+                "compound": "Vitamin D3",
+                "dosage": "4000IU",
+                "timing": "morning",
+                "brands": [
+                  "Thorne",
+                  "Pure Encapsulations"
+                ]
+              }
+            ],
+            "theWhy": "TNF variant associated with elevated baseline TNF-alpha",
+            "scienceSimplified": "Your master inflammatory switch is more active than optimal"
+          }
+        }
+      },
+      "rs1143634": {
+        "gene": "IL1B",
+        "name": "rs1143634",
+        "category": "metabolism",
+        "chrom": "2",
+        "pos": 113589026,
+        "display": "IL1B +3954C>T",
+        "interpretations": {
+          "CC": {
+            "effect": "Normal IL1B activity",
+            "interpretation": "Standard IL-1beta inflammatory response",
+            "recommendations": [
+              "Standard anti-inflammatory lifestyle"
+            ],
+            "priority": "low"
+          },
+          "CT": {
+            "effect": "Elevated IL1B",
+            "interpretation": "Heterozygous - moderately elevated IL-1beta",
+            "recommendations": [
+              "Prioritize IL-1 suppressing foods",
+              "Avoid深夜 foods",
+              "Consider ginger/curcumin"
+            ],
+            "priority": "medium"
+          },
+          "TT": {
+            "effect": "Significantly elevated IL1B",
+            "interpretation": "Homozygous - markedly elevated IL-1beta activity",
+            "recommendations": [
+              "Aggressive IL-1 suppression protocol",
+              "Anti-inflammatory diet essential",
+              "Consider IL-1 blocking foods (fatty fish, olive oil)",
+              "Monitor inflammatory markers"
+            ],
+            "priority": "high",
+            "supplements": [
+              {
+                "compound": "Omega-3",
+                "dosage": "3g",
+                "timing": "morning",
+                "brands": [
+                  "Nordic Naturals",
+                  "Carlson"
+                ]
+              },
+              {
+                "compound": "Curcumin",
+                "dosage": "500mg",
+                "timing": "morning",
+                "brands": [
+                  "Thorne Meriva",
+                  "Now Foods"
+                ]
+              },
+              {
+                "compound": "Ginger",
+                "dosage": "1-2g",
+                "timing": "morning",
+                "brands": [
+                  "NOW Foods",
+                  "Organic India"
+                ]
+              }
+            ],
+            "theWhy": "IL1B variant associated with elevated IL-1beta and enhanced inflammatory response",
+            "scienceSimplified": "Your IL-1 inflammatory pathway is more active, driving systemic inflammation"
+          }
+        }
+      },
+      "rs2266633": {
+        "gene": "GSTT1",
+        "name": "C>T",
+        "category": "metabolism",
+        "chrom": "22",
+        "pos": 24376599,
+        "display": "GSTT1 C>T (detoxification)",
+        "interpretations": {
+          "CC": {
+            "effect": "GSTT1 present",
+            "interpretation": "Functional glutathione-S-transferase Theta 1 enzyme",
+            "recommendations": [
+              "Standard detoxification capacity"
+            ],
+            "priority": "low"
+          },
+          "CT": {
+            "effect": "GSTT1 present",
+            "interpretation": "Gene present and functional",
+            "recommendations": [
+              "Standard approach"
+            ],
+            "priority": "low"
+          },
+          "TT": {
+            "effect": "GSTT1 NULL (gene deletion)",
+            "interpretation": "Absent GSTT1 enzyme activity - impaired detoxification of halogenated compounds and industrial solvents",
+            "recommendations": [
+              "Increase cruciferous vegetables (broccoli, kale)",
+              "Consider NAC supplementation 600-1200mg",
+              "Support phase II detoxification with sulforaphane",
+              "Minimize solvent/chemical exposure"
+            ],
+            "priority": "medium",
+            "supplements": [
+              {
+                "compound": "NAC",
+                "dosage": "600-1200mg",
+                "timing": "morning",
+                "brands": [
+                  "NOW Foods",
+                  "Thorne",
+                  "Pure Encapsulations"
+                ]
+              },
+              {
+                "compound": "Sulforaphane",
+                "dosage": "20-40mg",
+                "timing": "morning",
+                "brands": [
+                  "Thorne",
+                  "Jarrow Formulas"
+                ]
+              }
+            ],
+            "theWhy": "GSTT1 deletion eliminates a key detoxification enzyme, increasing vulnerability to environmental toxins and oxidative stress",
+            "scienceSimplified": "You're missing a key detox enzyme, making your cells more vulnerable to certain environmental chemicals"
+          }
+        }
+      },
+      "rs1048943": {
+        "gene": "CYP1A1",
+        "name": "Ile462Val",
+        "category": "metabolism",
+        "chrom": "15",
+        "pos": 75014322,
+        "display": "CYP1A1 Ile462Val (*2C)",
+        "interpretations": {
+          "AA": {
+            "effect": "Normal CYP1A1 activity",
+            "interpretation": "Standard phase I detoxification of polycyclic aromatic hydrocarbons and estrogen",
+            "recommendations": [
+              "Standard detoxification capacity for environmental toxins"
+            ],
+            "priority": "low"
+          },
+          "AG": {
+            "effect": "Increased CYP1A1 activity",
+            "interpretation": "Heterozygous - elevated phase I activation of procarcinogens; may increase DNA adduct formation from smoke/charred foods",
+            "recommendations": [
+              "Avoid charred/grilled meats",
+              "Minimize smoke exposure",
+              "Increase cruciferous vegetable intake",
+              "Support phase II detoxification"
+            ],
+            "priority": "medium"
+          },
+          "GG": {
+            "effect": "Significantly elevated CYP1A1",
+            "interpretation": "Homozygous - markedly increased activation of environmental procarcinogens and altered estrogen metabolism",
+            "recommendations": [
+              "Strict avoidance of charred/grilled foods",
+              "No smoking or secondhand smoke",
+              "High cruciferous vegetable diet",
+              "Consider DIM or I3C for estrogen balance",
+              "Support glutathione pathways"
+            ],
+            "priority": "high",
+            "supplements": [
+              {
+                "compound": "DIM",
+                "dosage": "100-200mg",
+                "timing": "morning",
+                "brands": [
+                  "Thorne",
+                  "NOW Foods"
+                ]
+              },
+              {
+                "compound": "NAC",
+                "dosage": "600mg",
+                "timing": "morning",
+                "brands": [
+                  "NOW Foods",
+                  "Thorne"
+                ]
+              },
+              {
+                "compound": "Calcium D-Glucarate",
+                "dosage": "500mg",
+                "timing": "morning",
+                "brands": [
+                  "Thorne",
+                  "Pure Encapsulations"
+                ]
+              }
+            ],
+            "theWhy": "CYP1A1 hyperactive variant increases activation of procarcinogens from smoke and charred foods, and shifts estrogen metabolism toward more reactive metabolites",
+            "scienceSimplified": "Your phase I detox runs too fast, creating more reactive intermediates before phase II can neutralize them"
+          }
+        }
+      },
+      "rs1056836": {
+        "gene": "CYP1B1",
+        "name": "Leu432Val",
+        "category": "metabolism",
+        "chrom": "2",
+        "pos": 38302065,
+        "display": "CYP1B1 Leu432Val (*3)",
+        "interpretations": {
+          "CC": {
+            "effect": "Normal CYP1B1 activity",
+            "interpretation": "Standard estrogen metabolism via CYP1B1 pathway",
+            "recommendations": [
+              "Standard hormone metabolism"
+            ],
+            "priority": "low"
+          },
+          "CG": {
+            "effect": "Increased CYP1B1 activity",
+            "interpretation": "Heterozygous - elevated 4-hydroxyestrogen production, associated with estrogen-sensitive tissue risks",
+            "recommendations": [
+              "Support healthy estrogen metabolism",
+              "Cruciferous vegetables daily",
+              "Consider DIM supplementation",
+              "Maintain healthy body weight"
+            ],
+            "priority": "medium"
+          },
+          "GG": {
+            "effect": "Significantly elevated CYP1B1",
+            "interpretation": "Homozygous - markedly increased 4-OH estrogen production, shifted estrogen metabolism toward genotoxic metabolites",
+            "recommendations": [
+              "Aggressive estrogen metabolism support",
+              "Daily cruciferous vegetables (broccoli sprouts optimal)",
+              "DIM or I3C supplementation recommended",
+              "Maintain healthy body weight (reduces aromatase)",
+              "Consider regular hormone monitoring"
+            ],
+            "priority": "high",
+            "supplements": [
+              {
+                "compound": "DIM",
+                "dosage": "100-200mg",
+                "timing": "morning",
+                "brands": [
+                  "Thorne",
+                  "NOW Foods"
+                ]
+              },
+              {
+                "compound": "I3C",
+                "dosage": "200-400mg",
+                "timing": "morning",
+                "brands": [
+                  "Thorne",
+                  "Life Extension"
+                ]
+              },
+              {
+                "compound": "Calcium D-Glucarate",
+                "dosage": "500-1000mg",
+                "timing": "morning",
+                "brands": [
+                  "Thorne",
+                  "NOW Foods"
+                ]
+              },
+              {
+                "compound": "Sulforaphane",
+                "dosage": "20-40mg",
+                "timing": "morning",
+                "brands": [
+                  "Thorne",
+                  "Jarrow Formulas"
+                ]
+              }
+            ],
+            "theWhy": "CYP1B1 hyperactive variant shifts estrogen metabolism toward 4-hydroxyestrogens, which can form DNA-damaging quinones if not properly methylated by COMT",
+            "scienceSimplified": "Your body processes estrogen down a more reactive pathway, requiring extra support to neutralize the byproducts"
+          }
+        }
+      },
+      "rs2295080": {
+        "gene": "MTOR",
+        "name": "T>G",
+        "category": "metabolism",
+        "chrom": "1",
+        "pos": 11166801,
+        "display": "MTOR promoter T>G",
+        "interpretations": {
+          "TT": {
+            "effect": "Normal mTOR expression",
+            "interpretation": "Standard mTOR promoter activity - normal nutrient sensing and growth signaling",
+            "recommendations": [
+              "Standard longevity protocols apply"
+            ],
+            "priority": "low"
+          },
+          "TG": {
+            "effect": "Altered mTOR expression",
+            "interpretation": "Heterozygous - may affect cellular growth signaling and autophagy regulation",
+            "recommendations": [
+              "Consider intermittent fasting or time-restricted eating",
+              "Protein cycling may be beneficial",
+              "Monitor metabolic health markers"
+            ],
+            "priority": "medium"
+          },
+          "GG": {
+            "effect": "Elevated mTOR signaling",
+            "interpretation": "Homozygous - associated with increased mTOR pathway activity, potentially accelerating cellular aging through reduced autophagy",
+            "recommendations": [
+              "Prioritize intermittent fasting (16:8 or longer)",
+              "Consider periodic prolonged fasts (24-72hrs)",
+              "Moderate protein intake (not excessive leucine)",
+              "Discuss rapamycin with longevity-literate physician",
+              "Regular metabolic monitoring"
+            ],
+            "priority": "high",
+            "supplements": [
+              {
+                "compound": "Berberine",
+                "dosage": "500mg",
+                "timing": "morning",
+                "brands": [
+                  "Thorne",
+                  "NOW Foods"
+                ]
+              },
+              {
+                "compound": "Resveratrol",
+                "dosage": "250-500mg",
+                "timing": "morning",
+                "brands": [
+                  "Thorne",
+                  "Life Extension"
+                ]
+              }
+            ],
+            "theWhy": "MTOR promoter variant increases mTOR pathway activity, the master nutrient sensor that when chronically elevated suppresses autophagy and accelerates cellular aging",
+            "scienceSimplified": "Your cellular growth switch stays on too easily, reducing your cells' ability to clean out damaged components"
+          }
+        }
+      },
+      "bibliography": [
+        "Baumert P, Lake MJ, Stewart CE, Drust B, Erskine RM. Genetic variation and exercise-induced",
+        "muscle damage: implications for athletic performance, injury and ageing. Eur J Appl Physiol, 2016;",
+        "116(9):1595625.",
+        "Pereira DS, Mateo ECC, de Queiroz BZ, Assumpção AM, Miranda AS, Felício DC, et al. TNF-?, IL6, and IL10",
+        "polymorphisms and the effect of physical exercise on inflammatory parameters and physical performance",
+        "in elderly women. Age (Omaha), 2013; 35(6):245563."
+      ],
+      "technical_report": "The fact that a greater amount of muscle damage occurs due to the second phase of\nexercise depends on the intensity of the inflammatory response carried out by the immune\n\n\fsystem. Three markers associated with the production of inflammatory activity compounds\nproduced by the immune system and located in the TNF, IL1B and IL6 genes have\nbeen identified. One of the genes found is the TNF gene, responsible for the production of tumor necrosis\nfactor, an inflammatory activity factor associated with insulin levels and predisposition to\nmetabolic disorders, as well as activation of muscle protein degradation (via proteasome). This is why this factor is important in the processes of injury and remodeling of\nmuscle tissue. The other two markers are found in the IL1B gene, which produces interleukin 1B, whose\nexpression in muscle fibers is elevated a few days after physical exercise, also inducing the\nexpression of other proinflammatory genes; and in the IL6 gene, which produces interleukin\n6, with proinflammatory activity. research indicates that, after eccentric exercise, muscle\ncan induce local expression of the cytokine IL-6.",
+      "description": "PDF\n\nExercise-induced muscle damage (second phase)\nIn the second phase of exercise-induced muscle damage, an inflammatory process takes\nplace in which certain genetic variants may contribute to more or less muscle damage."
+    },
+    "rs12785878": {
+      "gene": "DHCR7",
+      "name": "G>T",
+      "category": "superpowers",
+      "chrom": "11",
+      "pos": 71248183,
+      "display": "DHCR7 Vitamin D Synthesis Efficiency",
+      "evidenceTier": 1,
+      "interpretations": {
+        "TT": {
+          "effect": "Reduced 7-DHC availability — lower vitamin D3 synthesis from sunlight",
+          "interpretation": "DHCR7 TT variant diverts 7-dehydrocholesterol away from vitamin D3 synthesis pathway; notably lower sun-exposed vitamin D production; linked to vitamin D deficiency even with adequate sun exposure This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Vitamin D3 3000-5000IU daily (substantially higher than standard; sun exposure unreliable)",
+            "Test 25-OH vitamin D quarterly until stable in 50-70 ng/mL range",
+            "Vitamin K2 MK-7 100mcg with vitamin D (directs calcium to bone, not arteries)",
+            "Magnesium 400mg (cofactor for vitamin D metabolism at multiple steps)",
+            "Fatty fish 3x/week provides pre-formed vitamin D3 not dependent on this pathway"
+          ],
+          "priority": "high"
+        },
+        "GT": {
+          "effect": "Intermediate 7-DHC shunting",
+          "interpretation": "One TT risk allele — moderately lower vitamin D synthesis capacity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Vitamin D3 2000-3000IU and regular 25-OH vitamin D testing"
+          ],
+          "priority": "moderate"
+        },
+        "GG": {
+          "effect": "Normal DHCR7 — efficient vitamin D3 synthesis",
+          "interpretation": "For g>t, your DHCR7 variant is one contributing factor — standard 7-dehydrocholesterol availability for vitamin d synthesis — normal sun-to-vitamin-d conversion",
+          "recommendations": [
+            "20-30 min daily sun exposure to midday skin; supplement 1000-2000IU if sun-limited"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs4915350": {
+      "gene": "TPO",
+      "name": "C>T",
+      "category": "superpowers",
+      "chrom": "2",
+      "pos": 1500802,
+      "display": "TPO Thyroid Peroxidase Activity",
+      "evidenceTier": 2,
+      "interpretations": {
+        "TT": {
+          "effect": "Reduced thyroid peroxidase activity — lower thyroid hormone synthesis",
+          "interpretation": "lower TPO enzyme activity — may require more iodine and selenium support for adequate thyroid hormone synthesis; linked to subclinical hypothyroidism susceptibility and elevated TSH This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Ensure adequate iodine intake: 150mcg/day (seaweed, iodized salt, seafood)",
+            "Selenium 100-200mcg (required cofactor for TPO function and thyroid hormone synthesis)",
+            "Annual thyroid panel: TSH, free T3, free T4, anti-TPO antibodies",
+            "Avoid goitrogens in excess (raw cruciferous vegetables, soy in excess) without adequate iodine"
+          ],
+          "priority": "moderate"
+        },
+        "TC": {
+          "effect": "Intermediate TPO activity",
+          "interpretation": "One lower-activity allele — mild thyroid hormone synthesis vulnerability",
+          "recommendations": [
+            "Adequate iodine and selenium intake; annual TSH check"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Normal TPO activity",
+          "interpretation": "For c>t, your TPO variant is one contributing factor — standard thyroid peroxidase function — normal thyroid hormone synthesis",
+          "recommendations": [
+            "Standard iodine intake; standard thyroid Tracking per age guidelines"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs137852280": {
+      "gene": "SIRT6",
+      "name": "C>T",
+      "category": "superpowers",
+      "chrom": "19",
+      "pos": 4169376,
+      "display": "SIRT6 DNA Repair Longevity",
+      "evidenceTier": 2,
+      "interpretations": {
+        "TT": {
+          "effect": "Reduced SIRT6 activity",
+          "interpretation": "Lower SIRT6 chromatin remodeling/DNA repair activity — lower histone H3K9 deacetylation at telomeres, higher genomic instability, and reduced regulation of glucose metabolism genes This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Minimize DNA-damaging exposures (UV, cigarette smoke, ionizing radiation)",
+            "Zinc 15mg (SIRT6 binds zinc ions for structural integrity)",
+            "Caloric restriction mimetics — SIRT6 is a key mediator of CR benefits",
+            "Resveratrol and quercetin maintain SIRT6 activity"
+          ],
+          "priority": "moderate"
+        },
+        "TC": {
+          "effect": "Intermediate SIRT6 activity",
+          "interpretation": "One lower-activity allele — partial SIRT6 DNA repair and metabolic regulation impairment",
+          "recommendations": [
+            "NAD+ and antioxidant support"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Normal SIRT6 activity",
+          "interpretation": "For c>t, your SIRT6 variant is one contributing factor — wild-type sirt6 — standard telomere maintenance, dna repair, and metabolic gene regulation",
+          "recommendations": [
+            "Caloric restriction and fasting maintain optimal SIRT6 activity"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs7756992": {
+      "gene": "CDKAL1",
+      "name": "G>A",
+      "category": "superpowers",
+      "chrom": "6",
+      "pos": 20769222,
+      "display": "CDKAL1 Beta-Cell Function",
+      "evidenceTier": 1,
+      "interpretations": {
+        "AA": {
+          "effect": "Impaired CDK5 regulatory subunit-associated protein — reduced beta-cell function",
+          "interpretation": "CDKAL1 variant impairs tRNA modification needed for accurate insulin biosynthesis; lower beta-cell capacity under glucose challenge; linked to ~1.5x higher type 2 diabetes risk This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Low-glycemic diet to reduce beta-cell demand (less insulin secretion required)",
+            "Exercise 150+ min/week — CDKAL1 T2D risk attenuated by physical activity",
+            "Maintain BMI < 25 — excess weight amplifies beta-cell demand against CDKAL1 impairment",
+            "Annual HbA1c and 2-hour glucose tolerance test from age 35"
+          ],
+          "priority": "moderate"
+        },
+        "AG": {
+          "effect": "Intermediate CDKAL1 function",
+          "interpretation": "One risk allele — mildly lower insulin biosynthesis accuracy under glucose load",
+          "recommendations": [
+            "Standard glycemic control practices"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Normal CDKAL1 function",
+          "interpretation": "For g>a, your CDKAL1 variant is one contributing factor — standard beta-cell trna modification and insulin synthesis accuracy",
+          "recommendations": [
+            "Standard metabolic health practices"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs3734263": {
+      "gene": "BHMT",
+      "name": "G>A",
+      "category": "superpowers",
+      "chrom": "5",
+      "pos": 79162823,
+      "display": "BHMT Betaine-Homocysteine Methyltransferase",
+      "evidenceTier": 2,
+      "interpretations": {
+        "AA": {
+          "effect": "Reduced BHMT activity — impaired choline-dependent homocysteine remethylation",
+          "interpretation": "Lower betaine-homocysteine methyltransferase activity — lower liver homocysteine recycling via betaine pathway; elevated homocysteine especially on low-choline diets; the betaine pathway is the backup route when MTHFR is compromised This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Betaine (trimethylglycine) 500-1000mg daily — directly provides BHMT substrate",
+            "Choline 500mg daily or 3 eggs (choline-rich food)",
+            "Especially important if also carrying MTHFR C677T — dual methylation pathway support needed",
+            "Homocysteine Tracking: target < 9 μmol/L"
+          ],
+          "priority": "moderate"
+        },
+        "AG": {
+          "effect": "Intermediate BHMT activity",
+          "interpretation": "One lower-activity allele — partial betaine methylation capacity",
+          "recommendations": [
+            "Betaine supplementation and choline-rich foods beneficial"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Normal BHMT activity",
+          "interpretation": "For g>a, your BHMT variant is one contributing factor — standard betaine-dependent homocysteine remethylation",
+          "recommendations": [
+            "Adequate choline intake (eggs, liver, legumes)"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs28497577": {
+      "gene": "MYLK2",
+      "name": "Exercise-induced muscle damage (initial phase)",
+      "category": "superpowers",
+      "chrom": "",
+      "pos": 0,
+      "display": "MYLK2 - Exercise-induced muscle damage (initial phase)",
+      "interpretations": {
+        "G/G": {
+          "effect": "Typical MYLK2 function",
+          "interpretation": "Your MYLK2 genotype is the most common form in reference populations. This does not rule out exercise-induced muscle damage (initial phase) risk from other genes, environmental exposures, or rare variants not covered by standard genotyping.",
+          "recommendations": [
+            "No specific MYLK2-directed intervention indicated, but standard health screening still applies",
+            "Other genetic and environmental factors contribute to exercise-induced muscle damage (initial phase) — genotype alone is not the full picture"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Baumert P, Lake MJ, Stewart CE, Drust B, Erskine RM. Genetic variation and exercise-induced",
+        "muscle damage: implications for athletic performance, injury and ageing. Eur J Appl Physiol, 2016;",
+        "116(9):1595625.",
+        "Ben-Zaken S, Eliakim A, Nemet D, Rabinovich M, Kassem E, Meckel Y. ACTN3 Polymorphism: Comparison",
+        "Between Elite Swimmers and Runners. Sport Med, 2015;1(1):13.",
+        "Deuster PA, Contreras-Sesvold CL, OConnor FG, Campbell WW, Kenney K, Capacchione JF, et al. Genetic",
+        "polymorphisms associated with exertional rhabdomyolysis. Eur J Appl Physiol, 2013; 113(8):19972004.",
+        "Pimenta EM, Coelho DB, Cruz IR, Morandi RF, Veneroso CE, de Azambuja Pussieldi G, et al. The",
+        "ACTN3 genotype in soccer players in response to acute eccentric training. Eur J Appl Physiol, 2012;",
+        "112(4):1495503."
+      ],
+      "technical_report": "There is evidence to indicate that early phase muscle damage, produced by mechanical\ndamage, prior to inflammation, can be associated with several genetic variants. In the first\nphase or stage of muscle damage, alterations occur in the muscle structures responsible\nfor the contraction of the myofibrils, which are the contractile structures found inside the\nmuscle cells. Damage occurs in the proteins that form the myofibrils (such as collagen,\n\n\factin, myosin, desmin, titin) and other proteins that interact with the cell cytoskeleton and\nthe extracellular matrix. Two polymorphisms associated with muscle damage produced in this first phase after\nexercise have been identified. These markers are found in the ACTN3 and MYLK2 genes. The ACTN3 gene codes for a muscle-tendon interaction protein, and the marker analyzed\nhas implications for the risk of muscle injury. Individuals carrying two copies of this\nmutation are unable to produce the alpha-actinin-3 protein and this hinders recovery. The\nabsence of alpha-actinin-3 does not result in disease due to the compensatory effect of the\nalpha-actinin-2 protein, but it does affect fitness. The MYLK2 gene, on the other hand, mediates producing the enzyme \"myosin light\nchain kinase 2\" which is expressed in adult skeletal muscle, in muscle fibers, and variants\naffecting its production can be related to muscle strength and blood levels of creatine\nkinase, a marker of muscle degradation. Both markers, in turn, have been linked to increased risk of rhabdomyolysis (breakdown of\nmuscle tissue that releases the contents of muscle fibers into the blood).",
+      "description": "PDF\n\nExercise-induced muscle damage (initial phase)\nThe presence of certain genetic variants could explain why some people are less likely to be\ninjured than others, as well as having an easier time recovering from prolonged and\nstrenuous exercise. Knowing how someone will respond to a particular type of exercise can\nguide us in personalizing our workouts, while reducing the risk of injury associated with\nmuscle overload."
+    },
+    "rs1815739": {
+      "gene": "ACTN3",
+      "name": "Exercise-induced muscle damage (initial phase)",
+      "category": "superpowers",
+      "chrom": "",
+      "pos": 0,
+      "display": "ACTN3 - Exercise-induced muscle damage (initial phase)",
+      "interpretations": {
+        "T/C": {
+          "effect": "Elevated-risk ACTN3 genotype",
+          "interpretation": "Population studies link your ACTN3 variant to altered probability for exercise-induced muscle damage (initial phase). This reflects group-level statistics; individual risk depends substantially on lifestyle, family history, and other genes.",
+          "recommendations": [
+            "Discuss exercise-induced muscle damage (initial phase) screening with a healthcare provider if family history is present",
+            "Lifestyle modifications often reduce genetic risk — diet, exercise, and avoiding known triggers matter"
+          ],
+          "priority": "high"
+        },
+        "CC": {
+          "effect": "Two ACTN3 R alleles",
+          "interpretation": "For exercise-induced muscle damage (initial phase), your ACTN3 variant is one contributing factor — the cc (r/r) genotype retains alpha-actinin-3 expression",
+          "recommendations": [
+            "Choose training from measured sprint, jump, strength, and endurance response",
+            "Treat this as interesting context rather than a talent result"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "One ACTN3 R allele and one X allele",
+          "interpretation": "For exercise-induced muscle damage (initial phase), your ACTN3 variant is one contributing factor — the ct (r/x) genotype produces alpha-actinin-3 from one copy",
+          "recommendations": [
+            "Use repeatable performance tests and recovery data to guide training"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "ACTN3 X/X genotype",
+          "interpretation": "The TT (X/X) genotype is linked to alpha-actinin-3 deficiency, a common non-disease state",
+          "recommendations": [
+            "Train for your goals and compare actual power and endurance benchmarks",
+            "Do not select a sport or supplement from this genotype"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Baumert P, Lake MJ, Stewart CE, Drust B, Erskine RM. Genetic variation and exercise-induced",
+        "muscle damage: implications for athletic performance, injury and ageing. Eur J Appl Physiol, 2016;",
+        "116(9):1595625.",
+        "Ben-Zaken S, Eliakim A, Nemet D, Rabinovich M, Kassem E, Meckel Y. ACTN3 Polymorphism: Comparison",
+        "Between Elite Swimmers and Runners. Sport Med, 2015;1(1):13.",
+        "Deuster PA, Contreras-Sesvold CL, OConnor FG, Campbell WW, Kenney K, Capacchione JF, et al. Genetic",
+        "polymorphisms associated with exertional rhabdomyolysis. Eur J Appl Physiol, 2013; 113(8):19972004.",
+        "Pimenta EM, Coelho DB, Cruz IR, Morandi RF, Veneroso CE, de Azambuja Pussieldi G, et al. The",
+        "ACTN3 genotype in soccer players in response to acute eccentric training. Eur J Appl Physiol, 2012;",
+        "112(4):1495503."
+      ],
+      "technical_report": "There is evidence to indicate that early phase muscle damage, produced by mechanical\ndamage, prior to inflammation, can be associated with several genetic variants. In the first\nphase or stage of muscle damage, alterations occur in the muscle structures responsible\nfor the contraction of the myofibrils, which are the contractile structures found inside the\nmuscle cells. Damage occurs in the proteins that form the myofibrils (such as collagen,\n\n\factin, myosin, desmin, titin) and other proteins that interact with the cell cytoskeleton and\nthe extracellular matrix. Two polymorphisms associated with muscle damage produced in this first phase after\nexercise have been identified. These markers are found in the ACTN3 and MYLK2 genes. The ACTN3 gene codes for a muscle-tendon interaction protein, and the marker analyzed\nhas implications for the risk of muscle injury. Individuals carrying two copies of this\nmutation are unable to produce the alpha-actinin-3 protein and this hinders recovery. The\nabsence of alpha-actinin-3 does not result in disease due to the compensatory effect of the\nalpha-actinin-2 protein, but it does affect fitness. The MYLK2 gene, on the other hand, mediates producing the enzyme \"myosin light\nchain kinase 2\" which is expressed in adult skeletal muscle, in muscle fibers, and variants\naffecting its production can be related to muscle strength and blood levels of creatine\nkinase, a marker of muscle degradation. Both markers, in turn, have been linked to increased risk of rhabdomyolysis (breakdown of\nmuscle tissue that releases the contents of muscle fibers into the blood).",
+      "description": "PDF\n\nExercise-induced muscle damage (initial phase)\nThe presence of certain genetic variants could explain why some people are less likely to be\ninjured than others, as well as having an easier time recovering from prolonged and\nstrenuous exercise. Knowing how someone will respond to a particular type of exercise can\nguide us in personalizing our workouts, while reducing the risk of injury associated with\nmuscle overload."
+    },
+    "rs13266634": {
+      "gene": "SLC30A8",
+      "name": "Exercise-induced muscle damage (regeneration capacity)",
+      "category": "superpowers",
+      "chrom": "",
+      "pos": 0,
+      "display": "SLC30A8 - Exercise-induced muscle damage (regeneration capacity)",
+      "interpretations": {
+        "C/C": {
+          "effect": "Typical SLC30A8 function",
+          "interpretation": "Your SLC30A8 genotype is the most common form in reference populations. This does not rule out exercise-induced muscle damage (regeneration capacity) risk from other genes, environmental exposures, or rare variants not covered by standard genotyping.",
+          "recommendations": [
+            "No specific SLC30A8-directed intervention indicated, but standard health screening still applies",
+            "Other genetic and environmental factors contribute to exercise-induced muscle damage (regeneration capacity) — genotype alone is not the full picture"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Ahmetov II, Naumov VA, Donnikov AE, Maciejewska-Kar?owska A, Kostryukova ES, Larin AK, et al. SOD2",
+        "gene polymorphism and muscle damage markers in elite athletes. Free Radic Res, 2014; 48(8):94855.",
+        "Akimoto AK, Miranda-Vilela AL, Alves PCZ, Pereira LC da S, Lordelo GS, Hiragi C de O, et al. Evaluation",
+        "of gene polymorphisms in exercise-induced oxidative stress and damage. Free Radic Res, 2010;",
+        "44(3):32231.",
+        "Baumert P, Lake MJ, Stewart CE, Drust B, Erskine RM. Genetic variation and exercise-induced",
+        "muscle damage: implications for athletic performance, injury and ageing. Eur J Appl Physiol, 2016;",
+        "116(9):1595625.",
+        "Sprouse C, Gordish-Dressman H, Orkunoglu-Suer EF, Lipof JS, Moeckel-Cole S, Patel RR, et al. SLC30A8",
+        "Nonsynonymous Variant Is Associated With Recovery Following Exercise and Skeletal Muscle Size and",
+        "Strength. Diabetes, 2014; 63(1):3638."
+      ],
+      "technical_report": "As we have indicated, in order for muscle regeneration to occur after exercise, there must be\nan inflammatory signal through which the satellite cells are activated. There are studies that\n\n\frelate certain genetic variants with this inflammatory signal and, therefore, with a greater or\nlesser capacity for muscle remodeling. A lower capacity for muscle remodeling implies that\na longer recovery is required after an injury. Two genetic polymorphisms have been\nidentified that are related to this inflammatory signal and therefore to a greater or lesser\ncapacity for muscle regeneration. These polymorphisms are found in the SOD2 and\nSLC30A8 genes. The SOD2 gene produces the superoxide dismutase 2 protein, which has antioxidant activity,\nprotecting the muscle from free radicals and facilitating muscle regeneration. The lack of\nfunctionality of this protein can cause the accumulation of free radicals and cell death of\nmuscle fibers. On the other hand, the SLC30A8 gene is associated with insulin response, and is indirectly\nassociated with muscle strength and mass, as glycogen synthesis and glucose transport to\nthe muscle are affected.",
+      "description": "PDF\n\nExercise-induced muscle damage (regeneration capacity)\nVariants affecting genes involved in the activation of the cells responsible for muscle\nregeneration are relevant to understanding why some people require more time to recover\nafter a muscle injury."
+    },
+    "rs4340": {
+      "gene": "ACE",
+      "name": "I/D",
+      "category": "superpowers",
+      "chrom": "17",
+      "pos": 63477077,
+      "display": "ACE I/D",
+      "interpretations": {
+        "AA": {
+          "effect": "Insertion/Insertion",
+          "interpretation": "For i/d, your ACE variant is one contributing factor — higher ace activity - efficient blood pressure regulation during exercise",
+          "recommendations": [
+            "Normal endurance potential",
+            "Standard response to training"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "Insertion/Deletion",
+          "interpretation": "For i/d, your ACE variant is one contributing factor — intermediate ace activity",
+          "recommendations": [
+            "Balanced response to both endurance and strength training"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Deletion/Deletion",
+          "interpretation": "D allele linked to higher muscle efficiency, better endurance performance",
+          "recommendations": [
+            "May have slight advantage in endurance events",
+            "Responds well to altitude training"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs1805086": {
+      "gene": "MSTN",
+      "name": "K153R",
+      "category": "superpowers",
+      "chrom": "2",
+      "pos": 239048647,
+      "display": "MSTN K153R",
+      "interpretations": {
+        "AA": {
+          "effect": "Normal myostatin",
+          "interpretation": "For k153r, your MSTN variant is one contributing factor — standard inhibition of muscle growth",
+          "recommendations": [
+            "Normal muscle building potential"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "Intermediate",
+          "interpretation": "One copy of K153R - slightly lower myostatin inhibition",
+          "recommendations": [
+            "May have slightly More frequent muscle growth response to training"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Reduced myostatin activity",
+          "interpretation": "G allele linked to lower myostatin - potential for greater muscle mass",
+          "recommendations": [
+            "Natural advantage in muscle building",
+            "Responds well to resistance training"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs2010963": {
+      "gene": "VEGFA",
+      "name": "-634G>C",
+      "category": "superpowers",
+      "chrom": "6",
+      "pos": 43855977,
+      "display": "VEGFA -634G>C",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal VEGF",
+          "interpretation": "For -634g>c, your VEGFA variant is one contributing factor — standard vascular endothelial growth factor",
+          "recommendations": [
+            "Standard wound healing"
+          ],
+          "priority": "low"
+        },
+        "GC": {
+          "effect": "Moderate VEGF",
+          "interpretation": "For -634g>c, your VEGFA variant is one contributing factor — intermediate vegf production",
+          "recommendations": [
+            "Standard cardiovascular health"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Elevated VEGF",
+          "interpretation": "Homozygous - elevated VEGF - linked to AMD and cardiovascular risk This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Track for age-related macular degeneration",
+            "Cardiovascular screening"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs2273555": {
+      "gene": "CRP",
+      "name": "T2628C",
+      "category": "superpowers",
+      "chrom": "1",
+      "pos": 159731853,
+      "display": "CRP T2628C",
+      "interpretations": {
+        "TT": {
+          "effect": "Normal CRP response",
+          "interpretation": "For t2628c, your CRP variant is one contributing factor — standard inflammatory response to training",
+          "recommendations": [
+            "Normal recovery patterns"
+          ],
+          "priority": "low"
+        },
+        "TC": {
+          "effect": "Moderate CRP",
+          "interpretation": "For t2628c, your CRP variant is one contributing factor — one copy - may have slightly elevated post-exercise inflammation",
+          "recommendations": [
+            "May benefit from anti-inflammatory recovery strategies"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Elevated CRP",
+          "interpretation": "For t2628c, your CRP variant is one contributing factor — homozygous - potentially elevated baseline inflammation This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Prioritize recovery",
+            "Consider omega-3 supplementation",
+            "Longer rest between sessions"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs3934834": {
+      "gene": "PPARGC1B",
+      "name": "A148V",
+      "category": "superpowers",
+      "chrom": "5",
+      "pos": 149742297,
+      "display": "PPARGC1B A148V",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal PGC-1beta",
+          "interpretation": "For a148v, your PPARGC1B variant is one contributing factor — standard mitochondrial function and insulin sensitivity",
+          "recommendations": [
+            "Normal metabolic response to training"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Intermediate",
+          "interpretation": "One copy - may have slightly lower oxidative metabolism",
+          "recommendations": [
+            "Standard training approach with adequate recovery"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Reduced oxidative metabolism",
+          "interpretation": "Homozygous - may have lower endurance capacity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Focus on consistent moderate training",
+            "Allow adequate recovery"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs3738595": {
+      "gene": "PPARGC1B",
+      "name": "R292X",
+      "category": "superpowers",
+      "chrom": "5",
+      "pos": 149766233,
+      "display": "PPARGC1B R292X",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal PPARGC1B",
+          "interpretation": "For r292x, your PPARGC1B variant is one contributing factor — standard pgc-1beta function",
+          "recommendations": [
+            "Normal exercise response"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Intermediate",
+          "interpretation": "lower function may affect energy metabolism",
+          "recommendations": [
+            "Balanced training approach"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Reduced function",
+          "interpretation": "May have lower aerobic capacity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Longer adaptation periods",
+            "Gradual training progression"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs11103276": {
+      "gene": "UCP2",
+      "name": "Ala55Val",
+      "category": "superpowers",
+      "chrom": "11",
+      "pos": 73615371,
+      "display": "UCP2 Ala55Val",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal UCP2",
+          "interpretation": "For ala55val, your UCP2 variant is one contributing factor — standard mitochondrial uncoupling protein function",
+          "recommendations": [
+            "Normal energy efficiency"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Intermediate",
+          "interpretation": "For ala55val, your UCP2 variant is one contributing factor — may have slightly altered energy efficiency",
+          "recommendations": [
+            "Standard nutritional strategies for athletes"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Altered UCP2",
+          "interpretation": "For ala55val, your UCP2 variant is one contributing factor — may affect mitochondrial efficiency and reactive oxygen species This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Antioxidant support may be beneficial",
+            "Track recovery"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3
+    },
+    "rs660669": {
+      "gene": "UCP3",
+      "name": "-55C>T",
+      "category": "superpowers",
+      "chrom": "11",
+      "pos": 73650438,
+      "display": "UCP3 -55C>T",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal UCP3",
+          "interpretation": "For -55c>t, your UCP3 variant is one contributing factor — standard fatty acid metabolism in muscle",
+          "recommendations": [
+            "Normal fat oxidation during exercise"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Intermediate",
+          "interpretation": "For -55c>t, your UCP3 variant is one contributing factor — may have slightly altered fat metabolism",
+          "recommendations": [
+            "Standard endurance training response"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Reduced fat oxidation",
+          "interpretation": "T allele linked to lower fatty acid oxidation This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "May rely more on carbohydrates for fuel",
+            "Consider carb loading for long events"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3
+    },
+    "rs4998386": {
+      "gene": "PPARG",
+      "name": "P12A",
+      "category": "superpowers",
+      "chrom": "3",
+      "pos": 12393125,
+      "display": "PPARG P12A Exercise Response",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal PPARG function",
+          "interpretation": "For p12a, your PPARG variant is one contributing factor — standard insulin sensitivity and endurance training response",
+          "recommendations": [
+            "Normal metabolic adaptation to exercise"
+          ],
+          "priority": "low"
+        },
+        "CG": {
+          "effect": "Enhanced training response",
+          "interpretation": "For p12a, your PPARG variant is one contributing factor — heterozygous - may have enhanced metabolic adaptation",
+          "recommendations": [
+            "May respond well to endurance training",
+            "Standard exercise approach works"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Significantly enhanced response",
+          "interpretation": "For p12a, your PPARG variant is one contributing factor — homozygous - excellent response to endurance training",
+          "recommendations": [
+            "Outstanding adaptation to aerobic exercise",
+            "Capitalize on this with sustained endurance training"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 3
+    },
+    "rs17300203": {
+      "gene": "CAMK1D",
+      "name": "rs17300203",
+      "category": "superpowers",
+      "chrom": "2",
+      "pos": 112075964,
+      "display": "CAMK1D Exercise Adaptation",
+      "interpretations": {
+        "AA": {
+          "effect": "Standard adaptation",
+          "interpretation": "For rs17300203, your CAMK1D variant is one contributing factor — normal camk activation during exercise",
+          "recommendations": [
+            "Standard training protocols"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "Moderately altered adaptation",
+          "interpretation": "For rs17300203, your CAMK1D variant is one contributing factor — heterozygous - may have slightly altered training adaptation This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Track progress closely",
+            "Allow longer adaptation periods"
+          ],
+          "priority": "medium"
+        },
+        "GG": {
+          "effect": "Significantly altered adaptation",
+          "interpretation": "For rs17300203, your CAMK1D variant is one contributing factor — homozygous - substantially altered calcium signaling during exercise This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Longer adaptation periods between sessions",
+            "Consider periodization",
+            "Track performance metrics"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs884944": {
+      "gene": "NR4A1",
+      "name": "rs884944",
+      "category": "superpowers",
+      "chrom": "12",
+      "pos": 51273596,
+      "display": "NR4A1 Muscular Response",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal muscular response",
+          "interpretation": "For rs884944, your NR4A1 variant is one contributing factor — standard nr4a1-mediated gene activation in muscle",
+          "recommendations": [
+            "Standard training response"
+          ],
+          "priority": "low"
+        },
+        "CG": {
+          "effect": "Moderate enhancement",
+          "interpretation": "For rs884944, your NR4A1 variant is one contributing factor — heterozygous - potentially enhanced muscle protein synthesis",
+          "recommendations": [
+            "May benefit from protein-focused training",
+            "Leucine around workouts"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Enhanced muscular response",
+          "interpretation": "For rs884944, your NR4A1 variant is one contributing factor — homozygous - enhanced muscle protein synthesis signaling",
+          "recommendations": [
+            "Capitalize on More frequent protein synthesis with adequate protein",
+            "Consider higher protein intake",
+            "May respond well to hypertrophy training"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs12644422": {
+      "gene": "FAM65A",
+      "name": "rs12644422",
+      "category": "superpowers",
+      "chrom": "16",
+      "pos": 47990923,
+      "display": "FAM65A Muscle Function",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal muscle function",
+          "interpretation": "For rs12644422, your FAM65A variant is one contributing factor — standard muscular control and recovery",
+          "recommendations": [
+            "Standard recovery protocols"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Moderately altered muscle function",
+          "interpretation": "For rs12644422, your FAM65A variant is one contributing factor — heterozygous - may have slightly altered muscle recovery This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Prioritize recovery",
+            "Adequate sleep important",
+            "Anti-inflammatory nutrition"
+          ],
+          "priority": "medium"
+        },
+        "TT": {
+          "effect": "Significantly altered muscle function",
+          "interpretation": "For rs12644422, your FAM65A variant is one contributing factor — homozygous - substantially altered muscle recovery and function This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Aggressive recovery protocol",
+            "Extended rest between intense sessions",
+            "Prioritize sleep quality and duration",
+            "Consider compression therapy"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs36009": {
+      "gene": "MMP3",
+      "name": "rs3025058",
+      "category": "superpowers",
+      "chrom": "11",
+      "pos": 102769517,
+      "display": "MMP3 Tissue Remodeling",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal matrix remodeling",
+          "interpretation": "For rs3025058, your MMP3 variant is one contributing factor — standard mmp3 activity and tissue repair",
+          "recommendations": [
+            "Normal tissue adaptation to training"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "Moderately elevated MMP3",
+          "interpretation": "For rs3025058, your MMP3 variant is one contributing factor — heterozygous - may have enhanced tissue remodeling This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "May benefit from mobility work",
+            "Recovery focused stretching beneficial"
+          ],
+          "priority": "medium"
+        },
+        "AA": {
+          "effect": "Significantly elevated MMP3",
+          "interpretation": "For rs3025058, your MMP3 variant is one contributing factor — homozygous - substantially elevated matrix degradation This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Prioritize joint protection",
+            "Extended warm-up important",
+            "Consider swimming/low-impact for cardio",
+            "Track for overuse injuries"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs12594956": {
+      "gene": "NRF1",
+      "name": "rs12594956",
+      "category": "superpowers",
+      "chrom": "5",
+      "pos": 134376740,
+      "display": "NRF1 Mitochondrial Gene Expression",
+      "interpretations": {
+        "AA": {
+          "effect": "Normal NRF1 function",
+          "interpretation": "For rs12594956, your NRF1 variant is one contributing factor — standard mitochondrial gene expression",
+          "recommendations": [
+            "Standard mitochondrial support"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "Moderately altered NRF1",
+          "interpretation": "Heterozygous - may have slightly lower mitochondrial gene activation This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Support mitochondrial function",
+            "Paced training progression"
+          ],
+          "priority": "medium"
+        },
+        "GG": {
+          "effect": "Significantly altered NRF1",
+          "interpretation": "Homozygous - substantially lower mitochondrial gene expression This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Aggressive mitochondrial support protocol",
+            "NAD+ precursors important",
+            "Lower intensity training may be more effective",
+            "Track mitochondrial markers"
+          ],
+          "priority": "high",
+          "supplements": [
+            {
+              "compound": "CoQ10",
+              "dosage": "200mg",
+              "timing": "morning",
+              "brands": [
+                "Qunol",
+                "Thorne"
+              ]
+            },
+            {
+              "compound": "PQQ",
+              "dosage": "20mg",
+              "timing": "morning",
+              "brands": [
+                "NOW Foods"
+              ]
+            }
+          ],
+          "theWhy": "NRF1 variant affects mitochondrial gene expression",
+          "scienceSimplified": "Your mitochondrial energy production genes are less active"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs3213849": {
+      "gene": "HADSB",
+      "name": "rs3213849",
+      "category": "superpowers",
+      "chrom": "7",
+      "pos": 21582952,
+      "display": "HADSB Branched Chain Amino Acid",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal BCAA metabolism",
+          "interpretation": "For rs3213849, your HADSB variant is one contributing factor — standard branched chain amino acid metabolism",
+          "recommendations": [
+            "Standard protein intake sufficient"
+          ],
+          "priority": "low"
+        },
+        "CG": {
+          "effect": "Moderately altered BCAA",
+          "interpretation": "For rs3213849, your HADSB variant is one contributing factor — heterozygous - may have slightly altered leucine/isoleucine/valine metabolism This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Ensure complete amino acid profile",
+            "Consider EAAs if plant-based diet"
+          ],
+          "priority": "medium"
+        },
+        "GG": {
+          "effect": "Significantly altered BCAA",
+          "interpretation": "For rs3213849, your HADSB variant is one contributing factor — homozygous - substantially altered branched chain amino acid metabolism This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Prioritize complete protein with all EAAs",
+            "Consider BCAA supplementation",
+            "Track for fatigue during training",
+            "More frequent protein intake"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs3918242": {
+      "gene": "MMP1",
+      "name": "G>A (-1607)",
+      "category": "superpowers",
+      "chrom": "11",
+      "pos": 102660426,
+      "display": "MMP1 Tissue Remodeling",
+      "evidenceTier": 2,
+      "interpretations": {
+        "AA": {
+          "effect": "High MMP-1 expression — enhanced matrix metalloprotease activity",
+          "interpretation": "Elevated MMP-1 collagenase expression — potentially faster tissue remodeling and collagen turnover; linked to higher exercise-induced connective tissue adaptation rate but also higher injury susceptibility in acute load spikes This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Gradual load progression critical — allow connective tissue remodeling to catch up with muscular adaptation",
+            "Collagen 10-15g + vitamin C pre-training for substrate support",
+            "Anti-inflammatory recovery: omega-3, tart cherry"
+          ],
+          "priority": "moderate"
+        },
+        "GA": {
+          "effect": "Intermediate MMP-1 expression",
+          "interpretation": "For g>a (-1607), your MMP1 variant is one contributing factor — intermediate collagenase activity — moderate tissue remodeling rate",
+          "recommendations": [
+            "Standard progressive loading and collagen support"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Basal MMP-1 expression",
+          "interpretation": "For g>a (-1607), your MMP1 variant is one contributing factor — normal matrix metalloprotease-1 activity — standard connective tissue remodeling rate",
+          "recommendations": [
+            "Standard training progression principles apply"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs143384": {
+      "gene": "GDF5",
+      "name": "T>C",
+      "category": "superpowers",
+      "chrom": "20",
+      "pos": 35434456,
+      "display": "GDF5 Joint Cartilage",
+      "evidenceTier": 2,
+      "interpretations": {
+        "TT": {
+          "effect": "Lower GDF5 — reduced cartilage/ligament resilience",
+          "interpretation": "lower growth differentiation factor 5 — lower cartilage and tendon cell proliferation response; linked to elevated osteoarthritis risk and joint space narrowing, particularly knee OA This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Glucosamine sulfate 1500mg daily (most evidence-backed cartilage support supplement)",
+            "Low-impact training options (cycling, swimming) to preserve joint cartilage",
+            "Maintain BMI < 25 — excess weight accelerates cartilage loss with this genotype",
+            "Collagen peptides 10-15g daily for synovial fluid support"
+          ],
+          "priority": "moderate"
+        },
+        "TC": {
+          "effect": "Intermediate GDF5 expression",
+          "interpretation": "For t>c, your GDF5 variant is one contributing factor — one low-expression allele — mild joint resilience reduction",
+          "recommendations": [
+            "Glucosamine and low-impact cross-training beneficial"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Normal GDF5 expression",
+          "interpretation": "For t>c, your GDF5 variant is one contributing factor — normal cartilage and ligament growth factor signaling — standard joint resilience",
+          "recommendations": [
+            "Standard joint health practices"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs1799722": {
+      "gene": "NOS1",
+      "name": "T>C",
+      "category": "superpowers",
+      "chrom": "12",
+      "pos": 117659773,
+      "display": "NOS1 Neuronal Nitric Oxide",
+      "evidenceTier": 2,
+      "interpretations": {
+        "CC": {
+          "effect": "Higher nNOS expression — elevated neuronal NO",
+          "interpretation": "elevated neuronal nitric oxide synthase — higher central NO production affecting muscle fatigue signaling, reaction time, and post-exercise recovery rate",
+          "recommendations": [
+            "Aerobic training benefits More frequent by high nNOS activity (NO drives mitochondrial biogenesis)",
+            "L-citrulline or dietary nitrates may further amplify performance (synergistic with high nNOS)"
+          ],
+          "priority": "low"
+        },
+        "TC": {
+          "effect": "Intermediate nNOS expression",
+          "interpretation": "For t>c, your NOS1 variant is one contributing factor — heterozygous nnos expression",
+          "recommendations": [
+            "Standard NO-supporting strategies"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Baseline nNOS expression",
+          "interpretation": "For t>c, your NOS1 variant is one contributing factor — standard neuronal no production — normal fatigue signaling",
+          "recommendations": [
+            "Dietary nitrates (beetroot, arugula) beneficial for endurance performance"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs1800849": {
+      "gene": "UCP3",
+      "name": "C55T",
+      "category": "superpowers",
+      "chrom": "11",
+      "pos": 73628185,
+      "display": "UCP3 C55T Uncoupling Protein 3",
+      "evidenceTier": 2,
+      "interpretations": {
+        "TT": {
+          "effect": "Higher UCP3 expression — increased mitochondrial uncoupling",
+          "interpretation": "Higher uncoupling protein 3 in skeletal muscle — greater thermogenic capacity, potentially higher fat oxidation at rest, but lower exercise economy (some energy 'wasted' as heat rather than ATP)",
+          "recommendations": [
+            "Endurance training benefits from higher fat oxidation efficiency in this genotype",
+            "Ensure adequate dietary fat for fuel — very low fat diets may impair performance",
+            "Higher caloric needs due to uncoupling thermogenesis — do not under-fuel"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Intermediate UCP3 expression",
+          "interpretation": "For c55t, your UCP3 variant is one contributing factor — moderate mitochondrial uncoupling phenotype",
+          "recommendations": [
+            "Standard endurance training nutrition"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Lower UCP3 expression — tighter mitochondrial coupling",
+          "interpretation": "For c55t, your UCP3 variant is one contributing factor — lower muscle uncoupling protein 3 — more efficient mitochondrial atp production; better metabolic economy during sustained exercise",
+          "recommendations": [
+            "Leverage the metabolic efficiency advantage in prolonged aerobic events"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs2229616": {
+      "gene": "VEGFB",
+      "name": "A>G",
+      "category": "superpowers",
+      "chrom": "11",
+      "pos": 63999660,
+      "display": "VEGFB Cardiac Vascular Growth",
+      "evidenceTier": 2,
+      "interpretations": {
+        "GG": {
+          "effect": "Higher VEGFB — enhanced cardiac angiogenesis with exercise",
+          "interpretation": "For a>g, your VEGFB variant is one contributing factor — elevated vascular endothelial growth factor b — greater exercise-induced coronary angiogenesis and cardiac capillary density; the 'trained heart' adapts better with gg genotype",
+          "recommendations": [
+            "Aerobic training especially beneficial for this genotype — coronary reserve expands more",
+            "Zone 2 training (conversational pace aerobic) maximizes VEGFB-driven cardiac capillary adaptation"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "Intermediate VEGFB expression",
+          "interpretation": "For a>g, your VEGFB variant is one contributing factor — moderate cardiac angiogenic response to exercise",
+          "recommendations": [
+            "Regular aerobic training for cardiovascular adaptation"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Lower VEGFB — less cardiac angiogenic response to training",
+          "interpretation": "lower VEGFB-mediated cardiac vascularization with exercise training",
+          "recommendations": [
+            "High volume aerobic training compensates; consistent Zone 2 is critical",
+            "Nitrate-rich diet (beet root, leafy greens) for alternate vascular growth signaling"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs1800012": {
+      "gene": "COL1A1",
+      "name": "G>T (Sp1 binding site)",
+      "category": "superpowers",
+      "chrom": "17",
+      "pos": 48259513,
+      "display": "COL1A1 Bone/Tendon Strength",
+      "evidenceTier": 1,
+      "interpretations": {
+        "TT": {
+          "effect": "Significantly reduced bone density",
+          "interpretation": "Homozygous - substantially elevated osteoporosis risk This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Bone density testing",
+            "Calcium and vitamin D supplementation",
+            "Fall prevention"
+          ],
+          "priority": "high"
+        },
+        "GT": {
+          "effect": "Slightly reduced bone density",
+          "interpretation": "One copy - may have lower bone mineral density This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Ensure adequate calcium and vitamin D",
+            "Weight-bearing exercise"
+          ],
+          "priority": "medium"
+        },
+        "GG": {
+          "effect": "Normal collagen",
+          "interpretation": "For g>t (sp1 binding site), your COL1A1 variant is one contributing factor — standard type i collagen synthesis",
+          "recommendations": [
+            "Standard bone health"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs6449140": {
+      "gene": "SLC2A9",
+      "name": "SLC2A9 (smoking status, coffee consumption, urat)",
+      "displayName": "SLC2A9 – smoking status, coffee consumption, urate, diet, f",
+      "category": "superpowers",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "smoking status measurement, coffee consumption measurement, urate measurement, diet measurement, fish consumption measurement, sex interaction measurement, physical activity, alcohol drinking, tea consumption measurement, age at assessment",
+      "gwas_domain": "athletic_performance",
+      "gwas_p": 5e-190,
+      "gwas_n": 255718,
+      "interpretations": {
+        "TT": {
+          "effect": "Common genotype at SLC2A9",
+          "interpretation": "For slc2a9 (smoking status, coffee consumption, urat), your SLC2A9 variant is one contributing factor — common genotype at the slc2a9 gwas locus for smoking status, coffee consumption, urate, diet, fish consumption, sex interacti",
+          "recommendations": [
+            "No action needed"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Heterozygous at SLC2A9 — associated with smoking status, coffee consumption, urate, diet, fish consumption, sex interacti",
+          "interpretation": "For slc2a9 (smoking status, coffee consumption, urat), your SLC2A9 variant is one contributing factor — carrier of one gwas-significant allele at slc2a9 (n=255,718, p=5e-190)",
+          "recommendations": [
+            "Heterozygous SLC2A9 variant; moderate attention warranted"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Homozygous effect allele at SLC2A9 — smoking status, coffee consumption, urate, diet, fish consumption, sex interacti association",
+          "interpretation": "For slc2a9 (smoking status, coffee consumption, urat), your SLC2A9 variant is one contributing factor — homozygous for effect allele at slc2a9 This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Note SLC2A9 variant for smoking status, coffee consumption, urate, diet, fish consumption, sex interacti; discuss with healthcare provider"
+          ],
+          "priority": "medium"
+        }
+      }
+    },
+    "rs333": {
+      "gene": "CCR5",
+      "name": "CCR5Delta32 and susceptibility to HIV infection",
+      "category": "superpowers",
+      "chrom": "",
+      "pos": 0,
+      "display": "CCR5 - CCR5Delta32 and susceptibility to HIV infection",
+      "interpretations": {
+        "TACAGTCAGTATCAATTCTGGAAGAATTTCCAG/TACAGTCAGTATCAATTCTGGAAGAATTTCCAG": {
+          "effect": "Typical CCR5 function",
+          "interpretation": "Your CCR5 genotype is the most common form in reference populations. This does not rule out ccr5delta32 and susceptibility to hiv infection risk from other genes, environmental exposures, or rare variants not covered by standard genotyping.",
+          "recommendations": [
+            "No specific CCR5-directed intervention indicated, but standard health screening still applies",
+            "Other genetic and environmental factors contribute to ccr5delta32 and susceptibility to hiv infection — genotype alone is not the full picture"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Jasinska AJ et al CCR5 as a Coreceptor for Human Immunodeficiency Virus and Simian Immunodeficiency",
+        "Viruses: A Prototypic Love-Hate Affair. Front Immunol. 2022;13:835994.",
+        "Ellwanger JH et al. Beyond HIV infection: Neglected and varied impacts of CCR5 and CCR5Delta32 on viral",
+        "diseases. Virus Res. 2020;286:198040.",
+        "Scheller SH et al. Biallelic, Selectable, Knock-in Targeting of CCR5 via CRISPR-Cas9 Mediated Homology",
+        "Directed Repair Inhibits HIV-1 Replication. Front Immunol. 2022;13:821190.",
+        "Matti C et al. CCR5 deficiency/CCR5?32: resistant to HIV infection at the cost of curtailed CD4 + T cell",
+        "memory responses. EMBO J. 2020 Aug 3;39(15):e105854."
+      ],
+      "technical_report": "The presence in humans of the natural variant CCR5Delta32 consists of a 32 base pair\ndeletion of the DNA sequence, which leads to loss of function of the CCR5 gene, a coreceptor required for HIV access to T lymphocytes, the main target of this virus. The\npresence of this variant modulates the risk of HIV transmission and counteracts the\npathogenesis of HIV infection, to a greater extent in homozygosis (two copies) and to a\nlesser extent in heterozygosis (single copy).",
+      "description": "PDF\n\nCCR5Delta32 and susceptibility to HIV infection\nCCR5 acts as an important co-receptor used by HIV for cellular entry into TCD4+\nlymphocytes. The presence of a natural 32 base pair deletion in the CCR5 gene, known as\nCCR5Delta32, produces a truncated receptor that is not expressed on the surface of\nlymphocytes, thus preventing viral access and conferring resistance to infection."
+    },
+    "rs2814778": {
+      "gene": "DARC",
+      "name": "Duffy Antigen, malaria resistant",
+      "category": "superpowers",
+      "chrom": "",
+      "pos": 0,
+      "display": "DARC - Duffy Antigen, malaria resistant",
+      "interpretations": {
+        "T/T": {
+          "effect": "Variant in DARC",
+          "interpretation": "Your DARC genotype is one of several genetic factors linked to duffy antigen, malaria resistant. Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of DARC in duffy antigen, malaria resistant",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "World Health Organizatio (WHO) Paludism. [May 2022]",
+        "Aldarweesh F. The Duffy Blood Group System. Human Blood Group Systems and Haemoglobinopathies.",
+        "London: IntechOpen; 2019 [May 2022].",
+        "Kaur H et al. Duffy antigen receptor for chemokines (DARC) and susceptibility to Plasmodium vivax",
+        "malaria. Parasitol Int. 2019 Aug;71:73-75.",
+        "Kano FS et al. Susceptibility to Plasmodium vivax malaria associated with DARC (Duffy antigen)",
+        "polymorphisms is influenced by the time of exposure to malaria. Sci Rep. 2018 Sep 14;8(1):13851.",
+        "Reich D et al. Reduced Neutrophil Count in People of African Descent Is Due To a Regulatory Variant in the",
+        "Duffy Antigen Receptor for Chemokines Gene. PLoS Genet. 2009 Jan; 5(1): e1000360."
+      ],
+      "technical_report": "The presence or absence of the Duffy antigen in erythrocytes is highly heritable, although it\nis substantially more frequent in populations of African origin than in those of European\norigin. Through a study of 6000 individuals of African-American ancestry, a marker has been\nidentified in the DARC or ACKR1 gene, responsible for the presence of this antigen in red\nblood cells or erythrocytes and resistance to malaria.",
+      "description": "Duffy Antigen, malaria resistant\nThe Duffy antigen consists of a glycoprotein on the surface of erythrocytes that acts as a\nkey mediator for the access of the Plasmodium vivax parasite to the interior of red blood\ncells during its life cycle. Thus, individuals who do not carry this antigen would be resistant\nto the forms of malaria caused by this species."
+    },
+    "rs4349859": {
+      "gene": "MICA-AS1",
+      "name": "HLA-B27 antigen",
+      "category": "superpowers",
+      "chrom": "",
+      "pos": 0,
+      "display": "MICA-AS1 - HLA-B27 antigen",
+      "interpretations": {
+        "G/G": {
+          "effect": "Typical MICA-AS1 function",
+          "interpretation": "Your MICA-AS1 genotype is the most common form in reference populations. This does not rule out hla-b27 antigen risk from other genes, environmental exposures, or rare variants not covered by standard genotyping.",
+          "recommendations": [
+            "No specific MICA-AS1-directed intervention indicated, but standard health screening still applies",
+            "Other genetic and environmental factors contribute to hla-b27 antigen — genotype alone is not the full picture"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Bowness P. HLA-B27. Annu Rev Immunol. 2015;33:29-48.",
+        "Evans DM, et al. Interaction between ERAP1 and HLA-B27 in ankylosing spondylitis implicates peptide",
+        "handling in the mechanism for HLA-B27 in disease susceptibility. Nat Genet. 2011;43(8):761-7.",
+        "Jang HS, Proos A, Koe L, Anderson J, Fulton R, Fernando SL. High accuracy of HLA-B*27 genotyping by",
+        "allele-specific real-time polymerase chain reaction in a heterogeneous population compared to flow",
+        "cytometry and single nucleotide polymorphism detection assays. Pathology. 2020;52(2):256-261."
+      ],
+      "technical_report": "There is sufficient evidence for the rs4349859 single nucleotide polymorphism (SNP)\ngenotype to be considered a genetic marker of HLA-B27-positive individuals of Caucasian\nancestry, although it is not correlated in African or Asian populations. The presence of this marker is strongly associated with the development of rheumatic-type\ndiseases such as ankylosing spondylitis or rheumatoid arthritis. Only 4% of the European population has one copy of the B27 allele (genotype rs4349859\nAG), according to the Ensembl database. This allele has been found to be highly prevalent in\nmales with AS. HLA-B27 is present in 8% of the healthy Caucasian population and in 90% of\nAS patients. However, only 1-5% of HLA-B27-positive individuals develop AS, suggesting that\nother genetic factors are involved.",
+      "description": "HLA-B27 antigen\nHuman leukocyte antigens (HLA) are proteins that help the body's immune system\ndifferentiate between its own cells and foreign, harmful substances. The HLA-B27 protein,\nlocated on the surface of white blood cells, has been linked to the development of\nspondyloarthropathies, a group of inflammatory diseases including ankylosing spondylitis."
+    },
+    "rs769390": {
+      "gene": "GAD1",
+      "name": "G>A",
+      "category": "superpowers",
+      "chrom": "2",
+      "pos": 171551919,
+      "display": "GAD1 GABA Synthesis",
+      "evidenceTier": 2,
+      "interpretations": {
+        "AA": {
+          "effect": "Reduced GAD67 expression — lower cortical GABA",
+          "interpretation": "Lower glutamate decarboxylase 1 expression — lower cortical GABA synthesis; linked to anxiety phenotype, reduced cognitive inhibition, and higher risk for schizophrenia spectrum features in some studies This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "GABA-supportive strategies: L-theanine 200mg (green tea, calming without sedation)",
+            "Magnesium glycinate 400mg — enhances GABA receptor function",
+            "Yoga and breath work directly increase GABA levels acutely",
+            "Low-glycemic diet — blood sugar volatility worsens GABA:glutamate balance",
+            "Taurine 1g — inhibitory amino acid that compensates for lower GABA"
+          ],
+          "priority": "moderate"
+        },
+        "AG": {
+          "effect": "Intermediate GAD1 expression",
+          "interpretation": "One variant allele — mildly lower GABA synthesis",
+          "recommendations": [
+            "L-theanine and magnesium for GABA support"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Normal GAD67 GABA synthesis",
+          "interpretation": "For g>a, your GAD1 variant is one contributing factor — standard cortical gaba levels — normal inhibitory neurotransmitter balance",
+          "recommendations": [
+            "Standard cognitive and mental health practices"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs2268498": {
+      "gene": "OXTR",
+      "name": "C>T",
+      "category": "superpowers",
+      "chrom": "3",
+      "pos": 8780701,
+      "display": "OXTR Oxytocin Receptor (rs2268498)",
+      "evidenceTier": 2,
+      "interpretations": {
+        "TT": {
+          "effect": "Reduced oxytocin receptor expression",
+          "interpretation": "Lower OXTR expression — lower social bonding, empathy, and attachment behavior; linked to lower optimism and higher anxiety in some populations; relevant to social connection as a longevity predictor This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Deliberate social engagement routines — bonding activities upregulate oxytocin regardless of receptor density",
+            "Physical touch (massage, hugging with consent) acutely elevates oxytocin",
+            "Probiotics — gut microbiome modulates oxytocin production via vagus nerve",
+            "Avoid social isolation — particularly high-risk for this genotype"
+          ],
+          "priority": "moderate"
+        },
+        "CT": {
+          "effect": "Intermediate OXTR expression",
+          "interpretation": "For c>t, your OXTR variant is one contributing factor — moderate oxytocin receptor density — standard social bonding phenotype",
+          "recommendations": [
+            "Social engagement and community participation beneficial"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Higher OXTR expression — enhanced social bonding",
+          "interpretation": "For c>t, your OXTR variant is one contributing factor — higher oxytocin receptor density — stronger social connection response, higher empathy, greater benefit from social relationships on stress and longevity",
+          "recommendations": [
+            "Leverage high social sensitivity for wellbeing through strong community ties"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs2802292": {
+      "gene": "FOXO3",
+      "name": "G>T",
+      "category": "superpowers",
+      "chrom": "6",
+      "pos": 109006988,
+      "display": "FOXO3 G>T",
+      "interpretations": {
+        "GG": {
+          "effect": "No FOXO3 longevity allele",
+          "interpretation": "For g>t, your FOXO3 variant is one contributing factor — wild-type foxo3 — longevity depends more heavily on lifestyle inputs than for carriers of the t allele This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Caloric restriction or fasting regimens especially impactful without the genetic head-start",
+            "Regular exercise is the most potent FOXO3 activator available to GG individuals",
+            "Berberine 500mg twice daily — activates AMPK/FOXO3 pathway"
+          ],
+          "priority": "moderate"
+        },
+        "GT": {
+          "effect": "One longevity allele — moderate FOXO3 benefit",
+          "interpretation": "For g>t, your FOXO3 variant is one contributing factor — one copy of the replicated longevity allele — partial foxo3 activity enhancement and moderate longevity signal",
+          "recommendations": [
+            "Intermittent fasting and aerobic exercise maximize FOXO3 pathway",
+            "Low-glycemic diet to maintain favorable insulin/IGF-1 signaling"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Homozygous longevity allele — strongest FOXO3 survival benefit",
+          "interpretation": "Strongest replicated longevity genotype — linked to exceptional lifespan (85+), lower cardiovascular mortality, and healthier aging across Japanese, German, Italian, and US cohorts",
+          "recommendations": [
+            "Intermittent fasting / time-restricted eating — the key FOXO3 pathway activator",
+            "Regular aerobic exercise — FOXO3 mediates anti-aging exercise effects",
+            "Low-glycemic diet to maintain low insulin/IGF-1",
+            "Resveratrol 250-500mg (activates SIRT1, which feeds into FOXO3)",
+            "Metformin or berberine discussion with physician for further longevity pathway support"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs2735940": {
+      "gene": "TERT",
+      "name": "C>T",
+      "category": "superpowers",
+      "chrom": "5",
+      "pos": 1285597,
+      "display": "TERT C>T",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal telomerase",
+          "interpretation": "For c>t, your TERT variant is one contributing factor — standard tert activity",
+          "recommendations": [
+            "Standard cellular aging rate"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Intermediate",
+          "interpretation": "For c>t, your TERT variant is one contributing factor — some reduction in telomerase activity",
+          "recommendations": [
+            "Lifestyle factors that support telomere length may be particularly beneficial"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Reduced telomerase",
+          "interpretation": "linked to shorter telomere length and accelerated cellular aging This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Prioritize anti-inflammatory lifestyle",
+            "Antioxidant support",
+            "Stress reduction"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs1051730": {
+      "gene": "CHRNA3",
+      "name": "G>A",
+      "category": "superpowers",
+      "chrom": "15",
+      "pos": 78882906,
+      "display": "CHRNA3 G>A",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal nicotine receptor",
+          "interpretation": "For g>a, your CHRNA3 variant is one contributing factor — standard nicotine dependence risk",
+          "recommendations": [
+            "Standard smoking cessation response"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Increased nicotine dependence",
+          "interpretation": "One copy - elevated risk of nicotine dependence and lung cancer This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Highest smoking cessation challenge",
+            "Consider nicotine replacement therapy",
+            "Lung cancer screening worth considering"
+          ],
+          "priority": "medium"
+        },
+        "AA": {
+          "effect": "Strong nicotine dependence",
+          "interpretation": "Homozygous - notably elevated nicotine dependence and lung cancer risk This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Priority smoking cessation support",
+            "Annual lung cancer screening",
+            "Consider varenicline"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs2736100": {
+      "gene": "TERT",
+      "name": "A>C",
+      "category": "superpowers",
+      "chrom": "5",
+      "pos": 1285974,
+      "display": "TERT Telomere Length / Cancer Risk",
+      "evidenceTier": 1,
+      "interpretations": {
+        "CC": {
+          "effect": "Longer telomeres — dual effect",
+          "interpretation": "Longer genetic telomere length — protective against cardiovascular disease and cell senescence but also linked to modestly elevated lung cancer and glioma risk (longer-lived stem cells with more replication opportunities)",
+          "recommendations": [
+            "Leverage the cardiovascular and healthspan benefits through aerobic fitness",
+            "Annual low-dose CT if heavy smoker history (CC genotype has elevated lung adenocarcinoma risk)",
+            "Antioxidant support to reduce oxidative mutation load while benefiting from longer replication capacity"
+          ],
+          "priority": "low"
+        },
+        "AC": {
+          "effect": "Intermediate telomere length",
+          "interpretation": "For a>c, your TERT variant is one contributing factor — intermediate tert-associated telomere length — balanced risk profile",
+          "recommendations": [
+            "Standard telomere health lifestyle: exercise, omega-3, adequate sleep"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Shorter telomeres",
+          "interpretation": "Genetically shorter telomeres via TERT locus — lower telomerase capacity; higher risk for cardiovascular disease and age-related degeneration This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Aerobic exercise (increases TERT expression in lymphocytes)",
+            "Omega-3 3g EPA+DHA (telomere preservation RCT evidence)",
+            "Mediterranean diet for telomere attrition reduction",
+            "Minimize oxidative stress: tobacco, UV, pro-inflammatory diet"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs2305480": {
+      "gene": "APOA5",
+      "name": "G>T",
+      "category": "superpowers",
+      "chrom": "11",
+      "pos": 116648917,
+      "display": "APOA5 Triglyceride Risk",
+      "evidenceTier": 1,
+      "interpretations": {
+        "TT": {
+          "effect": "Low APOA5 — high triglyceride risk",
+          "interpretation": "lower APOA5 expression —  elevated triglyceride levels; APOA5 is a key regulator of VLDL clearance; TT genotype raises TG by 30-60% above population average This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Strict low-refined-carbohydrate and low-fructose diet (dietary fructose most potent TG driver)",
+            "Omega-3 3-4g EPA+DHA daily (prescription-level triglyceride reduction)",
+            "Niacin or fibrate discussion with physician if TG > 200 mg/dL persistently",
+            "Monthly fasting triglyceride check until stable",
+            "Avoid alcohol — disproportionately raises TG with low-APOA5 variants"
+          ],
+          "priority": "high"
+        },
+        "GT": {
+          "effect": "Intermediate APOA5 — modestly elevated triglycerides",
+          "interpretation": "For g>t, your APOA5 variant is one contributing factor — one low-expression allele — moderately elevated triglyceride tendency This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Omega-3 supplementation and low refined carbohydrate intake",
+            "Annual fasting lipid panel"
+          ],
+          "priority": "moderate"
+        },
+        "GG": {
+          "effect": "Normal APOA5 — standard triglyceride risk",
+          "interpretation": "For g>t, your APOA5 variant is one contributing factor — normal apoa5 expression and standard vldl clearance",
+          "recommendations": [
+            "Standard dietary fat and carbohydrate balance"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs2295080": {
+      "gene": "MTOR",
+      "name": "G>T",
+      "category": "superpowers",
+      "chrom": "1",
+      "pos": 11176985,
+      "display": "mTOR Pathway Variant",
+      "evidenceTier": 2,
+      "interpretations": {
+        "TT": {
+          "effect": "Altered mTOR signaling — potential hyperactivation",
+          "interpretation": "mTOR complex variant — mTOR is the master nutrient/growth sensor; hyperactive mTOR is linked to accelerated aging, cancer risk, and lower autophagy; also involved in T2D, metabolic syndrome This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Caloric restriction and intermittent fasting are the primary mTOR inhibitors",
+            "Rapamycin discussion with physician for longevity protocol",
+            "Leucine intake timing: avoid constant leucine stimulation (spread protein across meals)",
+            "Berberine 500mg (AMPK activator, inhibits mTOR pathway)"
+          ],
+          "priority": "moderate"
+        },
+        "GT": {
+          "effect": "Intermediate mTOR signaling",
+          "interpretation": "For g>t, your MTOR variant is one contributing factor — heterozygous mtor variant — moderate pathway effect",
+          "recommendations": [
+            "Fasting and exercise to modulate mTOR activity"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Wild-type mTOR signaling",
+          "interpretation": "For g>t, your MTOR variant is one contributing factor — standard mtor nutrient sensing — normal growth and aging pathway",
+          "recommendations": [
+            "Intermittent fasting and caloric restriction optimize mTOR cycling"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs9536314": {
+      "gene": "KLOTHO",
+      "name": "F352V (KL-VS)",
+      "category": "superpowers",
+      "chrom": "13",
+      "pos": 33628138,
+      "display": "KLOTHO KL-VS",
+      "interpretations": {
+        "CC": {
+          "effect": "No KL-VS allele",
+          "interpretation": "For f352v (kl-vs), your KLOTHO variant is one contributing factor — common klotho genotype — standard fgf23 signaling, bone mineral metabolism, and aging trajectory",
+          "recommendations": [
+            "Optimize lifestyle factors to maintain cognitive and kidney health"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Heterozygous KL-VS (optimal)",
+          "interpretation": "Single KL-VS copy — linked to ~30% lower Alzheimer's risk (Dubal 2014, Nature), ~7% higher frontal lobe volume, improved FGF23-mediated phosphate regulation, and longevity advantage in multiple cohorts (Hum Genet 2005)",
+          "recommendations": [
+            "Prioritize cognitive stimulation to leverage this genetic advantage",
+            "Vitamin D adequacy supports FGF23 pathway that KLOTHO regulates",
+            "Aerobic exercise amplifies KLOTHO expression further",
+            "Low-phosphate diet (avoid processed food phosphate additives) supports KL-WT pathway"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Homozygous KL-VS",
+          "interpretation": "For f352v (kl-vs), your KLOTHO variant is one contributing factor — two copies of kl-vs — rare genotype",
+          "recommendations": [
+            "Same lifestyle recommendations as CT carriers",
+            "Cognitive stimulation and aerobic exercise remain key"
+          ],
+          "priority": "low",
+          "scienceSimplified": "KLOTHO is your anti-aging hormone — one copy of the KL-VS variant is associated with better brain health and longevity. Having one copy (not two) appears to be the sweet spot."
+        }
+      },
+      "evidenceTier": 1
+    },
+    "rs1042522": {
+      "gene": "TP53",
+      "name": "Pro72Arg",
+      "category": "superpowers",
+      "chrom": "17",
+      "pos": 7579472,
+      "display": "TP53 Pro72Arg p53 Pathway",
+      "evidenceTier": 2,
+      "interpretations": {
+        "GG": {
+          "effect": "Arg72/Arg72 — stronger mitochondrial apoptosis",
+          "interpretation": "For pro72arg, your TP53 variant is one contributing factor — arg72 p53 isoform — more efficiently induces apoptosis in damaged cells (5-10x more potent mitochondrial pathway); stronger early cancer suppression but may contribute to greater age-related cell loss in some tissues",
+          "recommendations": [
+            "Strong cancer prevention lifestyle complements this pro-apoptotic genotype",
+            "Avoid carcinogens that create DNA damage (smoke, UV, processed meats)",
+            "Adequate antioxidants (vitamin C, E, CoQ10) to minimize oxidative DNA damage load"
+          ],
+          "priority": "low"
+        },
+        "GC": {
+          "effect": "Heterozygous — intermediate p53 pathway balance",
+          "interpretation": "For pro72arg, your TP53 variant is one contributing factor — both pro72 and arg72 isoforms active — intermediate balance between transcriptional and mitochondrial apoptosis pathways",
+          "recommendations": [
+            "Standard cancer prevention practices"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Pro72/Pro72 — transcription-dominant p53 response",
+          "interpretation": "Pro72 p53 isoform — favors cell cycle arrest over apoptosis; may allow more damaged cells to repair rather than being eliminated; linked to longevity in some European elderly cohorts",
+          "recommendations": [
+            "DNA repair support: sulforaphane (NRF2 activator), zinc, NAD+ precursors (NMN/NR)",
+            "Regular cancer screening per age/sex guidelines"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs2070895": {
+      "gene": "PRKAB1",
+      "name": "G>A",
+      "category": "superpowers",
+      "chrom": "12",
+      "pos": 120879600,
+      "display": "AMPK Beta-1 Longevity Pathway",
+      "evidenceTier": 2,
+      "interpretations": {
+        "AA": {
+          "effect": "Altered AMPK beta-1 regulatory subunit",
+          "interpretation": "For g>a, your PRKAB1 variant is one contributing factor — ampk regulatory subunit variant — ampk is the master energy sensor linking caloric restriction to longevity pathways (sirt1, foxo3, mtor inhibition); this variant modulates cellular energy sensing",
+          "recommendations": [
+            "AMPK activators are especially relevant: berberine 500mg twice daily, EGCG (green tea)",
+            "Exercise maximally activates AMPK regardless of genotype",
+            "Metformin discussion with physician (potent AMPK activator)",
+            "Caloric restriction or 16:8 intermittent fasting — triggers sustained AMPK activation"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "Intermediate AMPK regulatory function",
+          "interpretation": "For g>a, your PRKAB1 variant is one contributing factor — heterozygous ampk beta-1 variant — intermediate energy sensing phenotype",
+          "recommendations": [
+            "Standard AMPK-supportive lifestyle: exercise, fasting, limited calorie excess"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Normal AMPK beta-1 function",
+          "interpretation": "For g>a, your PRKAB1 variant is one contributing factor — standard ampk energy sensing — normal longevity pathway activation response to caloric restriction and exercise",
+          "recommendations": [
+            "Exercise and intermittent fasting remain the primary AMPK activators"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs2802288": {
+      "gene": "FOXO3",
+      "name": "A>G",
+      "category": "superpowers",
+      "chrom": "6",
+      "pos": 108970898,
+      "display": "FOXO3 Secondary Longevity Variant",
+      "evidenceTier": 2,
+      "interpretations": {
+        "GG": {
+          "effect": "Longevity-associated secondary FOXO3 variant",
+          "interpretation": "For a>g, your FOXO3 variant is one contributing factor — secondary foxo3 longevity-associated allele — independent longevity signal at a different position in the foxo3 locus; replicated in the uk biobank",
+          "recommendations": [
+            "Complements rs2802292 signal; same FOXO3-activating lifestyle strategies apply",
+            "Intermittent fasting and aerobic exercise"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "One longevity allele at secondary FOXO3 locus",
+          "interpretation": "For a>g, your FOXO3 variant is one contributing factor — partial secondary foxo3 longevity signal",
+          "recommendations": [
+            "FOXO3 pathway activation through fasting and exercise"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "No secondary FOXO3 longevity allele",
+          "interpretation": "For a>g, your FOXO3 variant is one contributing factor — wild-type at this secondary foxo3 position",
+          "recommendations": [
+            "Behavioral FOXO3 activation remains the primary lever"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs2241880": {
+      "gene": "ATG16L1",
+      "name": "T>C (A300T)",
+      "category": "superpowers",
+      "chrom": "2",
+      "pos": 234183368,
+      "display": "ATG16L1 Autophagy / Inflammation",
+      "evidenceTier": 2,
+      "interpretations": {
+        "CC": {
+          "effect": "Reduced ATG16L1-mediated autophagy",
+          "interpretation": "Ala300 ATG16L1 variant — lower autophagy flux and elevated inflammatory signaling; linked to Crohn's disease and altered cellular housekeeping; autophagy is a key longevity pathway This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Fasting (16:8 or longer) is the strongest autophagy activator — especially impactful for CC individuals",
+            "Spermidine 1-2mg daily (polyamine that activates autophagy independent of mTOR)",
+            "Rapamycin discussion with physician (mTOR inhibitor, potent autophagy inducer)",
+            "Omega-3 reduces inflammatory burden compensating for reduced ATG16L1 activity"
+          ],
+          "priority": "moderate"
+        },
+        "TC": {
+          "effect": "Intermediate ATG16L1 function",
+          "interpretation": "One lower-activity allele — partial autophagy impairment",
+          "recommendations": [
+            "Regular fasting intervals and spermidine-containing foods (wheat germ, aged cheese, soy)"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Normal ATG16L1 autophagy function",
+          "interpretation": "For t>c (a300t), your ATG16L1 variant is one contributing factor — wild-type autophagy — efficient cellular housekeeping and protein aggregate clearance",
+          "recommendations": [
+            "Fasting and caloric restriction still activate autophagy but less urgently needed"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs2237892": {
+      "gene": "KCNQ1",
+      "name": "C>T",
+      "category": "superpowers",
+      "chrom": "11",
+      "pos": 2796327,
+      "display": "KCNQ1 Longevity / Metabolic Aging",
+      "evidenceTier": 2,
+      "interpretations": {
+        "TT": {
+          "effect": "Risk allele homozygous — elevated T2D and longevity impact",
+          "interpretation": "KCNQ1 T allele — the most replicated type 2 diabetes GWAS locus in East Asian populations; linked to beta-cell function impairment and lower insulin secretion; T2D is a major accelerator of biological aging This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Low-glycemic diet strictly (carbohydrate quality paramount for KCNQ1 risk genotype)",
+            "Resistance training 3x/week (increases beta-cell function independent of KCNQ1)",
+            "Regular HbA1c Tracking (quarterly if impaired fasting glucose)",
+            "Berberine 500mg twice daily — improves beta-cell function"
+          ],
+          "priority": "moderate"
+        },
+        "CT": {
+          "effect": "One risk allele — moderate T2D risk elevation",
+          "interpretation": "For c>t, your KCNQ1 variant is one contributing factor — heterozygous kcnq1 — intermediate beta-cell function impairment tendency",
+          "recommendations": [
+            "Low-glycemic diet and annual HbA1c Tracking"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "No KCNQ1 T2D risk allele",
+          "interpretation": "For c>t, your KCNQ1 variant is one contributing factor — standard kcnq1-mediated potassium channel function — standard insulin secretion",
+          "recommendations": [
+            "Standard metabolic health practices"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs3184504": {
+      "gene": "SH2B3",
+      "name": "Trp262Arg",
+      "category": "superpowers",
+      "chrom": "12",
+      "pos": 111884608,
+      "display": "SH2B3 Pleiotropic Longevity Locus",
+      "evidenceTier": 2,
+      "interpretations": {
+        "TT": {
+          "effect": "Arg262/Arg262 — pro-longevity but elevated autoimmune risk",
+          "interpretation": "SH2B3/LNK Arg262 variant — pleiotropic effects; positive selection driven by protection against infection in historical context; linked to longer lifespan in large cohort studies but also modestly elevated autoimmune risk",
+          "recommendations": [
+            "Anti-inflammatory diet to balance the autoimmune tendency",
+            "Regular CRP and inflammatory marker Tracking",
+            "The longevity benefit appears to outweigh autoimmune risk in most environmental contexts"
+          ],
+          "priority": "low"
+        },
+        "TC": {
+          "effect": "Intermediate SH2B3 phenotype",
+          "interpretation": "For trp262arg, your SH2B3 variant is one contributing factor — heterozygous — partial pleiotropic effects",
+          "recommendations": [
+            "Standard immune health and anti-inflammatory practices"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Trp262/Trp262 — standard SH2B3 function",
+          "interpretation": "For trp262arg, your SH2B3 variant is one contributing factor — wild-type trp262 — no sh2b3-associated longevity effect from this variant",
+          "recommendations": [
+            "Lifestyle factors are the primary lever for healthspan extension"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs2802291": {
+      "gene": "FOXO3",
+      "name": "G>A",
+      "category": "superpowers",
+      "chrom": "6",
+      "pos": 108996975,
+      "display": "FOXO3 Longevity Tertiary Locus",
+      "evidenceTier": 2,
+      "interpretations": {
+        "AA": {
+          "effect": "Third independent FOXO3 longevity signal",
+          "interpretation": "For g>a, your FOXO3 variant is one contributing factor — third reported foxo3 locus longevity association (independent of rs2802292 and rs2802288); each foxo3 longevity allele adds to cumulative foxo3 pathway activation",
+          "recommendations": [
+            "FOXO3 pathway activation via fasting, exercise, and low IGF-1 diet",
+            "Carriers of multiple FOXO3 longevity variants have compounding benefit — maintain the lifestyle"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "One allele at tertiary FOXO3 locus",
+          "interpretation": "For g>a, your FOXO3 variant is one contributing factor — partial tertiary foxo3 longevity signal",
+          "recommendations": [
+            "Same FOXO3 activation lifestyle strategies"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "No tertiary FOXO3 allele",
+          "interpretation": "For g>a, your FOXO3 variant is one contributing factor — wild-type at this tertiary foxo3 position",
+          "recommendations": [
+            "Behavioral FOXO3 activation remains primary"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs7153922": {
+      "gene": "GHR",
+      "name": "P477T",
+      "category": "superpowers",
+      "chrom": "5",
+      "pos": 42701174,
+      "display": "GHR Growth Hormone Receptor / IGF-1 Axis",
+      "evidenceTier": 2,
+      "interpretations": {
+        "TT": {
+          "effect": "Reduced GHR signaling — attenuated IGF-1 production",
+          "interpretation": "Growth hormone receptor variant reduces GH-stimulated IGF-1 production; lower IGF-1 levels linked to longevity and lower cancer risk (mTOR/PI3K pathway less activated)",
+          "recommendations": [
+            "Low-glycemic and lower-protein diet to complement reduced IGF-1 tendency",
+            "Annual serum IGF-1 Tracking — target 120-200 ng/mL for balance of longevity and muscle maintenance",
+            "Resistance training to maintain lean mass without relying on IGF-1 elevation"
+          ],
+          "priority": "low"
+        },
+        "TC": {
+          "effect": "Intermediate GHR/IGF-1 axis",
+          "interpretation": "For p477t, your GHR variant is one contributing factor — heterozygous — moderate gh receptor variant effect",
+          "recommendations": [
+            "Standard growth hormone and IGF-1 health practices"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Normal GHR signaling — standard IGF-1 production",
+          "interpretation": "For p477t, your GHR variant is one contributing factor — wild-type ghr — normal growth hormone receptor sensitivity",
+          "recommendations": [
+            "Caloric restriction and fasting remain the primary IGF-1 reduction strategies"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs10956486": {
+      "gene": "CCDC26",
+      "name": "CCDC26 (aging rate)",
+      "displayName": "CCDC26 – aging rate",
+      "category": "superpowers",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "aging rate",
+      "gwas_domain": "longevity",
+      "gwas_p": 2e-55,
+      "gwas_n": 423992,
+      "interpretations": {
+        "CC": {
+          "effect": "Common genotype — standard aging rate",
+          "interpretation": "For ccdc26 (aging rate), your CCDC26 variant is one contributing factor — common genotype for aging rate at ccdc26; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard aging rate management applies"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "One CCDC26 protective allele — modest aging rate benefit",
+          "interpretation": "For ccdc26 (aging rate), your CCDC26 variant is one contributing factor — one copy of the gwas-identified protective allele for aging rate",
+          "recommendations": [
+            "One protective CCDC26 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Homozygous CCDC26 protective allele — maximum aging rate benefit",
+          "interpretation": "For ccdc26 (aging rate), your CCDC26 variant is one contributing factor — homozygous for the gwas protective allele at ccdc26",
+          "recommendations": [
+            "Favorable CCDC26 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs520015": {
+      "gene": "ZNG1A",
+      "name": "ZNG1A (aging rate)",
+      "displayName": "ZNG1A – aging rate",
+      "category": "superpowers",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "aging rate",
+      "gwas_domain": "longevity",
+      "gwas_p": 1e-58,
+      "gwas_n": 423992,
+      "interpretations": {
+        "TT": {
+          "effect": "Common genotype — baseline aging rate",
+          "interpretation": "For zng1a (aging rate), your ZNG1A variant is one contributing factor — most common genotype for aging rate at zng1a locus; no elevated gwas risk signal",
+          "recommendations": [
+            "No action needed — favorable common genotype"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "One ZNG1A risk allele — modest aging rate association",
+          "interpretation": "For zng1a (aging rate), your ZNG1A variant is one contributing factor — carrier of one gwas-identified risk allele for aging rate",
+          "recommendations": [
+            "Awareness of modest aging rate risk variant; standard screening applies"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Homozygous ZNG1A risk allele — elevated aging rate",
+          "interpretation": "Homozygous for the GWAS risk allele linked to aging rate This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss ZNG1A GWAS finding with a healthcare provider",
+            "Track aging rate via regular checkups"
+          ],
+          "priority": "medium"
+        }
+      }
+    },
+    "rs61263161": {
+      "gene": "CHCHD6",
+      "name": "CHCHD6 (aging rate)",
+      "displayName": "CHCHD6 – aging rate",
+      "category": "superpowers",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "aging rate",
+      "gwas_domain": "longevity",
+      "gwas_p": 1e-51,
+      "gwas_n": 423992,
+      "interpretations": {
+        "AA": {
+          "effect": "Common genotype — standard aging rate",
+          "interpretation": "For chchd6 (aging rate), your CHCHD6 variant is one contributing factor — common genotype for aging rate at chchd6; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard aging rate management applies"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "One CHCHD6 protective allele — modest aging rate benefit",
+          "interpretation": "For chchd6 (aging rate), your CHCHD6 variant is one contributing factor — one copy of the gwas-identified protective allele for aging rate",
+          "recommendations": [
+            "One protective CHCHD6 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Homozygous CHCHD6 protective allele — maximum aging rate benefit",
+          "interpretation": "For chchd6 (aging rate), your CHCHD6 variant is one contributing factor — homozygous for the gwas protective allele at chchd6",
+          "recommendations": [
+            "Favorable CHCHD6 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs10430577": {
+      "gene": "MRC1",
+      "name": "MRC1 (neuroimaging)",
+      "displayName": "MRC1 – neuroimaging",
+      "category": "superpowers",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "neuroimaging measurement",
+      "gwas_domain": "longevity",
+      "gwas_p": 1e-55,
+      "gwas_n": 20043,
+      "interpretations": {
+        "CC": {
+          "effect": "Common genotype — standard neuroimaging",
+          "interpretation": "For mrc1 (neuroimaging), your MRC1 variant is one contributing factor — common genotype for neuroimaging at mrc1; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard neuroimaging management applies"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "One MRC1 protective allele — strong neuroimaging benefit",
+          "interpretation": "For mrc1 (neuroimaging), your MRC1 variant is one contributing factor — one copy of the gwas-identified protective allele for neuroimaging",
+          "recommendations": [
+            "One protective MRC1 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Homozygous MRC1 protective allele — maximum neuroimaging benefit",
+          "interpretation": "For mrc1 (neuroimaging), your MRC1 variant is one contributing factor — homozygous for the gwas protective allele at mrc1",
+          "recommendations": [
+            "Favorable MRC1 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs56007737": {
+      "gene": "FAM234A",
+      "name": "FAM234A (aging)",
+      "displayName": "FAM234A – aging",
+      "category": "superpowers",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "aging",
+      "gwas_domain": "longevity",
+      "gwas_p": 3e-57,
+      "gwas_n": 25460,
+      "interpretations": {
+        "AA": {
+          "effect": "Common genotype — standard aging",
+          "interpretation": "For fam234a (aging), your FAM234A variant is one contributing factor — common genotype for aging at fam234a; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard aging management applies"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "One FAM234A protective allele — strong aging benefit",
+          "interpretation": "For fam234a (aging), your FAM234A variant is one contributing factor — one copy of the gwas-identified protective allele for aging",
+          "recommendations": [
+            "One protective FAM234A allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Homozygous FAM234A protective allele — maximum aging benefit",
+          "interpretation": "For fam234a (aging), your FAM234A variant is one contributing factor — homozygous for the gwas protective allele at fam234a",
+          "recommendations": [
+            "Favorable FAM234A variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs76038336": {
+      "gene": "AXIN1",
+      "name": "AXIN1 (aging)",
+      "displayName": "AXIN1 – aging",
+      "category": "superpowers",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "aging",
+      "gwas_domain": "longevity",
+      "gwas_p": 1e-300,
+      "gwas_n": 25460,
+      "interpretations": {
+        "TT": {
+          "effect": "Common genotype — baseline aging",
+          "interpretation": "For axin1 (aging), your AXIN1 variant is one contributing factor — most common genotype for aging at axin1 locus; no elevated gwas risk signal",
+          "recommendations": [
+            "No action needed — favorable common genotype"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "One AXIN1 risk allele — strong aging association",
+          "interpretation": "For axin1 (aging), your AXIN1 variant is one contributing factor — carrier of one gwas-identified risk allele for aging This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Awareness of modest aging risk variant; standard screening applies"
+          ],
+          "priority": "medium"
+        },
+        "CC": {
+          "effect": "Homozygous AXIN1 risk allele — elevated aging",
+          "interpretation": "Homozygous for the GWAS risk allele linked to aging This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Discuss AXIN1 GWAS finding with a healthcare provider",
+            "Track aging via regular checkups"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs141927875": {
+      "gene": "HBG2",
+      "name": "HBG2 (aging)",
+      "displayName": "HBG2 – aging",
+      "category": "superpowers",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "aging",
+      "gwas_domain": "longevity",
+      "gwas_p": 5e-51,
+      "gwas_n": 86536,
+      "interpretations": {
+        "GG": {
+          "effect": "Common genotype — standard aging",
+          "interpretation": "For hbg2 (aging), your HBG2 variant is one contributing factor — common genotype for aging at hbg2; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard aging management applies"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "One HBG2 protective allele — strong aging benefit",
+          "interpretation": "For hbg2 (aging), your HBG2 variant is one contributing factor — one copy of the gwas-identified protective allele for aging",
+          "recommendations": [
+            "One protective HBG2 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Homozygous HBG2 protective allele — maximum aging benefit",
+          "interpretation": "For hbg2 (aging), your HBG2 variant is one contributing factor — homozygous for the gwas protective allele at hbg2",
+          "recommendations": [
+            "Favorable HBG2 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,452 @@
+{
+  "version": "2.0.0",
+  "updated": "2026-07-20",
+  "description": "Immune regulation, inflammatory markers, histamine, and food sensitivities",
+  "markers": {
+    "rs2187668": {
+      "gene": "HLA-DQA1",
+      "name": "Celiac risk",
+      "category": "inflammation",
+      "chrom": "6",
+      "pos": 32617334,
+      "display": "HLA-DQA1 Celiac Risk",
+      "interpretations": {
+        "TT": {
+          "effect": "Lower celiac risk",
+          "interpretation": "For celiac risk, your HLA-DQA1 variant is one contributing factor — standard gluten tolerance",
+          "recommendations": [
+            "Standard gluten consumption"
+          ],
+          "priority": "low"
+        },
+        "TC": {
+          "effect": "Increased celiac susceptibility",
+          "interpretation": "One copy of risk allele - substantially elevated celiac disease risk This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Consider testing if symptomatic",
+            "Track for celiac markers"
+          ],
+          "priority": "medium"
+        },
+        "CC": {
+          "effect": "High celiac susceptibility",
+          "interpretation": "Two copies of risk allele - substantially elevated celiac risk This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Consider biopsy if symptomatic",
+            "Strict gluten avoidance if celiac diagnosed"
+          ],
+          "priority": "high"
+        },
+        "C/T": {
+          "effect": "Elevated-risk HLA-DQA1 genotype",
+          "interpretation": "Population studies link your HLA-DQA1 variant to altered probability for celiac risk. This reflects group-level statistics; individual risk depends substantially on lifestyle, family history, and other genes.",
+          "recommendations": [
+            "Discuss celiac risk screening with a healthcare provider if family history is present",
+            "Lifestyle modifications often reduce genetic risk — diet, exercise, and avoiding known triggers matter"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Caio G. et al. Celiac disease: a comprehensive current review. BMC Med. 2019;17(1):142",
+        "Hill ID, Dirks MH, Liptak GS, Coletti RB, Fasano A, Guardalini S, et al. Guidelines for the diagnosis and",
+        "treatment of celiac disease in children: recommendations of the North American Society",
+        "for Pediatric Gastroenterology, Hepatology and Nutrition. J Pediatr Gastroenterol Nutr. 2005;40:1-19.",
+        "Husby S, Koletzko S, Korponay-Szabó I, Kurppa K, Mearin ML, Ribes-Koninckx C, et al. European Society",
+        "Paediatric Gastroenterology, Hepatology and Nutrition Guidelines for Diagnosing Coeliac Disease",
+        "2020. J Pediatr Gastroenterol Nutr. 2020 Jan;70(1):141-156.",
+        "Lebwohl B, Ludvigsson JF, Green PH. Celiac disease and non-celiac gluten sensitivity.",
+        "BMJ. 2015;351:h4347.",
+        "Lebwohl B, Rubio-Tapia A. Epidemiology, Presentation, and Diagnosis of Celiac Disease. Gastroenterology.",
+        "2021 Jan;160(1):63-75.",
+        "Liu E. et al. Risk of pediatric celiac disease according to HLA haplotype and country. N Engl J",
+        "Med. 2014;371:429.",
+        "Sollid LM, Korsby E. HLA susceptibility genes in coeliac disease: genetic mapping and role in",
+        "pathogenesis. Gastroenterology. 1993;105:910-22.",
+        "Monsuur AJ., et al. Effective detection of human leukocyte antigen risk alleles in celiac disease using tag",
+        "single nucleotide polymorphisms. PLoS One. 2008;3(5):e2270."
+      ],
+      "technical_report": "Genetic predisposition to celiac disease is largely determined by the presence of HLA-DQ2.5\nand HLA-DQ8 haplotypes, histocompatibility antigens that respond to the presence of\ngliadin (a peptide found in gluten), activating the immune response and releasing molecules\nwith inflammatory activity. Although more than 30 genes associated with the risk of celiac disease have been\ndescribed, it is estimated that the presence of HLA heterodimers increases the risk of celiac\ndisease by 25% to 30%. Patients with celiac disease have at least one copy of the HLA-DQ2.5 and HLA-DQ8\nhaplotypes. The absence of HLA-DQ2.5 and HLA-DQ8 allows us to conclude that the person\nhas no predisposition to develop celiac disease, therefore, the test has a negative predictive\nvalue. In other words, it allows us to determine which people will probably not develop the\ndisease, which is of interest to differentiate it from pathologies with similar symptoms. The\naccuracy of its predictive value is very high, around 99%. However, the HLA-DQ2.5 and HLA-DQ8 test does not serve to confirm the presence of celiac\ndisease. For diagnosis, other tests such as serological tests, endoscopies and intestinal\nbiopsies must be performed.",
+      "description": "PDF\n\nCeliac disease predisposition\nCeliac disease is an autoimmune disorder that can occur in genetically predisposed\nindividuals, in whom the ingestion of gluten proteins present in wheat, barley and rye, or\nderivatives, causes damage to the villi of the small intestine."
+    },
+    "rs1800795": {
+      "gene": "IL6",
+      "name": "-572G>C",
+      "category": "inflammation",
+      "chrom": "7",
+      "pos": 22766645,
+      "display": "IL6 -572G>C",
+      "interpretations": {
+        "GG": {
+          "effect": "Higher IL-6 production",
+          "interpretation": "For -572g>c, your IL6 variant is one contributing factor — elevated inflammatory response tendency This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Anti-inflammatory diet",
+            "Omega-3 rich foods"
+          ],
+          "priority": "medium"
+        },
+        "GC": {
+          "effect": "Moderate IL-6",
+          "interpretation": "For -572g>c, your IL6 variant is one contributing factor — intermediate inflammatory response",
+          "recommendations": [
+            "Balanced exercise and diet"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Lower IL-6",
+          "interpretation": "lower baseline inflammation",
+          "recommendations": [
+            "Standard approach"
+          ],
+          "priority": "low"
+        },
+        "C/G": {
+          "effect": "Elevated-risk IL6 genotype",
+          "interpretation": "Population studies link your IL6 variant to altered probability for -572g>c. This reflects group-level statistics; individual risk depends substantially on lifestyle, family history, and other genes.",
+          "recommendations": [
+            "Discuss -572g>c screening with a healthcare provider if family history is present",
+            "Lifestyle modifications often reduce genetic risk — diet, exercise, and avoiding known triggers matter"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Baumert P, Lake MJ, Stewart CE, Drust B, Erskine RM. Genetic variation and exercise-induced",
+        "muscle damage: implications for athletic performance, injury and ageing. Eur J Appl Physiol, 2016;",
+        "116(9):1595625.",
+        "Pereira DS, Mateo ECC, de Queiroz BZ, Assumpção AM, Miranda AS, Felício DC, et al. TNF-?, IL6, and IL10",
+        "polymorphisms and the effect of physical exercise on inflammatory parameters and physical performance",
+        "in elderly women. Age (Omaha), 2013; 35(6):245563."
+      ],
+      "technical_report": "The fact that a greater amount of muscle damage occurs due to the second phase of\nexercise depends on the intensity of the inflammatory response carried out by the immune\n\n\fsystem. Three markers associated with the production of inflammatory activity compounds\nproduced by the immune system and located in the TNF, IL1B and IL6 genes have\nbeen identified. One of the genes found is the TNF gene, responsible for the production of tumor necrosis\nfactor, an inflammatory activity factor associated with insulin levels and predisposition to\nmetabolic disorders, as well as activation of muscle protein degradation (via proteasome). This is why this factor is important in the processes of injury and remodeling of\nmuscle tissue. The other two markers are found in the IL1B gene, which produces interleukin 1B, whose\nexpression in muscle fibers is elevated a few days after physical exercise, also inducing the\nexpression of other proinflammatory genes; and in the IL6 gene, which produces interleukin\n6, with proinflammatory activity. research indicates that, after eccentric exercise, muscle\ncan induce local expression of the cytokine IL-6.",
+      "description": "PDF\n\nExercise-induced muscle damage (second phase)\nIn the second phase of exercise-induced muscle damage, an inflammatory process takes\nplace in which certain genetic variants may contribute to more or less muscle damage."
+    },
+    "rs1800896": {
+      "gene": "IL10",
+      "name": "-1082A>G",
+      "category": "inflammation",
+      "chrom": "1",
+      "pos": 206946897,
+      "display": "IL10 -1082A>G",
+      "interpretations": {
+        "AA": {
+          "effect": "Normal IL-10 production",
+          "interpretation": "For -1082a>g, your IL10 variant is one contributing factor — standard anti-inflammatory response",
+          "recommendations": [
+            "Maintain healthy lifestyle"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "Moderate IL-10",
+          "interpretation": "For -1082a>g, your IL10 variant is one contributing factor — intermediate anti-inflammatory capacity",
+          "recommendations": [
+            "Balanced approach to inflammation"
+          ],
+          "priority": "low"
+        },
+        "TC": {
+          "effect": "Moderate IL-10",
+          "interpretation": "For -1082a>g, your IL10 variant is one contributing factor — heterozygous variant - intermediate anti-inflammatory capacity",
+          "recommendations": [
+            "Balanced approach to inflammation",
+            "Omega-3 supplementation"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Reduced IL-10",
+          "interpretation": "For -1082a>g, your IL10 variant is one contributing factor — lower anti-inflammatory response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Anti-inflammatory diet",
+            "Omega-3 supplementation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs1205": {
+      "gene": "CRP",
+      "name": "+1059G>C",
+      "category": "inflammation",
+      "chrom": "1",
+      "pos": 159175713,
+      "display": "CRP +1059G>C",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal CRP levels",
+          "interpretation": "For +1059g>c, your CRP variant is one contributing factor — standard inflammatory response",
+          "recommendations": [
+            "Maintain healthy lifestyle"
+          ],
+          "priority": "low"
+        },
+        "GC": {
+          "effect": "Moderate CRP",
+          "interpretation": "For +1059g>c, your CRP variant is one contributing factor — mild elevation possible",
+          "recommendations": [
+            "Anti-inflammatory diet"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Elevated CRP",
+          "interpretation": "Higher baseline inflammation - elevated cardiovascular risk This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Cardiovascular Tracking",
+            "Omega-3 supplementation",
+            "Consider hs-CRP testing"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs1800629": {
+      "gene": "TNF",
+      "name": "-308G>A",
+      "category": "inflammation",
+      "chrom": "6",
+      "pos": 31543031,
+      "display": "TNF -308G>A",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal TNF production",
+          "interpretation": "For -308g>a, your TNF variant is one contributing factor — standard inflammatory response",
+          "recommendations": [
+            "Maintain healthy lifestyle"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Elevated TNF",
+          "interpretation": "For -308g>a, your TNF variant is one contributing factor — one copy - may have 2-3x higher tnf production This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Anti-inflammatory diet",
+            "Track inflammatory markers"
+          ],
+          "priority": "medium"
+        },
+        "AA": {
+          "effect": "Significantly elevated TNF",
+          "interpretation": "Homozygous - substantially elevated inflammatory response This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Strict anti-inflammatory diet",
+            "Consider CRP testing",
+            "Priority cardiovascular Tracking"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs1800872": {
+      "gene": "IL10",
+      "name": "-819C>T",
+      "category": "inflammation",
+      "chrom": "1",
+      "pos": 206946994,
+      "display": "IL10 -819C>T",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal IL-10",
+          "interpretation": "For -819c>t, your IL10 variant is one contributing factor — standard anti-inflammatory capacity",
+          "recommendations": [
+            "Maintain anti-inflammatory lifestyle"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Moderate IL-10",
+          "interpretation": "Heterozygous - slightly lower anti-inflammatory cytokine This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Proactively anti-inflammatory",
+            "Omega-3s"
+          ],
+          "priority": "medium"
+        },
+        "TT": {
+          "effect": "Reduced IL-10",
+          "interpretation": "TT - lower anti-inflammatory cytokine production This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Strict anti-inflammatory diet",
+            "Prioritize stress reduction"
+          ],
+          "priority": "high"
+        }
+      }
+    },
+    "rs7454108": {
+      "gene": "6:32681483",
+      "name": "Celiac disease predisposition",
+      "category": "inflammation",
+      "chrom": "",
+      "pos": 0,
+      "display": "6:32681483 - Celiac disease predisposition",
+      "interpretations": {
+        "T/T": {
+          "effect": "Typical 6:32681483 function",
+          "interpretation": "Your 6:32681483 genotype is the most common form in reference populations. This does not rule out celiac disease predisposition risk from other genes, environmental exposures, or rare variants not covered by standard genotyping.",
+          "recommendations": [
+            "No specific 6:32681483-directed intervention indicated, but standard health screening still applies",
+            "Other genetic and environmental factors contribute to celiac disease predisposition — genotype alone is not the full picture"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Caio G. et al. Celiac disease: a comprehensive current review. BMC Med. 2019;17(1):142",
+        "Hill ID, Dirks MH, Liptak GS, Coletti RB, Fasano A, Guardalini S, et al. Guidelines for the diagnosis and",
+        "treatment of celiac disease in children: recommendations of the North American Society",
+        "for Pediatric Gastroenterology, Hepatology and Nutrition. J Pediatr Gastroenterol Nutr. 2005;40:1-19.",
+        "Husby S, Koletzko S, Korponay-Szabó I, Kurppa K, Mearin ML, Ribes-Koninckx C, et al. European Society",
+        "Paediatric Gastroenterology, Hepatology and Nutrition Guidelines for Diagnosing Coeliac Disease",
+        "2020. J Pediatr Gastroenterol Nutr. 2020 Jan;70(1):141-156.",
+        "Lebwohl B, Ludvigsson JF, Green PH. Celiac disease and non-celiac gluten sensitivity.",
+        "BMJ. 2015;351:h4347.",
+        "Lebwohl B, Rubio-Tapia A. Epidemiology, Presentation, and Diagnosis of Celiac Disease. Gastroenterology.",
+        "2021 Jan;160(1):63-75.",
+        "Liu E. et al. Risk of pediatric celiac disease according to HLA haplotype and country. N Engl J",
+        "Med. 2014;371:429.",
+        "Sollid LM, Korsby E. HLA susceptibility genes in coeliac disease: genetic mapping and role in",
+        "pathogenesis. Gastroenterology. 1993;105:910-22.",
+        "Monsuur AJ., et al. Effective detection of human leukocyte antigen risk alleles in celiac disease using tag",
+        "single nucleotide polymorphisms. PLoS One. 2008;3(5):e2270."
+      ],
+      "technical_report": "Genetic predisposition to celiac disease is largely determined by the presence of HLA-DQ2.5\nand HLA-DQ8 haplotypes, histocompatibility antigens that respond to the presence of\ngliadin (a peptide found in gluten), activating the immune response and releasing molecules\nwith inflammatory activity. Although more than 30 genes associated with the risk of celiac disease have been\ndescribed, it is estimated that the presence of HLA heterodimers increases the risk of celiac\ndisease by 25% to 30%. Patients with celiac disease have at least one copy of the HLA-DQ2.5 and HLA-DQ8\nhaplotypes. The absence of HLA-DQ2.5 and HLA-DQ8 allows us to conclude that the person\nhas no predisposition to develop celiac disease, therefore, the test has a negative predictive\nvalue. In other words, it allows us to determine which people will probably not develop the\ndisease, which is of interest to differentiate it from pathologies with similar symptoms. The\naccuracy of its predictive value is very high, around 99%. However, the HLA-DQ2.5 and HLA-DQ8 test does not serve to confirm the presence of celiac\ndisease. For diagnosis, other tests such as serological tests, endoscopies and intestinal\nbiopsies must be performed.",
+      "description": "PDF\n\nCeliac disease predisposition\nCeliac disease is an autoimmune disorder that can occur in genetically predisposed\nindividuals, in whom the ingestion of gluten proteins present in wheat, barley and rye, or\nderivatives, causes damage to the villi of the small intestine."
+    },
+    "rs7192": {
+      "gene": "HLA-DRA",
+      "name": "Genetic predisposition to peanut allergy",
+      "category": "inflammation",
+      "chrom": "",
+      "pos": 0,
+      "display": "HLA-DRA - Genetic predisposition to peanut allergy",
+      "interpretations": {
+        "T/G": {
+          "effect": "Elevated-risk HLA-DRA genotype",
+          "interpretation": "Population studies link your HLA-DRA variant to altered probability for genetic predisposition to peanut allergy. This reflects group-level statistics; individual risk depends substantially on lifestyle, family history, and other genes.",
+          "recommendations": [
+            "Discuss genetic predisposition to peanut allergy screening with a healthcare provider if family history is present",
+            "Lifestyle modifications often reduce genetic risk — diet, exercise, and avoiding known triggers matter"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Asai Y., Eslami A., et al. Genome-wide association study and meta-analysis in multiple populations",
+        "identifies new loci for peanut allergy and establishes C11orf30/EMSY as a genetic risk factor for food",
+        "allergy. J Allergy Clin Immunol. 2018 Mar;141(3):991-1001.",
+        "Czolk R., Klueber J., et al. IgE-Mediated Peanut Allergy: Current and Novel Predictive Biomarkers for",
+        "Clinical Phenotypes Using Multi-Omics Approaches. Front Immunol. 2021 Jan 28;11:594350.",
+        "Hong X., Hao K., et al. Genome-wide association study identifies peanut allergy-specific loci and evidence",
+        "of epigenetic mediation in US children. Nat Commun. 2015 Feb 24;6:6304."
+      ],
+      "technical_report": "Several recent studies, including a genome-wide association study involving individuals of\nEuropean ancestry, have identified two variants associated with an increased risk of\ndeveloping peanut allergy. These markers are significantly associated with DNA\nmethylation, a process involved in gene expression. DNA methylation is an epigenetic process involved in the downregulation of gene\nexpression and can lead to gene silencing, i.e. genes are no longer expressed. Both variants\nare located in the HLA and FLG genes, both of which are the most studied genes in relation\nto food allergy. The HLA gene encodes for the production of the major histocompatibility complex in\nhumans, whose main function is to present antigenic peptides to T lymphocytes,\nresponsible for the specific immune response to eliminate the pathogen. On the other hand,\nthe FLG gene mediates producing filaggrin, a protein involved in the development\nand maintenance of the skin barrier. Variants in FLG have also been associated with\nskin disorders. It should be noted that two genetic markers that have been related in the scientific literature\nto an increased individual susceptibility to develop peanut allergy are evaluated here, but as\nindicated above, there are other factors involved in the mechanisms of food allergy that can\nmodulate its development, so this result should not be considered for diagnosis. In clinical practice, IgE tests (skin prick test, SPT; serum specific IgE/sIgE), measurements\nof other serological parameters (e.g., serum IgE/sIgE), measurements of other\nserologicalserological parameters (e.g. total IgE, food-specific IgG4, sIgE/IgG4) and\ncontrolled oral administration of the suspected allergen.",
+      "description": "PDF\n\nGenetic predisposition to peanut allergy\nThe development of food allergy, as a complex condition, is influenced by both genetics and\nenvironment, as well as genome-environment interactions, including epigenetics."
+    },
+    "rs9275596": {
+      "gene": "6:32681631",
+      "name": "Genetic predisposition to peanut allergy",
+      "category": "inflammation",
+      "chrom": "",
+      "pos": 0,
+      "display": "6:32681631 - Genetic predisposition to peanut allergy",
+      "interpretations": {
+        "C/C": {
+          "effect": "Elevated-risk 6:32681631 genotype",
+          "interpretation": "Population studies link your 6:32681631 variant to altered probability for genetic predisposition to peanut allergy. This reflects group-level statistics; individual risk depends substantially on lifestyle, family history, and other genes.",
+          "recommendations": [
+            "Discuss genetic predisposition to peanut allergy screening with a healthcare provider if family history is present",
+            "Lifestyle modifications often reduce genetic risk — diet, exercise, and avoiding known triggers matter"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Asai Y., Eslami A., et al. Genome-wide association study and meta-analysis in multiple populations",
+        "identifies new loci for peanut allergy and establishes C11orf30/EMSY as a genetic risk factor for food",
+        "allergy. J Allergy Clin Immunol. 2018 Mar;141(3):991-1001.",
+        "Czolk R., Klueber J., et al. IgE-Mediated Peanut Allergy: Current and Novel Predictive Biomarkers for",
+        "Clinical Phenotypes Using Multi-Omics Approaches. Front Immunol. 2021 Jan 28;11:594350.",
+        "Hong X., Hao K., et al. Genome-wide association study identifies peanut allergy-specific loci and evidence",
+        "of epigenetic mediation in US children. Nat Commun. 2015 Feb 24;6:6304."
+      ],
+      "technical_report": "Several recent studies, including a genome-wide association study involving individuals of\nEuropean ancestry, have identified two variants associated with an increased risk of\ndeveloping peanut allergy. These markers are significantly associated with DNA\nmethylation, a process involved in gene expression. DNA methylation is an epigenetic process involved in the downregulation of gene\nexpression and can lead to gene silencing, i.e. genes are no longer expressed. Both variants\nare located in the HLA and FLG genes, both of which are the most studied genes in relation\nto food allergy. The HLA gene encodes for the production of the major histocompatibility complex in\nhumans, whose main function is to present antigenic peptides to T lymphocytes,\nresponsible for the specific immune response to eliminate the pathogen. On the other hand,\nthe FLG gene mediates producing filaggrin, a protein involved in the development\nand maintenance of the skin barrier. Variants in FLG have also been associated with\nskin disorders. It should be noted that two genetic markers that have been related in the scientific literature\nto an increased individual susceptibility to develop peanut allergy are evaluated here, but as\nindicated above, there are other factors involved in the mechanisms of food allergy that can\nmodulate its development, so this result should not be considered for diagnosis. In clinical practice, IgE tests (skin prick test, SPT; serum specific IgE/sIgE), measurements\nof other serological parameters (e.g., serum IgE/sIgE), measurements of other\nserologicalserological parameters (e.g. total IgE, food-specific IgG4, sIgE/IgG4) and\ncontrolled oral administration of the suspected allergen.",
+      "description": "PDF\n\nGenetic predisposition to peanut allergy\nThe development of food allergy, as a complex condition, is influenced by both genetics and\nenvironment, as well as genome-environment interactions, including epigenetics."
+    },
+    "rs2052129": {
+      "gene": "AOC1",
+      "name": "Histamine intolerance",
+      "category": "inflammation",
+      "chrom": "",
+      "pos": 0,
+      "display": "AOC1 - Histamine intolerance",
+      "interpretations": {
+        "G/T": {
+          "effect": "Variant in AOC1",
+          "interpretation": "Your AOC1 genotype is one of several genetic factors linked to histamine intolerance. Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of AOC1 in histamine intolerance",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Ayuso P., García-Martín E., et al. Genetic variability of human diamine oxidase: occurrence of three",
+        "nonsynonymous polymorphisms and study of their effect on serum enzyme activity. Pharmacogenet",
+        "Genomics. 2007 Sep;17(9):687-93.",
+        "Comas-Basté O., Sánchez-Pérez S., et al. Histamine Intolerance: The Current State of the Arts.",
+        "Biomolecules. 2020 Aug 14;10(8):1181.",
+        "García-Martín E., Ayuso P., et al. Histamine pharmacogenomics. Pharmacogenomics. 2009",
+        "May;10(5):867-83.",
+        "García-Martín E., Martínez C.., et al. Diamine oxidase rs10156191 and rs2052129 variants are associated",
+        "with the risk for migraine. Headache. 2015 Feb;55(2):276-86."
+      ],
+      "technical_report": "Histamine needs to be metabolized in the body to prevent its accumulation and adverse\neffects. To do this, histamine can follow two pathways: by means of the enzyme diamine\noxidase (DAO) or by means of histamine-N-methyltransferase (HNMT). The function of the DAO enzyme can be altered by several factors\nGenetic variations. Binding of biogenic amines that can be present in certain foods (putrescine, cadaverine,\nagamatine). They are usually present in fermented foods or foods that are altered by\nmicroorganisms. Interaction with alcohol and its metabolites (acetaldehyde). Antibiotics such as clavulanic acid, cholestimate and cefuroxime, the antihypertensives\nverapamil and dihydralazine, the analgesic metamizole, the antihistaminesThe\nantidepressant amitriptyline, the muscle relaxant suxamethonium, ascorbic acid (vitamin\nC) and thiamine (vitamin B1). The vast majority of studies that have analyzed the relationship between genetics and\nhistamine intolerance have focused mainly on the study of variations in the AOC1 gene,\nwhich codes for the production of the enzyme DAO, which is the main pathway for histamine\ndegradation. From these studies it has been shown that individuals who are carriers of\nvariants in AOC1 produce a DAO enzyme with lower activity, which increases the likelihood\nof accumulating histamine in the body. The most relevant variants in the AOC1 gene that affect the function of the DAO enzyme in\nCaucasians are Thr16Met, Ser332Phe, and especially His645Asp. Another well-known\nvariant is G4586T, which is found in the promoter region of the AOC1 gene and has been\nrelated to a decrease in its expression. Knowing the genetic predisposition to histamine intolerance can be helpful in determining\nthe origin of the intolerance. However, it alone does not explain why a person will eventually\ndevelop histamine intolerance, so your results cannot be considered a diagnostic test. As\npreviously mentioned, other factors such as the presence of intestinal diseases, alcohol\nconsumption and drugs that inhibit DAO activity are known to play a role and if you have any\nsymptoms you should consult your physician for a proper evaluation.",
+      "description": "Histamine intolerance\nHistaminosis or excess histamine in the blood occurs when there is a high intake of\nhistamine in our diet or when it is not metabolized and eliminated correctly."
+    },
+    "rs182549": {
+      "gene": "MCM6",
+      "name": "Lactose intolerance",
+      "category": "inflammation",
+      "chrom": "",
+      "pos": 0,
+      "display": "MCM6 - Lactose intolerance",
+      "interpretations": {
+        "C/T": {
+          "effect": "Variant in MCM6",
+          "interpretation": "Your MCM6 genotype is one of several genetic factors linked to lactose intolerance. Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of MCM6 in lactose intolerance",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Anguita-Ruiz A., Aguilera C.M., et al. Genetics of Lactose Intolerance: An Updated Review and Online",
+        "Interactive World Maps of Phenotype and Genotype Frequencies. Nutrients. 2020 Sep; 12(9): 2689.",
+        "Itan Y, Jones BL, Ingram CJ, et al. A worldwide correlation of lactase persistence phenotype and",
+        "genotypes. BMC Evol Biol. 2010 Feb 9;10:36.",
+        "Lewinsky RH, Jensen TG, Møller J, et al. T-13910 DNA variant associated with lactase persistence",
+        "interacts with Oct-1 and stimulates lactase promoter activity in vitro. Hum Mol Genet. 2005 Dec",
+        "15;14(24):3945-53."
+      ],
+      "technical_report": "The ability to digest lactose is produced by the enzyme β-galactosidase called lactasephlorizin hydrolase (LPH). The fact that in adulthood this enzyme can still be synthesized\nseems to function as a genetic trait that follows a dominant inheritance pattern and presents a\n\n\fcomplex genetic basis, as well as being especially common in the descendants of\npopulations that have traditionally practiced cattle domestication. The LPH enzyme is encoded by the lactase gene (LCT), expressed in the small intestine and\nalthough the exact reason for the natural decline in lactase levels over the years is not\nknown. Two genetic variants have been identified that are related to the expression of the\nLPH enzyme and that its production is not reduced in adulthood. Interestingly, these are\nnot located within the TBI gene, but in a regulatory region called MCM6 that modulates\nTBI expression. Certain variants in the MCM6 gene can lead to decreased expression of the TBI gene in\nintestinal cells which, over the years, can eventually lead to lactose intolerance of foods and\nintestinal discomfort when lactose is consumed in a certain amount. It is important to differentiate a person with reduced LPH enzyme activity from other\npathologies such as congenital lactase deficiency and secondary hypolactasia. Congenital\nlactase deficiency is extremely rare and appears at the onset of lactation, caused by severe\nmutations in both alleles of the LCT gene. On the other hand, secondary hypolactasia is\ncaused by direct damage to the intestinal mucosa resulting in a transient reduction of\nlactase activity (e.g. celiac disease, Crohn's disease, viral infections and\nradiation/chemotherapy-induced enteritis), and has no genetic basis.",
+      "description": "Lactose intolerance\nLactose is the main carbohydrate present in milk. Mammalian offspring are able to digest it\nthanks to lactase into simpler sugars (glucose and galactose) that are easily absorbed in\nthe intestine. There are certain genetic variants that could explain why some people find it\neasier to digest lactose in adulthood while others end up developing intolerance."
+    }
+  }
+}

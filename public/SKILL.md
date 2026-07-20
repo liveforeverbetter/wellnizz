@@ -66,7 +66,14 @@ Paste this entire file into your agent's skill or system prompt. Point it at `ht
 
 Any one modality (genetics, biomarkers, or wearables) is enough to start.
 
-**Design systems and full component packages.** Every dashboard outcome includes a design system. After the user picks a design, always download the full implementation package via `GET /design/systems/{id}/implementation` (or MCP `get_design_implementation`). This returns the complete component source, design tokens, templates, UI-kit starting points, component/template manifest, binary asset URLs, and API bindings — everything needed to build the dashboard. Write these files unchanged, then wire the data layer to live API responses. The wellnizz (ForeverBetter house design with the superpowers section), Aperture, and Meridian systems all expose this endpoint. Meridian additionally includes the pinned production `dashboard/index.html`, `styles.css`, and `app.js`.
+**Design systems and full component packages.** Every dashboard outcome includes a design system. After the user picks a design:
+
+1. `GET /design/systems/{id}/implementation` (or MCP `get_design_implementation`)
+2. Read the `download.url` field — this is a full compressed handoff ZIP containing every component source file, design token, template, UI-kit starting point, manifest, and asset
+3. Download and extract the ZIP to a working directory
+4. Use the extracted files as context for building the dashboard: components, tokens, templates, styles, and API bindings are all included
+
+The wellnizz, Aperture, and Meridian systems all expose this endpoint. For Meridian, the response also includes a `production_dashboard` object with the pinned `dashboard/index.html`, `styles.css`, and `app.js` for direct use.
 
 ---
 
@@ -342,15 +349,15 @@ multimodal analysis will re-queue the WGS worker redundantly.
     design the deployment returns (name, one-line vibe, `best_for`), highlight up to
     two that fit their goal, and let them pick. The catalog grows over time; always
     offer from the live list, never from memory.
- 6. **Always download the full implementation package.** After the user picks a design,
+ 6. **Download the full design handoff.** After the user picks a design,
     call `GET /design/systems/{design_id}/implementation` (or MCP
-    `get_design_implementation`). This returns the complete component source,
-    design tokens, templates, UI-kit starting points, a component/template manifest,
-    binary asset URLs, API bindings, and for Meridian the pinned production
-    `dashboard/index.html`, `dashboard/styles.css`, and `dashboard/app.js`. Write
-    those files unchanged before adapting only the data layer; do not replace them
-    with a mock. This is the default path for every design system, not just
-    Meridian. Describe Meridian as WHOOP-inspired, not as an official WHOOP interface.
+    `get_design_implementation`). Read the `download.url` field and download
+    the ZIP file. Extract it — it contains the complete component source, design
+    tokens, templates, UI-kit starting points, manifest, and binary assets.
+    Use these files as context for building the dashboard; write them unchanged
+    and wire only the data layer to live API responses. This is the default
+    path for every design system. For Meridian, the response also includes a
+    `production_dashboard` object with pinned dashboard files for direct use.
  7. `POST /dashboard-links` with the analysis and chosen design to create a private,
    expiring, unguessable link. Give the `dashboard_url` to the user.
 
@@ -497,12 +504,13 @@ connected.
 The first useful deliverable is the result the user asked for, which is not always a
 dashboard. When the chosen outcome includes a dashboard, call `GET /design/systems`,
 list every returned design (name, vibe, and `best_for`) with up to two highlighted
-for the user's goal, and let them pick before rendering. **Always download the full
-implementation package** via `GET /design/systems/{design_id}/implementation`
-(or MCP `get_design_implementation`) after the user picks a design. This returns
-the complete component source, tokens, templates, UI-kit starting points, manifest,
-binary asset URLs, and API bindings. Write those files unchanged before wiring the
-data layer. Run the chosen playbook and show the result before asking for
+for the user's goal, and let them pick before rendering. **Download the full
+design handoff** via `GET /design/systems/{design_id}/implementation`
+(or MCP `get_design_implementation`). Read the `download.url` field,
+download and extract the ZIP. The extracted files contain the complete
+component source, tokens, templates, and API bindings needed to build
+the dashboard. Wire the data layer to live API responses without modifying
+the design files. Run the chosen playbook and show the result before asking for
 more data. Missing modalities appear as optional context, never as errors.
 
 In cloud mode, create the dashboard link after the user chooses a design. Over MCP call

@@ -1,0 +1,694 @@
+{
+  "version": "2.0.0",
+  "updated": "2026-07-20",
+  "description": "Bone strength, joint integrity, tendinopathy risk, and connective tissue",
+  "markers": {
+    "rs1544410": {
+      "gene": "VDR",
+      "name": "BsmI",
+      "category": "skeletal-health",
+      "chrom": "12",
+      "pos": 48239835,
+      "display": "VDR BsmI",
+      "interpretations": {
+        "GG": {
+          "effect": "Normal VDR function",
+          "interpretation": "For bsmi, your VDR variant is one contributing factor — standard vitamin d receptor activity",
+          "recommendations": [
+            "Normal calcium absorption for bone and muscle"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Intermediate",
+          "interpretation": "For bsmi, your VDR variant is one contributing factor — may have slightly altered vitamin d metabolism",
+          "recommendations": [
+            "Ensure adequate vitamin D intake",
+            "Track vitamin D levels"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Altered VDR",
+          "interpretation": "May have lower vitamin D sensitivity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Higher vitamin D supplementation may be needed",
+            "Track bone health"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs731236": {
+      "gene": "VDR",
+      "name": "TaqI",
+      "category": "skeletal-health",
+      "chrom": "12",
+      "pos": 48238757,
+      "display": "VDR TaqI",
+      "interpretations": {
+        "TT": {
+          "effect": "Normal VDR",
+          "interpretation": "For taqi, your VDR variant is one contributing factor — standard receptor function",
+          "recommendations": [
+            "Normal vitamin D utilization"
+          ],
+          "priority": "low"
+        },
+        "TC": {
+          "effect": "Altered calcium homeostasis",
+          "interpretation": "For taqi, your VDR variant is one contributing factor — heterozygous variant affects calcium metabolism",
+          "recommendations": [
+            "Ensure adequate calcium and vitamin D"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Reduced VDR",
+          "interpretation": "May have lower calcium absorption This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Ensure adequate vitamin D and calcium",
+            "Important for muscle function"
+          ],
+          "priority": "medium"
+        },
+        "CT": {
+          "effect": "Intermediate",
+          "interpretation": "For taqi, your VDR variant is one contributing factor — altered receptor activity",
+          "recommendations": [
+            "Track vitamin D status"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs4994": {
+      "gene": "ADRB3",
+      "name": "Trp64Arg",
+      "category": "skeletal-health",
+      "chrom": "8",
+      "pos": 142257580,
+      "display": "ADRB3 Trp64Arg",
+      "interpretations": {
+        "TT": {
+          "effect": "Normal lipolysis",
+          "interpretation": "For trp64arg, your ADRB3 variant is one contributing factor — normal fat mobilization during exercise",
+          "recommendations": [
+            "Standard fat utilization during training"
+          ],
+          "priority": "low"
+        },
+        "TC": {
+          "effect": "Reduced lipolysis",
+          "interpretation": "Trp64Arg variant - lower fat mobilization during exercise This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "May have difficulty using fat for fuel during long exercise",
+            "Carb loading may help"
+          ],
+          "priority": "medium"
+        },
+        "CT": {
+          "effect": "Heterozygous variant",
+          "interpretation": "For trp64arg, your ADRB3 variant is one contributing factor — one copy of variant allele - may affect adrb3 function This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Consider genetic counseling for ADRB3 variants"
+          ],
+          "priority": "medium"
+        },
+        "CC": {
+          "effect": "Impaired lipolysis",
+          "interpretation": "Homozygous variant - notably lower fat mobilization This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Higher reliance on carbohydrates during exercise",
+            "Different pre-workout nutrition"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2
+    },
+    "rs2228570": {
+      "gene": "VDR",
+      "name": "Vitamin D Receptor",
+      "category": "skeletal-health",
+      "chrom": "",
+      "pos": 0,
+      "display": "VDR — Vitamin D Receptor (FokI, Transcriptional Activity)",
+      "interpretations": {
+        "GG": {
+          "effect": "F/F — longer, less efficient VDR protein",
+          "interpretation": "For vitamin d receptor, your VDR variant is one contributing factor — foki 'f' allele produces longer vdr that initiates at met1 — slightly less transcriptionally efficient; may require higher vitamin d levels for equivalent signaling This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Vitamin D3 3000-4000IU and target 50-70 ng/mL 25-OH-D",
+            "Magnesium 400mg co-supplementation for VDR activation"
+          ],
+          "priority": "moderate"
+        },
+        "AG": {
+          "effect": "Intermediate VDR activity",
+          "interpretation": "For vitamin d receptor, your VDR variant is one contributing factor — heterozygous foki — intermediate vitamin d receptor activity.",
+          "recommendations": [
+            "Standard vitamin D optimization protocol (target 40-60 ng/mL)",
+            "Track 25(OH)D levels and adjust supplementation accordingly"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "f/f — shorter VDR protein, higher transcriptional activity",
+          "interpretation": "FokI 'f' allele produces shorter VDR protein initiating at Met4 instead of Met1 — functions more efficiently in transcription; linked to better immune response, vitamin D efficiency, and possibly lower cancer risk",
+          "recommendations": [
+            "Lower supplemental vitamin D3 may be needed compared to FF genotype (higher transcriptional efficiency)",
+            "Target 40-60 ng/mL 25-OH-D rather than aggressive 70 ng/mL target"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "F/f heterozygous — intermediate VDR efficiency",
+          "interpretation": "For vitamin d receptor, your VDR variant is one contributing factor — one shorter vdr variant — intermediate transcriptional activity",
+          "recommendations": [
+            "Standard vitamin D3 2000-3000IU supplementation"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs10735810": {
+      "gene": "VDR",
+      "name": "ApaI",
+      "category": "skeletal-health",
+      "chrom": "12",
+      "pos": 48272895,
+      "display": "VDR ApaI Vitamin D Receptor",
+      "evidenceTier": 2,
+      "interpretations": {
+        "TT": {
+          "effect": "ApaI tt — reduced VDR transcription in some tissues",
+          "interpretation": "For apai, your VDR variant is one contributing factor — vdr apai variant — in combination with bsmi/taqi haplotype, affects vitamin d receptor expression level and downstream calcium/immune signaling",
+          "recommendations": [
+            "Vitamin D3 2000-4000IU maintain 50-70 ng/mL serum 25-OH-D",
+            "Vitamin K2 MK-7 100mcg co-supplementation",
+            "Magnesium 400mg (VDR activation requires magnesium)"
+          ],
+          "priority": "low"
+        },
+        "TA": {
+          "effect": "ApaI tA heterozygous",
+          "interpretation": "For apai, your VDR variant is one contributing factor — heterozygous vdr apai — intermediate haplotype effect on receptor expression",
+          "recommendations": [
+            "Standard vitamin D optimization"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "ApaI AA — standard VDR expression",
+          "interpretation": "For apai, your VDR variant is one contributing factor — wild-type apai allele — standard vdr transcript regulation",
+          "recommendations": [
+            "Standard vitamin D intake and sunlight exposure"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs2104772": {
+      "gene": "TNC",
+      "name": "Tendinopathies in lower extremities (legs)",
+      "category": "skeletal-health",
+      "chrom": "",
+      "pos": 0,
+      "display": "TNC - Tendinopathies in lower extremities (legs)",
+      "interpretations": {
+        "T/T": {
+          "effect": "Elevated-risk TNC genotype",
+          "interpretation": "Population studies link your TNC variant to altered probability for tendinopathies in lower extremities (legs). This reflects group-level statistics; individual risk depends substantially on lifestyle, family history, and other genes.",
+          "recommendations": [
+            "Discuss tendinopathies in lower extremities (legs) screening with a healthcare provider if family history is present",
+            "Lifestyle modifications often reduce genetic risk — diet, exercise, and avoiding known triggers matter"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "El Khoury L, Ribbans WJ, Raleigh SM. MMP3 and TIMP2 gene variants as predisposing factors for Achilles",
+        "tendon pathologies: Attempted replication study in a British case-control cohort. Meta gene, 2016; 9:525.",
+        "Posthumus M, September A V, Schwellnus MP, Collins M. Investigation of the Sp1-binding site",
+        "polymorphism within the COL1A1 gene in participants with Achilles tendon injuries and controls. J Sci",
+        "Med Sport, 2009; 12(1):1849.",
+        "St?pie?-S?odkowska M, Ficek K, Kaczmarczyk M, Maciejewska-Kar?owska A, Sawczuk M, Leo?ska-Duniec",
+        "A, et al. The Variants Within the COL5A1 Gene are Associated with Reduced Risk of Anterior Cruciate",
+        "Ligament Injury in Skiers. J Hum Kinet, 2015; 45(1):10311.",
+        "Vaughn NH, Stepanyan H, Gallo RA, Dhawan A. Genetic Factors in Tendon Injury: A Systematic Review of",
+        "the Literature. Orthop J Sport Med, 2017; 5(8):232596711772441."
+      ],
+      "technical_report": "Several studies have identified 7 markers associated with the risk of tendinopathies and\nligament ruptures in the lower extremities. These markers are mainly found in genes such\nas COL1A1, COL5A1, GDF5, TIMP2, TNC, ADAMTS14 and MMP3. These genes are involved\nin the maintenance, development and repair of bone, cartilage and other soft\nmusculoskeletal tissues, such as tendons and ligaments. Type I collagen is the major protein that makes up tendons and ligaments. It is composed of\nchains or fibrils encoded by the COL1A1 and COL1A2 genes. It is known that mutations in\nthe COL1A1 gene can cause connective tissue diseases such as osteogenesis imperfecta or\nEhlers-Danlos syndrome, as well as other less dramatic tendon and ligament disorders that\ncan be related to athletic performance. The ADAMTS14 gene produces an enzyme involved\nin the process of collagen synthesis. GDF5 encodes for a growth factor that is essential for bone and cartilage development. The MMP3 protein mediates degrading components of the extracellular matrix of\ntissues and is part of the metalloproteinase family. Therefore, variants in the MMP3 gene\ncan affect the breakdown of soft tissues such as tendons and ligaments. The TIMP2 gene\nproduces a small protein that binds to metalloproteinases and inhibits their functions. The TNC (tenascin-C) gene encodes a protein involved in cell adhesion to the matrix. Genetic variants in TNC can affect the elasticity conferred by tenascin-C to tissues, thereby\naffecting wound healing and tissue remodeling.",
+      "description": "PDF\n\nTendinopathies in lower extremities (legs)\nThe probability of suffering tendinopathy in the lower extremities, in addition to being\naffected by a multitude of environmental factors such as exercise, is also affected by the\ngenetic component. Variants in the genes that regulate the development and maintenance\nof bones, cartilage and tendons play a fundamental role in the vulnerability of certain\nindividuals to injury."
+    },
+    "rs12722": {
+      "gene": "COL5A1",
+      "name": "Tendinopathies in lower extremities (legs)",
+      "category": "skeletal-health",
+      "chrom": "",
+      "pos": 0,
+      "display": "COL5A1 - Tendinopathies in lower extremities (legs)",
+      "interpretations": {
+        "C/T": {
+          "effect": "Beneficial COL5A1 variant",
+          "interpretation": "Tendinopathies in lower extremities (legs) — your COL5A1 genotype suggests a favorable profile that may confer some natural advantage. This is a statistical association from population studies, not a guarantee of any outcome.",
+          "recommendations": [
+            "Continue healthy lifestyle habits that support tendinopathies in lower extremities (legs)",
+            "Genotype alone does not override environmental and behavioral factors"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Two T alleles at COL5A1 rs12722",
+          "interpretation": "For tendinopathies in lower extremities (legs), your COL5A1 variant is one contributing factor — some meta-analyses associate the tt genotype with tendon or ligament injury in selected cohorts, while results differ by ancestry, injury site, and study design",
+          "recommendations": [
+            "Base load progression on training history, pain, biomechanics, and recovery",
+            "Use a clinician or physiotherapist for persistent tendon or ligament symptoms"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "One C allele and one T allele",
+          "interpretation": "For tendinopathies in lower extremities (legs), your COL5A1 variant is one contributing factor — association studies do not support an individual intermediate-stiffness label",
+          "recommendations": [
+            "Use progressive loading and track symptoms regardless of genotype"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Two C alleles at COL5A1 rs12722",
+          "interpretation": "Genotype CC may contribute to not a diagnosis of compliant tendons or high injury risk",
+          "recommendations": [
+            "Use the same evidence-based load management and symptom Tracking as any athlete"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "El Khoury L, Ribbans WJ, Raleigh SM. MMP3 and TIMP2 gene variants as predisposing factors for Achilles",
+        "tendon pathologies: Attempted replication study in a British case-control cohort. Meta gene, 2016; 9:525.",
+        "Posthumus M, September A V, Schwellnus MP, Collins M. Investigation of the Sp1-binding site",
+        "polymorphism within the COL1A1 gene in participants with Achilles tendon injuries and controls. J Sci",
+        "Med Sport, 2009; 12(1):1849.",
+        "St?pie?-S?odkowska M, Ficek K, Kaczmarczyk M, Maciejewska-Kar?owska A, Sawczuk M, Leo?ska-Duniec",
+        "A, et al. The Variants Within the COL5A1 Gene are Associated with Reduced Risk of Anterior Cruciate",
+        "Ligament Injury in Skiers. J Hum Kinet, 2015; 45(1):10311.",
+        "Vaughn NH, Stepanyan H, Gallo RA, Dhawan A. Genetic Factors in Tendon Injury: A Systematic Review of",
+        "the Literature. Orthop J Sport Med, 2017; 5(8):232596711772441."
+      ],
+      "technical_report": "Several studies have identified 7 markers associated with the risk of tendinopathies and\nligament ruptures in the lower extremities. These markers are mainly found in genes such\nas COL1A1, COL5A1, GDF5, TIMP2, TNC, ADAMTS14 and MMP3. These genes are involved\nin the maintenance, development and repair of bone, cartilage and other soft\nmusculoskeletal tissues, such as tendons and ligaments. Type I collagen is the major protein that makes up tendons and ligaments. It is composed of\nchains or fibrils encoded by the COL1A1 and COL1A2 genes. It is known that mutations in\nthe COL1A1 gene can cause connective tissue diseases such as osteogenesis imperfecta or\nEhlers-Danlos syndrome, as well as other less dramatic tendon and ligament disorders that\ncan be related to athletic performance. The ADAMTS14 gene produces an enzyme involved\nin the process of collagen synthesis. GDF5 encodes for a growth factor that is essential for bone and cartilage development. The MMP3 protein mediates degrading components of the extracellular matrix of\ntissues and is part of the metalloproteinase family. Therefore, variants in the MMP3 gene\ncan affect the breakdown of soft tissues such as tendons and ligaments. The TIMP2 gene\nproduces a small protein that binds to metalloproteinases and inhibits their functions. The TNC (tenascin-C) gene encodes a protein involved in cell adhesion to the matrix. Genetic variants in TNC can affect the elasticity conferred by tenascin-C to tissues, thereby\naffecting wound healing and tissue remodeling.",
+      "description": "PDF\n\nTendinopathies in lower extremities (legs)\nThe probability of suffering tendinopathy in the lower extremities, in addition to being\naffected by a multitude of environmental factors such as exercise, is also affected by the\ngenetic component. Variants in the genes that regulate the development and maintenance\nof bones, cartilage and tendons play a fundamental role in the vulnerability of certain\nindividuals to injury."
+    },
+    "rs1800972": {
+      "gene": "DEFB1",
+      "name": "Tendinopathies in upper extremities (arms)",
+      "category": "skeletal-health",
+      "chrom": "",
+      "pos": 0,
+      "display": "DEFB1 - Tendinopathies in upper extremities (arms)",
+      "interpretations": {
+        "G/G": {
+          "effect": "Typical DEFB1 function",
+          "interpretation": "Your DEFB1 genotype is the most common form in reference populations. This does not rule out tendinopathies in upper extremities (arms) risk from other genes, environmental exposures, or rare variants not covered by standard genotyping.",
+          "recommendations": [
+            "No specific DEFB1-directed intervention indicated, but standard health screening still applies",
+            "Other genetic and environmental factors contribute to tendinopathies in upper extremities (arms) — genotype alone is not the full picture"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Khoschnau S, Melhus H, Jacobson A, Rahme H, Bengtsson H, Ribom E, et al. Type I Collagen ?1 Sp1",
+        "Polymorphism and the Risk of Cruciate Ligament Ruptures or Shoulder Dislocations. Am J Sports Med,",
+        "2008; 36(12):24326.",
+        "Kluger R, Burgstaller J, Vogl C, Brem G, Skultety M, Mueller S. Candidate gene approach identifies six SNPs",
+        "in tenascin-C (TNC) associated with degenerative rotator cuff tears. J Orthop Res, 2017; 35(4):894901.",
+        "Motta G da R, Amaral MV, Rezende E, Pitta R, dos Santos Vieira TC, Duarte MEL, et al. Evidence of genetic",
+        "variations associated with rotator cuff disease. J Shoulder Elb Surg, 2014; 23(2):22735.",
+        "Vaughn NH, Stepanyan H, Gallo RA, Dhawan A. Genetic Factors in Tendon Injury: A Systematic Review of",
+        "the Literature. Orthop J Sport Med, 2017; 5(8):232596711772441."
+      ],
+      "technical_report": "Several studies have identified 3 markers associated with the risk of tendon injuries in\nrotator cuffs. These markers are found in COL1A1, a gene that codes for type I collagen and\nwhose variants have been associated with tendinopathies and ligament ruptures, as well as\nother connective tissue pathologies (osteogenesis imperfecta and Ehlers-Danlos\nsyndrome). We can also find the DEFB1 gene, which produces the beta-defensin 1 protein,\nan antimicrobial peptide expressed on epithelial surfaces and which is also implicated in\nother pathologies such as muscular dystrophy and cystic fibrosis. The third gene analyzed\nis the tenascin-C gene (TNC). Certain variants in TNC may contribute to a greater or lesser\nrisk of injury to the tendons that attach the arm to the shoulder and that occur frequently\nin athletes.",
+      "description": "PDF\n\nTendinopathies in upper extremities (arms)\nTendons are anatomical structures located between the muscle and the bone, whose\nfunction is to transmit the force generated by the muscle to the bone, giving rise to joint\nmovement. The influence of genetics in tendon pathologies is increasingly known, which\nallows a more exhaustive knowledge of the interpretation of genetic variations, not only in\nthe causes of tendinopathies but also in other aspects such as susceptibility, prognosis and\nindividual response to treatments."
+    },
+    "rs1138545": {
+      "gene": "TNC",
+      "name": "Tendinopathies in upper extremities (arms)",
+      "category": "skeletal-health",
+      "chrom": "",
+      "pos": 0,
+      "display": "TNC - Tendinopathies in upper extremities (arms)",
+      "interpretations": {
+        "C/C": {
+          "effect": "Typical TNC function",
+          "interpretation": "Your TNC genotype is the most common form in reference populations. This does not rule out tendinopathies in upper extremities (arms) risk from other genes, environmental exposures, or rare variants not covered by standard genotyping.",
+          "recommendations": [
+            "No specific TNC-directed intervention indicated, but standard health screening still applies",
+            "Other genetic and environmental factors contribute to tendinopathies in upper extremities (arms) — genotype alone is not the full picture"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Khoschnau S, Melhus H, Jacobson A, Rahme H, Bengtsson H, Ribom E, et al. Type I Collagen ?1 Sp1",
+        "Polymorphism and the Risk of Cruciate Ligament Ruptures or Shoulder Dislocations. Am J Sports Med,",
+        "2008; 36(12):24326.",
+        "Kluger R, Burgstaller J, Vogl C, Brem G, Skultety M, Mueller S. Candidate gene approach identifies six SNPs",
+        "in tenascin-C (TNC) associated with degenerative rotator cuff tears. J Orthop Res, 2017; 35(4):894901.",
+        "Motta G da R, Amaral MV, Rezende E, Pitta R, dos Santos Vieira TC, Duarte MEL, et al. Evidence of genetic",
+        "variations associated with rotator cuff disease. J Shoulder Elb Surg, 2014; 23(2):22735.",
+        "Vaughn NH, Stepanyan H, Gallo RA, Dhawan A. Genetic Factors in Tendon Injury: A Systematic Review of",
+        "the Literature. Orthop J Sport Med, 2017; 5(8):232596711772441."
+      ],
+      "technical_report": "Several studies have identified 3 markers associated with the risk of tendon injuries in\nrotator cuffs. These markers are found in COL1A1, a gene that codes for type I collagen and\nwhose variants have been associated with tendinopathies and ligament ruptures, as well as\nother connective tissue pathologies (osteogenesis imperfecta and Ehlers-Danlos\nsyndrome). We can also find the DEFB1 gene, which produces the beta-defensin 1 protein,\nan antimicrobial peptide expressed on epithelial surfaces and which is also implicated in\nother pathologies such as muscular dystrophy and cystic fibrosis. The third gene analyzed\nis the tenascin-C gene (TNC). Certain variants in TNC may contribute to a greater or lesser\nrisk of injury to the tendons that attach the arm to the shoulder and that occur frequently\nin athletes.",
+      "description": "PDF\n\nTendinopathies in upper extremities (arms)\nTendons are anatomical structures located between the muscle and the bone, whose\nfunction is to transmit the force generated by the muscle to the bone, giving rise to joint\nmovement. The influence of genetics in tendon pathologies is increasingly known, which\nallows a more exhaustive knowledge of the interpretation of genetic variations, not only in\nthe causes of tendinopathies but also in other aspects such as susceptibility, prognosis and\nindividual response to treatments."
+    },
+    "rs7209460": {
+      "gene": "SMG6",
+      "name": "SMG6 (heel bone mineral density)",
+      "displayName": "SMG6 – heel bone mineral density",
+      "category": "skeletal-health",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "heel bone mineral density",
+      "gwas_domain": "athletic_performance",
+      "gwas_p": 6e-143,
+      "gwas_n": 426824,
+      "interpretations": {
+        "TT": {
+          "effect": "Common genotype — standard heel bone mineral density",
+          "interpretation": "For smg6 (heel bone mineral density), your SMG6 variant is one contributing factor — common genotype for heel bone mineral density at smg6; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard heel bone mineral density management applies"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "One SMG6 protective allele — strong heel bone mineral density benefit",
+          "interpretation": "For smg6 (heel bone mineral density), your SMG6 variant is one contributing factor — one copy of the gwas-identified protective allele for heel bone mineral density",
+          "recommendations": [
+            "One protective SMG6 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Homozygous SMG6 protective allele — maximum heel bone mineral density benefit",
+          "interpretation": "For smg6 (heel bone mineral density), your SMG6 variant is one contributing factor — homozygous for the gwas protective allele at smg6",
+          "recommendations": [
+            "Favorable SMG6 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs4988321": {
+      "gene": "LRP5",
+      "name": "LRP5 (heel bone mineral density)",
+      "displayName": "LRP5 – heel bone mineral density",
+      "category": "skeletal-health",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "heel bone mineral density",
+      "gwas_domain": "athletic_performance",
+      "gwas_p": 3e-23,
+      "gwas_n": 76067,
+      "interpretations": {
+        "AA": {
+          "effect": "Common genotype — standard heel bone mineral density",
+          "interpretation": "For lrp5 (heel bone mineral density), your LRP5 variant is one contributing factor — common genotype for heel bone mineral density at lrp5; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard heel bone mineral density management applies"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "One LRP5 protective allele — strong heel bone mineral density benefit",
+          "interpretation": "For lrp5 (heel bone mineral density), your LRP5 variant is one contributing factor — one copy of the gwas-identified protective allele for heel bone mineral density",
+          "recommendations": [
+            "One protective LRP5 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Homozygous LRP5 protective allele — maximum heel bone mineral density benefit",
+          "interpretation": "For lrp5 (heel bone mineral density), your LRP5 variant is one contributing factor — homozygous for the gwas protective allele at lrp5",
+          "recommendations": [
+            "Favorable LRP5 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs482339": {
+      "gene": "TMEM135",
+      "name": "TMEM135 (heel bone mineral density)",
+      "displayName": "TMEM135 – heel bone mineral density",
+      "category": "skeletal-health",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "heel bone mineral density",
+      "gwas_domain": "athletic_performance",
+      "gwas_p": 2e-253,
+      "gwas_n": 426824,
+      "interpretations": {
+        "TT": {
+          "effect": "Common genotype — standard heel bone mineral density",
+          "interpretation": "For tmem135 (heel bone mineral density), your TMEM135 variant is one contributing factor — common genotype for heel bone mineral density at tmem135; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard heel bone mineral density management applies"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "One TMEM135 protective allele — strong heel bone mineral density benefit",
+          "interpretation": "For tmem135 (heel bone mineral density), your TMEM135 variant is one contributing factor — one copy of the gwas-identified protective allele for heel bone mineral density",
+          "recommendations": [
+            "One protective TMEM135 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Homozygous TMEM135 protective allele — maximum heel bone mineral density benefit",
+          "interpretation": "For tmem135 (heel bone mineral density), your TMEM135 variant is one contributing factor — homozygous for the gwas protective allele at tmem135",
+          "recommendations": [
+            "Favorable TMEM135 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs2536195": {
+      "gene": "CPED1",
+      "name": "CPED1 (heel bone mineral density)",
+      "displayName": "CPED1 – heel bone mineral density",
+      "category": "skeletal-health",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "heel bone mineral density",
+      "gwas_domain": "athletic_performance",
+      "gwas_p": 4e-253,
+      "gwas_n": 76067,
+      "interpretations": {
+        "GG": {
+          "effect": "Common genotype — standard heel bone mineral density",
+          "interpretation": "For cped1 (heel bone mineral density), your CPED1 variant is one contributing factor — common genotype for heel bone mineral density at cped1; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard heel bone mineral density management applies"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "One CPED1 protective allele — strong heel bone mineral density benefit",
+          "interpretation": "For cped1 (heel bone mineral density), your CPED1 variant is one contributing factor — one copy of the gwas-identified protective allele for heel bone mineral density",
+          "recommendations": [
+            "One protective CPED1 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Homozygous CPED1 protective allele — maximum heel bone mineral density benefit",
+          "interpretation": "For cped1 (heel bone mineral density), your CPED1 variant is one contributing factor — homozygous for the gwas protective allele at cped1",
+          "recommendations": [
+            "Favorable CPED1 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs10668066": {
+      "gene": "WNT16",
+      "name": "WNT16 (heel bone mineral density)",
+      "displayName": "WNT16 – heel bone mineral density",
+      "category": "skeletal-health",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "heel bone mineral density",
+      "gwas_domain": "athletic_performance",
+      "gwas_p": 2e-204,
+      "gwas_n": 76067,
+      "interpretations": {
+        "AA": {
+          "effect": "Common genotype — standard heel bone mineral density",
+          "interpretation": "For wnt16 (heel bone mineral density), your WNT16 variant is one contributing factor — common genotype for heel bone mineral density at wnt16; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard heel bone mineral density management applies"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "One WNT16 protective allele — strong heel bone mineral density benefit",
+          "interpretation": "For wnt16 (heel bone mineral density), your WNT16 variant is one contributing factor — one copy of the gwas-identified protective allele for heel bone mineral density",
+          "recommendations": [
+            "One protective WNT16 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Homozygous WNT16 protective allele — maximum heel bone mineral density benefit",
+          "interpretation": "For wnt16 (heel bone mineral density), your WNT16 variant is one contributing factor — homozygous for the gwas protective allele at wnt16",
+          "recommendations": [
+            "Favorable WNT16 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs1717720": {
+      "gene": "SFRP4",
+      "name": "SFRP4 (heel bone mineral density)",
+      "displayName": "SFRP4 – heel bone mineral density",
+      "category": "skeletal-health",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "heel bone mineral density",
+      "gwas_domain": "athletic_performance",
+      "gwas_p": 4e-116,
+      "gwas_n": 426824,
+      "interpretations": {
+        "GG": {
+          "effect": "Common genotype — standard heel bone mineral density",
+          "interpretation": "For sfrp4 (heel bone mineral density), your SFRP4 variant is one contributing factor — common genotype for heel bone mineral density at sfrp4; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard heel bone mineral density management applies"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "One SFRP4 protective allele — strong heel bone mineral density benefit",
+          "interpretation": "For sfrp4 (heel bone mineral density), your SFRP4 variant is one contributing factor — one copy of the gwas-identified protective allele for heel bone mineral density",
+          "recommendations": [
+            "One protective SFRP4 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Homozygous SFRP4 protective allele — maximum heel bone mineral density benefit",
+          "interpretation": "For sfrp4 (heel bone mineral density), your SFRP4 variant is one contributing factor — homozygous for the gwas protective allele at sfrp4",
+          "recommendations": [
+            "Favorable SFRP4 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs78667121": {
+      "gene": "TNFSF11",
+      "name": "TNFSF11 (trunk bone mineral density)",
+      "displayName": "TNFSF11 – trunk bone mineral density",
+      "category": "skeletal-health",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 2,
+      "gwas": true,
+      "gwas_trait": "trunk bone mineral density",
+      "gwas_domain": "athletic_performance",
+      "gwas_p": 2e-20,
+      "gwas_n": 31986,
+      "interpretations": {
+        "GG": {
+          "effect": "Common genotype — standard trunk bone mineral density",
+          "interpretation": "For tnfsf11 (trunk bone mineral density), your TNFSF11 variant is one contributing factor — common genotype for trunk bone mineral density at tnfsf11; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard trunk bone mineral density management applies"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "One TNFSF11 protective allele — strong trunk bone mineral density benefit",
+          "interpretation": "For tnfsf11 (trunk bone mineral density), your TNFSF11 variant is one contributing factor — one copy of the gwas-identified protective allele for trunk bone mineral density",
+          "recommendations": [
+            "One protective TNFSF11 allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Homozygous TNFSF11 protective allele — maximum trunk bone mineral density benefit",
+          "interpretation": "For tnfsf11 (trunk bone mineral density), your TNFSF11 variant is one contributing factor — homozygous for the gwas protective allele at tnfsf11",
+          "recommendations": [
+            "Favorable TNFSF11 variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    },
+    "rs1385504": {
+      "gene": "TNFRSF11B",
+      "name": "TNFRSF11B (heel bone mineral density)",
+      "displayName": "TNFRSF11B – heel bone mineral density",
+      "category": "skeletal-health",
+      "chrom": "",
+      "pos": 0,
+      "evidenceTier": 3,
+      "gwas": true,
+      "gwas_trait": "heel bone mineral density",
+      "gwas_domain": "athletic_performance",
+      "gwas_p": 4e-12,
+      "gwas_n": 426824,
+      "interpretations": {
+        "CC": {
+          "effect": "Common genotype — standard heel bone mineral density",
+          "interpretation": "For tnfrsf11b (heel bone mineral density), your TNFRSF11B variant is one contributing factor — common genotype for heel bone mineral density at tnfrsf11b; baseline trajectory",
+          "recommendations": [
+            "No action needed; standard heel bone mineral density management applies"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "One TNFRSF11B protective allele — strong heel bone mineral density benefit",
+          "interpretation": "For tnfrsf11b (heel bone mineral density), your TNFRSF11B variant is one contributing factor — one copy of the gwas-identified protective allele for heel bone mineral density",
+          "recommendations": [
+            "One protective TNFRSF11B allele — generally favorable"
+          ],
+          "priority": "low"
+        },
+        "TT": {
+          "effect": "Homozygous TNFRSF11B protective allele — maximum heel bone mineral density benefit",
+          "interpretation": "For tnfrsf11b (heel bone mineral density), your TNFRSF11B variant is one contributing factor — homozygous for the gwas protective allele at tnfrsf11b",
+          "recommendations": [
+            "Favorable TNFRSF11B variant — continue healthy lifestyle to maximise this genetic advantage"
+          ],
+          "priority": "low"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,495 @@
+{
+  "version": "2.0.0",
+  "updated": "2026-07-20",
+  "description": "Aging biology, oxidative stress, telomere maintenance, and detox pathways",
+  "markers": {
+    "rs4880": {
+      "gene": "SOD2",
+      "name": "A16V",
+      "category": "cellular-health",
+      "chrom": "6",
+      "pos": 160113872,
+      "display": "SOD2 A16V",
+      "interpretations": {
+        "CC": {
+          "effect": "Altered mitochondrial SOD2",
+          "interpretation": "Homozygous - lower mitochondrial antioxidant capacity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Prioritize antioxidant-rich diet",
+            "Consider NAC supplementation",
+            "Avoid high-dose iron"
+          ],
+          "priority": "medium"
+        },
+        "CT": {
+          "effect": "Moderate antioxidant",
+          "interpretation": "Heterozygous variant - lower mitochondrial targeting This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Dietary antioxidants especially important"
+          ],
+          "priority": "medium"
+        },
+        "TT": {
+          "effect": "Normal SOD2",
+          "interpretation": "For a16v, your SOD2 variant is one contributing factor — good mitochondrial antioxidant protection",
+          "recommendations": [
+            "Standard antioxidant needs"
+          ],
+          "priority": "low"
+        },
+        "A/A": {
+          "effect": "Beneficial SOD2 variant",
+          "interpretation": "A16V — your SOD2 genotype suggests a favorable profile that may confer some natural advantage. This is a statistical association from population studies, not a guarantee of any outcome.",
+          "recommendations": [
+            "Continue healthy lifestyle habits that support a16v",
+            "Genotype alone does not override environmental and behavioral factors"
+          ],
+          "priority": "low"
+        },
+        "TC": {
+          "effect": "Intermediate SOD2",
+          "interpretation": "lower mitochondrial targeting efficiency",
+          "recommendations": [
+            "Ensure adequate dietary antioxidants",
+            "Consider selenium supplementation"
+          ],
+          "priority": "low"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Ahmetov II, Naumov VA, Donnikov AE, Maciejewska-Kar?owska A, Kostryukova ES, Larin AK, et al. SOD2",
+        "gene polymorphism and muscle damage markers in elite athletes. Free Radic Res, 2014; 48(8):94855.",
+        "Akimoto AK, Miranda-Vilela AL, Alves PCZ, Pereira LC da S, Lordelo GS, Hiragi C de O, et al. Evaluation",
+        "of gene polymorphisms in exercise-induced oxidative stress and damage. Free Radic Res, 2010;",
+        "44(3):32231.",
+        "Baumert P, Lake MJ, Stewart CE, Drust B, Erskine RM. Genetic variation and exercise-induced",
+        "muscle damage: implications for athletic performance, injury and ageing. Eur J Appl Physiol, 2016;",
+        "116(9):1595625.",
+        "Sprouse C, Gordish-Dressman H, Orkunoglu-Suer EF, Lipof JS, Moeckel-Cole S, Patel RR, et al. SLC30A8",
+        "Nonsynonymous Variant Is Associated With Recovery Following Exercise and Skeletal Muscle Size and",
+        "Strength. Diabetes, 2014; 63(1):3638."
+      ],
+      "technical_report": "As we have indicated, in order for muscle regeneration to occur after exercise, there must be\nan inflammatory signal through which the satellite cells are activated. There are studies that\n\n\frelate certain genetic variants with this inflammatory signal and, therefore, with a greater or\nlesser capacity for muscle remodeling. A lower capacity for muscle remodeling implies that\na longer recovery is required after an injury. Two genetic polymorphisms have been\nidentified that are related to this inflammatory signal and therefore to a greater or lesser\ncapacity for muscle regeneration. These polymorphisms are found in the SOD2 and\nSLC30A8 genes. The SOD2 gene produces the superoxide dismutase 2 protein, which has antioxidant activity,\nprotecting the muscle from free radicals and facilitating muscle regeneration. The lack of\nfunctionality of this protein can cause the accumulation of free radicals and cell death of\nmuscle fibers. On the other hand, the SLC30A8 gene is associated with insulin response, and is indirectly\nassociated with muscle strength and mass, as glycogen synthesis and glucose transport to\nthe muscle are affected.",
+      "description": "PDF\n\nExercise-induced muscle damage (regeneration capacity)\nVariants affecting genes involved in the activation of the cells responsible for muscle\nregeneration are relevant to understanding why some people require more time to recover\nafter a muscle injury."
+    },
+    "rs1050450": {
+      "gene": "GPX1",
+      "name": "Selenium Utilization",
+      "category": "cellular-health",
+      "chrom": "",
+      "pos": 0,
+      "display": "GPX1 — Glutathione Peroxidase (Selenium-Dependent Antioxidant)",
+      "interpretations": {
+        "TT": {
+          "effect": "Reduced GPX1 activity (Pro198Leu variant)",
+          "interpretation": "For selenium utilization, your GPX1 variant is one contributing factor — the gpx1 pro198leu variant reduces glutathione peroxidase activity — a key selenium-dependent antioxidant enzyme This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Ensure adequate selenium intake (Brazil nuts are the richest source — 1-2/day provides RDA)",
+            "Selenium supplementation (selenomethionine 100-200mcg/day) if dietary intake is low",
+            "Adequate glutathione precursors: N-acetylcysteine (NAC), glycine, glutamine",
+            "Selenium status can be Tracked via serum selenium or GPX activity"
+          ],
+          "priority": "medium"
+        },
+        "CT": {
+          "effect": "Moderately reduced GPX1 activity",
+          "interpretation": "For selenium utilization, your GPX1 variant is one contributing factor — intermediate glutathione peroxidase activity",
+          "recommendations": [
+            "Ensure adequate selenium intake (55mcg/day minimum)",
+            "Brazil nuts, sardines, eggs, sunflower seeds are excellent sources"
+          ],
+          "priority": "low"
+        },
+        "CC": {
+          "effect": "Normal GPX1 activity",
+          "interpretation": "For selenium utilization, your GPX1 variant is one contributing factor — normal glutathione peroxidase function",
+          "recommendations": [
+            "Maintain adequate selenium intake",
+            "Selenium is also important for thyroid hormone conversion (deiodinase enzymes)"
+          ],
+          "priority": "low"
+        },
+        "G/A": {
+          "effect": "Variant in GPX1",
+          "interpretation": "Your GPX1 genotype is one of several genetic factors linked to selenium utilization. Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of GPX1 in selenium utilization",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "bibliography": [
+        "Chen J., Cao Q., et al. GPx-1 polymorphism (rs1050450) contributes to tumor susceptibility: evidence from",
+        "meta-analysis. J Cancer Res Clin Oncol. 2011 Oct;137(10):1553-61.",
+        "Bastaki M., Huen K., et al. Genotype-activity relationship for Mn-superoxide dismutase, glutathione",
+        "peroxidase 1 and catalase in humans. Pharmacogenet Genomics. 2006 Apr;16(4):279-86.",
+        "Liu K., Liu X., et al. Two common functional catalase gene polymorphisms (rs1001179 and rs794316) and",
+        "cancer susceptibility: evidence from 14,942 cancer cases and 43,285 controls. Oncotarget. 2016 Sep",
+        "27;7(39):62954-62965.",
+        "Minlikeeva A.N., Browne R.W., et al. Single-Nucleotide Polymorphisms and Markers of Oxidative Stress in",
+        "Healthy Women. PLoS One. 2016 Jun 7;11(6):e0156450."
+      ],
+      "technical_report": "The activity of enzymes responsible for combating oxidative damage from reactive oxygen\nspecies (ROSS) can be affected by factors such as diet, drug intake or polymorphisms\naffecting genes involved in antioxidant function. Several studies have identified some\nmutations that affect the activity of antioxidant enzymes. These mutations have been\nidentified in genes such as the CAT gene and the GPX1 gene. The CAT gene codes for the enzyme catalase, which mediates the control of the\nmost important endogenous enzymatic antioxidants. It catalyzes the decomposition of 2\nmolecules of hydrogen peroxide into 1 molecule of oxygen and 2 molecules of water, and is\ntherefore responsible for hydrogen peroxide concentrations. In turn, the GPX1 gene produces the enzyme glutathione peroxidase, which is a seleniumdependent enzyme. This enzyme is important because it mediates protecting red\nblood cells from hemoglobin by reducing peroxides and lipoperoxides, using glutathione as\na substrate. Disruption of GPx-1 activity leads to increased levels of peroxides and\nlipoperoxides (inducers of oxidative stress). Its affinity for oxygen peroxide is higher than\nthat of the enzyme catalase, making the enzyme glutathione peroxidase the main\nantioxidant of oxygen peroxides. Reduced antioxidant enzyme activity can lead to the accumulation of reactive oxygen\nspecies and promote the development of diseases such as obesity, encephalopathies, renal\nfailure, diabetes, cervical cancer and prostate cancer.",
+      "description": "Antioxidant capacity\nThe body's antioxidant defense system, especially the enzymes glutathione peroxidase and\ncatalase, are responsible for keeping the levels of reactive oxygen species (ROS) low to\navoid a physiological state of oxidative stress."
+    },
+    "rs1001179": {
+      "gene": "GPX1",
+      "name": "P200L",
+      "category": "cellular-health",
+      "chrom": "3",
+      "pos": 49394320,
+      "display": "GPX1 P200L",
+      "interpretations": {
+        "CC": {
+          "effect": "Normal GPX activity",
+          "interpretation": "For p200l, your GPX1 variant is one contributing factor — standard glutathione peroxidase function",
+          "recommendations": [
+            "Standard selenium intake adequate"
+          ],
+          "priority": "low"
+        },
+        "CT": {
+          "effect": "Moderate GPX",
+          "interpretation": "For p200l, your GPX1 variant is one contributing factor — heterozygous variant may reduce gpx activity This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Ensure adequate selenium",
+            "Brazil nuts"
+          ],
+          "priority": "medium"
+        },
+        "TT": {
+          "effect": "Reduced GPX activity",
+          "interpretation": "Homozygous variant - altered hydrogen peroxide removal This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Selenium supplementation",
+            "Prioritize GPX-supportive antioxidants"
+          ],
+          "priority": "high"
+        },
+        "C/C": {
+          "effect": "Variant in GPX1",
+          "interpretation": "Your GPX1 genotype is one of several genetic factors linked to p200l. Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of GPX1 in p200l",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "bibliography": [
+        "Chen J., Cao Q., et al. GPx-1 polymorphism (rs1050450) contributes to tumor susceptibility: evidence from",
+        "meta-analysis. J Cancer Res Clin Oncol. 2011 Oct;137(10):1553-61.",
+        "Bastaki M., Huen K., et al. Genotype-activity relationship for Mn-superoxide dismutase, glutathione",
+        "peroxidase 1 and catalase in humans. Pharmacogenet Genomics. 2006 Apr;16(4):279-86.",
+        "Liu K., Liu X., et al. Two common functional catalase gene polymorphisms (rs1001179 and rs794316) and",
+        "cancer susceptibility: evidence from 14,942 cancer cases and 43,285 controls. Oncotarget. 2016 Sep",
+        "27;7(39):62954-62965.",
+        "Minlikeeva A.N., Browne R.W., et al. Single-Nucleotide Polymorphisms and Markers of Oxidative Stress in",
+        "Healthy Women. PLoS One. 2016 Jun 7;11(6):e0156450."
+      ],
+      "technical_report": "The activity of enzymes responsible for combating oxidative damage from reactive oxygen\nspecies (ROSS) can be affected by factors such as diet, drug intake or polymorphisms\naffecting genes involved in antioxidant function. Several studies have identified some\nmutations that affect the activity of antioxidant enzymes. These mutations have been\nidentified in genes such as the CAT gene and the GPX1 gene. The CAT gene codes for the enzyme catalase, which mediates the control of the\nmost important endogenous enzymatic antioxidants. It catalyzes the decomposition of 2\nmolecules of hydrogen peroxide into 1 molecule of oxygen and 2 molecules of water, and is\ntherefore responsible for hydrogen peroxide concentrations. In turn, the GPX1 gene produces the enzyme glutathione peroxidase, which is a seleniumdependent enzyme. This enzyme is important because it mediates protecting red\nblood cells from hemoglobin by reducing peroxides and lipoperoxides, using glutathione as\na substrate. Disruption of GPx-1 activity leads to increased levels of peroxides and\nlipoperoxides (inducers of oxidative stress). Its affinity for oxygen peroxide is higher than\nthat of the enzyme catalase, making the enzyme glutathione peroxidase the main\nantioxidant of oxygen peroxides. Reduced antioxidant enzyme activity can lead to the accumulation of reactive oxygen\nspecies and promote the development of diseases such as obesity, encephalopathies, renal\nfailure, diabetes, cervical cancer and prostate cancer.",
+      "description": "Antioxidant capacity\nThe body's antioxidant defense system, especially the enzymes glutathione peroxidase and\ncatalase, are responsible for keeping the levels of reactive oxygen species (ROS) low to\navoid a physiological state of oxidative stress."
+    },
+    "rs6025": {
+      "gene": "F5",
+      "name": "Blood coagulation, factor V Leiden and 20210G-A",
+      "category": "cellular-health",
+      "chrom": "",
+      "pos": 0,
+      "display": "F5 - Blood coagulation, factor V Leiden and 20210G-A",
+      "interpretations": {
+        "C/C": {
+          "effect": "Typical F5 function",
+          "interpretation": "Your F5 genotype is the most common form in reference populations. This does not rule out blood coagulation, factor v leiden and 20210g-a risk from other genes, environmental exposures, or rare variants not covered by standard genotyping.",
+          "recommendations": [
+            "No specific F5-directed intervention indicated, but standard health screening still applies",
+            "Other genetic and environmental factors contribute to blood coagulation, factor v leiden and 20210g-a — genotype alone is not the full picture"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Normal clotting",
+          "interpretation": "For blood coagulation, factor v leiden and 20210g-a, your F5 variant is one contributing factor — no factor v leiden variant - normal coagulation",
+          "recommendations": [
+            "Standard thrombotic risk"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Factor V Leiden carrier",
+          "interpretation": "Heterozygous - moderately elevated clotting risk (4-8x) This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Avoid estrogen-containing contraceptives",
+            "Consider thrombophilia testing before surgery",
+            "Genetic counseling"
+          ],
+          "priority": "high"
+        },
+        "AA": {
+          "effect": "Homozygous Factor V Leiden",
+          "interpretation": "notably elevated clotting risk (40-80x) This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Priority hematology Discuss with",
+            "Avoid high-risk activities",
+            "Special precautions for surgery/pregnancy"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Bertina RM, Koeleman BP, Koster T, Rosendaal FR, Dirven RJ, de Ronde H, van der Velden PA, Reitsma PH.",
+        "Mutation in blood coagulation factor V associated with resistance to activated protein C. Nature.",
+        "1994;369(6475):64-7.",
+        "Bertina RM, Koeleman BP, Koster T, Rosendaal FR, Dirven RJ, de Ronde H, van der Velden PA, Reitsma PH.",
+        "Mutation in blood coagulation factor V associated with resistance to activated protein C. Nature.",
+        "1994;369(6475):64-7.",
+        "Doherty TM, Kelley A. Bleeding Disorders. 2019 Jun 16. StatPearls [Internet]. Treasure Island (FL):",
+        "StatPearls Publishing; 2020 Jan-.",
+        "Kujovich JL. Factor V Leiden thrombophilia. Genet Med. 2011;13(1):1-16.",
+        "Simone B, De Stefano V, Leoncini E, Zacho J, Martinelli I, Emmerich J, et al. Risk of venous",
+        "thromboembolism associated with single and combined effects of Factor V Leiden, Prothrombin 20210A",
+        "and Methylenetethraydrofolate reductase C677T: a meta-analysis involving over 11,000 cases and 21,000",
+        "controls. Eur J Epidemiol. 2013;28(8):621-47.",
+        "Stevens SM, Woller SC, Bauer KA, Kasthuri R, Cushman M, Streiff M, et al. Guidance for the evaluation and",
+        "treatment of hereditary and acquired thrombophilia. J Thromb Thrombolysis. 2016;41(1):154-64."
+      ],
+      "technical_report": "The risk of blood hypercoagulation is largely affected by the genetic component. It is known\nthat the presence of mutations such as factor V Leiden or the prothrombin gene mutation\n20210G-A are associated with the risk of hereditary thrombophilias. The Factor V Leiden mutation occurs in the F5 gene and is more frequent in Caucasian\npopulations than in those of other origins, so it is estimated that between 3 and 8% of the\nEuropean or US Caucasian population carries at least one copy of the mutation. When the Factor V Leiden mutation occurs in the F5 gene, the mutated Factor V Leiden\nbecomes more resistant to the action of APC (activated protein C with inactivating effect of\nFactor V Leiden), which promotes the generation of thrombin, an enzyme that promotes\nblood clotting. The presence of the factor V Leiden mutation in the F5 gene has been found to be one of the\nmain genetic factors leading to venous thromboembolism (VTE), a disorder that includes\ndeep vein thromboembolism and pulmonary embolisms. VTE is characterized by the\nabnormal formation of blood clots, which in this case mainly affect the veins of the legs. On the other hand, the 20210G-A marker has been identified in the F2 gene, which produces\nthe prothrombin protein, a glycoprotein formed in the liver that plays a vital role in the\nformation of blood clots.The frequency with which this glycoprotein is produced in the liver\nplays a vital role in the conversion of fibrinogen to fibrin during clot formation, in order to\n\n\fstop bleeding when an injury occurs. The frequency with which this mutation occurs is low,\nbeing more common in the population of European descent than in other populations.",
+      "description": "PDF\n\nBlood coagulation, factor V Leiden and 20210G-A\nThrombophilias are hereditary and/or acquired pathologies that predispose to blood clots\nor thrombosis. Among the genetic factors identified, the Factor V Leiden mutation and the\nprothrombin gene 20210G-A mutation are the most studied."
+    },
+    "rs1799963": {
+      "gene": "F2",
+      "name": "Blood coagulation, factor V Leiden and 20210G-A",
+      "category": "cellular-health",
+      "chrom": "",
+      "pos": 0,
+      "display": "F2 - Blood coagulation, factor V Leiden and 20210G-A",
+      "interpretations": {
+        "G/G": {
+          "effect": "Typical F2 function",
+          "interpretation": "Your F2 genotype is the most common form in reference populations. This does not rule out blood coagulation, factor v leiden and 20210g-a risk from other genes, environmental exposures, or rare variants not covered by standard genotyping.",
+          "recommendations": [
+            "No specific F2-directed intervention indicated, but standard health screening still applies",
+            "Other genetic and environmental factors contribute to blood coagulation, factor v leiden and 20210g-a — genotype alone is not the full picture"
+          ],
+          "priority": "low"
+        },
+        "GG": {
+          "effect": "Normal prothrombin",
+          "interpretation": "For blood coagulation, factor v leiden and 20210g-a, your F2 variant is one contributing factor — no variant - standard clotting factor levels",
+          "recommendations": [
+            "Standard thrombotic risk"
+          ],
+          "priority": "low"
+        },
+        "GA": {
+          "effect": "Elevated prothrombin",
+          "interpretation": "For blood coagulation, factor v leiden and 20210g-a, your F2 variant is one contributing factor — one copy - elevated plasma prothrombin (2-3x clotting risk) This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Avoid estrogen therapies",
+            "Discuss anticoagulation with physician",
+            "Genetic counseling"
+          ],
+          "priority": "high"
+        },
+        "AA": {
+          "effect": "Homozygous",
+          "interpretation": "notably elevated prothrombin levels This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Priority hematology Discuss with",
+            "Avoid estrogen-containing contraceptives",
+            "Special precautions for pregnancy"
+          ],
+          "priority": "high"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Bertina RM, Koeleman BP, Koster T, Rosendaal FR, Dirven RJ, de Ronde H, van der Velden PA, Reitsma PH.",
+        "Mutation in blood coagulation factor V associated with resistance to activated protein C. Nature.",
+        "1994;369(6475):64-7.",
+        "Bertina RM, Koeleman BP, Koster T, Rosendaal FR, Dirven RJ, de Ronde H, van der Velden PA, Reitsma PH.",
+        "Mutation in blood coagulation factor V associated with resistance to activated protein C. Nature.",
+        "1994;369(6475):64-7.",
+        "Doherty TM, Kelley A. Bleeding Disorders. 2019 Jun 16. StatPearls [Internet]. Treasure Island (FL):",
+        "StatPearls Publishing; 2020 Jan-.",
+        "Kujovich JL. Factor V Leiden thrombophilia. Genet Med. 2011;13(1):1-16.",
+        "Simone B, De Stefano V, Leoncini E, Zacho J, Martinelli I, Emmerich J, et al. Risk of venous",
+        "thromboembolism associated with single and combined effects of Factor V Leiden, Prothrombin 20210A",
+        "and Methylenetethraydrofolate reductase C677T: a meta-analysis involving over 11,000 cases and 21,000",
+        "controls. Eur J Epidemiol. 2013;28(8):621-47.",
+        "Stevens SM, Woller SC, Bauer KA, Kasthuri R, Cushman M, Streiff M, et al. Guidance for the evaluation and",
+        "treatment of hereditary and acquired thrombophilia. J Thromb Thrombolysis. 2016;41(1):154-64."
+      ],
+      "technical_report": "The risk of blood hypercoagulation is largely affected by the genetic component. It is known\nthat the presence of mutations such as factor V Leiden or the prothrombin gene mutation\n20210G-A are associated with the risk of hereditary thrombophilias. The Factor V Leiden mutation occurs in the F5 gene and is more frequent in Caucasian\npopulations than in those of other origins, so it is estimated that between 3 and 8% of the\nEuropean or US Caucasian population carries at least one copy of the mutation. When the Factor V Leiden mutation occurs in the F5 gene, the mutated Factor V Leiden\nbecomes more resistant to the action of APC (activated protein C with inactivating effect of\nFactor V Leiden), which promotes the generation of thrombin, an enzyme that promotes\nblood clotting. The presence of the factor V Leiden mutation in the F5 gene has been found to be one of the\nmain genetic factors leading to venous thromboembolism (VTE), a disorder that includes\ndeep vein thromboembolism and pulmonary embolisms. VTE is characterized by the\nabnormal formation of blood clots, which in this case mainly affect the veins of the legs. On the other hand, the 20210G-A marker has been identified in the F2 gene, which produces\nthe prothrombin protein, a glycoprotein formed in the liver that plays a vital role in the\nformation of blood clots.The frequency with which this glycoprotein is produced in the liver\nplays a vital role in the conversion of fibrinogen to fibrin during clot formation, in order to\n\n\fstop bleeding when an injury occurs. The frequency with which this mutation occurs is low,\nbeing more common in the population of European descent than in other populations.",
+      "description": "PDF\n\nBlood coagulation, factor V Leiden and 20210G-A\nThrombophilias are hereditary and/or acquired pathologies that predispose to blood clots\nor thrombosis. Among the genetic factors identified, the Factor V Leiden mutation and the\nprothrombin gene 20210G-A mutation are the most studied."
+    },
+    "rs10195871": {
+      "gene": "BCL11A",
+      "name": "Persistence of fetal hemoglobin",
+      "category": "cellular-health",
+      "chrom": "",
+      "pos": 0,
+      "display": "BCL11A - Persistence of fetal hemoglobin",
+      "interpretations": {
+        "G/G": {
+          "effect": "Variant in BCL11A",
+          "interpretation": "Your BCL11A genotype is one of several genetic factors linked to persistence of fetal hemoglobin. Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of BCL11A in persistence of fetal hemoglobin",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Bauer DE, Orkin SH. Hemoglobin switching's surprise: the versatile transcription factor BCL11A is a master",
+        "repressor of fetal hemoglobin. Curr Opin Genet Dev. 2015 Aug;33:62-70.",
+        "Uda M, Galanello R, Sanna S, Lettre G, Sankaran VG, Chen W, et al. Genome-wide association study shows",
+        "BCL11A associated with persistent fetal hemoglobin and amelioration of the phenotype of betathalassemia. Proc Natl Acad Sci U S A [Internet]. 2008 Feb 5 [cited 2014 Sep 28];105(5):16205.",
+        "Liu N, Hargreaves VV, Zhu Q, Kurland JV, Hong J, Kim W, Sher F, et al. Direct Promoter Repression by",
+        "BCL11A Controls the Fetal to Adult Hemoglobin Switch. Cell. 2018 Apr 5;173(2):430-442.e17."
+      ],
+      "technical_report": "evidence suggests that the presence of fetal hemoglobin can reduce the severity of sickle\ncell disease and beta thalassemia, so the detection of variants that facilitate the\n\n\fpersistence of fetal hemoglobin in adults is of great interest for the development of\ntreatments against these diseases. The genome-wide association study carried out by Uda et al. showed that the BCL11A gene\nis related to fetal hemoglobin production in adults. The BCL11A gene is a gene that is expressed in red blood cell precursors and gives rise to a\ntranscription factor that regulates the gamma-globin gene by inhibiting its expression.",
+      "description": "PDF\n\nPersistence of fetal hemoglobin\nIt has been demonstrated that the persistence of fetal hemoglobin has a marked hereditary\ncharacter. There are several studies that relate certain genetic polymorphisms or variants\nwith the persistence of fetal hemoglobin in adults and its possible implication in the\nimprovement of symptoms of different types of anemia."
+    },
+    "rs401681": {
+      "gene": "CLPTM1L",
+      "name": "PSA (Prostate Specific Antigen) Levels",
+      "category": "cellular-health",
+      "chrom": "",
+      "pos": 0,
+      "display": "CLPTM1L - PSA (Prostate Specific Antigen) Levels",
+      "interpretations": {
+        "C/C": {
+          "effect": "Variant in CLPTM1L",
+          "interpretation": "Your CLPTM1L genotype is one of several genetic factors linked to psa (prostate specific antigen) levels. Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of CLPTM1L in psa (prostate specific antigen) levels",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Gudmundsson J, Besenbacher S, Sulem P, Gudbjartsson DF, Olafsson I, Arinbjarnarson S, et al.",
+        "Genetic correction of PSA values using sequence variants associated with PSA levels. Sci Transl",
+        "Med. 2010;2(62):62ra92.",
+        "David MK et al. Prostate Specific Antigen. [May 2022]",
+        "Medscape. Prostate-Specific Antigen Testing [May 2022]",
+        "American Cancer Society. Prostate Cancer. Early detection, diagnosis, and staging [May 2022]",
+        "National Institute of Health. National Cancer Institute [May 2022]"
+      ],
+      "technical_report": "PSA levels can be affected for different reasons, either by a genetic or environmental factor. It is estimated that about 40% of the variability of PSA levels in the general population is\ndue to hereditary factors. Based on a genome-wide association study involving more than\n15,000 men, 3 markers associated with variability in PSA levels have been identified. Among\nthe genes involved in this trait we can find the HNF1B gene or the MSMB gene, genes that\nhad been previously associated with the risk of colon cancer, as well as the CLPTM1L gene,\nalso previously associated with the development of different types of cancers.",
+      "description": "PDF\n\nPSA (Prostate Specific Antigen) Levels\nThe serum PSA value is useful for the follow-up and early detection of prostate cancer\nsince the probability of developing prostate cancer increases with higher values. However,\nsince there is no agreed cut-off point, additional tests are often required to establish the\ndiagnosis or to rule out other causes of its increase."
+    },
+    "rs4430796": {
+      "gene": "HNF1B",
+      "name": "PSA (Prostate Specific Antigen) Levels",
+      "category": "cellular-health",
+      "chrom": "",
+      "pos": 0,
+      "display": "HNF1B - PSA (Prostate Specific Antigen) Levels",
+      "interpretations": {
+        "A/A": {
+          "effect": "Variant in HNF1B",
+          "interpretation": "Your HNF1B genotype is one of several genetic factors linked to psa (prostate specific antigen) levels. Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of HNF1B in psa (prostate specific antigen) levels",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Gudmundsson J, Besenbacher S, Sulem P, Gudbjartsson DF, Olafsson I, Arinbjarnarson S, et al.",
+        "Genetic correction of PSA values using sequence variants associated with PSA levels. Sci Transl",
+        "Med. 2010;2(62):62ra92.",
+        "David MK et al. Prostate Specific Antigen. [May 2022]",
+        "Medscape. Prostate-Specific Antigen Testing [May 2022]",
+        "American Cancer Society. Prostate Cancer. Early detection, diagnosis, and staging [May 2022]",
+        "National Institute of Health. National Cancer Institute [May 2022]"
+      ],
+      "technical_report": "PSA levels can be affected for different reasons, either by a genetic or environmental factor. It is estimated that about 40% of the variability of PSA levels in the general population is\ndue to hereditary factors. Based on a genome-wide association study involving more than\n15,000 men, 3 markers associated with variability in PSA levels have been identified. Among\nthe genes involved in this trait we can find the HNF1B gene or the MSMB gene, genes that\nhad been previously associated with the risk of colon cancer, as well as the CLPTM1L gene,\nalso previously associated with the development of different types of cancers.",
+      "description": "PDF\n\nPSA (Prostate Specific Antigen) Levels\nThe serum PSA value is useful for the follow-up and early detection of prostate cancer\nsince the probability of developing prostate cancer increases with higher values. However,\nsince there is no agreed cut-off point, additional tests are often required to establish the\ndiagnosis or to rule out other causes of its increase."
+    },
+    "rs1047781": {
+      "gene": "FUT2",
+      "name": "Secretor status and ABH antigens (FUT2 gene)",
+      "category": "cellular-health",
+      "chrom": "",
+      "pos": 0,
+      "display": "FUT2 - Secretor status and ABH antigens (FUT2 gene)",
+      "interpretations": {
+        "A/A": {
+          "effect": "Variant in FUT2",
+          "interpretation": "Your FUT2 genotype is one of several genetic factors linked to secretor status and abh antigens (fut2 gene). Research in this area continues to evolve, and most traits have multiple genetic and environmental contributors.",
+          "recommendations": [
+            "Stay informed as new research clarifies the role of FUT2 in secretor status and abh antigens (fut2 gene)",
+            "Consider discussing with a healthcare provider familiar with genetic interpretation"
+          ],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 2,
+      "bibliography": [
+        "Stowell CP, Stowell SR. Biologic roles of the ABH and Lewis histo-blood group antigens Part I: infection",
+        "and immunity. Vox Sang. 2019;114(5):426-442.",
+        "Stowell SR, Stowell CP. Biologic roles of the ABH and Lewis histo-blood group antigens part II: thrombosis,",
+        "cardiovascular disease and metabolism. Vox Sang. 2019 Aug;114(6):535-552.",
+        "Velkova A, Diaz JEL, Pangilinan F, Molloy AM, Mills JL, Shane B, Sanchez E, et al. The FUT2",
+        "secretor variant p.Trp154Ter influences serum vitamin B12 concentration via holo-haptocorrin,",
+        "but not holo-transcobalamin, and is associated with haptocorrin glycosylation. Hum Mol Genet.",
+        "2017;26(24):4975-4988.",
+        "Azad MB, Wade KH, Timpson NJ. FUT2 secretor genotype and susceptibility to infections and chronic",
+        "conditions in the ALSPAC cohort. Version 2. Wellcome Open Res. 2018."
+      ],
+      "technical_report": "Just as in determining a person's blood type, the ability to produce Lewis and ABH antigens\non red blood cells or other tissues is influenced by genetics. Two polymorphisms associated with this trait have been identified. One affects the\npopulation of European ancestry (W143X), while the other affects the population of Asian\nancestry (I129F). Both polymorphisms are found in the FUT2 gene, affecting the enzymatic\nactivity α-1,2-fucosyltransferase, essential for the secretion of the soluble forms of the ABH\nand Lewis blood group antigens in the mucosa and secretory glands of the intestine. Thus, carriers of the indicated mutations allow the population to be divided into two groups,\ndepending on their ABH antigen secretion status. The \"non-secretory\" phenotype is\ncharacterized by not having these antigens in body secretions. It is believed that this can\nlead to physiological changes in the tissue, affecting bacterial adherence and\n\n\fimmunoglobulin status, so these changes have also been linked to the individual's\nsusceptibility to other pathogens and diseases, as well as to changes in vitamin\nB12 metabolism.",
+      "description": "PDF\n\nSecretor status and ABH antigens (FUT2 gene)\nABH blood group and Lewis antigens are not only found on red blood cells, where A and B\ndetermine the group, but these molecules are also present in a wide variety of tissues and\ncan trigger susceptibility to infections and contribute to the development of other\nthromboembolic and cardiovascular diseases."
+    },
+    "rs2229765": {
+      "gene": "IGF1R",
+      "name": "A>G",
+      "category": "cellular-health",
+      "chrom": "15",
+      "pos": 98655951,
+      "display": "IGF1R Longevity / IGF Signaling",
+      "evidenceTier": 2,
+      "interpretations": {
+        "GG": {
+          "effect": "Reduced IGF-1 receptor signaling — longevity-associated",
+          "interpretation": "Attenuated insulin/IGF-1 pathway — linked to longevity (caloric restriction mimicry), lower cancer and age-related disease risk in EPIC cohort analyses",
+          "recommendations": [
+            "Low-glycemic diet to maintain low IGF-1 (complements genetic tendency)",
+            "Limit dairy (primary dietary driver of IGF-1 elevation)",
+            "Intermittent fasting — reduces circulating IGF-1 further",
+            "Resistance training to maintain lean mass (local IGF-1 signaling in muscle remains beneficial)"
+          ],
+          "priority": "low"
+        },
+        "AG": {
+          "effect": "Intermediate IGF1R signaling",
+          "interpretation": "For a>g, your IGF1R variant is one contributing factor — one longevity allele — partial attenuation of igf-1 receptor activity",
+          "recommendations": [
+            "Low-glycemic and intermittent fasting beneficial to complement genetic tendency"
+          ],
+          "priority": "low"
+        },
+        "AA": {
+          "effect": "Normal IGF1R signaling",
+          "interpretation": "For a>g, your IGF1R variant is one contributing factor — standard igf-1 receptor activity — no inherited longevity pathway attenuation This is a statistical association that interacts with lifestyle, environment, and other genetic factors.",
+          "recommendations": [
+            "Low-glycemic diet and periodic fasting especially impactful (no genetic head start on IGF-1 pathway)",
+            "Consider Tracking serum IGF-1 annually if concerned about cancer risk"
+          ],
+          "priority": "moderate"
+        }
+      }
+    }
+  }
+}

@@ -27,12 +27,12 @@ const sampleOutput: DashboardOutput = {
   gli: 550,
   gli_rating: 'Moderate',
   category_gli: {
-    vulnerability: 450,
-    pharmacology: 520,
-    hereditary: 600,
+    'health-vulnerability': 450,
+    pharmacogenomics: 520,
+    'inherited-conditions': 600,
     traits: 580,
-    wellness: 550,
-    ancestry: 700,
+    metabolism: 550,
+    'physical-traits': 700,
   },
   top_traits: [
     { trait_id: 'cardiovascular_fitness', score: 70, confidence: 0.95, mechanism: 'VO2max capacity' },

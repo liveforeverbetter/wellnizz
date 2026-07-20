@@ -116,13 +116,17 @@ export interface CompactInterpretationCatalog {
 }
 
 const INTERPRETATION_FILES: Array<{ file: string; category: CatalogCategory }> = [
-  { file: 'vulnerability.json', category: 'genetic_vulnerability' },
-  { file: 'pharmacology.json', category: 'pharmacogenetics' },
-  { file: 'hereditary.json', category: 'hereditary_conditions' },
-  { file: 'personality.json', category: 'personal_traits' },
-  { file: 'performance.json', category: 'personal_traits' },
-  { file: 'wellness.json', category: 'wellness' },
-  { file: 'ancestry.json', category: 'ancestry' },
+  { file: 'health-vulnerability.json', category: 'health_vulnerability' },
+  { file: 'pharmacogenomics.json', category: 'pharmacogenomics' },
+  { file: 'inherited-conditions.json', category: 'inherited_conditions' },
+  { file: 'cognitive.json', category: 'cognitive' },
+  { file: 'superpowers.json', category: 'superpowers' },
+  { file: 'metabolism.json', category: 'metabolism' },
+  { file: 'physical-traits.json', category: 'physical_traits' },
+  { file: 'cardiometabolic.json', category: 'cardiometabolic' },
+  { file: 'inflammation.json', category: 'inflammation' },
+  { file: 'cellular-health.json', category: 'cellular_health' },
+  { file: 'skeletal-health.json', category: 'skeletal_health' },
 ];
 
 const WELLNESS_OPTIMIZATION_TRAITS = new Set([

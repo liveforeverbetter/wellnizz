@@ -1,7 +1,7 @@
 #!/usr/bin/env npx tsx
 /**
  * Merge additional rsID markers into the interpretation database
- * Source: tellmegen-extracted-data/known-rsid-markers.json
+ * Source: extracted-report-data/known-rsid-markers.json
  */
 
 import * as fs from 'fs';
@@ -10,7 +10,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const INTERPRETATIONS_DIR = path.join(__dirname, '../shared/interpretations');
-const KNOWN_RSID_FILE = path.join(__dirname, '../../../tellmegen-extracted-data/known-rsid-markers.json');
+const KNOWN_RSID_FILE = path.join(__dirname, '../../../extracted-report-data/known-rsid-markers.json');
 
 interface RsidMarker {
   rsid: string;
@@ -53,13 +53,13 @@ const additions: Record<string, string[]> = {};
 
 // Process each category file
 const categoryFiles: Record<string, string> = {
-  wellness: 'wellness.json',
-  pharmacology: 'pharmacology.json',
-  vulnerability: 'vulnerability.json',
-  personality: 'personality.json',
-  performance: 'performance.json',
-  hereditary: 'hereditary.json',
-  ancestry: 'ancestry.json'
+  wellness: 'metabolism.json',
+  pharmacogenomics: 'pharmacogenomics.json',
+  'health-vulnerability': 'health-vulnerability.json',
+  cognitive: 'cognitive.json',
+  superpowers: 'superpowers.json',
+  'inherited-conditions': 'inherited-conditions.json',
+  'physical-traits': 'physical-traits.json'
 };
 
 // Track existing rsIDs per category

@@ -24,7 +24,7 @@ interface InterpretationMarker {
 
 const packageDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
-function loadMarkers(file: 'wellness' | 'personality' | 'performance'): Record<string, InterpretationMarker> {
+function loadMarkers(file: 'metabolism' | 'cognitive' | 'superpowers'): Record<string, InterpretationMarker> {
   return JSON.parse(fs.readFileSync(
     path.join(packageDir, 'shared/interpretations', `${file}.json`),
     'utf8',
@@ -32,33 +32,33 @@ function loadMarkers(file: 'wellness' | 'personality' | 'performance'): Record<s
 }
 
 const expected = {
-  rs12934922: { file: 'wellness', gene: 'BCO1', chrom: '16', pos: 81301694, ref: 'A', alleles: ['A', 'T'], genotypes: ['AA', 'AT', 'TT'] },
-  rs601338: { file: 'wellness', gene: 'FUT2', chrom: '19', pos: 49206674, ref: 'G', alleles: ['G', 'A'], genotypes: ['AA', 'AG', 'GG'] },
-  rs1801282: { file: 'wellness', gene: 'PPARG', chrom: '3', pos: 12393125, ref: 'C', alleles: ['C', 'G'], genotypes: ['CC', 'CG', 'GG'] },
-  rs1800497: { file: 'personality', gene: 'ANKK1', chrom: '11', pos: 113270828, ref: 'G', alleles: ['G', 'A'], genotypes: ['AA', 'AG', 'GG'] },
-  rs2282679: { file: 'wellness', gene: 'GC', chrom: '4', pos: 72608383, ref: 'T', alleles: ['T', 'G'], genotypes: ['GG', 'GT', 'TT'] },
-  rs5082: { file: 'wellness', gene: 'APOA2', chrom: '1', pos: 161193683, ref: 'G', alleles: ['A', 'G'], genotypes: ['AA', 'AG', 'GG'] },
-  rs174537: { file: 'wellness', gene: 'FADS1', chrom: '11', pos: 61552680, ref: 'G', alleles: ['G', 'T'], genotypes: ['GG', 'GT', 'TT'] },
-  rs1260326: { file: 'wellness', gene: 'GCKR', chrom: '2', pos: 27730940, ref: 'T', alleles: ['C', 'T'], genotypes: ['CC', 'CT', 'TT'] },
-  rs10830963: { file: 'wellness', gene: 'MTNR1B', chrom: '11', pos: 92708710, ref: 'C', alleles: ['C', 'G'], genotypes: ['CC', 'CG', 'GG'] },
-  rs662799: { file: 'wellness', gene: 'APOA5', chrom: '11', pos: 116663707, ref: 'G', alleles: ['A', 'G'], genotypes: ['AA', 'AG', 'GG'] },
-  rs1801725: { file: 'wellness', gene: 'CASR', chrom: '3', pos: 122003757, ref: 'G', alleles: ['G', 'T'], genotypes: ['GG', 'GT', 'TT'] },
-  rs762551: { file: 'wellness', gene: 'CYP1A2', chrom: '15', pos: 75041917, ref: 'C', alleles: ['A', 'C'], genotypes: ['AA', 'AC', 'CC'] },
-  rs5751876: { file: 'wellness', gene: 'ADORA2A', chrom: '22', pos: 24837301, ref: 'T', alleles: ['C', 'T'], genotypes: ['CC', 'CT', 'TT'] },
-  rs1815739: { file: 'performance', gene: 'ACTN3', chrom: '11', pos: 66328095, ref: 'T', alleles: ['C', 'T'], genotypes: ['CC', 'CT', 'TT'] },
-  rs8192678: { file: 'performance', gene: 'PPARGC1A', chrom: '4', pos: 23815662, ref: 'C', alleles: ['C', 'T'], genotypes: ['CC', 'CT', 'TT'] },
-  rs17602729: { file: 'performance', gene: 'AMPD1', chrom: '1', pos: 115236057, ref: 'G', alleles: ['A', 'G'], genotypes: ['AA', 'AG', 'GG'] },
-  rs12722: { file: 'performance', gene: 'COL5A1', chrom: '9', pos: 137734416, ref: 'C', alleles: ['C', 'T'], genotypes: ['CC', 'CT', 'TT'] },
+  rs12934922: { file: 'metabolism', gene: 'BCO1', chrom: '16', pos: 81301694, ref: 'A', alleles: ['A', 'T'], genotypes: ['AA', 'AT', 'TT'] },
+  rs601338: { file: 'metabolism', gene: 'FUT2', chrom: '19', pos: 49206674, ref: 'G', alleles: ['G', 'A'], genotypes: ['AA', 'AG', 'GG'] },
+  rs1801282: { file: 'metabolism', gene: 'PPARG', chrom: '3', pos: 12393125, ref: 'C', alleles: ['C', 'G'], genotypes: ['CC', 'CG', 'GG'] },
+  rs1800497: { file: 'cognitive', gene: 'ANKK1', chrom: '11', pos: 113270828, ref: 'G', alleles: ['G', 'A'], genotypes: ['AA', 'AG', 'GG'] },
+  rs2282679: { file: 'metabolism', gene: 'GC', chrom: '4', pos: 72608383, ref: 'T', alleles: ['T', 'G'], genotypes: ['GG', 'GT', 'TT'] },
+  rs5082: { file: 'metabolism', gene: 'APOA2', chrom: '1', pos: 161193683, ref: 'G', alleles: ['A', 'G'], genotypes: ['AA', 'AG', 'GG'] },
+  rs174537: { file: 'metabolism', gene: 'FADS1', chrom: '11', pos: 61552680, ref: 'G', alleles: ['G', 'T'], genotypes: ['GG', 'GT', 'TT'] },
+  rs1260326: { file: 'metabolism', gene: 'GCKR', chrom: '2', pos: 27730940, ref: 'T', alleles: ['C', 'T'], genotypes: ['CC', 'CT', 'TT'] },
+  rs10830963: { file: 'metabolism', gene: 'MTNR1B', chrom: '11', pos: 92708710, ref: 'C', alleles: ['C', 'G'], genotypes: ['CC', 'CG', 'GG'] },
+  rs662799: { file: 'metabolism', gene: 'APOA5', chrom: '11', pos: 116663707, ref: 'G', alleles: ['A', 'G'], genotypes: ['AA', 'AG', 'GG'] },
+  rs1801725: { file: 'metabolism', gene: 'CASR', chrom: '3', pos: 122003757, ref: 'G', alleles: ['G', 'T'], genotypes: ['GG', 'GT', 'TT'] },
+  rs762551: { file: 'metabolism', gene: 'CYP1A2', chrom: '15', pos: 75041917, ref: 'C', alleles: ['A', 'C'], genotypes: ['AA', 'AC', 'CC'] },
+  rs5751876: { file: 'metabolism', gene: 'ADORA2A', chrom: '22', pos: 24837301, ref: 'T', alleles: ['C', 'T'], genotypes: ['CC', 'CT', 'TT'] },
+  rs1815739: { file: 'superpowers', gene: 'ACTN3', chrom: '11', pos: 66328095, ref: 'T', alleles: ['C', 'T'], genotypes: ['CC', 'CT', 'TT'] },
+  rs8192678: { file: 'superpowers', gene: 'PPARGC1A', chrom: '4', pos: 23815662, ref: 'C', alleles: ['C', 'T'], genotypes: ['CC', 'CT', 'TT'] },
+  rs17602729: { file: 'superpowers', gene: 'AMPD1', chrom: '1', pos: 115236057, ref: 'G', alleles: ['A', 'G'], genotypes: ['AA', 'AG', 'GG'] },
+  rs12722: { file: 'superpowers', gene: 'COL5A1', chrom: '9', pos: 137734416, ref: 'C', alleles: ['C', 'T'], genotypes: ['CC', 'CT', 'TT'] },
 } as const;
 
 describe('phase 2 curated interpretation content', () => {
-  const wellness = loadMarkers('wellness');
-  const personality = loadMarkers('personality');
-  const performance = loadMarkers('performance');
+  const wellness = loadMarkers('metabolism');
+  const personality = loadMarkers('cognitive');
+  const performance = loadMarkers('superpowers');
 
   for (const [rsid, identity] of Object.entries(expected)) {
     it(`${rsid} has verified identity, allele, and evidence provenance`, () => {
-      const marker = (identity.file === 'wellness' ? wellness : identity.file === 'personality' ? personality : performance)[rsid];
+      const marker = (identity.file === 'metabolism' ? wellness : identity.file === 'cognitive' ? personality : performance)[rsid];
       assert.ok(marker, `${rsid} is present`);
       assert.equal(marker.gene, identity.gene);
       assert.equal(marker.chrom, identity.chrom);

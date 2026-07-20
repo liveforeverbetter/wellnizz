@@ -22,7 +22,7 @@ export type GeneticCalculationState =
 export type GeneticConsumerCategory =
   | 'clinical_risk'
   | 'health_trait'
-  | 'performance'
+  | 'superpowers'
   | 'nutrition'
   | 'sleep_recovery'
   | 'pharmacogenomics'
@@ -116,7 +116,7 @@ const SPOTLIGHTS: SpotlightDefinition[] = [
   {
     id: 'caffeine_clearance',
     displayName: 'Caffeine clearance and sensitivity',
-    category: 'performance',
+    category: 'superpowers',
     traitIds: ['caffeine_metabolism'],
     rsids: ['rs762551', 'rs5751876'],
     genes: ['CYP1A2', 'ADORA2A'],
@@ -130,7 +130,7 @@ const SPOTLIGHTS: SpotlightDefinition[] = [
   {
     id: 'aerobic_trainability',
     displayName: 'Aerobic capacity and training response',
-    category: 'performance',
+    category: 'superpowers',
     traitIds: ['vo2max', 'performance_polygenic', 'cardiorespiratory_fitness'],
     rsids: ['rs8192678'],
     genes: ['PPARGC1A'],
@@ -144,7 +144,7 @@ const SPOTLIGHTS: SpotlightDefinition[] = [
   {
     id: 'power_endurance_tendency',
     displayName: 'Power versus endurance tendency',
-    category: 'performance',
+    category: 'superpowers',
     traitIds: ['muscle_fibre_context'],
     rsids: ['rs1815739'],
     genes: ['ACTN3'],
@@ -158,7 +158,7 @@ const SPOTLIGHTS: SpotlightDefinition[] = [
   {
     id: 'grip_strength',
     displayName: 'Hand grip-strength tendency',
-    category: 'performance',
+    category: 'superpowers',
     traitIds: ['grip_strength', 'muscular_strength'],
     consumerValue: 'Adds inherited context to a simple, repeatable marker of strength and healthy aging while keeping measured performance decisive.',
     nextMeasurement: 'Use a calibrated dynamometer and track the best of repeated trials under a consistent protocol.',
@@ -170,7 +170,7 @@ const SPOTLIGHTS: SpotlightDefinition[] = [
   {
     id: 'exercise_tolerance',
     displayName: 'Exercise tolerance and energy metabolism',
-    category: 'performance',
+    category: 'superpowers',
     traitIds: ['exercise_tolerance'],
     rsids: ['rs17602729'],
     genes: ['AMPD1'],
@@ -184,7 +184,7 @@ const SPOTLIGHTS: SpotlightDefinition[] = [
   {
     id: 'lean_body_mass',
     displayName: 'Fat-free mass tendency',
-    category: 'performance',
+    category: 'superpowers',
     traitIds: ['lean_body_mass', 'fat_free_mass'],
     consumerValue: 'Adds inherited context to body composition, recovery, strength, and healthy-aging measurements without treating mass as performance.',
     nextMeasurement: 'Pair with DEXA or a consistent validated body-composition method, waist measures, and strength testing.',
@@ -196,7 +196,7 @@ const SPOTLIGHTS: SpotlightDefinition[] = [
   {
     id: 'walking_duration',
     displayName: 'Walking-duration research context',
-    category: 'performance',
+    category: 'superpowers',
     traitIds: ['walking_duration', 'physical_activity'],
     consumerValue: 'Offers population-level context for habitual walking that can be compared with actual activity, opportunity, and functional capacity.',
     nextMeasurement: 'Use several weeks of steps, walking minutes, pace, terrain, and symptom data rather than inferring activity from genetics.',
@@ -208,7 +208,7 @@ const SPOTLIGHTS: SpotlightDefinition[] = [
   {
     id: 'soft_tissue_resilience',
     displayName: 'Tendon and soft-tissue resilience',
-    category: 'performance',
+    category: 'superpowers',
     traitIds: ['tendon_injury', 'soft_tissue_injury'],
     rsids: ['rs12722'],
     genes: ['COL5A1'],
@@ -234,7 +234,7 @@ const SPOTLIGHTS: SpotlightDefinition[] = [
   {
     id: 'pulmonary_function',
     displayName: 'Pulmonary function and lung-capacity tendency',
-    category: 'performance',
+    category: 'superpowers',
     traitIds: ['pulmonary_function', 'lung_function', 'fev1', 'fvc'],
     consumerValue: 'Provides novel context for respiratory performance when paired with FEV1, FVC, exercise testing, symptoms, smoking, and altitude.',
     nextMeasurement: 'Pair with quality-controlled spirometry or cardiopulmonary exercise testing; measured FEV1 and FVC take precedence.',
@@ -333,7 +333,7 @@ export function normalizeGeneticsDashboard(dashboard: unknown, now = new Date())
       reference_relative: insights.filter(item => item.calculation_state === 'reference_relative').length,
       raw_score_only: insights.filter(item => item.calculation_state === 'raw_score_only').length,
       insufficient_coverage: insights.filter(item => item.calculation_state === 'insufficient_coverage').length,
-      performance_and_optimization: insights.filter(item => ['performance', 'nutrition', 'sleep_recovery'].includes(item.category)).length,
+      performance_and_optimization: insights.filter(item => ['superpowers', 'nutrition', 'sleep_recovery'].includes(item.category)).length,
       research_only: insights.filter(item => item.category === 'research_only').length,
       reanalysis_recommended: insights.some(item => item.reanalysis_recommended) || requestedButUnavailable.length > 0,
     },
@@ -529,7 +529,7 @@ function consumerCategoryForScore(score: Record<string, unknown>, traitId: strin
 }
 
 function isGeneticConsumerCategory(value: string): value is GeneticConsumerCategory {
-  return ['clinical_risk', 'health_trait', 'performance', 'nutrition', 'sleep_recovery', 'pharmacogenomics', 'research_only'].includes(value);
+  return ['clinical_risk', 'health_trait', 'superpowers', 'nutrition', 'sleep_recovery', 'pharmacogenomics', 'research_only'].includes(value);
 }
 
 function categoryForTrait(traitId: string): GeneticConsumerCategory {

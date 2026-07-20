@@ -28,3 +28,7 @@ data/genetics/pgs/reference-alleles-*.json
 
 # Local session snapshots (ephemeral)
 .foreverbetter-session/
+
+# Extracted third-party report data (not to be committed)
+extracted-report-data/
+tellmegen-extracted-data/
