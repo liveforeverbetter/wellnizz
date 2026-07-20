@@ -3,7 +3,7 @@ name: analyze-longevity
 description: |
   Turn genetic, biomarker, wearable, and behavioral data into one interpretable
   healthspan dashboard, an evidence-graded action plan, an ancestry breakdown,
-  longitudinal trends, and an agent-ready health context. Use ForeverBetter cloud
+  longitudinal trends, and an agent-ready health context. Use wellnizz cloud
   (hosted API plus MCP) for the full managed workflow, self-host the same open-source
   API for the full feature set on your own infrastructure, or run the open-source
   pipeline locally with no server for the lightest offline path. Any single modality
@@ -21,6 +21,54 @@ description: |
 ---
 
 # Analyze Longevity
+
+## Installing the skill
+
+Copy the full URL of this page into your agent:
+
+**Claude Code / Claude App:**
+```
+/skill https://app.wellnizz.com/SKILL.md
+```
+
+**Codex / OpenAI:**
+```
+codex skill add wellnizz https://app.wellnizz.com/SKILL.md
+```
+
+**Hermes:**
+```
+hermes skill install https://app.wellnizz.com/SKILL.md
+```
+
+**Openclaw:**
+```
+openclaw skill add wellnizz https://app.wellnizz.com/SKILL.md
+```
+
+**Other agent / manual:**
+Paste this entire file into your agent's skill or system prompt. Point it at `https://app.wellnizz.com` as the base URL. All auth, discovery, and endpoint routing is self-contained.
+
+---
+
+## What this skill can do
+
+| Capability | What the user says | Outcome |
+|---|---|---|
+| Optimize everything | "optimize my health", "make sense of all my data" | Full multimodal review with prioritized insights |
+| Custom dashboard | "build me a dashboard", "show my numbers" | Full design-system dashboard with component source, tokens, templates, and API bindings downloaded from `GET /design/systems/{id}/implementation` |
+| Personal action plan | "make me a plan", "what should I take" | Evidence-graded lifestyle and supplement protocol |
+| AI health agent | "give my agent context", "connect MCP" | One health context for agent-driven queries |
+| Ancestry breakdown | "where am I from", "ancestry" | Proportions, haplogroups, geographic maps |
+| Retest loop | "track me over time", "get better every year" | Goals, trends, retest reminders |
+| Find providers | "where can I get tested" | Genome kits, nearby lab draws, wearable options |
+| Connect wearables | "connect my WHOOP/Oura" | First-party OAuth sync and analysis |
+
+Any one modality (genetics, biomarkers, or wearables) is enough to start.
+
+**Design systems and full component packages.** Every dashboard outcome includes a design system. After the user picks a design, always download the full implementation package via `GET /design/systems/{id}/implementation` (or MCP `get_design_implementation`). This returns the complete component source, design tokens, templates, UI-kit starting points, component/template manifest, binary asset URLs, and API bindings — everything needed to build the dashboard. Write these files unchanged, then wire the data layer to live API responses. The wellnizz (ForeverBetter house design with the superpowers section), Aperture, and Meridian systems all expose this endpoint. Meridian additionally includes the pinned production `dashboard/index.html`, `styles.css`, and `app.js`.
+
+---
 
 Onboard the user, connect the data they already have, ask which outcome they
 want, then produce that outcome end to end: a custom dashboard, a personal action
@@ -67,7 +115,7 @@ same outcome-driven flow.
 Three ways to run, all driven by this skill:
 
 - **Cloud (managed, recommended for most users).** The hosted API at
-  `https://api.foreverbetter.xyz`, also reachable over MCP. Managed whole-genome
+  `https://app.wellnizz.com`, also reachable over MCP. Managed whole-genome
   analysis, ancestry proportions, biomarker interpretation, first-party wearable
   OAuth, stored history, goals, retest reminders, provider discovery, and hosted
   private dashboards, with nothing to run yourself.
@@ -75,7 +123,7 @@ Three ways to run, all driven by this skill:
   server, workers, and data store, run on a machine the user controls (for example
   the Docker image at `http://localhost:8787`). This gives the full endpoint set and
   every use-case playbook below, with data staying on their own infrastructure.
-  Follow `https://foreverbetter.mintlify.app/self-hosting`, point `HEALTH_API_URL`
+  Follow `https://docs.wellnizz.com/self-hosting`, point `HEALTH_API_URL`
   at the deployment, then drive the same live-discovered playbooks below.
 - **Local pipeline (skill files only, no server).** The open-source analysis repo at
   [agentic-health-analysis](https://github.com/liveforeverbetter/agentic-health-analysis)
@@ -98,8 +146,8 @@ processing the data, then proceed.
 Read the complete documentation when a request needs an exact request or response
 shape, an error format, or any route not spelled out here. Do not guess routes:
 
-- Full docs as one text file: `https://foreverbetter.mintlify.app/llms-full.txt`
-- Human docs and use-case guides: `https://foreverbetter.mintlify.app` (guides
+- Full docs as one text file: `https://docs.wellnizz.com/llms-full.txt`
+- Human docs and use-case guides: `https://docs.wellnizz.com` (guides
   live under `/use-cases/...`, referenced per playbook below)
 - Live, deployment-specific discovery (never hardcode what exists):
   - `GET /.well-known/health-agent.json` for auth steps, endpoints, and MCP tools
@@ -144,11 +192,11 @@ Set the base URL, defaulting to the hosted API unless the user self-hosts (for
 example `http://localhost:8787`):
 
 ```text
-HEALTH_API_URL=https://api.foreverbetter.xyz
+HEALTH_API_URL=https://app.wellnizz.com
 ```
 
 For a new self-hosted deployment, follow the Docker quickstart at
-`https://foreverbetter.mintlify.app/self-hosting` first. Read
+`https://docs.wellnizz.com/self-hosting` first. Read
 `GET /.well-known/health-agent.json` and use the authentication method that deployment
 advertises. An operator-provided API or service-account key is valid for self-hosting;
 do not invent a cloud login or billing dependency.
@@ -290,17 +338,20 @@ multimodal analysis will re-queue the WGS worker redundantly.
 3. `GET /dashboard-specs/{analysis_id}` for the render-ready spec (cards, values,
    targets, sections, coverage, freshness, provenance).
 4. `GET /analyses/{id}/recommendations` for tiered core, optimize, and maintain items.
-5. `GET /design/systems` then `GET /design/systems/{design_id}`: show the user every
-   design the deployment returns (name, one-line vibe, `best_for`), highlight up to
-   two that fit their goal, and let them pick. The catalog grows over time; always
-   offer from the live list, never from memory. When the user asks to build the
-   WHOOP-inspired Meridian wearable app rather than merely style a new UI, call
-   `GET /design/systems/meridian/implementation` (or MCP
-   `get_design_implementation`). It returns the exact production HTML, CSS, JS,
-   binary asset URLs, component selectors, and API bindings. Write those files
-   unchanged before adapting only the data layer; do not replace them with a mock.
-   Describe it as WHOOP-inspired, not as an official WHOOP interface.
-6. `POST /dashboard-links` with the analysis and chosen design to create a private,
+ 5. `GET /design/systems` then `GET /design/systems/{design_id}`: show the user every
+    design the deployment returns (name, one-line vibe, `best_for`), highlight up to
+    two that fit their goal, and let them pick. The catalog grows over time; always
+    offer from the live list, never from memory.
+ 6. **Always download the full implementation package.** After the user picks a design,
+    call `GET /design/systems/{design_id}/implementation` (or MCP
+    `get_design_implementation`). This returns the complete component source,
+    design tokens, templates, UI-kit starting points, a component/template manifest,
+    binary asset URLs, API bindings, and for Meridian the pinned production
+    `dashboard/index.html`, `dashboard/styles.css`, and `dashboard/app.js`. Write
+    those files unchanged before adapting only the data layer; do not replace them
+    with a mock. This is the default path for every design system, not just
+    Meridian. Describe Meridian as WHOOP-inspired, not as an official WHOOP interface.
+ 7. `POST /dashboard-links` with the analysis and chosen design to create a private,
    expiring, unguessable link. Give the `dashboard_url` to the user.
 
 **Personal action protocol** (`/use-cases/action-protocol`)
@@ -423,18 +474,18 @@ plain text is also accepted. Keep the `source.id`.
 
 **Wearables (last).** Onboard by the provider's `integration_type` from the registry,
 after the first non-wearable result, unless the user's explicit goal is a wearable
-connection. WHOOP and Oura use ForeverBetter first-party OAuth; do not ask for a client
+connection. WHOOP and Oura use Wellnizz first-party OAuth; do not ask for a client
 ID or secret when `first_party_oauth` is true. Follow the "Connect a wearable" playbook.
 For any wearable without a live connector, ask for a CSV/JSON export and upload it with
 `POST /imports/file` (category `wearables`).
 
 For Google Health Connect on Android, the user installs the separate
-**[ForeverBetter Connect](https://play.google.com/apps/testing/com.foreverbetterhealthconnect.myapp)**
+**[Wellnizz Connect](https://play.google.com/apps/testing/com.foreverbetterhealthconnect.myapp)**
 app, signs in with the same email, chooses Google Health Connect, grants read
 permissions, and starts background sync. Health Connect can aggregate Fitbit, Samsung
 Health, and Google Fit first. Then call `GET /sources` and `POST /wearables/analyze`
 after the first sync. Installing Google's own Health Connect app alone does not upload
-anything to ForeverBetter; ForeverBetter Connect performs the authenticated sync.
+anything to Wellnizz; Wellnizz Connect performs the authenticated sync.
 
 **If the user wants a modality they cannot connect yet**, do not dead-end. Run the "Find
 providers first" playbook (`GET /providers?modality=...`) to point them to whole-genome
@@ -446,7 +497,12 @@ connected.
 The first useful deliverable is the result the user asked for, which is not always a
 dashboard. When the chosen outcome includes a dashboard, call `GET /design/systems`,
 list every returned design (name, vibe, and `best_for`) with up to two highlighted
-for the user's goal, and let them pick before rendering. Run the chosen playbook and show the result before asking for
+for the user's goal, and let them pick before rendering. **Always download the full
+implementation package** via `GET /design/systems/{design_id}/implementation`
+(or MCP `get_design_implementation`) after the user picks a design. This returns
+the complete component source, tokens, templates, UI-kit starting points, manifest,
+binary asset URLs, and API bindings. Write those files unchanged before wiring the
+data layer. Run the chosen playbook and show the result before asking for
 more data. Missing modalities appear as optional context, never as errors.
 
 In cloud mode, create the dashboard link after the user chooses a design. Over MCP call
@@ -511,7 +567,7 @@ Never star on the user's behalf without confirmation.
 
 ## Hosted plans and self-hosting
 
-When a user asks about cost, describe **ForeverBetter API** as the hosted
+When a user asks about cost, describe **Wellnizz API** as the hosted
 option: Free for evaluation, Standard at $9.99/month for one person and their own agent,
 then Builder, Growth, and Enterprise for commercial or larger workloads. Choosing a
 cloud plan is free. A cloud workspace gets its first 100 protected hosted API requests

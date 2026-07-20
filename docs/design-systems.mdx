@@ -6,7 +6,7 @@ description: "Curated design-token sets for health & wellness UIs, so you can st
 Building a wellness product's UI is easier when you start from a coherent design
 system. `GET /design/systems` returns a curated library of design-token sets
 covering color, typography, spacing, radii, elevation, motion, and signature
-components. Only the three supported systems are returned: ForeverBetter,
+components. Only the three supported systems are returned: wellnizz,
 Aperture, and Meridian. These are **public reference data (no auth required)**.
 
 ```bash
@@ -74,12 +74,12 @@ curl -s "$FB_API/design/systems/meridian/implementation" > meridian-dashboard.js
 Each text file is returned inline with a checksum and a public source URL under
 `/design-system-specs/{id}/...`; write it at the supplied path. Download binary
 assets from their listed URLs. UI-kit health values are illustrative, not user
-records: bind a rendered product to the user's authorized ForeverBetter data or
+records: bind a rendered product to the user's authorized wellnizz data or
 show the supplied connection and empty states.
 
 Meridian is a **WHOOP-inspired wearable-performance dashboard**: recovery,
 strain, sleep, and connected-data readiness lead the experience. It is an
-independent ForeverBetter implementation, not affiliated with or endorsed by
+independent wellnizz implementation, not affiliated with or endorsed by
 WHOOP. Its response also contains the pinned production `dashboard/index.html`,
 `dashboard/styles.css`, and `dashboard/app.js` package plus the API bindings it
 expects. The entry point is `dashboard/index.html` and is intended to be served
@@ -112,7 +112,7 @@ derived scores and keeps a generated UI from inventing health values.
 
 | id                | inspired by                | scheme | best for                                                          |
 | ----------------- | -------------------------- | ------ | ----------------------------------------------------------------- |
-| `foreverbetter`   | ForeverBetter              | light  | full multimodal longevity dossiers, composite healthspan index    |
+| `foreverbetter`   | wellnizz              | light  | full multimodal longevity dossiers, composite healthspan index    |
 | `meridian`        | WHOOP (Meridian handoff)   | dark   | agent-built wearable apps, recovery, strain, sleep, data readiness |
 | `aperture`        | Aperture Design System handoff | light | consumer health coaching, pillars, source-aware daily overview |
 

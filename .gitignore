@@ -22,3 +22,9 @@ content/out/
 # skill-creator eval workspace (local only)
 .skill-workspace/
 .prs-reference/
+
+# Generated reference-allele cache for the PGS scorer (one-time build from dbSNP)
+data/genetics/pgs/reference-alleles-*.json
+
+# Local session snapshots (ephemeral)
+.foreverbetter-session/

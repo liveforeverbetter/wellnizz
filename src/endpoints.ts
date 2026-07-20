@@ -32,6 +32,7 @@ export type EndpointId =
   | 'genetics.analyze'
   | 'genetics.ancestry.create'
   | 'genetics.jobs.read'
+  | 'genetics.slice.read'
   | 'design_implementation.read'
   | 'dashboard_specs.read'
   | 'dashboard_links.create'
@@ -78,6 +79,7 @@ export const DEFAULT_USER_DATA_READ_ENDPOINTS: ReadonlySet<EndpointId> = new Set
   'sources.read',
   'trends.read',
   'genetics.jobs.read',
+  'genetics.slice.read',
   'design_implementation.read',
   'dashboard_specs.read',
   'health_context.read',
@@ -348,6 +350,15 @@ export const ENDPOINTS: EndpointDefinition[] = [
     category: 'genetics',
     scopes: ['health:data:read'],
     description: 'Read queued WGS/SNP-array analysis status, progress stage, retry state, and reanalysis recommendation.',
+  },
+  {
+    id: 'genetics.slice.read',
+    method: 'GET',
+    path: '/analyses/:id/genetic-slice',
+    category: 'genetics',
+    scopes: ['health:data:read'],
+    mcpTool: 'query_genetic_slice',
+    description: 'Query a completed genetic analysis by gene, rsID, or significance without downloading the full artifact.',
   },
   {
     id: 'design_implementation.read',

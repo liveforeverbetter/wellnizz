@@ -7,6 +7,7 @@ import { buildHealthContext } from './core/health-context.js';
 import { buildHealthTrends } from './core/trends.js';
 import { computeRetestReminders } from './core/reminders.js';
 import { enrichAnalysisWithGeneticPipeline } from './core/genetic-analysis.js';
+import { queryGeneticSlice, type GeneticSliceIndex } from './core/genetic-slice.js';
 import { buildRecommendations } from './core/recommendations.js';
 import { buildActionPlan } from './core/action-plan.js';
 import { buildSyntheticHero } from './core/sandbox.js';
@@ -200,7 +201,7 @@ async function route(req: IncomingMessage, res: ServerResponse, store: HealthSto
   if (method === 'OPTIONS') return sendJson(req, res, authConfig, 204, {});
 
   if (method === 'GET' && url.pathname === '/') {
-    return sendRedirect(req, res, authConfig, docsUrl());
+    return sendRedirect(req, res, authConfig, '/dashboard');
   }
 
   if (method === 'GET' && url.pathname === '/docs') {
@@ -1198,6 +1199,43 @@ async function route(req: IncomingMessage, res: ServerResponse, store: HealthSto
     });
   }
 
+  const geneticSliceMatch = url.pathname.match(/^\/analyses\/([^/]+)\/genetic-slice$/);
+  if (method === 'GET' && geneticSliceMatch) {
+    requireEndpoint(auth, authConfig, 'analyses.read');
+    requireScope(auth, 'health:data:read');
+    const analysis = await store.getAnalysis(geneticSliceMatch[1]);
+    if (!analysis) throw new HttpError(404, 'Analysis not found.');
+    requireResourceAccess(auth, authConfig, { userId: analysis.user_id, organizationId: analysis.organization_id });
+    const gene = url.searchParams.get('gene') ?? undefined;
+    const rsid = url.searchParams.get('rsid') ?? undefined;
+    const significance = url.searchParams.get('significance') ?? undefined;
+    const category = url.searchParams.get('category') ?? undefined;
+    if (!gene && !rsid && !significance) {
+      throw new HttpError(400, 'Provide at least one query parameter: gene, rsid, or significance.');
+    }
+    const geneticPipeline = analysis.derived_interpretations.find(item =>
+      item.type === 'genetic_pipeline_analysis' && item.status === 'complete' && item.raw);
+    if (!geneticPipeline?.raw) {
+      throw new HttpError(404, 'No completed genetic pipeline results are available for this analysis. Wait for the WGS worker to finish or submit a new analysis.');
+    }
+    const dashboardRaw = (geneticPipeline.raw as Record<string, unknown>).dashboard;
+    const metadata = dashboardRaw && typeof dashboardRaw === 'object' && !Array.isArray(dashboardRaw)
+      ? (dashboardRaw as Record<string, unknown>).metadata
+      : undefined;
+    const sliceIndex = metadata && typeof metadata === 'object' && !Array.isArray(metadata)
+      ? (metadata as Record<string, unknown>).genetic_slice_index as GeneticSliceIndex | undefined
+      : undefined;
+    const consumerGenetics = metadata && typeof metadata === 'object' && !Array.isArray(metadata)
+      ? (metadata as Record<string, unknown>).consumer_genetics as Record<string, unknown> | undefined
+      : undefined;
+    const insights = consumerGenetics && typeof consumerGenetics === 'object' && !Array.isArray(consumerGenetics)
+      ? consumerGenetics.insights as Array<Record<string, unknown>> | undefined ?? undefined
+      : undefined;
+    const result = queryGeneticSlice(sliceIndex, insights, { gene, rsid, significance, category });
+    auditEvent(req, 'success', { route: '/analyses/:id/genetic-slice', status: 200, auth });
+    return sendJson(req, res, authConfig, 200, result);
+  }
+
   const rerunMatch = url.pathname.match(/^\/analyses\/([^/]+)\/rerun$/);
   if (method === 'POST' && rerunMatch) {
     requireEndpoint(auth, authConfig, 'analyses.create');
@@ -2064,7 +2102,7 @@ function problemDetails(req: IncomingMessage, status: number, error: unknown): R
 
 // Public documentation location, overridable per deployment.
 function docsUrl(): string {
-  return process.env.DOCS_URL ?? 'https://foreverbetter.mintlify.app';
+  return process.env.DOCS_URL ?? 'https://docs.wellnizz.com';
 }
 
 // RFC 7807 problem type identifiers. Vendor-neutral URNs so responses carry no

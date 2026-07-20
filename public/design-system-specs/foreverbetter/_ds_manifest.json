@@ -1,0 +1,148 @@
+{
+  "namespace": "wellnizz",
+  "components": [
+    {
+      "id": "gli_dial",
+      "name": "Genomic Longevity Index Dial",
+      "selector": ".gli-dial",
+      "description": "Semicircular 0-100 composite index dial, Schibsted Grotesk display number, coral accent stroke.",
+      "css": {
+        "stroke-width": "14px",
+        "stroke-linecap": "round",
+        "color": "#df1e39",
+        "font-family": "\"Schibsted Grotesk\", sans-serif",
+        "font-size": "64px",
+        "font-weight": "600"
+      }
+    },
+    {
+      "id": "modality_chip",
+      "name": "Modality Coverage Chip",
+      "selector": ".modality-chip",
+      "description": "Data-provenance pill naming a connected modality and its signal count.",
+      "css": {
+        "border": "1px solid #e6e1d8",
+        "border-radius": "999px",
+        "padding": "6px 12px",
+        "font-size": "12px",
+        "color": "#7a7770",
+        "font-family": "\"DM Mono\", monospace"
+      }
+    },
+    {
+      "id": "superpower_card",
+      "name": "Genetic Superpower Card",
+      "selector": ".superpower-card",
+      "description": "Green-left-border genetic superpower call-out with gene name, effect, and rarity.",
+      "css": {
+        "background": "#fbf9f5",
+        "border": "1px solid #e6e1d8",
+        "border-left": "3px solid #1e7a52",
+        "border-radius": "12px",
+        "padding": "18px"
+      }
+    },
+    {
+      "id": "primary_button",
+      "name": "Editorial Primary Button",
+      "selector": ".primary-btn[data-variant=\"editorial\"]",
+      "description": "Coral editorial CTA with slight rounding.",
+      "css": {
+        "background": "#df1e39",
+        "color": "#ffffff",
+        "border-radius": "8px",
+        "font-weight": "600",
+        "padding": "13px 22px",
+        "font-family": "\"DM Sans\", sans-serif"
+      }
+    },
+    {
+      "id": "biomarker_row",
+      "name": "Biomarker Panel Row",
+      "selector": ".biomarker-row",
+      "description": "Single biomarker row with name, value, unit, and optimal/watch/attention status pill.",
+      "css": {
+        "display": "grid",
+        "grid-template-columns": "1fr auto auto",
+        "gap": "12px",
+        "padding": "10px 0",
+        "border-top": "1px solid #e6e1d8",
+        "font-family": "\"DM Sans\", sans-serif"
+      }
+    },
+    {
+      "id": "section_header",
+      "name": "Editorial Section Header",
+      "selector": ".dossier-header",
+      "description": "Section title in Schibsted Grotesk display with optional subtitle.",
+      "css": {
+        "font-family": "\"Schibsted Grotesk\", sans-serif",
+        "font-size": "28px",
+        "font-weight": "600",
+        "color": "#0e0e0e",
+        "letter-spacing": "-0.02em"
+      }
+    },
+    {
+      "id": "action_item",
+      "name": "Action Plan Item",
+      "selector": ".action-item",
+      "description": "Evidence-graded intervention with tier, description, and source citation.",
+      "css": {
+        "display": "grid",
+        "grid-template-columns": "24px 1fr",
+        "gap": "12px",
+        "padding": "12px 0",
+        "border-top": "1px solid #e6e1d8"
+      }
+    }
+  ],
+  "startingPoints": [
+    {
+      "id": "dossier_page",
+      "name": "Full healthspan dossier page",
+      "description": "Single-page editorial dossier with all 8 sections in vertical scroll.",
+      "build": "compose the 8 layout sections in order: index-hero, modality-coverage, biomarker-panel, genetic-edges, polygenic-risk, aging-hallmarks, clinician-context, action-plan. Bind each section to live API data from GET /dashboard-specs/{analysis_id}.",
+      "url": "https://app.wellnizz.com/design/systems/foreverbetter/implementation"
+    },
+    {
+      "id": "healthspan_dashboard",
+      "name": "Healthspan dashboard with private link",
+      "description": "Render analysis at /dashboards/private/{token} using the foreverbetter house design.",
+      "build": "POST /dashboard-links with design_id: foreverbetter, then serve the private dashboard URL to the user.",
+      "url": "https://app.wellnizz.com/dashboard-links"
+    }
+  ],
+  "templates": [
+    {
+      "id": "dossier_section",
+      "name": "Dossier section template",
+      "description": "A single editorial section with dossier-header, content area, and optional action items.",
+      "sections": ["dossier-header", "content", "action-footer"]
+    },
+    {
+      "id": "metric_hero",
+      "name": "Metric hero template",
+      "description": "Large number display with label, trend indicator, and provenance footnote.",
+      "sections": ["hero-metric", "trend-indicator", "provenance"]
+    }
+  ],
+  "hasThumbnailHtml": false,
+  "globalCssPaths": [],
+  "tokens": [
+    { "name": "colors", "path": "tokens/colors.json" },
+    { "name": "typography", "path": "tokens/typography.json" },
+    { "name": "spacing", "path": "tokens/spacing.json" },
+    { "name": "radii", "path": "tokens/radii.json" }
+  ],
+  "themes": [
+    { "id": "light-editorial", "name": "Light editorial", "colors": "tokens/colors.json" }
+  ],
+  "fonts": [
+    { "family": "Schibsted Grotesk", "weights": [600], "role": "display" },
+    { "family": "DM Sans", "weights": [400, 500, 600, 700], "role": "body" },
+    { "family": "DM Mono", "weights": [400, 500], "role": "mono" }
+  ],
+  "brandFonts": [],
+  "source": "code-defined from wellnizz design-systems.ts, no external handoff bundle"
+}

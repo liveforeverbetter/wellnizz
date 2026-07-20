@@ -3,13 +3,13 @@ title: "Pay per request with x402"
 description: "Let agents pay for selected API routes directly on Base, Polygon, or Solana without creating an API key."
 ---
 
-ForeverBetter supports [x402 v2](https://docs.x402.org/) as an optional
+wellnizz supports [x402 v2](https://docs.x402.org/) as an optional
 authorization path for agent-friendly API calls. An agent can discover a
 capability, pay a small USDC amount, and receive the response without an
 account, subscription, or API key.
 
 API keys remain the best choice for sustained use. If a request includes an
-`Authorization` header, ForeverBetter uses normal bearer authentication and
+`Authorization` header, wellnizz uses normal bearer authentication and
 does not invoke or charge x402.
 
 ## Payment flow
@@ -22,11 +22,11 @@ does not invoke or charge x402.
 5. Read settlement details from `PAYMENT-RESPONSE` on the successful response.
 
 ```bash
-curl -i "https://api.foreverbetter.xyz/providers?modality=genetics"
+curl -i "https://app.wellnizz.com/providers?modality=genetics"
 # HTTP/2 402
 # PAYMENT-REQUIRED: <base64 x402 v2 requirements>
 
-curl -i "https://api.foreverbetter.xyz/providers?modality=genetics" \
+curl -i "https://app.wellnizz.com/providers?modality=genetics" \
   -H "PAYMENT-SIGNATURE: <signed x402 payload>"
 # HTTP/2 200
 # PAYMENT-RESPONSE: <base64 settlement response>
@@ -43,7 +43,7 @@ The protocol uses CAIP-2 network identifiers:
 
 ## Private wallet workspace
 
-A verified payer address becomes a deterministic, private ForeverBetter
+A verified payer address becomes a deterministic, private wellnizz
 identity. Base and Polygon share the `eip155` address namespace, so the same EVM
 wallet can import on Base and analyze or read the result after paying on
 Polygon. Solana addresses use their own namespace.
@@ -51,12 +51,12 @@ Polygon. Solana addresses use their own namespace.
 This is an authorization boundary, not merely a billing label. A wallet cannot
 pay to read another wallet's sources, analyses, ancestry results, or dashboard
 specifications. For x402 requests, omit `user_id` and `organization_id`;
-ForeverBetter fills them from the verified payer.
+wellnizz fills them from the verified payer.
 
 ## Enabled capabilities
 
 The live deployment is authoritative. Read
-`GET https://api.foreverbetter.xyz/.well-known/x402.json` for enabled networks,
+`GET https://app.wellnizz.com/.well-known/x402.json` for enabled networks,
 facilitators, route templates, and prices. The implementation supports:
 
 - Provider and lab search
@@ -125,7 +125,7 @@ With the ordering above, Polygon payments use Polygon's facilitator and the CDP
 facilitator handles Base. CDP can also provide Solana once a Solana payout
 address is configured.
 
-Override prices with a JSON object keyed by ForeverBetter endpoint ID or route:
+Override prices with a JSON object keyed by wellnizz endpoint ID or route:
 
 ```dotenv
 X402_ROUTE_PRICES={"imports.file":"$0.02","analyses.create":"$0.05","genetics.ancestry.create":"$0.10"}
@@ -133,17 +133,17 @@ X402_ROUTE_PRICES={"imports.file":"$0.02","analyses.create":"$0.05","genetics.an
 
 If a facilitator requires static headers, store the JSON value of
 `X402_FACILITATOR_AUTH_HEADERS` as a deployment secret. Never commit facilitator
-credentials or payout-wallet private keys. ForeverBetter needs only public
+credentials or payout-wallet private keys. wellnizz needs only public
 recipient addresses; payment signing stays with the paying agent.
 
 ## Fulfillment guarantees
 
-ForeverBetter verifies the payment before executing the route, buffers the
+wellnizz verifies the payment before executing the route, buffers the
 endpoint response, and settles only after successful fulfillment. Handler
 errors cancel the verified payment flow and return the normal API problem
 response without `PAYMENT-RESPONSE`.
 
-For paid `POST` routes, ForeverBetter derives an idempotency key from the signed
+For paid `POST` routes, wellnizz derives an idempotency key from the signed
 payment when the caller does not provide one. Retrying the same signed payment
 therefore replays the original write instead of creating a duplicate import or
 analysis. Solana duplicate-settlement protection is delegated to the configured

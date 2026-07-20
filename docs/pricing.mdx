@@ -1,9 +1,9 @@
 ---
 title: "Hosted pricing"
-description: "Hosted ForeverBetter API plans, limits, billing, and self-hosting."
+description: "Hosted wellnizz API plans, limits, billing, and self-hosting."
 ---
 
-The hosted ForeverBetter API gives you managed authentication, private
+The hosted wellnizz API gives you managed authentication, private
 storage, worker capacity, wearable connections, billing, and support. Every
 plan uses the same API and MCP contract.
 
@@ -33,7 +33,7 @@ volume. It requires an active paid Stripe subscription, a valid payment method,
 and a plan with a non-zero `full_dbsnp_jobs` quota. Free and Standard remain
 compact-only; Builder, Growth, and Enterprise are the intended hosted tiers
 for full dbSNP capacity. Self-hosted deployments are not subject to
-ForeverBetter billing.
+wellnizz billing.
 
 Builder and above permit an app, platform, or service that serves other users.
 Standard is for one person's own data and their own agent.
@@ -41,7 +41,7 @@ Standard is for one person's own data and their own agent.
 ## Billing
 
 From the dashboard, choose a hosted plan when the workspace is ready to
-continue. Stripe processes payment; ForeverBetter receives only verified
+continue. Stripe processes payment; wellnizz receives only verified
 subscription events. Selecting a plan does not start billing. Every cloud
 workspace gets its first **100 protected hosted API requests free** - enough to
 connect data, run an analysis, and test a small agent workflow. Checkout is
@@ -79,9 +79,9 @@ still needs the dbSNP reference provisioned on the deployment before using
 
 ### Do I have to pay to self-host?
 
-No. **Self-hosting is always an option.** The ForeverBetter API is
+No. **Self-hosting is always an option.** The wellnizz API is
 open source; run the API, workers, Postgres, object storage, and your data on
-your own infrastructure. A hosted plan only pays for ForeverBetter-managed
+your own infrastructure. A hosted plan only pays for wellnizz-managed
 cloud operations and support - it does not gate the self-hosted software or MCP
 server. See [Self-hosting](/self-hosting).
 
@@ -95,7 +95,7 @@ export or delete your data. Self-hosted deployments are unaffected.
 
 Not until the first 100 protected hosted requests are used. Then a managed
 cloud plan needs a payment method to continue, and its subscription begins at
-Checkout. Self-hosting never requires a ForeverBetter payment method.
+Checkout. Self-hosting never requires a wellnizz payment method.
 
 ### Can I change plans?
 
@@ -105,12 +105,12 @@ verified Stripe subscription events.
 ## Cloud operator setup
 
 Create one recurring monthly price for each hosted plan in the existing
-ForeverBetter Stripe account: **Standard $9.99**, **Builder $24.99**, and
+wellnizz Stripe account: **Standard $9.99**, **Builder $24.99**, and
 **Growth $49** (the highest self-serve hosted plan). Add the resulting price IDs and the Stripe secret key as cloud
 secrets; never put them in source control.
 
 Configure Stripe to send these events to
-`https://api.foreverbetter.xyz/billing/stripe/webhook`:
+`https://app.wellnizz.com/billing/stripe/webhook`:
 
 - `checkout.session.completed`
 - `customer.subscription.created`, `customer.subscription.updated`, and `customer.subscription.deleted`

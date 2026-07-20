@@ -7,7 +7,7 @@ WHOOP connects through server-side OAuth. There are two ways to do it, depending
 who owns the WHOOP app:
 
 - **First-party (consumer)**: a signed-up user connects their own WHOOP with one
-  click. ForeverBetter's WHOOP app is configured on the server, so the user never
+  click. wellnizz's WHOOP app is configured on the server, so the user never
   sees a `client_id`/`secret`. This is the flow below.
 - **Bring-your-own (integrator)**: your app owns a WHOOP app and passes its
   credentials on each call. See [Wearable onboarding](/wearable-onboarding).
@@ -38,7 +38,7 @@ WHOOP redirects back to the configured redirect URI with `?code=...`.
 
 ## 3. Dashboard completes the connection
 
-After approval, the ForeverBetter dashboard exchanges the code server-side and
+After approval, the wellnizz dashboard exchanges the code server-side and
 confirms the connection automatically. Do not copy an OAuth code or state back
 to an agent. The signed redirect state is bound to the user and organisation
 that started the flow.

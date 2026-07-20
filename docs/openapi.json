@@ -1,14 +1,14 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "ForeverBetter API",
+    "title": "wellnizz API",
     "version": "0.5.2",
-    "description": "ForeverBetter API and MCP-compatible service for genetics, biomarkers, wearables, lab discovery, dashboard specs, action plans, and hosted billing.",
+    "description": "wellnizz API and MCP-compatible service for genetics, biomarkers, wearables, lab discovery, dashboard specs, action plans, and hosted billing.",
     "x-guidance": "Use /openapi.json to discover the API. For a payable operation, make the exact request without credentials, select a compatible option from PAYMENT-REQUIRED, then retry unchanged with PAYMENT-SIGNATURE. x402 payments create a payer-scoped private workspace; do not send user_id or organization_id. Use GET /.well-known/x402.json for the live route and price catalog."
   },
   "servers": [
     {
-      "url": "https://api.foreverbetter.xyz"
+      "url": "https://app.wellnizz.com"
     }
   ],
   "security": [
@@ -1332,7 +1332,7 @@
                       "app_platform_service"
                     ],
                     "default": "personal_agent",
-                    "description": "personal_agent keys act for one person. mobile_sync creates a non-expiring, upload-only device credential for ForeverBetter Connect. Products serving other users need app_platform_service on the builder tier or higher."
+                    "description": "personal_agent keys act for one person. mobile_sync creates a non-expiring, upload-only device credential for Wellnizz Connect. Products serving other users need app_platform_service on the builder tier or higher."
                   },
                   "scopes": {
                     "type": "array",
@@ -2327,7 +2327,7 @@
     },
     "/api/v1/sdk/users/{user_id}/sync": {
       "post": {
-        "summary": "Push Google Health Connect readings from the ForeverBetter mobile SDK",
+        "summary": "Push Google Health Connect readings from the wellnizz mobile SDK",
         "security": [
           {
             "bearerAuth": []
@@ -2422,7 +2422,7 @@
             }
           }
         },
-        "description": "Push user-authorized Google Health Connect readings through the stable ForeverBetter mobile SDK envelope."
+        "description": "Push user-authorized Google Health Connect readings through the stable wellnizz mobile SDK envelope."
       }
     },
     "/connections/wearables/jobs/{id}": {
@@ -4966,7 +4966,7 @@
               "app_platform_service"
             ],
             "default": "personal_agent",
-            "description": "personal_agent keys act for one person. mobile_sync creates a non-expiring, upload-only device credential for ForeverBetter Connect. Products serving other users need app_platform_service on the builder tier or higher."
+            "description": "personal_agent keys act for one person. mobile_sync creates a non-expiring, upload-only device credential for Wellnizz Connect. Products serving other users need app_platform_service on the builder tier or higher."
           },
           "scopes": {
             "type": "array",
@@ -8148,7 +8148,7 @@
       "scopes": [
         "health:connections:write"
       ],
-      "description": "Push user-authorized Google Health Connect readings through the stable ForeverBetter mobile SDK envelope."
+      "description": "Push user-authorized Google Health Connect readings through the stable wellnizz mobile SDK envelope."
     },
     {
       "id": "connections.jobs.read",

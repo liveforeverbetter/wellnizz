@@ -1,9 +1,9 @@
 ---
 title: "Connect your agent"
-description: "Let an AI agent use the local pipeline, your self-hosted API, or ForeverBetter cloud to deliver the health outcome you choose."
+description: "Let an AI agent use the local pipeline, your self-hosted API, or wellnizz cloud to deliver the health outcome you choose."
 ---
 
-You do not need to write code. Point your agent at the ForeverBetter skill and it
+You do not need to write code. Point your agent at the wellnizz skill and it
 will choose among the local pipeline, your self-hosted API, or managed cloud;
 start with the data you already have; and deliver the outcome you ask for. That
 may be a daily action plan, full multimodal optimization, ancestry result, trend
@@ -16,7 +16,7 @@ sequence, and completion standard behind this workflow.
 
 ```text
 Help me analyze and connect my longevity data.
-Read https://api.foreverbetter.xyz/SKILL.md and follow its onboarding instructions.
+Read https://app.wellnizz.com/SKILL.md and follow its onboarding instructions.
 ```
 
 Works with Claude and any agent that can call an HTTP API or speak MCP.
@@ -26,7 +26,7 @@ Works with Claude and any agent that can call an HTTP API or speak MCP.
 ### Local pipeline mode
 
 The agent clones and runs the
-[ForeverBetter open-source repository](https://github.com/liveforeverbetter/agentic-health-analysis),
+[wellnizz open-source repository](https://github.com/liveforeverbetter/agentic-health-analysis),
 verifies a sample result before reading personal files, and keeps raw data on
 your machine. It runs directly with `npm`, without an API server. Plan-only
 requests return local JSON and a plain-language summary; dashboard requests can
@@ -40,11 +40,11 @@ Run the complete open-source API, MCP server, workers, and data store on your ow
 infrastructure. This is the full endpoint surface, not the npm-only local pipeline.
 Your agent points `HEALTH_API_URL` at the deployment, reads its live manifest and
 capabilities, and follows the same playbooks as cloud. Self-hosting never requires
-a ForeverBetter hosted subscription. Start with [Self-hosting](/self-hosting).
+a wellnizz hosted subscription. Start with [Self-hosting](/self-hosting).
 
 ### Cloud mode
 
-The agent starts a secure handoff and gives you a ForeverBetter sign-in URL. You
+The agent starts a secure handoff and gives you a wellnizz sign-in URL. You
 open it in your browser and sign in with email; the API creates a scoped personal
 key and returns it directly to the waiting agent. The agent stores the key
 securely and never asks you to paste an OTP, API key, OAuth code, or OAuth state
@@ -88,8 +88,8 @@ snapshot, so issue a new link if the stored analysis changes.
 With the key in hand, the API can also be attached as an MCP server:
 
 ```bash
-claude mcp add --transport http foreverbetter \
-  https://api.foreverbetter.xyz/mcp \
+claude mcp add --transport http wellnizz \
+  https://app.wellnizz.com/mcp \
   --header "Authorization: Bearer <api key>"
 ```
 
@@ -98,9 +98,9 @@ Or in any client that reads an `mcpServers` config:
 ```json
 {
   "mcpServers": {
-    "foreverbetter": {
+    "wellnizz": {
       "type": "http",
-      "url": "https://api.foreverbetter.xyz/mcp",
+      "url": "https://app.wellnizz.com/mcp",
       "headers": { "Authorization": "Bearer <api key>" }
     }
   }
@@ -118,14 +118,14 @@ no OAuth credentials on first-party deployments (check `first_party_oauth`
 under `wearables.whoop` or `wearables.oura` in `GET /capabilities`):
 
 ```bash
-curl -s -X POST "https://api.foreverbetter.xyz/connections/wearables/start" \
+curl -s -X POST "https://app.wellnizz.com/connections/wearables/start" \
   -H "authorization: Bearer $FB_KEY" -H "content-type: application/json" \
   -d '{"user_id":"'$UID'","organization_id":"'$ORG'","source_provider":"whoop"}'
 # → { "authorization_url": "https://api.prod.whoop.com/oauth/oauth2/auth?..." }
 ```
 
 Open the `authorization_url` your agent gives you and approve access. WHOOP
-sends you back to the ForeverBetter dashboard, which completes the link
+sends you back to the wellnizz dashboard, which completes the link
 automatically. You do not copy a code or state into chat. Your agent polls
 `GET /connections/wearables/status` for the active WHOOP connection, then can
 analyze data as it arrives.
@@ -134,24 +134,24 @@ The full WHOOP walkthrough is at [Connect a WHOOP](/use-cases/connect-whoop).
 For Oura, send the same request with `"source_provider":"oura"`; see
 [Connect an Oura Ring](/use-cases/connect-oura).
 
-## Google Health Connect through ForeverBetter Connect
+## Google Health Connect through Wellnizz Connect
 
-On Android, install and open the **ForeverBetter Connect** consumer app. Sign
-in with the same ForeverBetter account, choose **Google Health Connect**, grant
+On Android, install and open the **Wellnizz Connect** consumer app. Sign
+in with the same wellnizz account, choose **Google Health Connect**, grant
 the read permissions you want, and start background sync. Health Connect can
 aggregate Fitbit, Samsung Health, Google Fit, and other Android sources before
-ForeverBetter Connect uploads normalized records to your account.
+Wellnizz Connect uploads normalized records to your account.
 
 On Android 14 and newer, Health Connect is built into Settings. On Android 13
 and lower, install [Google Health Connect](https://play.google.com/store/apps/details?id=com.google.android.apps.healthdata)
 from Google Play first. Installing Google's app alone does not upload data to
-ForeverBetter; ForeverBetter Connect performs the authenticated sync. See
+wellnizz; Wellnizz Connect performs the authenticated sync. See
 [Wearable onboarding](/wearable-onboarding) for the consumer and embedded
 flows.
 
 ## Prefer the dashboard?
 
-Sign in at the [dashboard](https://api.foreverbetter.xyz/dashboard) with your
+Sign in at the [dashboard](https://app.wellnizz.com/dashboard) with your
 email and create a key there. Store it in your agent client's secret or
 environment configuration; do not paste credentials into chat. Both paths
 produce the same scoped key.
@@ -160,6 +160,6 @@ produce the same scoped key.
 
 A free personal key covers you and your own agent. Building an app, platform,
 or service for other users requires a Builder key or higher; see
-[pricing](https://api.foreverbetter.xyz/pricing). You can export or delete
+[pricing](https://app.wellnizz.com/pricing). You can export or delete
 everything the API holds about you at any time with
 `POST /users/{user_id}/data/export` and `POST /users/{user_id}/data/delete`.

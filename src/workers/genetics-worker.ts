@@ -1,8 +1,10 @@
 import { randomUUID } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
 import { configuredStore } from '../configured-store.js';
 import { runGeneticsPipelineWithWriter } from '../core/genetics-runner.js';
 import { upsertGeneticPipelineInterpretation } from '../core/genetic-analysis.js';
 import { retryTransientStoreOperation } from '../core/store-retry.js';
+import type { PgsPopulationSimilarity } from '../core/pgs-calibration.js';
 
 const workerId = process.env.HEALTH_ANALYSIS_WORKER_ID
   ?? process.env.GENOMIC_ANALYSIS_WORKER_ID
@@ -44,6 +46,7 @@ async function processNextJob(): Promise<boolean> {
     if (!source) throw new Error(`Source not found for genetic job: ${job.source_id}`);
     if (!analysis) throw new Error(`Analysis not found for genetic job: ${job.analysis_id}`);
 
+    const pgsPopulationSimilarity = await loadPgsPopulationSimilarity(source.id);
     const pipeline = await runGeneticsPipelineWithWriter(
       job.user_id,
       source,
@@ -52,9 +55,8 @@ async function processNextJob(): Promise<boolean> {
       {
         annotation_depth: job.annotation_depth,
         onProgress: progress => store.updateGeneticAnalysisJobProgress(job.id, progress),
-        // Preserve the complete analysis in durable storage before the inline
-        // payload is bounded. Keyed by analysis_id so read paths can fetch it.
         saveFullArtifact: body => store.saveAnalysisArtifact(job.analysis_id, body),
+        pgsPopulationSimilarity,
       },
     );
     upsertGeneticPipelineInterpretation(analysis, source, pipeline, job.id);
@@ -135,6 +137,18 @@ function errorMessage(error: unknown): string {
 
 function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function loadPgsPopulationSimilarity(sourceId: string): Promise<PgsPopulationSimilarity | undefined> {
+  const similarityDir = process.env.HEALTH_ANALYSIS_PGS_SIMILARITY_DIR;
+  if (!similarityDir) return undefined;
+  try {
+    const filePath = `${similarityDir}/${sourceId}_population_similarity.json`;
+    const raw = await readFile(filePath, 'utf8');
+    return JSON.parse(raw) as PgsPopulationSimilarity;
+  } catch {
+    return undefined;
+  }
 }
 
 void main().catch(error => {

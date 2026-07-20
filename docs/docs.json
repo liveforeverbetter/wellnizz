@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "ForeverBetter API",
+  "name": "wellnizz API",
   "colors": {
     "primary": "#DF1E39",
     "light": "#FF6A7C",
@@ -20,17 +20,17 @@
       },
       {
         "label": "GitHub",
-        "href": "https://github.com/liveforeverbetter/foreverbetter"
+        "href": "https://github.com/livewellnizz/wellnizz"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Get an API key",
-      "href": "https://api.foreverbetter.xyz/dashboard"
+      "href": "https://api.wellnizz.xyz/dashboard"
     }
   },
   "api": {
-    "baseUrl": "https://api.foreverbetter.xyz",
+    "baseUrl": "https://api.wellnizz.xyz",
     "auth": {
       "method": "bearer"
     },

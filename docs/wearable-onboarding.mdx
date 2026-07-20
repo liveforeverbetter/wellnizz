@@ -3,7 +3,7 @@ title: "Onboard wearable users"
 description: "Connect WHOOP or Oura, or push Google Health Connect readings from an Android app."
 ---
 
-ForeverBetter supports three wearable sources through a stable `wearables`
+wellnizz supports three wearable sources through a stable `wearables`
 modality:
 
 | Source | Connection | Where the user grants access |
@@ -90,11 +90,11 @@ provider-token storage configured.
 
 Your Android app requests the exact Health Connect read permissions it needs,
 reads records on-device, and pushes the stable SDK envelope directly to the
-user's ForeverBetter workspace:
+user's wellnizz workspace:
 
 ```bash
 curl -s "$HEALTH_API/api/v1/sdk/users/$END_USER/sync" \
-  -H "x-foreverbetter-api-key: $MOBILE_SYNC_KEY" \
+  -H "x-wellnizz-api-key: $MOBILE_SYNC_KEY" \
   -H "content-type: application/json" \
   -d '{
     "provider":"health_connect",

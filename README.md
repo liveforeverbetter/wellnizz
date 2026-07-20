@@ -198,6 +198,98 @@ flowchart LR
 
 One data type is still useful. Every response says what data was used, what is missing, and whether a result was measured, calculated, or combined.
 
+## The three modality pipelines
+
+Each modality keeps its raw source, normalized observations, interpretation, and
+provenance. That lets a client show the result and the evidence behind it. A
+single-modality analysis is valid on its own; a multimodal analysis adds the
+available modalities and explicitly reports gaps.
+
+### Biomarkers: measured labs → normalized values → derived physiology
+
+The biomarker pipeline accepts CSV, JSON, plain text, and supported lab PDFs.
+It canonicalizes marker names and units, applies age- and sex-aware ranges when
+the profile supports them, scores direct measurements, and calculates only
+metrics whose required inputs are present. Derived values retain their formula,
+input markers, canonical unit, and `source_type: "derived"`.
+
+The current marker catalog contains 168 definitions across:
+
+- **Cardiometabolic:** ApoB, LDL-C, HDL-C, triglycerides, total cholesterol, non-HDL-C, Lp(a), ApoA1, ApoB/ApoA1 ratio, LDL and HDL particle number, small LDL particles, VLDL-C, remnant cholesterol, cholesterol/HDL, LDL/HDL, triglyceride/HDL, atherogenic coefficient, atherogenic index of plasma, oxidized LDL, and Lp-PLA2.
+- **Glucose and insulin:** fasting glucose, fasting insulin, HbA1c, HOMA-IR, estimated average glucose, TyG index, C-peptide, fructosamine, glycated albumin, adiponectin, leptin, and ghrelin.
+- **Inflammation and immune:** hs-CRP, ferritin, homocysteine, white blood cells, neutrophils, lymphocytes, ESR, IL-6, TNF-alpha, fibrinogen, neutrophil/lymphocyte ratio, platelet/lymphocyte ratio, systemic immune-inflammation index, systemic inflammation response index, myeloperoxidase, ANA titer, and rheumatoid factor.
+- **Nutrient status:** vitamin D, B12, folate, magnesium, omega-3 index, uric acid, uric acid/HDL ratio, iron, TIBC, transferrin saturation, zinc, copper, selenium, vitamins A/E/B6, methylmalonic acid, and CoQ10.
+- **Hormone and thyroid:** TSH, free and total T3, free T4, TSH/free T4 ratio, total and free testosterone, estradiol, SHBG, DHEA-S, morning cortisol, LH, FSH, prolactin, progesterone, IGF-1, IGF-1 Z score, TPO antibodies, thyroglobulin antibodies, total/free PSA, PSA % free, and AMH.
+- **Organ function and safety:** ALT, AST, GGT, ALP, bilirubin, creatinine, eGFR, BUN, BUN/creatinine ratio, albumin, globulin, albumin/globulin ratio, sodium, potassium, chloride, CO2, calculated osmolality, calcium, corrected calcium, phosphorus, total protein, AST/ALT ratio, FIB-4, APRI, CRP/albumin ratio, fibrinogen/albumin ratio, cystatin C, urine albumin/creatinine, creatine kinase, LDH, and supported urinalysis fields including blood, protein, glucose, ketones, pH, specific gravity, cells, casts, bacteria, yeast, nitrite, leukocyte esterase, crystals, and bilirubin.
+- **Hematology:** hemoglobin, hematocrit, red blood cells, platelets, RDW, MCV, MCH, MCHC, estimated MCHC, MPV, monocytes, eosinophils, basophils, reticulocyte count, and Mentzer index.
+
+Common derived metrics include HOMA-IR, non-HDL-C, remnant cholesterol,
+ApoB/ApoA1, transferrin saturation, VLDL-C, lipid ratios, estimated average
+glucose, TyG, BUN/creatinine, CKD-EPI eGFR, calculated osmolality, corrected
+calcium, globulin, albumin/globulin, AST/ALT, FIB-4, APRI, CRP/albumin,
+fibrinogen/albumin, immune-cell ratios and indices, Mentzer index, estimated
+MCHC, and TSH/free T4. Domain scores and a biological-age estimate are only
+returned when the required measured inputs are available.
+
+### Wearables: provider sync → canonical time series → recovery and load context
+
+WHOOP and Oura use OAuth, refresh, named sync, and webhook reconciliation.
+Google Health Connect is an on-device Android bridge: the user grants access in
+the mobile app, which pushes selected records to the stable SDK endpoint. File
+imports use the same normalized observation shape. The API preserves source,
+timestamps, and collection windows before analyzing trends.
+
+The wearable engine currently interprets 29 canonical signals:
+
+- **Sleep and recovery:** sleep duration, sleep efficiency, sleep performance, deep sleep, light sleep, REM sleep, recovery/readiness score, sleep debt, and nap duration.
+- **Cardiovascular recovery:** HRV, resting heart rate, average heart rate, respiratory rate, oxygen saturation, and skin temperature.
+- **Activity and training:** maximum heart rate, daily steps, daily heart minutes, daily active minutes, Zone 2 minutes, vigorous minutes, workout count, strength sessions, VO2max estimate, and training strain.
+- **Rhythm and consistency:** sleep consistency, bedtime variability, wake-time variability, and alcohol days.
+
+Findings are interpreted against practical ranges and trends, then organized
+into sleep/recovery, cardiovascular recovery, activity/training, and rhythm
+domains. Wearable values are context, not a diagnosis; a short-term change is
+shown with its source and window rather than treated as a permanent trait.
+
+### Genetics: private genome → queued interpretation → bounded consumer context
+
+Large VCF/VCF.GZ and SNP-array files use a direct private upload, are finalized
+before analysis, and run as a queued job. The worker reports stages such as
+annotation, genotype extraction, clinical interpretation, polygenic scoring,
+consumer interpretation, persistence, and retry. Compact annotation uses the
+bundled reference; full dbSNP is an explicit advanced worker mode. Results keep
+the genome build, annotation depth, matched and missing variants, model
+coverage, calculation state, reference details, and reanalysis recommendation.
+
+The genetics pipeline has five user-facing interpretation layers:
+
+1. **Clinical and medication context:** ClinVar findings and CPIC pharmacogenomics.
+2. **Longevity and trait context:** curated genetic markers and the Genomic Longevity Index where the configured pipeline supports them.
+3. **Polygenic health traits:** LDL cholesterol, HDL cholesterol, triglycerides, type 2 diabetes, BMI, coronary artery disease, chronic kidney disease, type 1 diabetes, obesity, kidney function/eGFR, celiac disease, and CRP/inflammation.
+4. **Performance, sleep, and recovery context:** pulmonary function (FEV1/FVC), hand-grip strength, whole-body fat-free mass, walking duration, sleep duration, and chronotype. Measured phenotype and wearable data take precedence.
+The compact consumer interpretation layer also exposes supported topics such as
+caffeine clearance and sensitivity, aerobic trainability, power-versus-endurance
+context, exercise tolerance, soft-tissue resilience, pulmonary function, sleep
+duration, chronotype, grip strength, fat-free mass, and walking duration.
+
+## How the modalities are fused and surfaced
+
+Fusion happens after each source has been normalized and interpreted. The
+analysis receives one or more source IDs, joins their observations by user and
+workspace, and preserves each finding's source IDs, modality, engine, timestamp,
+and source type (`direct`, `derived`, `combined`, `queued`, or `setup_required`).
+The system then:
+
+1. Computes modality and domain findings, excluding unavailable or unverified data from aggregate scores.
+2. Uses the available findings, goals, symptoms, medications, supplements, lifestyle, and prior analyses to prioritize next steps. Missing modalities remain visible as coverage gaps; they do not make the available data unusable.
+3. Returns an analysis summary with top findings, optional healthspan/domain scores, and a dashboard spec containing cards, sections, freshness, quality, coverage, target ranges, confidence, and provenance.
+4. Makes the same bounded context queryable through REST and MCP, and renders it into a private dashboard or client-owned UI. Action plans link recommendations back to the findings and evidence that triggered them.
+
+This is evidence-weighted context, not an opaque “all data” score: direct
+measurements outrank derived values, measured phenotype outranks genetic tendency,
+and a result is labeled as partial, stale, setup-required, or unavailable when
+that is the honest state.
+
 ## Supported capabilities
 
 | Data type | Inputs and connections | Outputs |

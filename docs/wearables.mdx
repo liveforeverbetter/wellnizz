@@ -3,7 +3,7 @@ title: "Wearables"
 description: "Connect WHOOP or Oura, push Google Health Connect records, and analyze source-backed wearable signals."
 ---
 
-ForeverBetter exposes one stable `wearables` modality with three implemented
+wellnizz exposes one stable `wearables` modality with three implemented
 source paths:
 
 | Source | Connection | Implemented flow |
@@ -52,7 +52,7 @@ rotated token for secure persistence.
 
 ## Google Health Connect
 
-Google Health Connect is an on-device Android aggregator. ForeverBetter does
+Google Health Connect is an on-device Android aggregator. wellnizz does
 not receive data from it until a user-approved mobile app reads records and
 pushes them to the API.
 
@@ -60,7 +60,7 @@ The stable endpoint is:
 
 ```text
 POST /api/v1/sdk/users/{user_id}/sync
-X-ForeverBetter-API-Key: <mobile-sync-key>
+X-wellnizz-API-Key: <mobile-sync-key>
 ```
 
 The JSON body accepts `records`, `sleep`, and `workouts` arrays under `data`.

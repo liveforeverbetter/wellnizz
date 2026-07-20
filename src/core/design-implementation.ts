@@ -4,7 +4,7 @@ import { extname, join, relative } from 'node:path';
 
 const MERIDIAN_ROOT = join(process.cwd(), 'public', 'design-systems', 'meridian');
 const DESIGN_SPECIFICATIONS_ROOT = join(process.cwd(), 'public', 'design-system-specs');
-const DESIGN_SPECIFICATION_IDS = new Set(['aperture', 'meridian']);
+const DESIGN_SPECIFICATION_IDS = new Set(['aperture', 'meridian', 'foreverbetter']);
 
 type DesignFile = {
   path: string;
@@ -43,7 +43,24 @@ export async function getDesignImplementation(id: string, baseUrl: string) {
       schema_version: '1.0',
       id: 'aperture',
       name: 'Aperture full design-system handoff',
-      description: 'The complete Aperture component, token, template, and UI-kit specification. UI-kit data is illustrative only and must be replaced with scoped ForeverBetter API data.',
+      description: 'The complete Aperture component, token, template, and UI-kit specification. UI-kit data is illustrative only and must be replaced with scoped wellnizz API data.',
+      format: 'design_system_handoff',
+      entrypoint: specification.readme_path,
+      files: specification.files,
+      binary_assets: specification.binary_assets,
+      components: manifestArray(specification.manifest, 'components'),
+      templates: manifestArray(specification.manifest, 'templates'),
+      starting_points: manifestArray(specification.manifest, 'startingPoints'),
+      design_specification: specification,
+    };
+  }
+
+  if (id === 'foreverbetter') {
+    return {
+      schema_version: '1.0',
+      id: 'foreverbetter',
+      name: 'wellnizz Healthspan Dossier — full design system',
+      description: 'The house design system for wellnizz. A warm-paper editorial healthspan dossier with the full component library, tokens, layout sections, component definitions, metrics, modalities, responsive rules, animations, action plan guidance, and data capture patterns. Code-defined from the live API, not from an external handoff.',
       format: 'design_system_handoff',
       entrypoint: specification.readme_path,
       files: specification.files,
@@ -71,7 +88,7 @@ export async function getDesignImplementation(id: string, baseUrl: string) {
     schema_version: '1.0',
     id: 'meridian',
     name: 'Meridian wearable dashboard implementation',
-    description: 'A WHOOP-inspired wearable-performance dashboard for recovery, strain, sleep, and source-aware healthspan context. It is an independent ForeverBetter implementation, not affiliated with or endorsed by WHOOP.',
+    description: 'A WHOOP-inspired wearable-performance dashboard for recovery, strain, sleep, and source-aware healthspan context. It is an independent wellnizz implementation, not affiliated with or endorsed by WHOOP.',
     inspired_by: 'WHOOP wearable-performance information architecture',
     format: 'production_files',
     entrypoint: 'dashboard/index.html',
@@ -96,7 +113,7 @@ export async function getDesignImplementation(id: string, baseUrl: string) {
       { component: 'agent_context', endpoint: 'GET /dashboard-specs/{analysis_id}', fields: ['cards', 'sections', 'coverage', 'quality', 'provenance'], behaviour: 'Use this data contract for a personalized analysis dashboard.' },
     ],
     install: {
-      instruction: 'Write files exactly at the supplied paths, download binary_assets to their listed paths, and serve the dashboard directory at /dashboard on the same ForeverBetter API origin. Do not substitute mock health values: retain the supplied endpoint bindings and app.js state handling.',
+      instruction: 'Write files exactly at the supplied paths, download binary_assets to their listed paths, and serve the dashboard directory at /dashboard on the same wellnizz API origin. Do not substitute mock health values: retain the supplied endpoint bindings and app.js state handling.',
       required_routes: ['/auth/otp/start', '/auth/otp/verify', '/api-keys', '/capabilities', '/connections/wearables/start', '/connections/wearables/status', '/connections/wearables/callback', '/dashboard-specs/{analysis_id}'],
     },
     design_specification: specification,

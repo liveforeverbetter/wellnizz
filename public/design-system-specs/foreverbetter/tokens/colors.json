@@ -1,0 +1,22 @@
+{
+  "background": "#f6f3ee",
+  "surface": "#fbf9f5",
+  "surface_alt": "#f1ede5",
+  "border": "#e6e1d8",
+  "text": "#0e0e0e",
+  "text_muted": "#7a7770",
+  "primary": "#df1e39",
+  "on_primary": "#ffffff",
+  "accent": "#2f5b9e",
+  "positive": "#1e7a52",
+  "warning": "#b0791f",
+  "negative": "#c0223a",
+  "data_viz": [
+    "#df1e39",
+    "#2f5b9e",
+    "#1e7a52",
+    "#b0791f",
+    "#6d4aa8"
+  ],
+  "gradient": "linear-gradient(180deg, #fbf9f5, #f6f3ee)"
+}

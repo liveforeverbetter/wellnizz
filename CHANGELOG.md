@@ -1,5 +1,19 @@
 # Changelog
 
+## [Unreleased]
+
+- Add `GET /analyses/{id}/genetic-slice` endpoint for targeted gene, rsID, and
+  significance-level queries against completed WGS analyses without downloading
+  the full artifact. Each analysis now carries a compact gene/rsID slice index
+  built during compaction.
+- Add a checksum-pinned reference-allele cache for the PGS position/allele scorer.
+  When the bundled score registry has not changed, the scorer loads a pre-built
+  map of dbSNP reference alleles instead of querying the 28 GB dbSNP file on
+  every analysis run.
+- Document the three modality pipelines (biomarkers, wearables, genetics) and
+  their fusion into a single analysis, including marker catalog depth, canonical
+  signals, and evidence-weighting rules.
+
 ## [0.5.2] - 2026-07-17
 
 - Publish complete Aperture and Meridian design-system handoffs through

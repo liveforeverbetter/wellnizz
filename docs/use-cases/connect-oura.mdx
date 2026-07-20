@@ -5,7 +5,7 @@ description: "Let a signed-up user link Oura sleep, readiness, activity, and HRV
 
 Oura connects through server-side OAuth with the Oura API V2. The normal
 consumer flow is first-party: the dashboard sends the user to Oura, then
-ForeverBetter exchanges and encrypts the returned token for on-demand sync.
+wellnizz exchanges and encrypts the returned token for on-demand sync.
 
 <Note>
 First-party connect is available when `GET /capabilities` reports
@@ -23,7 +23,7 @@ curl -s -X POST "$FB_API/connections/wearables/start" \
   -d '{"user_id":"'$UID'","organization_id":"'$ORG'","source_provider":"oura"}'
 ```
 
-Redirect the user to `authorization_url`. Oura returns to the ForeverBetter
+Redirect the user to `authorization_url`. Oura returns to the wellnizz
 dashboard, which completes the connection automatically. Do not ask the user
 to copy a `code` or `state` back to an agent; poll
 `GET /connections/wearables/status` until Oura is active.
@@ -47,7 +47,7 @@ readiness, steps, and active energy where Oura has supplied them.
 2. Create an OAuth API application and add this exact redirect URI:
 
    ```text
-   https://api.foreverbetter.xyz/dashboard
+   https://app.wellnizz.com/dashboard
    ```
 
 3. Add these production environment values (do not expose the secret in the dashboard):
@@ -55,14 +55,14 @@ readiness, steps, and active energy where Oura has supplied them.
    ```text
    OURA_CLIENT_ID=<Oura Client ID>
    OURA_CLIENT_SECRET=<Oura Client Secret>
-   OURA_REDIRECT_URI=https://api.foreverbetter.xyz/dashboard
+   OURA_REDIRECT_URI=https://app.wellnizz.com/dashboard
    ```
 
 4. Keep `WHOOP_TOKEN_ENC_KEY` set to a 32-byte base64 key so first-party Oura
    refresh tokens are encrypted at rest. Oura refresh tokens rotate on use.
 
 Oura requires the redirect URI passed during authorization and token exchange
-to match the approved value exactly. ForeverBetter requests only `daily`,
+to match the approved value exactly. wellnizz requests only `daily`,
 `heartrate`, `personal`, and `workout` by default.
 
 ## Bring your own Oura app

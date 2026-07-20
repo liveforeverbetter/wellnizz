@@ -164,14 +164,14 @@ const LAYOUTS: Record<string, DesignLayout> = {
       "index-hero",
       "modality-coverage",
       "biomarker-panel",
-      "genetic-edges",
+      "superpowers",
       "polygenic-risk",
       "aging-hallmarks",
       "clinician-context",
       "action-plan",
     ],
     summary:
-      "The full ForeverBetter Healthspan dossier: a composite Genomic Longevity Index hero, every connected modality (biomarkers, wearables, genetics), genetic edges, polygenic risk, aging hallmarks, pharmacogenomic context, and the complete action plan - in an editorial dossier voice.",
+      "The full wellnizz Healthspan dossier: a composite Genomic Longevity Index hero, every connected modality (biomarkers, wearables, genetics), genetic superpowers, polygenic risk, aging hallmarks, pharmacogenomic context, and the complete action plan - in an editorial dossier voice.",
   },
   "ring-data": {
     hero: "score-ring",
@@ -378,9 +378,9 @@ const SYSTEMS: DesignSystem[] = [
           color: "#7a7770",
         },
       },
-      edge_card: {
+      superpower_card: {
         description:
-          'A genetic "edge" (strength) call-out card: gene, what it grants, and how rare it is.',
+          'A genetic superpower call-out card: gene, what it grants, and how rare it is. Green-left-border with positive framing.',
         css: {
           background: "#fbf9f5",
           border: "1px solid #e6e1d8",

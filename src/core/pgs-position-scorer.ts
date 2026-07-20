@@ -13,6 +13,7 @@ import {
   type PgsDirectionInterpretation,
   type PgsPopulationSimilarity,
 } from './pgs-calibration.js';
+import { loadOrBuildReferenceAlleleCache } from './pgs-reference-allele-cache.js';
 
 export interface BundledPgsManifestEntry {
   pgs_id: string;
@@ -141,13 +142,34 @@ export async function scoreBundledPositionAwarePgs(
       : 'The uploaded VCF header does not identify GRCh37. Position-aware scoring is withheld rather than assuming a genome build.');
   }
 
-  const requestedKeys = new Set(loaded.flatMap(score => score.rows.map(row => positionKey(row.chrom, row.pos))));
+  const allRows = loaded.flatMap(score => score.rows);
+  const requestedKeys = new Set(allRows.map(row => positionKey(row.chrom, row.pos)));
   const tempDir = await mkdtemp(path.join(os.tmpdir(), 'foreverbetter-pgs-'));
   try {
-    const [observed, references] = await Promise.all([
-      queryObservedGenotypes(inputVcf, requestedKeys),
-      queryDbsnpReferenceAlleles(dbsnpVcf, requestedKeys, tempDir),
-    ]);
+    let references: Map<string, string>;
+    try {
+      const cacheResult = await loadOrBuildReferenceAlleleCache(manifest.release, allRows, {
+        registryDir,
+        dbsnpVcf,
+      });
+      references = cacheResult.cache;
+      if (cacheResult.cache_path) {
+        console.warn(JSON.stringify({
+          ts: new Date().toISOString(),
+          event: 'pgs_reference_allele_cache_used',
+          cache_path: cacheResult.cache_path,
+          position_count: references.size,
+        }));
+      }
+    } catch (cacheError) {
+      console.warn(JSON.stringify({
+        ts: new Date().toISOString(),
+        event: 'pgs_reference_allele_cache_failed',
+        error: cacheError instanceof Error ? cacheError.message : String(cacheError),
+      }));
+      references = await queryDbsnpReferenceAlleles(dbsnpVcf, requestedKeys, tempDir);
+    }
+    const observed = await queryObservedGenotypes(inputVcf, requestedKeys);
     const scores = loaded.map(({ definition, rows }) => scoreWeightRows(
       definition,
       manifest.release,
@@ -234,6 +256,7 @@ export function scoreWeightRows(
   const calibration = calculationState === 'reference_relative' && calibrationDecision.calibrated
     ? calibrationDecision.result
     : null;
+  const calibrationReason = !calibrationDecision.calibrated ? calibrationDecision.reason : undefined;
   const percentile = calibration?.percentile ?? null;
   return {
     disease: definition.trait_id,
@@ -247,7 +270,7 @@ export function scoreWeightRows(
     description: calculationState === 'reference_relative'
       ? referenceRelativeDescription(percentile!, calibration!, directionInterpretation)
       : calculationState === 'raw_score_only'
-        ? `The model was scored by normalized GRCh37 position and alleles. Percentile interpretation is withheld: ${calibrationDecision.calibrated ? 'unknown calibration error' : calibrationDecision.reason}`
+        ? `The model was scored by normalized GRCh37 position and alleles. Percentile interpretation is withheld: ${calibrationDecision.calibrated ? 'unknown calibration error' : calibrationReason}`
         : calculationState === 'research_only'
           ? 'The research model was scored by normalized GRCh37 position and alleles. Direction, percentile, and trait prediction are intentionally withheld by reporting policy.'
         : `Only ${matched} of ${rows.length} model variants could be scored after position and allele quality control. No interpretation is returned.`,
@@ -270,7 +293,7 @@ export function scoreWeightRows(
     calibration,
     ...(calculationState === 'research_only'
       ? { calibrationUnavailableReason: 'Population ranking is intentionally withheld for this research-only model.' }
-      : !calibrationDecision.calibrated ? { calibrationUnavailableReason: calibrationDecision.reason } : {}),
+      : !calibrationDecision.calibrated ? { calibrationUnavailableReason: calibrationReason } : {}),
     reanalysisRecommended: calculationState === 'raw_score_only' || calculationState === 'insufficient_coverage',
     matchingQc: {
       observed_variant_calls: observedCalls,

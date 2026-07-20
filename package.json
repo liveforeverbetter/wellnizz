@@ -26,6 +26,7 @@
     "worker:wgs:once": "tsx src/workers/genetics-worker.ts --once",
     "worker:prs-reference": "tsx src/workers/prs-reference-worker.ts",
     "prs:calibration:build": "tsx scripts/build-prs-calibration.ts",
+    "prs:reference:score": "tsx scripts/batch-score-reference-panel.ts",
     "test": "tsx --test test/*.test.ts",
     "kb:build": "node scripts/build-kb.mjs",
     "typecheck": "tsc --noEmit"

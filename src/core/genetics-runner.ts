@@ -6,6 +6,7 @@ import type { GeneticAnalysisJobStage, GeneticsAnnotationDepth, RawSourceReferen
 import { normalizeGeneticsDashboard, type ConsumerGeneticsSection } from './genetic-insights.js';
 import { scoreBundledPositionAwarePgs } from './pgs-position-scorer.js';
 import type { PgsPopulationSimilarity } from './pgs-calibration.js';
+import { buildGeneticSliceIndex } from './genetic-slice.js';
 
 export interface GeneticsPipelineResult {
   status: 'complete' | 'setup_required' | 'failed';
@@ -192,6 +193,14 @@ export async function runGeneticsPipelineWithWriter(
   }
   await options.onProgress?.({ stage: 'consumer_interpretation', progress_pct: 92, progress_message: 'Building calibrated-safe consumer health and optimization interpretations.' });
   const consumerGenetics = normalizeGeneticsDashboard(dashboard);
+  // Build the compact gene/rsID slice index from the full dashboard variant cards
+  // and curated interpretations before the inline payload is bounded. This lets
+  // targeted queries like "do I carry anything in gene BRCA1" answer without
+  // downloading the full analysis artifact.
+  const sliceIndex = buildGeneticSliceIndex(dashboard);
+  if (sliceIndex && isRecord(dashboard) && isRecord(dashboard.metadata)) {
+    dashboard.metadata.genetic_slice_index = sliceIndex;
+  }
   const raw = summarizeDashboard(dashboard);
   raw.consumer_genetics = {
     ...consumerGenetics.summary,

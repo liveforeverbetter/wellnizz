@@ -175,10 +175,14 @@ authModeToggle?.addEventListener('keydown', (event) => {
 function agentSetupPrompt() {
   const base = window.location.origin;
   return [
-    'Help me analyze and connect my longevity data.',
+    'Help me connect, analyze, and interpret my wellness data.',
     `Read ${base}/SKILL.md and follow its onboarding instructions.`,
-    'Use cloud mode. Follow the skill\'s authentication and wearable connection flow.',
+    'Use cloud mode. Follow the skill\'s authentication and onboarding flow, then create a custom dashboard using one of the designs the user selects.',
   ].join('\n');
+}
+
+function agentSetupPromptDisplay() {
+  return 'Help me connect, analyze, and interpret my wellness data.';
 }
 
 copyAgentSetupBtn?.addEventListener('click', async () => {
@@ -1284,7 +1288,16 @@ if (state.agentLoginCode) {
 const returnedCheckout = checkoutReturn();
 const returnedOauth = oauthReturn() || readJson(sessionStorage.getItem('fb_pending_oauth_return'));
 
-if ($('#agent-setup-prompt')) $('#agent-setup-prompt').textContent = agentSetupPrompt();
+if ($('#agent-setup-prompt')) $('#agent-setup-prompt').textContent = agentSetupPromptDisplay();
+
+const agentTabs = document.querySelectorAll('.agent-tab');
+agentTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    agentTabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+    tab.classList.add('active');
+    tab.setAttribute('aria-selected', 'true');
+  });
+});
 
 if (state.accessToken && state.user) {
   if (state.agentLoginCode) {

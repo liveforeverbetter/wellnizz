@@ -1,6 +1,6 @@
 # Documentation voice and structure
 
-Use this guide when adding or revising ForeverBetter API docs.
+Use this guide when adding or revising wellnizz API docs.
 
 ## Voice
 
@@ -8,7 +8,7 @@ Use this guide when adding or revising ForeverBetter API docs.
 - Use direct, active sentences: "Upload a VCF" instead of "A VCF can be uploaded."
 - Lead with the result, then explain constraints and implementation details.
 - Prefer concrete endpoint names, response fields, and next steps over broad claims.
-- Use "ForeverBetter API" on first mention and "the API" afterward.
+- Use "wellnizz API" on first mention and "the API" afterward.
 - Use generic modality names in public copy. Mention provider brands only when a
   provider-specific setup step requires them.
 - Keep wellness guidance source-backed and avoid diagnostic or treatment claims.
@@ -29,7 +29,7 @@ Use this guide when adding or revising ForeverBetter API docs.
 
 ## Examples
 
-- Use `https://api.foreverbetter.xyz` as the hosted base URL.
+- Use `https://app.wellnizz.com` as the hosted base URL.
 - Show bearer authentication as `Authorization: Bearer <token>`.
 - Use synthetic data unless a page specifically explains personal-data handling.
 - End task guides with one clear next step.
