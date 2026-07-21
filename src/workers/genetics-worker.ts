@@ -66,6 +66,7 @@ async function processNextJob(): Promise<boolean> {
   activeJobId = job.id;
   activeAbortController = new AbortController();
   const { signal } = activeAbortController;
+  let pipelineSucceeded = false;
 
   try {
     const [source, analysis] = await Promise.all([
@@ -89,6 +90,7 @@ async function processNextJob(): Promise<boolean> {
         signal,
       },
     );
+    pipelineSucceeded = pipeline.status === 'complete';
     upsertGeneticPipelineInterpretation(analysis, source, pipeline, job.id);
     await storeWriteWithRetry(job.id, 'persisting_progress', () => store.updateGeneticAnalysisJobProgress(job.id, {
       stage: 'persisting_results',
@@ -123,17 +125,39 @@ async function processNextJob(): Promise<boolean> {
       return true;
     }
     const message = errorMessage(error);
-    try {
-      await storeWriteWithRetry(job.id, 'record_failure', () => store.failGeneticAnalysisJob(job.id, message));
-    } catch (persistenceError) {
+    if (pipelineSucceeded) {
       console.error(JSON.stringify({
         ts: new Date().toISOString(),
         worker_id: workerId,
         job_id: job.id,
-        event: 'genetics_job_failure_persistence_exhausted',
-        error: errorMessage(persistenceError),
-        original_error: message,
+        event: 'genetics_pipeline_succeeded_but_persistence_failed',
+        error: message,
       }));
+      try {
+        await store.failGeneticAnalysisJob(job.id, `Pipeline succeeded but persistence failed: ${message}`, { retryable: false });
+      } catch (persistenceError) {
+        console.error(JSON.stringify({
+          ts: new Date().toISOString(),
+          worker_id: workerId,
+          job_id: job.id,
+          event: 'genetics_job_failure_persistence_exhausted',
+          error: errorMessage(persistenceError),
+          original_error: message,
+        }));
+      }
+    } else {
+      try {
+        await storeWriteWithRetry(job.id, 'record_failure', () => store.failGeneticAnalysisJob(job.id, message));
+      } catch (persistenceError) {
+        console.error(JSON.stringify({
+          ts: new Date().toISOString(),
+          worker_id: workerId,
+          job_id: job.id,
+          event: 'genetics_job_failure_persistence_exhausted',
+          error: errorMessage(persistenceError),
+          original_error: message,
+        }));
+      }
     }
     console.error(JSON.stringify({
       ts: new Date().toISOString(),

@@ -40,7 +40,7 @@ export interface HealthStore {
   claimNextGeneticAnalysisJob(workerId: string): Promise<GeneticAnalysisJob | undefined>;
   updateGeneticAnalysisJobProgress(id: string, progress: { stage: GeneticAnalysisJobStage; progress_pct: number; progress_message?: string }): Promise<void>;
   completeGeneticAnalysisJob(id: string, result: unknown): Promise<void>;
-  failGeneticAnalysisJob(id: string, error: string): Promise<void>;
+  failGeneticAnalysisJob(id: string, error: string, options?: { retryable?: boolean }): Promise<void>;
   /** Reset a specific running job back to queued without counting the interrupted run as a failed attempt. */
   requeueGeneticAnalysisJob(id: string): Promise<void>;
   /** Reset all running jobs whose lock is older than staleMinutes (default 30) back to queued. Returns the number reset. */
@@ -289,10 +289,10 @@ export class HealthApiStore implements HealthStore {
     });
   }
 
-  async failGeneticAnalysisJob(id: string, error: string): Promise<void> {
+  async failGeneticAnalysisJob(id: string, error: string, options?: { retryable?: boolean }): Promise<void> {
     const job = this.geneticJobs.get(id);
     if (!job) return;
-    const retryable = job.attempts < job.max_attempts;
+    const retryable = options?.retryable ?? (job.attempts < job.max_attempts);
     this.geneticJobs.set(id, {
       ...job,
       status: retryable ? 'queued' : 'failed',
