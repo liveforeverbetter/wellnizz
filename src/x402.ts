@@ -481,7 +481,7 @@ function buildRouteConfig(config: X402Config): Record<string, RouteConfig> {
       unpaidResponseBody: async () => ({
         contentType: 'application/json',
         body: {
-          type: 'https://api.foreverbetter.xyz/problems/payment-required',
+          type: 'https://app.wellnizz.com/problems/payment-required',
           title: 'Payment Required',
           status: 402,
           detail: 'Send a valid x402 PAYMENT-SIGNATURE header or authenticate with a ForeverBetter API key.',
