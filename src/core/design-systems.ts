@@ -285,11 +285,11 @@ const SYSTEMS: DesignSystem[] = [
     id: "foreverbetter",
     name: "ForeverBetter",
     inspired_by: "ForeverBetter",
-    vibe: 'The house design. A warm-paper editorial "Healthspan dossier": near-black ink on soft paper, Schibsted Grotesk display for the numbers, a single coral accent, and a composite Genomic Longevity Index at the top. Reads like a printed report, not an app. The full multimodal board - biomarkers, wearables, genetics, action plan.',
+    vibe: 'The house design. A warm-paper editorial "Healthspan Dossier": near-black ink on soft paper, Plus Jakarta Sans for the interface, a single coral accent, and a composite Genomic Longevity Index at the top. Reads like a clinical report with heart, not a dashboard widget factory. The full multimodal board - biomarkers, wearables, genetics, superpowers, action plan.',
     best_for: [
       "full multimodal longevity reports",
       "composite healthspan index dashboards",
-      "editorial/print-style health dossiers",
+      "editorial/clinical-style health dossiers",
     ],
     color_scheme: "light",
     colors: {
@@ -309,13 +309,14 @@ const SYSTEMS: DesignSystem[] = [
       gradient: "linear-gradient(180deg, #fbf9f5, #f6f3ee)",
     },
     typography: {
-      font_display: '"Schibsted Grotesk", system-ui, -apple-system, sans-serif',
+      font_display: '"Fraunces", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif',
       font_body: '"DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif',
-      font_mono: '"DM Mono", ui-monospace, SFMono-Regular, Menlo, monospace',
+      font_mono: '"JetBrains Mono", "DM Mono", ui-monospace, SFMono-Regular, Menlo, monospace',
       google_fonts: [
-        "Schibsted+Grotesk:wght@500;600",
-        "DM+Sans:wght@400;500;600;700",
-        "DM+Mono:wght@400;500",
+        "Fraunces:opsz,wght@9..144,100..900",
+        "Plus+Jakarta+Sans:wght@400;500;600;700",
+        "DM+Sans:opsz,wght@9..40,100..1000",
+        "JetBrains+Mono:wght@400;500",
       ],
       scale: {
         display: {
@@ -1085,12 +1086,12 @@ const SYSTEMS: DesignSystem[] = [
       },
     ],
     action_plan: {
-      title: "FOCUS",
+      title: "Your plan",
       voice:
-        "Direct coach: specific, calm, and non-judgmental. Say what to do next and why it matters today.",
+        "ForeverBetter voice: evidence-first, direct, and literate. Every recommendation cites the observation or variant that triggered it. Use the connected data to form a narrative arc — here is what your body is telling you, here is what to do about it. Frame actions as 'your biomarkers suggest' or 'your genetics show', never as unsupported wellness claims. Be specific about timing ('this week', 'retest in 3 months'), dosage when evidence-graded, and the expected signal to watch for improvement. Never invent certainty where the evidence is preliminary; say 'the data suggest' rather than 'the data prove'. Maintain the editorial warmth without losing clinical rigor.",
       ranking:
-        "Rank by immediate safety and expected recovery impact, then by confidence and ease. Recovery constrains strain recommendations; observed data outranks genetic context.",
-      cadence: ["Now", "Today", "Tonight", "This week", "Retest"],
+        "Rank by safety tier first (intervention cannot cause harm), then by expected healthspan impact, evidence quality (A→D), and actionability (can the user do this today). Observed signals outrank genetic predisposition; maintenance habits that are already working get their own section.",
+      cadence: ["Now", "Today", "This week", "This month", "Retest"],
       item_fields: [
         "priority",
         "title",
@@ -1104,13 +1105,12 @@ const SYSTEMS: DesignSystem[] = [
         "status",
       ],
       stages: [
-        "FOCUS: one to three next actions",
-        "MAINTAIN: habits already supporting the signal",
+        "FOCUS: one to three evidence-backed actions for this week",
+        "MAINTAIN: habits already supporting your biomarkers",
         "WATCH: what would change the recommendation",
-        "RETEST: when to measure again and what to compare",
+        "RETEST: when to measure again to close the loop",
       ],
-      safety_boundary:
-        "Wellness education only. Do not diagnose, prescribe, or tell someone to train through concerning symptoms; route high-stakes findings to a qualified clinician.",
+      safety_boundary: "Wellness education only. Do not diagnose or prescribe; route concerning findings to a qualified clinician. Always include the medical disclaimer.",
     },
     data_capture: {
       identity_fields: [
@@ -1646,7 +1646,7 @@ const SYSTEMS: DesignSystem[] = [
     action_plan: {
       title: "FOCUS",
       voice:
-        "Direct, calm, observation-led, and non-judgmental. State what to do next, why it matters now, and which measured signal supports it.",
+        "Meridian voice: performance-coach direct, concise, and recovery-aware. Every recommendation is rooted in a measured signal — never genetic speculation. Frame actions around what the body is recovering from or adapting to. Use the same athletic-systems language as the dashboard: strain demands rest, sleep drives readiness, consistency compounds.",
       ranking:
         "Rank by immediate safety, recovery constraint, expected impact, evidence confidence, and ease. Observed wearable and biomarker data outrank inherited context.",
       cadence: ["Now", "Today", "Tonight", "This week", "Retest"],
@@ -2302,7 +2302,7 @@ const SYSTEMS: DesignSystem[] = [
     ],
     action_plan: {
       title: "This week’s focus",
-      voice: "Warm, second-person, and coaching. Explain the observation, the likely context, and one concrete, gentle action in sentence case.",
+      voice: "Aperture voice: evidence-graded, data-literate, and gently opinionated. Each recommendation cites the observation that triggered it. State the signal, the context, and one concrete action in plain language. Frame every suggestion as 'your data show' rather than 'you should'. Grade confidence: the user should know when the evidence is strong vs preliminary.",
       ranking: "Rank by safety, expected impact, confidence, and ease. Current observed signals outrank inherited context, and unsupported scores never create an action.",
       cadence: ["Now", "Today", "This week", "Retest"],
       item_fields: ["priority", "title", "why_now", "steps", "target_metric", "expected_check_in", "source_ids", "confidence", "safety_note", "status"],

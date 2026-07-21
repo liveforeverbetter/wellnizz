@@ -68,22 +68,36 @@ export async function getDesignImplementation(id: string, baseUrl: string) {
   }
 
   if (id === 'foreverbetter') {
+    const zipUrl = `${GITHUB_RAW_BASE}/foreverbetter-handoff.zip`;
+    const meta = await loadDesignMeta('foreverbetter');
     return {
       schema_version: '1.0',
       id: 'foreverbetter',
-      name: 'wellnizz Healthspan Dossier — house design system',
-      description: 'The house design system for wellnizz. Code-defined from the live API (GET /design/systems/foreverbetter).',
-      format: 'code_defined',
-      entrypoint: '/design/systems/foreverbetter',
-      components: [
-        component('gli_dial', '.gli-dial', 'Genomic Longevity Index semicircular dial.'),
-        component('modality_chip', '.modality-chip', 'Data-provenance pill.'),
-        component('superpower_card', '.superpower-card', 'Green-left-border genetic superpower.'),
-        component('primary_button', '.primary-btn[data-variant="editorial"]', 'Coral editorial CTA.'),
-        component('biomarker_row', '.biomarker-row', 'Biomarker panel row with status pill.'),
-        component('section_header', '.dossier-header', 'Editorial section header.'),
-        component('action_item', '.action-item', 'Evidence-graded intervention item.'),
-      ],
+      name: 'ForeverBetter Healthspan Dossier — house design system',
+      description: 'The complete ForeverBetter component, token, template, and voice specification. Download the full ZIP from the supplied URL.',
+      format: 'design_system_handoff',
+      download: { url: zipUrl, format: 'zip', size_bytes: await zipSize('foreverbetter') },
+      ...meta,
+      voice: {
+        philosophy: 'Evidence-first, empathetic, editorial. Every insight pins to a measurement. No fabricated scores. Placeholder sections signal missing data.',
+        tone: 'Confident health coach who reads the literature. Warm but never cloying. Numbers-first, narrative-second.',
+        rules: [
+          'Every data point must trace to a measurement or genetic variant the user has actually provided',
+          'Missing data → placeholder section with a clear CTA to connect the relevant source',
+          'Sentence case everywhere except the lone "Become a Member" CTA',
+          'No exclamation marks. No emoji. Brand is "foreverbetter" lowercase, one word.',
+          'Risk encoded via top-left pill badge + score color, never left-border accent cards',
+          'One gradient maximum per surface: the GLI ring',
+          'Tabular numerals on every score, price, percentage, currency',
+          'Always include the medical disclaimer verbatim in any complete deliverable',
+        ],
+      },
+      template: {
+        entrypoint: 'templates/foreverbetter-dashboard/ForeverbetterDashboard.dc.html',
+        instruction: 'Unzip the handoff. The dashboard template is at templates/foreverbetter-dashboard/. Render the full template with real user data, substituting live wellnizz API values for every {{placeholder}}. When the user lacks data for a section, render it as an empty-state card with a CTA to connect the missing source. The GLI ring, category grid, superpower cards, finding cells, action plan, and protocols must all stand independently.',
+        data_contract_path: 'GET /dashboard-specs/{analysis_id}',
+        prompt_injection: `Implement the full ForeverBetter dashboard template. Use all available data the user has stored with wellnizz — genetics, biomarkers, wearables, and health context. For any data the user hasn't provided, render a placeholder card with a clear call-to-action to connect that data source (e.g. "Connect your WHOOP", "Upload blood work", "Add a DNA file"). Every section and overview must stand on its own with the data available. Never fabricate scores or invent plausible-looking metrics. The GLI ring, modality coverage chart, superpower cards, biomarker rows, trait cards, findings cells, action plan items, and protocols are the canonical section order — preserve it.`,
+      },
     };
   }
 

@@ -73,7 +73,25 @@ Any one modality (genetics, biomarkers, or wearables) is enough to start.
 3. Download and extract the ZIP to a working directory
 4. Use the extracted files as context for building the dashboard: components, tokens, templates, styles, and API bindings are all included
 
-The wellnizz, Aperture, and Meridian systems all expose this endpoint. For Meridian, the response also includes a `production_dashboard` object with the pinned `dashboard/index.html`, `styles.css`, and `app.js` for direct use.
+The wellnizz, Aperture, and Meridian systems all expose this endpoint. For Meridian and wellnizz, the response also includes a `template` section with a ready-to-render dashboard entrypoint.
+
+**Dashboard implementation theme — apply to every dashboard generation:**
+
+When building a dashboard for the user, follow this reproducible structure:
+
+1. **Render the full template first.** Start from the design system's dashboard template entrypoint. Write the scaffold, HTML structure, and styling from the design handoff exactly as specified. Never skip sections.
+
+2. **Use all available data.** Query `GET /dashboard-specs/{analysis_id}` for the full data contract. Populate every metric, card, chip, and row with real user values. Genetics → superpower cards and trait cards. Biomarkers → lab result rows and range gauges. Wearables → activity rings and readiness metrics. Health context → SHBG, estradiol, TSH, and other deep biomarkers.
+
+3. **Placeholder missing data — never fabricate.** For any section where the user lacks data, render an empty-state card with the design system's empty-state pattern. Include a clear call-to-action: "Connect your WHOOP", "Upload blood work", "Add a DNA file". Never invent plausible-looking scores or fabricate metrics. Every number must trace to a measurement the user has actually provided.
+
+4. **Section independence.** Each section (GLI ring, modality coverage, superpower cards, biomarker rows, trait cards, findings cells, action plan, protocols, ancestry) must stand on its own with the data available. A section with partial data should still render what it has, not collapse entirely.
+
+5. **Canonical section order.** Preserve the template's section ordering: hero score → modality coverage → superpower cards → biomarker rows → trait cards → findings cells → action plan → protocols → ancestry → footer with medical disclaimer.
+
+6. **Voice consistency.** Every dashboard speaks in the design system's voice: evidence-first, empathetic, editorial. Numbers-first, narrative-second. Sentence case. No exclamation marks. No emoji. Risk communicated through color-coded status pills, not alarmist language.
+
+This structure makes every dashboard reproducible, independent of which agent generates it.
 
 ---
 
@@ -374,6 +392,14 @@ and analyses.
    evidence-graded (A to D) supplement discussion list, items the user already takes
    marked `already_taking`, and cited interaction cautions for logged medications.
    Always surface the `disclaimer` and `sources`.
+
+**Action plan delivery theme.** When presenting the action plan to the user:
+
+- **Speak in the design system's voice.** Read the `action_plan.voice` from the chosen design system. Every recommendation and summary should reflect that persona — ForeverBetter's editorial dossier, Aperture's evidence-graded coach, or Meridian's performance athlete-direct voice.
+- **Every recommendation cites its source.** "Your hsCRP of 2.1 mg/L suggests..." not "You should reduce inflammation."
+- **Cadence is concrete.** Use the design's cadence labels: Now, Today, This week, This month, Retest. Timing specificity builds trust.
+- **Missing data is a feature.** If a protocol requires a measurement the user hasn't provided, render it as a "Connect to unlock" card rather than skipping it.
+- **Safety boundary.** Never diagnose. Never prescribe. Route concerning findings to a qualified clinician. Include the medical disclaimer in every deliverable.
 
 **AI health agent** (`/use-cases/ai-health-agent`)
 1. `GET /capabilities` and `GET /.well-known/health-agent.json` to self-configure.
