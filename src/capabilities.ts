@@ -16,7 +16,7 @@ export interface Capability {
 
 export function capabilitiesCatalog(options: { whoopFirstParty?: boolean; ouraFirstParty?: boolean; fullDbsnpConfigured?: boolean } = {}): { service: string; generated_at: string; capabilities: Capability[] } {
   return {
-    service: 'foreverbetter-api',
+    service: 'wellnizz-api',
     generated_at: new Date().toISOString(),
     capabilities: [
       {
@@ -67,7 +67,7 @@ export function capabilitiesCatalog(options: { whoopFirstParty?: boolean; ouraFi
         required_scopes: ['health:connections:write', 'health:data:read'],
         notes: [
           'Google Health Connect is an on-device Android aggregator that can surface Fitbit, Samsung Health, Google Fit, and other Android sources in one place.',
-          'Connect via a mobile bridge: POST /connections/wearables/start returns the bridge setup contract (there is no server OAuth redirect). The ForeverBetter mobile SDK syncs directly to the API; custom bridges can use /imports/file with provider health_connect.',
+          'Connect via a mobile bridge: POST /connections/wearables/start returns the bridge setup contract (there is no server OAuth redirect). The Wellnizz mobile SDK syncs directly to the API; custom bridges can use /imports/file with provider health_connect.',
         ],
       },
       {

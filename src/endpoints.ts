@@ -219,7 +219,7 @@ export const ENDPOINTS: EndpointDefinition[] = [
     path: '/api/v1/sdk/users/:user_id/sync',
     category: 'connections',
     scopes: ['health:connections:write'],
-    description: 'Push user-authorized Google Health Connect readings through the stable ForeverBetter mobile SDK envelope.',
+    description: 'Push user-authorized Google Health Connect readings through the stable Wellnizz mobile SDK envelope.',
   },
   {
     id: 'connections.jobs.read',
@@ -623,7 +623,7 @@ export function endpointCatalog(enabledEndpointIds?: Set<string>) {
     }));
 
   return {
-    service: 'foreverbetter-api',
+    service: 'wellnizz-api',
     public: [
       'GET /health',
       'GET /ready',

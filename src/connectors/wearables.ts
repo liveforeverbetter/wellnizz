@@ -72,7 +72,7 @@ export const WEARABLE_PROVIDERS: WearableProviderInfo[] = [
     data_types: ['steps', 'sleep', 'heart_rate', 'hrv', 'oxygen_saturation', 'active_energy', 'respiratory_rate', 'vo2_max', 'weight', 'body_fat', 'blood_pressure', 'blood_glucose'],
     notes: [
       'On-device Android aggregator. It can surface data from Fitbit, Samsung Health, Google Fit, and many other Android apps in one place.',
-      'Connect with a mobile bridge: request Health Connect read permissions on-device, then sync through the ForeverBetter mobile SDK or POST /imports/file (category: wearables, provider: health_connect).',
+      'Connect with a mobile bridge: request Health Connect read permissions on-device, then sync through the Wellnizz mobile SDK or POST /imports/file (category: wearables, provider: health_connect).',
       'There is no server OAuth redirect for Health Connect. POST /connections/wearables/start returns the bridge setup contract instead of an authorization URL.',
     ],
   },
@@ -133,10 +133,10 @@ export function mobileBridgeConnection(provider: WearableProviderInfo): {
       'In your Android app, request Health Connect read permissions for the data types you need.',
       'Read the latest records from Health Connect on-device.',
       'Map each record to a canonical wearable metric id (see HEALTH_CONNECT_METRIC_MAP) or send Health Connect names directly.',
-      'Sync with the ForeverBetter mobile SDK, or push normalized readings to POST /imports/file with category "wearables" and provider "health_connect".',
+      'Sync with the Wellnizz mobile SDK, or push normalized readings to POST /imports/file with category "wearables" and provider "health_connect".',
     ],
     ingestion: {
-      sync_endpoint: 'ForeverBetter mobile SDK direct sync',
+      sync_endpoint: 'Wellnizz mobile SDK direct sync',
       import_endpoint: 'POST /imports/file',
       import_provider: 'health_connect',
       import_category: 'wearables',

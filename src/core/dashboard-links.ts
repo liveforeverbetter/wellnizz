@@ -177,7 +177,7 @@ export function renderPrivateDashboard(
 </head>
 <body data-hero="${escapeHtml(layout?.hero ?? 'card-grid')}">
   <main>
-    <header class="topbar"><div><div class="eyebrow">ForeverBetter · ${escapeHtml(design.name)}</div></div><div class="private"><i></i>Private link · expires ${escapeHtml(formatDate(expiresAt))}</div></header>
+    <header class="topbar"><div><div class="eyebrow">Wellnizz · ${escapeHtml(design.name)}</div></div><div class="private"><i></i>Private link · expires ${escapeHtml(formatDate(expiresAt))}</div></header>
     <section class="hero">
       <div class="hero-copy"><div class="eyebrow">${escapeHtml(layout?.voice ?? 'personal')} dashboard</div><h1>Your wellness data, made useful.</h1><p>${escapeHtml(layout?.summary ?? design.vibe)} Built from the data currently connected; add context when it becomes useful.</p></div>
       <div class="hero-score"><div><strong>${escapeHtml(heroValue)}</strong><span>${escapeHtml(heroLabel)}</span></div></div>

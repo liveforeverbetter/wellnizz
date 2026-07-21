@@ -215,13 +215,13 @@ async function route(req: IncomingMessage, res: ServerResponse, store: HealthSto
   // Keep the public response deliberately minimal. Detailed dependency and
   // storage diagnostics are available only to authenticated administrators.
   if (method === 'GET' && url.pathname === '/health') {
-    return sendJson(req, res, authConfig, 200, { ok: true, service: 'foreverbetter-api' });
+    return sendJson(req, res, authConfig, 200, { ok: true, service: 'wellnizz-api' });
   }
   if (method === 'GET' && url.pathname === '/ready') {
     const readiness = await readinessPayload(authConfig, store, x402Gateway);
     return sendJson(req, res, authConfig, readiness.ok ? 200 : 503, {
       ok: readiness.ok,
-      service: 'foreverbetter-api',
+      service: 'wellnizz-api',
       version: SERVICE_VERSION,
     });
   }
@@ -246,7 +246,7 @@ async function route(req: IncomingMessage, res: ServerResponse, store: HealthSto
   }
 
   if (method === 'GET' && url.pathname === '/version') {
-    return sendJson(req, res, authConfig, 200, { service: 'foreverbetter-api', version: SERVICE_VERSION });
+    return sendJson(req, res, authConfig, 200, { service: 'wellnizz-api', version: SERVICE_VERSION });
   }
 
   if (method === 'GET' && url.pathname === '/openapi.json') {
@@ -516,7 +516,7 @@ async function route(req: IncomingMessage, res: ServerResponse, store: HealthSto
   }
 
   // The Connect app's on-device Health Connect collector posts this stable SDK
-  // envelope so user data lands directly in ForeverBetter storage.
+  // envelope so user data lands directly in Wellnizz storage.
   const mobileSdkSyncMatch = originalUrl.pathname.match(/^\/api\/v1\/sdk\/users\/([^/]+)\/sync$/);
   if (method === 'POST' && mobileSdkSyncMatch) {
     const userId = decodeURIComponent(mobileSdkSyncMatch[1]);
@@ -977,7 +977,7 @@ async function route(req: IncomingMessage, res: ServerResponse, store: HealthSto
   if (method === 'POST' && url.pathname === '/connections/wearables/sync') {
     requireEndpoint(auth, authConfig, 'connections.sync');
     requireScope(auth, 'health:connections:write');
-    throw new HttpError(410, 'This legacy wearable pull endpoint has been retired. Use the ForeverBetter mobile SDK sync endpoint, or upload normalized Health Connect readings through POST /imports/file with category "wearables" and provider "health_connect".');
+    throw new HttpError(410, 'This legacy wearable pull endpoint has been retired. Use the Wellnizz mobile SDK sync endpoint, or upload normalized Health Connect readings through POST /imports/file with category "wearables" and provider "health_connect".');
   }
 
   if (method === 'POST' && syncMatch) {
@@ -2108,14 +2108,14 @@ function docsUrl(): string {
 // RFC 7807 problem type identifiers. Vendor-neutral URNs so responses carry no
 // hardcoded hostname.
 function problemType(status: number): string {
-  if (status === 402) return 'urn:foreverbetter-api:problem:payment-required';
-  if (status === 401) return 'urn:foreverbetter-api:problem:unauthorized';
-  if (status === 403) return 'urn:foreverbetter-api:problem:forbidden';
-  if (status === 404) return 'urn:foreverbetter-api:problem:not-found';
-  if (status === 413) return 'urn:foreverbetter-api:problem:body-too-large';
-  if (status === 429) return 'urn:foreverbetter-api:problem:rate-limited';
-  if (status >= 500) return 'urn:foreverbetter-api:problem:internal';
-  return 'urn:foreverbetter-api:problem:bad-request';
+  if (status === 402) return 'urn:wellnizz-api:problem:payment-required';
+  if (status === 401) return 'urn:wellnizz-api:problem:unauthorized';
+  if (status === 403) return 'urn:wellnizz-api:problem:forbidden';
+  if (status === 404) return 'urn:wellnizz-api:problem:not-found';
+  if (status === 413) return 'urn:wellnizz-api:problem:body-too-large';
+  if (status === 429) return 'urn:wellnizz-api:problem:rate-limited';
+  if (status >= 500) return 'urn:wellnizz-api:problem:internal';
+  return 'urn:wellnizz-api:problem:bad-request';
 }
 
 function problemTitle(status: number): string {
@@ -2151,7 +2151,7 @@ function safeErrorMessage(error: unknown, status: number): string {
 function errorHeaders(status: number, req: IncomingMessage): Record<string, string> {
   if (status !== 401) return {};
   return {
-    'www-authenticate': `Bearer realm="foreverbetter-api", error="invalid_token", error_uri="${publicBaseUrl(req, {
+    'www-authenticate': `Bearer realm="wellnizz-api", error="invalid_token", error_uri="${publicBaseUrl(req, {
       mode: 'disabled',
       algorithms: [],
       allowedOrigins: [],
@@ -2206,7 +2206,7 @@ async function readinessPayload(config: AuthConfig, store: HealthStore, x402Gate
     && (!production || storeReady.durable);
   return {
     ok,
-    service: 'foreverbetter-api',
+    service: 'wellnizz-api',
     version: SERVICE_VERSION,
     auth_mode: config.mode,
     storage: storeReady,
@@ -2223,8 +2223,8 @@ async function readinessPayload(config: AuthConfig, store: HealthStore, x402Gate
 function agentManifest(req: IncomingMessage, config: AuthConfig, x402Gateway?: X402Gateway) {
   const baseUrl = publicBaseUrl(req, config);
   return {
-    service: 'foreverbetter-api',
-    name: 'ForeverBetter API',
+    service: 'wellnizz-api',
+    name: 'Wellnizz API',
     version: SERVICE_VERSION,
     base_url: baseUrl,
     auth: {

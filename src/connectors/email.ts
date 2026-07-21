@@ -27,7 +27,7 @@ export function emailEnabled(env: NodeJS.ProcessEnv = process.env): boolean {
 
 export async function sendOtpEmail(to: string, code: string, env: NodeJS.ProcessEnv = process.env): Promise<void> {
   const driver = emailDriver(env);
-  const from = env.EMAIL_FROM ?? 'ForeverBetter <login@localhost>';
+  const from = env.EMAIL_FROM ?? 'Wellnizz <login@localhost>';
   const brand = normalizeEmailBrand(env.EMAIL_BRAND);
   const subject = `Your ${brand} sign-in code`;
   // A multipart message (plain text + HTML) renders everywhere and scores better
@@ -74,7 +74,7 @@ export async function sendOtpEmail(to: string, code: string, env: NodeJS.Process
 
 // Minimal, email-client-safe HTML: table layout, inline styles, no external
 // images, with a hidden preheader for the inbox preview.
-export function otpEmailHtml(code: string, brand = 'ForeverBetter'): string {
+export function otpEmailHtml(code: string, brand = 'Wellnizz'): string {
   const font = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif";
   const mono = "'SFMono-Regular',ui-monospace,Menlo,Consolas,monospace";
   const safeBrand = escapeHtml(normalizeEmailBrand(brand));
@@ -115,7 +115,7 @@ export function otpEmailHtml(code: string, brand = 'ForeverBetter'): string {
 }
 
 function normalizeEmailBrand(value: string | undefined): string {
-  return (value ?? '').replace(/[\r\n]+/g, ' ').trim().slice(0, 80) || 'ForeverBetter';
+  return (value ?? '').replace(/[\r\n]+/g, ' ').trim().slice(0, 80) || 'Wellnizz';
 }
 
 function escapeHtml(value: string): string {

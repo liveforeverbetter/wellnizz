@@ -267,7 +267,7 @@ export const PRICING_TIERS: PricingTier[] = [
 
 export function pricingCatalog() {
   return {
-    service: 'foreverbetter-api',
+    service: 'wellnizz-api',
     generated_at: new Date().toISOString(),
     currency: 'USD',
     hosted_introductory_allowance: {
@@ -303,7 +303,7 @@ export async function issueApiKey(
     throw new Error('Free API keys are for personal use or your own agent. Building an app, platform, or service requires Builder or higher.');
   }
   if (intendedUse === 'mobile_sync' && requestedTier !== 'free') {
-    throw new Error('ForeverBetter Connect mobile sync credentials use the free device-session tier.');
+    throw new Error('Wellnizz Connect mobile sync credentials use the free device-session tier.');
   }
   const isAdmin = auth.scopes.has('health:admin');
   const billingAdmin = isBillingAdmin(auth, config);

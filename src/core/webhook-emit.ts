@@ -39,12 +39,12 @@ export async function deliverWebhookEvent(event: WebhookEvent): Promise<void> {
   const secret = process.env.HEALTH_API_WEBHOOK_SECRET;
   const headers: Record<string, string> = {
     'content-type': 'application/json',
-    'user-agent': `foreverbetter-api-webhooks/${SERVICE_VERSION}`,
-    'x-foreverbetter-event-id': event.id,
-    'x-foreverbetter-event-type': event.type,
+    'user-agent': `wellnizz-api-webhooks/${SERVICE_VERSION}`,
+    'x-wellnizz-event-id': event.id,
+    'x-wellnizz-event-type': event.type,
   };
   if (secret) {
-    headers['x-foreverbetter-signature'] = `sha256=${createHmac('sha256', secret).update(body).digest('hex')}`;
+    headers['x-wellnizz-signature'] = `sha256=${createHmac('sha256', secret).update(body).digest('hex')}`;
   }
   await fetch(url, { method: 'POST', headers, body });
 }

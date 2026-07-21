@@ -283,8 +283,8 @@ const LAYOUTS: Record<string, DesignLayout> = {
 const SYSTEMS: DesignSystem[] = [
   {
     id: "foreverbetter",
-    name: "ForeverBetter",
-    inspired_by: "ForeverBetter",
+    name: "Wellnizz",
+    inspired_by: "Wellnizz",
     vibe: 'The house design. A warm-paper editorial "Healthspan Dossier": near-black ink on soft paper, Plus Jakarta Sans for the interface, a single coral accent, and a composite Genomic Longevity Index at the top. Reads like a clinical report with heart, not a dashboard widget factory. The full multimodal board - biomarkers, wearables, genetics, superpowers, action plan.',
     best_for: [
       "full multimodal longevity reports",
@@ -1088,7 +1088,7 @@ const SYSTEMS: DesignSystem[] = [
     action_plan: {
       title: "Your plan",
       voice:
-        "ForeverBetter voice: evidence-first, direct, and literate. Every recommendation cites the observation or variant that triggered it. Use the connected data to form a narrative arc — here is what your body is telling you, here is what to do about it. Frame actions as 'your biomarkers suggest' or 'your genetics show', never as unsupported wellness claims. Be specific about timing ('this week', 'retest in 3 months'), dosage when evidence-graded, and the expected signal to watch for improvement. Never invent certainty where the evidence is preliminary; say 'the data suggest' rather than 'the data prove'. Maintain the editorial warmth without losing clinical rigor.",
+        "Wellnizz voice: evidence-first, direct, and literate. Every recommendation cites the observation or variant that triggered it. Use the connected data to form a narrative arc — here is what your body is telling you, here is what to do about it. Frame actions as 'your biomarkers suggest' or 'your genetics show', never as unsupported wellness claims. Be specific about timing ('this week', 'retest in 3 months'), dosage when evidence-graded, and the expected signal to watch for improvement. Never invent certainty where the evidence is preliminary; say 'the data suggest' rather than 'the data prove'. Maintain the editorial warmth without losing clinical rigor.",
       ranking:
         "Rank by safety tier first (intervention cannot cause harm), then by expected healthspan impact, evidence quality (A→D), and actionability (can the user do this today). Observed signals outrank genetic predisposition; maintenance habits that are already working get their own section.",
       cadence: ["Now", "Today", "This week", "This month", "Retest"],
@@ -2793,7 +2793,7 @@ export function designSystemMarkdown(system: DesignSystem): string {
     `# ${system.name} - design system`,
     ``,
     house
-      ? `_The ForeverBetter house design. ${system.vibe}_`
+      ? `_The Wellnizz house design. ${system.vibe}_`
       : importedHandoff
       ? `_Source: user-provided ${system.inspired_by}. ${system.vibe}_`
       : `_Inspired by ${system.inspired_by}. ${system.vibe}_`,
@@ -2908,7 +2908,7 @@ export function designSystemMarkdown(system: DesignSystem): string {
     components,
     ``,
     house
-      ? `> The ForeverBetter house design system - the canonical Healthspan dossier. Uses open/system fonts; no proprietary font files are bundled.`
+      ? `> The Wellnizz house design system - the canonical Healthspan dossier. Uses open/system fonts; no proprietary font files are bundled.`
       : importedHandoff
       ? `> Encoded from the user-provided ${system.name} handoff as tokens, layout, data, and motion guidance. The implementation includes no source HTML, prototype runtime, images, or proprietary assets.`
       : `> Educational design guidance inspired by ${system.inspired_by}. Not affiliated with or endorsed by ${system.inspired_by}; no proprietary fonts, assets, or screenshots are included.`,

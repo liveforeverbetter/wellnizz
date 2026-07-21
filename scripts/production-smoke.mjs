@@ -72,12 +72,12 @@ check("consumer dashboard is reachable", async () => {
 check("ready endpoint is healthy", async () => {
   const body = await fetchJson("/ready");
   if (body.ok !== true) throw new Error("/ready ok was not true");
-  if (body.service !== "foreverbetter-api") throw new Error(`unexpected service ${body.service}`);
+  if (body.service !== "wellnizz-api") throw new Error(`unexpected service ${body.service}`);
 });
 
 check("OpenAPI branding is current", async () => {
   const body = await fetchJson("/openapi.json");
-  if (body.info?.title !== "ForeverBetter API") throw new Error(`unexpected OpenAPI title ${body.info?.title}`);
+  if (body.info?.title !== "Wellnizz API") throw new Error(`unexpected OpenAPI title ${body.info?.title}`);
   if (!body.paths?.["/imports/file"]?.post) throw new Error("OpenAPI missing POST /imports/file");
   if (!body.paths?.["/api/v1/sdk/users/{user_id}/sync"]?.post) throw new Error("OpenAPI missing the mobile SDK sync endpoint");
   if (!body.paths?.["/biomarkers/derive"]?.post) throw new Error("OpenAPI missing POST /biomarkers/derive");
@@ -91,7 +91,7 @@ check("OpenAPI branding is current", async () => {
 
 check("agent manifest is current", async () => {
   const body = await fetchJson("/.well-known/health-agent.json");
-  if (body.name !== "ForeverBetter API") throw new Error(`unexpected agent manifest name ${body.name}`);
+  if (body.name !== "Wellnizz API") throw new Error(`unexpected agent manifest name ${body.name}`);
   if (!body.openapi_url?.endsWith("/openapi.json")) throw new Error("agent manifest missing OpenAPI URL");
   if (body.auth?.self_serve_key?.steps?.length !== 3) throw new Error("agent manifest missing the three-step self-serve key flow");
 });

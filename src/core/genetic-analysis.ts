@@ -91,7 +91,7 @@ function consumerGeneticInterpretations(
       source_ids: [source.id],
       source_categories: ['genetics' as const],
       source_type: 'derived' as const,
-      engine: `ForeverBetter consumer genetics ${section.interpretation_release}`,
+      engine: `Wellnizz consumer genetics ${section.interpretation_release}`,
       generated_at: section.generated_at,
     },
     raw: {

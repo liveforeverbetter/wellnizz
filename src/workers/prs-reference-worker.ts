@@ -21,7 +21,7 @@ async function main(): Promise<void> {
       unrelated_samples: positiveInteger('PRS_REFERENCE_UNRELATED_SAMPLES'),
     },
     generator: {
-      name: process.env.PRS_REFERENCE_GENERATOR_NAME ?? 'foreverbetter-prs-reference',
+      name: process.env.PRS_REFERENCE_GENERATOR_NAME ?? 'wellnizz-prs-reference',
       version: required('PRS_REFERENCE_GENERATOR_VERSION'),
       command: process.env.PRS_REFERENCE_GENERATOR_COMMAND,
     },

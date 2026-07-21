@@ -106,7 +106,7 @@ async function queryYextSearch(input: LabSearchInput): Promise<Array<{ id: strin
 
   const url = `https://liveapi.yext.com/v2/accounts/me/answers/vertical/query?${params.toString()}`;
   const response = await fetch(url, {
-    headers: { accept: 'application/json', 'user-agent': 'ForeverBetter/1.0' },
+    headers: { accept: 'application/json', 'user-agent': 'Wellnizz/1.0' },
     signal: AbortSignal.timeout(8000),
   });
 
@@ -166,7 +166,7 @@ async function synlabLocator(input: LabSearchInput): Promise<LabSearchResult> {
       const response = await fetch(`https://www.synlab.com/api/lablocator/search?${params.toString()}`, {
         headers: {
           accept: 'application/json',
-          'user-agent': 'ForeverBetter/1.0',
+          'user-agent': 'Wellnizz/1.0',
           authorization: `Bearer ${SYNLAB_API_KEY}`,
         },
         signal: AbortSignal.timeout(5000),
@@ -275,7 +275,7 @@ async function storedCatalogResult(provider: 'quest' | 'synlab', input: LabSearc
     query: { ...input },
     locator_url: provider === 'quest' ? questHandoffUrl(input) : synlabHandoffUrl(input),
     booking_url: defaultBookingUrl,
-    notes: ['Location data served from the ForeverBetter stored lab-location catalog.'],
+    notes: ['Location data served from the Wellnizz stored lab-location catalog.'],
     locations: locations.map(row => ({
       id: `${row.provider}_${row.provider_location_id}`,
       name: row.name,

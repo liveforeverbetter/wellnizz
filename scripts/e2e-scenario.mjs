@@ -81,9 +81,9 @@ await step('public metadata endpoints are available', async () => {
     request('GET', '/capabilities', { auth: false }),
     request('GET', '/pricing', { auth: false }),
   ]);
-  assert(version.body.service === 'foreverbetter-api', 'unexpected /version service');
-  assert(openapi.body.info?.title === 'ForeverBetter API', 'OpenAPI title is not current');
-  assert(manifest.body.name === 'ForeverBetter API', 'agent manifest name is not current');
+  assert(version.body.service === 'wellnizz-api', 'unexpected /version service');
+  assert(openapi.body.info?.title === 'Wellnizz API', 'OpenAPI title is not current');
+  assert(manifest.body.name === 'Wellnizz API', 'agent manifest name is not current');
   assert(Array.isArray(endpoints.body.protected) && endpoints.body.protected.length > 0, '/endpoints did not return protected endpoint metadata');
   assert(
     Array.isArray(capabilities.body.capabilities)

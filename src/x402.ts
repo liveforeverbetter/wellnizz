@@ -475,7 +475,7 @@ function buildRouteConfig(config: X402Config): Record<string, RouteConfig> {
       })),
       description: route.description,
       mimeType: 'application/json',
-      serviceName: 'ForeverBetter API',
+      serviceName: 'Wellnizz API',
       tags: route.tags.slice(0, 5),
       extensions: declareDiscoveryExtension(route.discovery),
       unpaidResponseBody: async () => ({
@@ -484,7 +484,7 @@ function buildRouteConfig(config: X402Config): Record<string, RouteConfig> {
           type: 'https://app.wellnizz.com/problems/payment-required',
           title: 'Payment Required',
           status: 402,
-          detail: 'Send a valid x402 PAYMENT-SIGNATURE header or authenticate with a ForeverBetter API key.',
+          detail: 'Send a valid x402 PAYMENT-SIGNATURE header or authenticate with a Wellnizz API key.',
           endpoint_id: route.endpointId,
           price: priceFor(config, route),
         },

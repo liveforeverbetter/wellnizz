@@ -241,7 +241,7 @@ export class StripeBillingService {
     const firstItem = objectRecord(arrayValue(objectRecord(subscription.items)?.data)[0]);
     const priceId = stringValue(objectRecord(firstItem?.price)?.id);
     if (!userId || !organizationId || !customerId || !subscriptionId || !status || !priceId || !isCheckoutTier(tier)) {
-      throw new BillingError(400, 'Stripe subscription is missing ForeverBetter subscription metadata.');
+      throw new BillingError(400, 'Stripe subscription is missing Wellnizz subscription metadata.');
     }
     await getPool().query(
       `insert into health_api.billing_subscriptions

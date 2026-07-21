@@ -7,7 +7,7 @@ export type AuditOutcome = 'success' | 'denied' | 'error';
 
 export interface AuditRecord {
   ts: string;
-  service: 'foreverbetter-api';
+  service: 'wellnizz-api';
   outcome: AuditOutcome;
   method?: string;
   route: string;
@@ -46,7 +46,7 @@ export function auditEvent(
 ): void {
   const event: AuditRecord = {
     ts: new Date().toISOString(),
-    service: 'foreverbetter-api',
+    service: 'wellnizz-api',
     outcome,
     method: req.method,
     route: sanitizeRoute(details.route),
@@ -115,7 +115,7 @@ async function flushQueue(): Promise<void> {
   } catch (error) {
     console.error(JSON.stringify({
       ts: new Date().toISOString(),
-      service: 'foreverbetter-api',
+      service: 'wellnizz-api',
       outcome: 'error',
       route: 'audit_sink',
       status: 500,

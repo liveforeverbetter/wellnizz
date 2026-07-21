@@ -86,7 +86,7 @@ function attachX402Operations(paths: Record<string, Record<string, unknown>>, x4
       bazaar_dynamic_routes: x402.bazaar.dynamic_routes,
     };
     // x402scan discovers paid operations through this interoperable OpenAPI extension.
-    // Keep x-x402 above for existing ForeverBetter clients.
+    // Keep x-x402 above for existing Wellnizz clients.
     paidOperation['x-payment-info'] = {
       price: { mode: 'fixed', currency: 'USD', amount: route.price_usd.replace(/^\$/, '') },
       protocols: [{ x402: {} }],
@@ -311,9 +311,9 @@ export function openApiDocument(baseUrl = 'http://localhost:8787', x402?: X402Pu
   const doc = {
     openapi: '3.1.0',
     info: {
-      title: 'ForeverBetter API',
+      title: 'Wellnizz API',
       version: SERVICE_VERSION,
-      description: 'ForeverBetter API and MCP-compatible service for genetics, biomarkers, wearables, lab discovery, dashboard specs, action plans, and hosted billing.',
+      description: 'Wellnizz API and MCP-compatible service for genetics, biomarkers, wearables, lab discovery, dashboard specs, action plans, and hosted billing.',
       'x-guidance': 'Use /openapi.json to discover the API. For a payable operation, make the exact request without credentials, select a compatible option from PAYMENT-REQUIRED, then retry unchanged with PAYMENT-SIGNATURE. x402 payments create a payer-scoped private workspace; do not send user_id or organization_id. Use GET /.well-known/x402.json for the live route and price catalog.',
     },
     servers: [{ url: baseUrl }],
@@ -365,7 +365,7 @@ export function openApiDocument(baseUrl = 'http://localhost:8787', x402?: X402Pu
       '/connections/{provider}/auth-url': { post: operationWithBody('Build provider OAuth URL', toolInputSchemas.connect_health_source) },
       '/connections/{provider}/token': { post: operationWithBody('Exchange provider OAuth code', oauthTokenSchema()) },
       '/connections/{provider}/refresh': { post: operationWithBody('Refresh a provider access token', oauthRefreshSchema()) },
-      '/api/v1/sdk/users/{user_id}/sync': { post: operationWithBody('Push Google Health Connect readings from the ForeverBetter mobile SDK', healthConnectSdkSchema()) },
+      '/api/v1/sdk/users/{user_id}/sync': { post: operationWithBody('Push Google Health Connect readings from the Wellnizz mobile SDK', healthConnectSdkSchema()) },
       '/connections/wearables/jobs/{id}': { get: simpleOperation('Read queued wearable sync job status') },
       '/analyses': {
         get: listOperation('List analyses for a user', [
@@ -499,7 +499,7 @@ function apiKeyCreateSchema(): JsonSchema {
       user_id: userId,
       organization_id: organizationId,
       tier: { type: 'string', enum: ['free', 'builder', 'growth', 'enterprise'], default: 'free', description: 'free is self-serve for personal use. Paid tiers require an admin token.' },
-      intended_use: { type: 'string', enum: ['personal_agent', 'mobile_sync', 'app_platform_service'], default: 'personal_agent', description: 'personal_agent keys act for one person. mobile_sync creates a non-expiring, upload-only device credential for ForeverBetter Connect. Products serving other users need app_platform_service on the builder tier or higher.' },
+      intended_use: { type: 'string', enum: ['personal_agent', 'mobile_sync', 'app_platform_service'], default: 'personal_agent', description: 'personal_agent keys act for one person. mobile_sync creates a non-expiring, upload-only device credential for Wellnizz Connect. Products serving other users need app_platform_service on the builder tier or higher.' },
       scopes: {
         type: 'array',
         description: 'Defaults to the standard personal grant set when omitted.',
