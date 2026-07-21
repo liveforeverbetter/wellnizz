@@ -1,6 +1,6 @@
 {
   "description": "Polygenic Risk Score weights for longevity, wellness, and disease traits. Sourced from published GWAS meta-analyses (UK Biobank, GLGC, GIANT, PGC, IGAP, SUNLIGHT, CHARGE, CARDIoGRAMplusC4D).",
-  "updated": "2026-05-19",
+  "updated": "2026-07-21",
   "diseases": [
     "coronary_artery_disease",
     "type_2_diabetes",
@@ -28,221 +28,1397 @@
     "cognitive_performance",
     "neuroticism",
     "alcohol_consumption",
-    "caffeine_metabolism"
+    "caffeine_metabolism",
+    "achromatopsia",
+    "alpha_1_antitrypsin_deficiency",
+    "amyloidosis_finnish_type_gsn_gene",
+    "autosomal_dominant_retinitis_pigmentosa",
+    "autosomal_recessive_retinitis_pigmentosa",
+    "birt_hogg_dube_syndrome",
+    "brugada_syndrome",
+    "catecholaminergic_polymorphic_ventricular_tachycardia_casq2_gene",
+    "catecholaminergic_polymorphic_ventricular_tachycardia_ryr2_gene",
+    "catecholaminergic_polymorphic_ventricular_tachycardia_trdn_gene",
+    "cerebrotendinous_xanthomatosis",
+    "congenital_myasthenic_syndrome_chrnb1_gene",
+    "congenital_stationary_night_blindness_oguchi_disease",
+    "congenital_disorder_of_glycosylation_type_1c_alg6_gene",
+    "congenital_disorder_of_glycosylation_type_1k_alg1_gene",
+    "dilated_cardiomyopathy_1dd_rbm20_gene",
+    "dilated_cardiomyopathy_1d_tnnt2_gene",
+    "dilated_cardiomyopathy_1p_pln_gene",
+    "dubin_johnson_syndrome",
+    "ehlers_danlos_syndrome_eds",
+    "familial_hypercholesterolemia",
+    "familial_breast_cancer_brca1_and_brca2_genes",
+    "fanconi_anemia_fanca_gene",
+    "fanconi_anemia_fancg_gene",
+    "hemophilia_b",
+    "hereditary_coproporphyria_cpox_gene",
+    "hereditary_hemochromatosis_type_2a_hjv_gene",
+    "hereditary_hemochromatosis_type_4_slc40a1_gene",
+    "hereditary_paraganglioma_pheochromocytoma_syndrome",
+    "homocystinuria_due_to_mthfr_deficiency",
+    "long_chain_3_hydroxyacyl_coa_dehydrogenase_deficiency",
+    "long_qt_syndrome_type_3",
+    "long_qt_syndrome_types_1_and_2",
+    "lynch_syndrome",
+    "methylmalonic_aciduria_with_homocystinuria_cblc_type",
+    "methylmalonic_aciduria_with_homocystinuria_cbld_type",
+    "methylmalonic_aciduria_with_homocystinuria_cblf_type",
+    "mitochondrial_trifunctional_protein_deficiency",
+    "neurofibromatosis_type_i",
+    "niemann_pick_disease_type_c",
+    "niemann_pick_disease_type_a_and_b",
+    "oculocutaneous_albinism_slc45a2_gene",
+    "oculocutaneous_albinism_tyrp1_gene",
+    "polymerase_proofreading_associated_polyposis_pold1_and_pole_genes",
+    "pontocerebellar_hypoplasia_type_1b_exosc3_gene",
+    "pontocerebellar_hypoplasia_type_2d_sepsecs_gene",
+    "pontocerebellar_hypoplasia_type_6_rars2_gene",
+    "primary_hyperoxaluria_type_3_ph3",
+    "systemic_amyloidosis_fga_gene",
+    "tyrosinemia_type_ii",
+    "variegate_porphyria_ppox_gene",
+    "acne_vulgaris",
+    "alanine_aminotransferase_levels",
+    "alcohol_dependence_after_prolonged_consumption",
+    "basal_metabolic_rate",
+    "birth_weight",
+    "c_reactive_protein_levels",
+    "cognitive_ability",
+    "dental_caries_and_periodontitis",
+    "frequency_of_bowel_movements",
+    "gamma_glutamyl_transferase_levels",
+    "height",
+    "insomnia",
+    "left_handedness_left_lateral",
+    "morning_circadian_rythm_morning_person",
+    "neutrophil_count",
+    "red_blood_cell_count",
+    "skin_melanin_levels",
+    "spleen_volume",
+    "thyroid_function_tsh_levels",
+    "apolipoprotein_a1_levels",
+    "apolipoprotein_b_levels",
+    "blood_glucose",
+    "calcium_levels",
+    "diastolic_blood_pressure_levels",
+    "glycated_hemoglobin_levels",
+    "hdl_cholesterol_levels",
+    "lung_function_exhaled_air_volume",
+    "systolic_blood_pressure_levels",
+    "urate_levels"
   ],
   "variants": [
-    {"rsid":"rs11206510","effect_allele":"T","effect_weight":0.065,"disease":"coronary_artery_disease","citation":"CARDIoGRAMplusC4D 2013"},
-    {"rsid":"rs4977574","effect_allele":"G","effect_weight":0.089,"disease":"coronary_artery_disease","citation":"CARDIoGRAMplusC4D 9p21"},
-    {"rsid":"rs646776","effect_allele":"T","effect_weight":0.072,"disease":"coronary_artery_disease","citation":"CARDIoGRAMplusC4D SORT1"},
-    {"rsid":"rs17465637","effect_allele":"C","effect_weight":0.055,"disease":"coronary_artery_disease","citation":"CARDIoGRAMplusC4D MIA3"},
-    {"rsid":"rs6725887","effect_allele":"C","effect_weight":0.062,"disease":"coronary_artery_disease","citation":"CARDIoGRAMplusC4D WDR12"},
-    {"rsid":"rs9818870","effect_allele":"T","effect_weight":0.048,"disease":"coronary_artery_disease","citation":"CARDIoGRAMplusC4D MRAS"},
-    {"rsid":"rs12526453","effect_allele":"C","effect_weight":0.078,"disease":"coronary_artery_disease","citation":"CARDIoGRAMplusC4D PHACTR1"},
-    {"rsid":"rs1333049","effect_allele":"C","effect_weight":0.095,"disease":"coronary_artery_disease","citation":"Schunkert 2011 CDKN2B-AS1"},
-    {"rsid":"rs10757278","effect_allele":"G","effect_weight":0.091,"disease":"coronary_artery_disease","citation":"Helgadottir 2007 9p21"},
-    {"rsid":"rs9982601","effect_allele":"T","effect_weight":0.070,"disease":"coronary_artery_disease","citation":"CARDIoGRAMplusC4D SLC5A3"},
-    {"rsid":"rs11556924","effect_allele":"C","effect_weight":0.063,"disease":"coronary_artery_disease","citation":"CARDIoGRAMplusC4D ZC3HC1"},
-    {"rsid":"rs579459","effect_allele":"C","effect_weight":0.051,"disease":"coronary_artery_disease","citation":"CARDIoGRAMplusC4D ABO"},
-    {"rsid":"rs12413409","effect_allele":"G","effect_weight":0.058,"disease":"coronary_artery_disease","citation":"CARDIoGRAMplusC4D HHIPL1"},
-    {"rsid":"rs964184","effect_allele":"G","effect_weight":0.083,"disease":"coronary_artery_disease","citation":"Teslovich 2010 APOA1/C3/A4/A5"},
-    {"rsid":"rs4773144","effect_allele":"G","effect_weight":0.060,"disease":"coronary_artery_disease","citation":"CARDIoGRAMplusC4D COL4A1"},
-    {"rsid":"rs2895811","effect_allele":"C","effect_weight":0.055,"disease":"coronary_artery_disease","citation":"CARDIoGRAMplusC4D HHIPL1"},
-    {"rsid":"rs3825807","effect_allele":"A","effect_weight":0.068,"disease":"coronary_artery_disease","citation":"CARDIoGRAMplusC4D ADAMTS7"},
-    {"rsid":"rs12936587","effect_allele":"G","effect_weight":0.053,"disease":"coronary_artery_disease","citation":"CARDIoGRAMplusC4D RAI1"},
-    {"rsid":"rs46522","effect_allele":"T","effect_weight":0.057,"disease":"coronary_artery_disease","citation":"CARDIoGRAMplusC4D UBE2Z"},
-    {"rsid":"rs216172","effect_allele":"C","effect_weight":0.049,"disease":"coronary_artery_disease","citation":"CARDIoGRAMplusC4D SMG6"},
-    {"rsid":"rs3184504","effect_allele":"T","effect_weight":0.064,"disease":"coronary_artery_disease","citation":"CARDIoGRAMplusC4D SH2B3"},
-    {"rsid":"rs2259816","effect_allele":"T","effect_weight":0.046,"disease":"coronary_artery_disease","citation":"Nikpay 2015 HNF1A"},
-    {"rsid":"rs17609940","effect_allele":"G","effect_weight":0.075,"disease":"coronary_artery_disease","citation":"Schunkert 2011 ANKS1A"},
-    {"rsid":"rs1122608","effect_allele":"G","effect_weight":0.081,"disease":"coronary_artery_disease","citation":"CARDIoGRAMplusC4D LDLR"},
-    {"rsid":"rs2048327","effect_allele":"C","effect_weight":0.047,"disease":"coronary_artery_disease","citation":"CARDIoGRAMplusC4D SLC22A3"},
-    {"rsid":"rs10455872","effect_allele":"G","effect_weight":0.115,"disease":"coronary_artery_disease","citation":"Clarke 2009 LPA"},
-    {"rsid":"rs3798220","effect_allele":"C","effect_weight":0.093,"disease":"coronary_artery_disease","citation":"Clarke 2009 LPA"},
-    {"rsid":"rs515135","effect_allele":"T","effect_weight":0.052,"disease":"coronary_artery_disease","citation":"Deloukas 2013 APOB"},
-    {"rsid":"rs2252641","effect_allele":"G","effect_weight":0.044,"disease":"coronary_artery_disease","citation":"Nikpay 2015 ZEB2"},
-    {"rsid":"rs4420638","effect_allele":"G","effect_weight":0.085,"disease":"coronary_artery_disease","citation":"CARDIoGRAMplusC4D APOE cluster"},
-
-    {"rsid":"rs7903146","effect_allele":"T","effect_weight":0.110,"disease":"type_2_diabetes","citation":"DIAGRAM TCF7L2"},
-    {"rsid":"rs7901695","effect_allele":"C","effect_weight":0.098,"disease":"type_2_diabetes","citation":"Voight 2010 TCF7L2"},
-    {"rsid":"rs4506565","effect_allele":"T","effect_weight":0.092,"disease":"type_2_diabetes","citation":"DIAGRAM TCF7L2"},
-    {"rsid":"rs9939609","effect_allele":"A","effect_weight":0.085,"disease":"type_2_diabetes","citation":"Frayling 2007 FTO"},
-    {"rsid":"rs1552224","effect_allele":"A","effect_weight":0.052,"disease":"type_2_diabetes","citation":"Morris 2012 CENTD2"},
-    {"rsid":"rs10811661","effect_allele":"T","effect_weight":0.078,"disease":"type_2_diabetes","citation":"DIAGRAM CDKN2A/B"},
-    {"rsid":"rs4402960","effect_allele":"T","effect_weight":0.065,"disease":"type_2_diabetes","citation":"Saxena 2007 IGF2BP2"},
-    {"rsid":"rs5219","effect_allele":"T","effect_weight":0.071,"disease":"type_2_diabetes","citation":"Gloyn 2003 KCNJ11"},
-    {"rsid":"rs13266634","effect_allele":"C","effect_weight":0.060,"disease":"type_2_diabetes","citation":"Sladek 2007 SLC30A8"},
-    {"rsid":"rs1111875","effect_allele":"C","effect_weight":0.068,"disease":"type_2_diabetes","citation":"DIAGRAM HHEX"},
-    {"rsid":"rs1801282","effect_allele":"G","effect_weight":0.055,"disease":"type_2_diabetes","citation":"Altshuler 2000 PPARG"},
-    {"rsid":"rs7578597","effect_allele":"T","effect_weight":0.048,"disease":"type_2_diabetes","citation":"DIAGRAM THADA"},
-    {"rsid":"rs4607103","effect_allele":"C","effect_weight":0.042,"disease":"type_2_diabetes","citation":"Zeggini 2008 ADAMTS9"},
-    {"rsid":"rs10923931","effect_allele":"T","effect_weight":0.057,"disease":"type_2_diabetes","citation":"Voight 2010 NOTCH2"},
-    {"rsid":"rs12779790","effect_allele":"G","effect_weight":0.044,"disease":"type_2_diabetes","citation":"DIAGRAM CDC123"},
-    {"rsid":"rs896854","effect_allele":"T","effect_weight":0.053,"disease":"type_2_diabetes","citation":"Mahajan 2014 TPSD1"},
-    {"rsid":"rs864745","effect_allele":"T","effect_weight":0.046,"disease":"type_2_diabetes","citation":"DIAGRAM JAZF1"},
-    {"rsid":"rs780094","effect_allele":"C","effect_weight":0.050,"disease":"type_2_diabetes","citation":"Dupuis 2010 GCKR"},
-    {"rsid":"rs2943641","effect_allele":"C","effect_weight":0.040,"disease":"type_2_diabetes","citation":"Morris 2012 IRS1"},
-    {"rsid":"rs2982521","effect_allele":"G","effect_weight":0.038,"disease":"type_2_diabetes","citation":"DIAGRAM ZBED3"},
-
-    {"rsid":"rs2984618","effect_allele":"C","effect_weight":0.104,"disease":"breast_cancer","citation":"Michailidou 2017"},
-    {"rsid":"rs3803662","effect_allele":"T","effect_weight":0.092,"disease":"breast_cancer","citation":"Easton 2007 TOX3"},
-    {"rsid":"rs889312","effect_allele":"C","effect_weight":0.070,"disease":"breast_cancer","citation":"Easton 2007 MAP3K1"},
-    {"rsid":"rs3817198","effect_allele":"C","effect_weight":0.065,"disease":"breast_cancer","citation":"Easton 2007 LSP1"},
-    {"rsid":"rs13387042","effect_allele":"A","effect_weight":0.082,"disease":"breast_cancer","citation":"Stacey 2007 2q35"},
-    {"rsid":"rs13281615","effect_allele":"G","effect_weight":0.058,"disease":"breast_cancer","citation":"Easton 2007 8q24"},
-    {"rsid":"rs11249433","effect_allele":"C","effect_weight":0.054,"disease":"breast_cancer","citation":"Thomas 2009 1p11"},
-    {"rsid":"rs4973768","effect_allele":"T","effect_weight":0.048,"disease":"breast_cancer","citation":"Ahmed 2009 SLC4A7"},
-    {"rsid":"rs10069690","effect_allele":"T","effect_weight":0.072,"disease":"breast_cancer","citation":"Michailidou 2017 TERT"},
-    {"rsid":"rs10995190","effect_allele":"G","effect_weight":0.062,"disease":"breast_cancer","citation":"Turnbull 2010 ZNF365"},
-    {"rsid":"rs704010","effect_allele":"T","effect_weight":0.044,"disease":"breast_cancer","citation":"Michailidou 2017 ZMIZ1"},
-    {"rsid":"rs614367","effect_allele":"T","effect_weight":0.056,"disease":"breast_cancer","citation":"Michailidou 2013 11q13"},
-    {"rsid":"rs6504950","effect_allele":"G","effect_weight":0.042,"disease":"breast_cancer","citation":"Ahmed 2009 STXBP4"},
-    {"rsid":"rs2363956","effect_allele":"G","effect_weight":0.038,"disease":"breast_cancer","citation":"Michailidou 2017 ANKLE1"},
-    {"rsid":"rs1432679","effect_allele":"A","effect_weight":0.068,"disease":"breast_cancer","citation":"Michailidou 2017 EBF1"},
-
-    {"rsid":"rs6983267","effect_allele":"G","effect_weight":0.095,"disease":"prostate_cancer","citation":"Yeager 2007 8q24"},
-    {"rsid":"rs1447295","effect_allele":"A","effect_weight":0.088,"disease":"prostate_cancer","citation":"Amundadottir 2006 8q24"},
-    {"rsid":"rs10993994","effect_allele":"T","effect_weight":0.075,"disease":"prostate_cancer","citation":"Eeles 2008 MSMB"},
-    {"rsid":"rs4430796","effect_allele":"A","effect_weight":0.065,"disease":"prostate_cancer","citation":"Gudmundsson 2007 HNF1B"},
-    {"rsid":"rs1859962","effect_allele":"G","effect_weight":0.058,"disease":"prostate_cancer","citation":"Gudmundsson 2007 17q24"},
-    {"rsid":"rs16901979","effect_allele":"A","effect_weight":0.092,"disease":"prostate_cancer","citation":"Gudmundsson 2007 8q24"},
-    {"rsid":"rs7931342","effect_allele":"G","effect_weight":0.072,"disease":"prostate_cancer","citation":"Eeles 2013 11q13"},
-    {"rsid":"rs2735839","effect_allele":"G","effect_weight":0.055,"disease":"prostate_cancer","citation":"Eeles 2008 KLK3"},
-    {"rsid":"rs11649743","effect_allele":"G","effect_weight":0.048,"disease":"prostate_cancer","citation":"Kote-Jarai 2011 HNF1B"},
-    {"rsid":"rs4242382","effect_allele":"A","effect_weight":0.085,"disease":"prostate_cancer","citation":"Thomas 2008 8q24"},
-    {"rsid":"rs8102476","effect_allele":"C","effect_weight":0.052,"disease":"prostate_cancer","citation":"Gudmundsson 2009 19q13"},
-    {"rsid":"rs5945572","effect_allele":"A","effect_weight":0.045,"disease":"prostate_cancer","citation":"Eeles 2013 NUDT11"},
-
-    {"rsid":"rs429358","effect_allele":"C","effect_weight":0.145,"disease":"alzheimers_disease","citation":"Lambert 2013 APOE e4"},
-    {"rsid":"rs7412","effect_allele":"T","effect_weight":-0.085,"disease":"alzheimers_disease","citation":"Lambert 2013 APOE e2"},
-    {"rsid":"rs6656401","effect_allele":"A","effect_weight":0.058,"disease":"alzheimers_disease","citation":"Lambert 2013 CR1"},
-    {"rsid":"rs6733839","effect_allele":"T","effect_weight":0.065,"disease":"alzheimers_disease","citation":"Lambert 2013 BIN1"},
-    {"rsid":"rs10948363","effect_allele":"G","effect_weight":0.048,"disease":"alzheimers_disease","citation":"Lambert 2013 CD2AP"},
-    {"rsid":"rs11771145","effect_allele":"A","effect_weight":0.042,"disease":"alzheimers_disease","citation":"Lambert 2013 EPHA1"},
-    {"rsid":"rs75932628","effect_allele":"T","effect_weight":0.152,"disease":"alzheimers_disease","citation":"Guerreiro 2013 TREM2"},
-    {"rsid":"rs9331896","effect_allele":"T","effect_weight":0.055,"disease":"alzheimers_disease","citation":"Lambert 2013 CLU"},
-    {"rsid":"rs10838725","effect_allele":"C","effect_weight":0.050,"disease":"alzheimers_disease","citation":"Lambert 2013 CELF1"},
-    {"rsid":"rs983392","effect_allele":"G","effect_weight":0.046,"disease":"alzheimers_disease","citation":"Lambert 2013 MS4A6A"},
-    {"rsid":"rs10792832","effect_allele":"G","effect_weight":0.060,"disease":"alzheimers_disease","citation":"Lambert 2013 PICALM"},
-    {"rsid":"rs4147929","effect_allele":"A","effect_weight":0.052,"disease":"alzheimers_disease","citation":"Lambert 2013 ABCA7"},
-    {"rsid":"rs3851179","effect_allele":"T","effect_weight":0.044,"disease":"alzheimers_disease","citation":"Harold 2009 PICALM"},
-    {"rsid":"rs17125944","effect_allele":"C","effect_weight":0.058,"disease":"alzheimers_disease","citation":"Lambert 2013 FERMT2"},
-    {"rsid":"rs10498633","effect_allele":"T","effect_weight":0.050,"disease":"alzheimers_disease","citation":"Seshadri 2010 SLC24A4"},
-    {"rsid":"rs2718058","effect_allele":"G","effect_weight":0.042,"disease":"alzheimers_disease","citation":"Lambert 2013 NME8"},
-    {"rsid":"rs1476679","effect_allele":"C","effect_weight":0.047,"disease":"alzheimers_disease","citation":"Lambert 2013 ZCWPW1"},
-    {"rsid":"rs7274581","effect_allele":"C","effect_weight":0.052,"disease":"alzheimers_disease","citation":"Jonsson 2013 CASS4"},
-
-    {"rsid":"rs2736100","effect_allele":"C","effect_weight":-0.042,"disease":"telomere_length","citation":"Codd 2021 Nature Genetics; TERT — shorter LTL"},
-    {"rsid":"rs7705526","effect_allele":"A","effect_weight":-0.035,"disease":"telomere_length","citation":"Codd 2021 TERT locus"},
-    {"rsid":"rs7675998","effect_allele":"A","effect_weight":-0.032,"disease":"telomere_length","citation":"Codd 2021 NAF1 — shorter LTL"},
-    {"rsid":"rs9420907","effect_allele":"C","effect_weight":0.034,"disease":"telomere_length","citation":"Codd 2021 OBFC1 — longer LTL"},
-    {"rsid":"rs3027234","effect_allele":"T","effect_weight":-0.033,"disease":"telomere_length","citation":"Codd 2021 CTC1 — shorter LTL"},
-    {"rsid":"rs10936599","effect_allele":"C","effect_weight":-0.038,"disease":"telomere_length","citation":"Codd 2013 MYNN — shorter LTL"},
-    {"rsid":"rs12696304","effect_allele":"G","effect_weight":-0.031,"disease":"telomere_length","citation":"Codd 2021 TERC — shorter LTL"},
-    {"rsid":"rs13137667","effect_allele":"C","effect_weight":-0.029,"disease":"telomere_length","citation":"Codd 2021 ZNF676"},
-    {"rsid":"rs4691895","effect_allele":"G","effect_weight":0.028,"disease":"telomere_length","citation":"Codd 2021 PXK"},
-    {"rsid":"rs55689262","effect_allele":"T","effect_weight":0.026,"disease":"telomere_length","citation":"Li 2020 UK Biobank"},
-
-    {"rsid":"rs8192678","effect_allele":"A","effect_weight":0.040,"disease":"vo2max","citation":"PPARGC1A Gly482Ser — mitochondrial biogenesis"},
-    {"rsid":"rs11549465","effect_allele":"T","effect_weight":0.032,"disease":"vo2max","citation":"HIF1A Pro582Ser — hypoxia response"},
-    {"rsid":"rs28365990","effect_allele":"A","effect_weight":0.038,"disease":"vo2max","citation":"UK Biobank cardiorespiratory fitness"},
-    {"rsid":"rs1017894","effect_allele":"A","effect_weight":0.030,"disease":"vo2max","citation":"UK Biobank fitness GWAS"},
-
-    {"rsid":"rs1815739","effect_allele":"T","effect_weight":0.048,"disease":"grip_strength","citation":"ACTN3 R577X — alpha-actinin-3, fast-twitch"},
-    {"rsid":"rs752045","effect_allele":"G","effect_weight":0.032,"disease":"grip_strength","citation":"Willems 2017 UK Biobank"},
-    {"rsid":"rs3127574","effect_allele":"G","effect_weight":0.030,"disease":"grip_strength","citation":"UK Biobank SLC39A8"},
-    {"rsid":"rs7520453","effect_allele":"T","effect_weight":0.025,"disease":"grip_strength","citation":"UK Biobank hand grip GWAS"},
-    {"rsid":"rs730001","effect_allele":"G","effect_weight":0.024,"disease":"grip_strength","citation":"UK Biobank hand grip GWAS"},
-
-    {"rsid":"rs9340799","effect_allele":"G","effect_weight":0.038,"disease":"bone_density","citation":"Morris 2019 UK Biobank ESR1"},
-    {"rsid":"rs2234693","effect_allele":"C","effect_weight":0.036,"disease":"bone_density","citation":"Morris 2019 ESR1 PvuII"},
-    {"rsid":"rs2941740","effect_allele":"G","effect_weight":0.032,"disease":"bone_density","citation":"Morris 2019 UK Biobank"},
-    {"rsid":"rs9594759","effect_allele":"C","effect_weight":0.030,"disease":"bone_density","citation":"Morris 2019 RANKL (TNFSF11)"},
-    {"rsid":"rs884205","effect_allele":"A","effect_weight":0.028,"disease":"bone_density","citation":"Morris 2019 TNFRSF11B (OPG)"},
-    {"rsid":"rs2728132","effect_allele":"T","effect_weight":0.026,"disease":"bone_density","citation":"Morris 2019 SOST"},
-    {"rsid":"rs4869748","effect_allele":"T","effect_weight":0.029,"disease":"bone_density","citation":"Morris 2019 WNT16"},
-
-    {"rsid":"rs9930333","effect_allele":"G","effect_weight":-0.042,"disease":"sleep_duration","citation":"Jones 2019 UK Biobank — shorter sleep"},
-    {"rsid":"rs181281717","effect_allele":"G","effect_weight":0.030,"disease":"sleep_duration","citation":"Dashti 2019 UK Biobank — longer sleep"},
-    {"rsid":"rs116402816","effect_allele":"A","effect_weight":-0.028,"disease":"sleep_duration","citation":"Jones 2019 — shorter sleep"},
-
-    {"rsid":"rs7548151","effect_allele":"G","effect_weight":0.042,"disease":"chronotype_morningness","citation":"Jones 2019 PER2 — morningness"},
-    {"rsid":"rs10775493","effect_allele":"T","effect_weight":-0.034,"disease":"chronotype_morningness","citation":"Hu 2016 PER3 — eveningness"},
-    {"rsid":"rs7221412","effect_allele":"A","effect_weight":0.038,"disease":"chronotype_morningness","citation":"Jones 2019 PER1"},
-    {"rsid":"rs10462021","effect_allele":"G","effect_weight":0.040,"disease":"chronotype_morningness","citation":"Lane 2016 CRY2 — morningness"},
-    {"rsid":"rs228697","effect_allele":"G","effect_weight":-0.032,"disease":"chronotype_morningness","citation":"Hu 2016 PER3"},
-
-    {"rsid":"rs3768321","effect_allele":"T","effect_weight":0.050,"disease":"hdl_cholesterol","citation":"GLGC LIPG"},
-    {"rsid":"rs1260326","effect_allele":"T","effect_weight":0.042,"disease":"hdl_cholesterol","citation":"GLGC GCKR"},
-    {"rsid":"rs1532085","effect_allele":"A","effect_weight":0.044,"disease":"hdl_cholesterol","citation":"GLGC LIPC"},
-    {"rsid":"rs1800588","effect_allele":"T","effect_weight":0.032,"disease":"hdl_cholesterol","citation":"GLGC LIPC promoter"},
-    {"rsid":"rs328","effect_allele":"G","effect_weight":0.048,"disease":"hdl_cholesterol","citation":"GLGC LPL S447X"},
-
-    {"rsid":"rs6511720","effect_allele":"T","effect_weight":-0.062,"disease":"ldl_cholesterol","citation":"GLGC LDLR — lower LDL"},
-    {"rsid":"rs7412","effect_allele":"T","effect_weight":-0.048,"disease":"ldl_cholesterol","citation":"GLGC APOE e2 — lower LDL"},
-    {"rsid":"rs2479409","effect_allele":"G","effect_weight":0.042,"disease":"ldl_cholesterol","citation":"GLGC PCSK9"},
-    {"rsid":"rs11591147","effect_allele":"T","effect_weight":-0.072,"disease":"ldl_cholesterol","citation":"GLGC PCSK9 R46L — strongly lower LDL"},
-
-    {"rsid":"rs3135506","effect_allele":"C","effect_weight":0.044,"disease":"triglycerides","citation":"GLGC APOA5"},
-    {"rsid":"rs662799","effect_allele":"G","effect_weight":0.052,"disease":"triglycerides","citation":"GLGC APOA5 promoter"},
-    {"rsid":"rs1260326","effect_allele":"C","effect_weight":0.034,"disease":"triglycerides","citation":"GLGC GCKR"},
-
-    {"rsid":"rs2681472","effect_allele":"T","effect_weight":0.032,"disease":"systolic_bp","citation":"ICBP ATP2B1"},
-    {"rsid":"rs699","effect_allele":"C","effect_weight":0.028,"disease":"systolic_bp","citation":"ICBP AGT"},
-    {"rsid":"rs13107325","effect_allele":"T","effect_weight":0.034,"disease":"systolic_bp","citation":"ICBP SLC39A8"},
-    {"rsid":"rs17367504","effect_allele":"G","effect_weight":-0.030,"disease":"systolic_bp","citation":"ICBP MTHFR"},
-
-    {"rsid":"rs1205","effect_allele":"A","effect_weight":0.058,"disease":"crp_inflammation","citation":"Ligthart 2018 n=204K CRP gene"},
-    {"rsid":"rs2794520","effect_allele":"T","effect_weight":0.052,"disease":"crp_inflammation","citation":"Ligthart 2018 CRP promoter"},
-    {"rsid":"rs3093077","effect_allele":"A","effect_weight":0.044,"disease":"crp_inflammation","citation":"Ligthart 2018 CRP"},
-    {"rsid":"rs1130864","effect_allele":"T","effect_weight":0.040,"disease":"crp_inflammation","citation":"Ligthart 2018 CRP 3'UTR"},
-    {"rsid":"rs1805097","effect_allele":"A","effect_weight":0.032,"disease":"crp_inflammation","citation":"Ligthart 2018"},
-
-    {"rsid":"rs1800795","effect_allele":"C","effect_weight":0.048,"disease":"il6_inflammation","citation":"IL6 promoter G-174C — higher IL-6"},
-    {"rsid":"rs2228145","effect_allele":"C","effect_weight":-0.042,"disease":"il6_inflammation","citation":"IL6R Asp358Ala — lower IL-6 signaling"},
-    {"rsid":"rs2066992","effect_allele":"T","effect_weight":0.030,"disease":"il6_inflammation","citation":"IL6 GWAS meta-analysis"},
-
-    {"rsid":"rs1520220","effect_allele":"C","effect_weight":0.038,"disease":"igf1_levels","citation":"UK Biobank IGF1 GWAS"},
-    {"rsid":"rs2195239","effect_allele":"G","effect_weight":0.032,"disease":"igf1_levels","citation":"CHARGE IGF1"},
-    {"rsid":"rs978458","effect_allele":"T","effect_weight":0.028,"disease":"igf1_levels","citation":"UK Biobank IGF1"},
-
-    {"rsid":"rs2943656","effect_allele":"C","effect_weight":0.024,"disease":"lean_body_mass","citation":"UK Biobank lean mass n=450K"},
-    {"rsid":"rs2802729","effect_allele":"A","effect_weight":0.022,"disease":"lean_body_mass","citation":"Zillikens 2017 body composition"},
-
-    {"rsid":"rs12785878","effect_allele":"T","effect_weight":-0.044,"disease":"vitamin_d","citation":"SUNLIGHT DHCR7 — lower 25(OH)D"},
-    {"rsid":"rs10741657","effect_allele":"G","effect_weight":0.042,"disease":"vitamin_d","citation":"SUNLIGHT CYP2R1 — higher 25(OH)D"},
-    {"rsid":"rs6013897","effect_allele":"A","effect_weight":-0.032,"disease":"vitamin_d","citation":"SUNLIGHT CYP24A1"},
-    {"rsid":"rs2282679","effect_allele":"C","effect_weight":-0.038,"disease":"vitamin_d","citation":"SUNLIGHT GC — lower 25(OH)D"},
-
-    {"rsid":"rs1801133","effect_allele":"T","effect_weight":0.052,"disease":"homocysteine","citation":"MTHFR C677T — higher homocysteine"},
-    {"rsid":"rs1801131","effect_allele":"C","effect_weight":0.030,"disease":"homocysteine","citation":"MTHFR A1298C"},
-    {"rsid":"rs162036","effect_allele":"G","effect_weight":0.024,"disease":"homocysteine","citation":"van Meurs MTRR"},
-    {"rsid":"rs1805087","effect_allele":"G","effect_weight":0.022,"disease":"homocysteine","citation":"MTR — methionine synthase"},
-    {"rsid":"rs2274976","effect_allele":"T","effect_weight":0.020,"disease":"homocysteine","citation":"MTHFD1 — folate cycle"},
-
-    {"rsid":"rs9388289","effect_allele":"C","effect_weight":0.034,"disease":"epigenetic_age_grimage","citation":"McCartney 2021 GrimAge GWAS"},
-    {"rsid":"rs369536","effect_allele":"T","effect_weight":0.028,"disease":"epigenetic_age_grimage","citation":"McCartney 2021 GrimAge"},
-    {"rsid":"rs11655237","effect_allele":"A","effect_weight":0.024,"disease":"epigenetic_age_grimage","citation":"McCartney 2021 GrimAge clock"},
-
-    {"rsid":"rs1015362","effect_allele":"G","effect_weight":0.030,"disease":"reaction_time","citation":"Davies 2018 UK Biobank"},
-    {"rsid":"rs7554611","effect_allele":"G","effect_weight":0.024,"disease":"reaction_time","citation":"Davies 2018 UK Biobank"},
-
-    {"rsid":"rs9320913","effect_allele":"A","effect_weight":0.040,"disease":"cognitive_performance","citation":"Lee 2018 n=1.1M educational attainment"},
-    {"rsid":"rs1487432","effect_allele":"C","effect_weight":0.032,"disease":"cognitive_performance","citation":"Lee 2018 cognitive performance"},
-    {"rsid":"rs4851266","effect_allele":"T","effect_weight":0.028,"disease":"cognitive_performance","citation":"Davies 2018 general cognitive function"},
-    {"rsid":"rs10189832","effect_allele":"C","effect_weight":0.030,"disease":"cognitive_performance","citation":"Lee 2018 education/cognition"},
-    {"rsid":"rs2409632","effect_allele":"T","effect_weight":0.022,"disease":"cognitive_performance","citation":"UK Biobank cognitive GWAS"},
-
-    {"rsid":"rs11126620","effect_allele":"C","effect_weight":0.032,"disease":"neuroticism","citation":"Nagel 2018 n=449K neuroticism GWAS"},
-    {"rsid":"rs242924","effect_allele":"T","effect_weight":0.028,"disease":"neuroticism","citation":"23andMe/UK Biobank neuroticism"},
-    {"rsid":"rs12961969","effect_allele":"C","effect_weight":0.024,"disease":"neuroticism","citation":"Nagel 2018 CRHR1"},
-
-    {"rsid":"rs1229984","effect_allele":"T","effect_weight":-0.072,"disease":"alcohol_consumption","citation":"Liu 2019 ADH1B — protective, lower intake"},
-    {"rsid":"rs671","effect_allele":"A","effect_weight":-0.082,"disease":"alcohol_consumption","citation":"ALDH2 — strong protection"},
-    {"rsid":"rs2066702","effect_allele":"T","effect_weight":-0.042,"disease":"alcohol_consumption","citation":"ADH1B variant"},
-
-    {"rsid":"rs762551","effect_allele":"A","effect_weight":0.044,"disease":"caffeine_metabolism","citation":"CYP1A2 — rapid caffeine metabolism"},
-    {"rsid":"rs4410790","effect_allele":"C","effect_weight":0.034,"disease":"caffeine_metabolism","citation":"Coffee intake GWAS AHR"},
-    {"rsid":"rs2472297","effect_allele":"T","effect_weight":0.030,"disease":"caffeine_metabolism","citation":"Coffee intake GWAS CYP1A1/CYP1A2"},
-    {"rsid":"rs6968865","effect_allele":"T","effect_weight":0.022,"disease":"caffeine_metabolism","citation":"Coffee consumption GWAS"}
+    {
+      "rsid": "rs11206510",
+      "effect_allele": "T",
+      "effect_weight": 0.065,
+      "disease": "coronary_artery_disease",
+      "citation": "CARDIoGRAMplusC4D 2013"
+    },
+    {
+      "rsid": "rs4977574",
+      "effect_allele": "G",
+      "effect_weight": 0.089,
+      "disease": "coronary_artery_disease",
+      "citation": "CARDIoGRAMplusC4D 9p21"
+    },
+    {
+      "rsid": "rs646776",
+      "effect_allele": "T",
+      "effect_weight": 0.072,
+      "disease": "coronary_artery_disease",
+      "citation": "CARDIoGRAMplusC4D SORT1"
+    },
+    {
+      "rsid": "rs17465637",
+      "effect_allele": "C",
+      "effect_weight": 0.055,
+      "disease": "coronary_artery_disease",
+      "citation": "CARDIoGRAMplusC4D MIA3"
+    },
+    {
+      "rsid": "rs6725887",
+      "effect_allele": "C",
+      "effect_weight": 0.062,
+      "disease": "coronary_artery_disease",
+      "citation": "CARDIoGRAMplusC4D WDR12"
+    },
+    {
+      "rsid": "rs9818870",
+      "effect_allele": "T",
+      "effect_weight": 0.048,
+      "disease": "coronary_artery_disease",
+      "citation": "CARDIoGRAMplusC4D MRAS"
+    },
+    {
+      "rsid": "rs12526453",
+      "effect_allele": "C",
+      "effect_weight": 0.078,
+      "disease": "coronary_artery_disease",
+      "citation": "CARDIoGRAMplusC4D PHACTR1"
+    },
+    {
+      "rsid": "rs1333049",
+      "effect_allele": "C",
+      "effect_weight": 0.095,
+      "disease": "coronary_artery_disease",
+      "citation": "Schunkert 2011 CDKN2B-AS1"
+    },
+    {
+      "rsid": "rs10757278",
+      "effect_allele": "G",
+      "effect_weight": 0.091,
+      "disease": "coronary_artery_disease",
+      "citation": "Helgadottir 2007 9p21"
+    },
+    {
+      "rsid": "rs9982601",
+      "effect_allele": "T",
+      "effect_weight": 0.07,
+      "disease": "coronary_artery_disease",
+      "citation": "CARDIoGRAMplusC4D SLC5A3"
+    },
+    {
+      "rsid": "rs11556924",
+      "effect_allele": "C",
+      "effect_weight": 0.063,
+      "disease": "coronary_artery_disease",
+      "citation": "CARDIoGRAMplusC4D ZC3HC1"
+    },
+    {
+      "rsid": "rs579459",
+      "effect_allele": "C",
+      "effect_weight": 0.051,
+      "disease": "coronary_artery_disease",
+      "citation": "CARDIoGRAMplusC4D ABO"
+    },
+    {
+      "rsid": "rs12413409",
+      "effect_allele": "G",
+      "effect_weight": 0.058,
+      "disease": "coronary_artery_disease",
+      "citation": "CARDIoGRAMplusC4D HHIPL1"
+    },
+    {
+      "rsid": "rs964184",
+      "effect_allele": "G",
+      "effect_weight": 0.083,
+      "disease": "coronary_artery_disease",
+      "citation": "Teslovich 2010 APOA1/C3/A4/A5"
+    },
+    {
+      "rsid": "rs4773144",
+      "effect_allele": "G",
+      "effect_weight": 0.06,
+      "disease": "coronary_artery_disease",
+      "citation": "CARDIoGRAMplusC4D COL4A1"
+    },
+    {
+      "rsid": "rs2895811",
+      "effect_allele": "C",
+      "effect_weight": 0.055,
+      "disease": "coronary_artery_disease",
+      "citation": "CARDIoGRAMplusC4D HHIPL1"
+    },
+    {
+      "rsid": "rs3825807",
+      "effect_allele": "A",
+      "effect_weight": 0.068,
+      "disease": "coronary_artery_disease",
+      "citation": "CARDIoGRAMplusC4D ADAMTS7"
+    },
+    {
+      "rsid": "rs12936587",
+      "effect_allele": "G",
+      "effect_weight": 0.053,
+      "disease": "coronary_artery_disease",
+      "citation": "CARDIoGRAMplusC4D RAI1"
+    },
+    {
+      "rsid": "rs46522",
+      "effect_allele": "T",
+      "effect_weight": 0.057,
+      "disease": "coronary_artery_disease",
+      "citation": "CARDIoGRAMplusC4D UBE2Z"
+    },
+    {
+      "rsid": "rs216172",
+      "effect_allele": "C",
+      "effect_weight": 0.049,
+      "disease": "coronary_artery_disease",
+      "citation": "CARDIoGRAMplusC4D SMG6"
+    },
+    {
+      "rsid": "rs3184504",
+      "effect_allele": "T",
+      "effect_weight": 0.064,
+      "disease": "coronary_artery_disease",
+      "citation": "CARDIoGRAMplusC4D SH2B3"
+    },
+    {
+      "rsid": "rs2259816",
+      "effect_allele": "T",
+      "effect_weight": 0.046,
+      "disease": "coronary_artery_disease",
+      "citation": "Nikpay 2015 HNF1A"
+    },
+    {
+      "rsid": "rs17609940",
+      "effect_allele": "G",
+      "effect_weight": 0.075,
+      "disease": "coronary_artery_disease",
+      "citation": "Schunkert 2011 ANKS1A"
+    },
+    {
+      "rsid": "rs1122608",
+      "effect_allele": "G",
+      "effect_weight": 0.081,
+      "disease": "coronary_artery_disease",
+      "citation": "CARDIoGRAMplusC4D LDLR"
+    },
+    {
+      "rsid": "rs2048327",
+      "effect_allele": "C",
+      "effect_weight": 0.047,
+      "disease": "coronary_artery_disease",
+      "citation": "CARDIoGRAMplusC4D SLC22A3"
+    },
+    {
+      "rsid": "rs10455872",
+      "effect_allele": "G",
+      "effect_weight": 0.115,
+      "disease": "coronary_artery_disease",
+      "citation": "Clarke 2009 LPA"
+    },
+    {
+      "rsid": "rs3798220",
+      "effect_allele": "C",
+      "effect_weight": 0.093,
+      "disease": "coronary_artery_disease",
+      "citation": "Clarke 2009 LPA"
+    },
+    {
+      "rsid": "rs515135",
+      "effect_allele": "T",
+      "effect_weight": 0.052,
+      "disease": "coronary_artery_disease",
+      "citation": "Deloukas 2013 APOB"
+    },
+    {
+      "rsid": "rs2252641",
+      "effect_allele": "G",
+      "effect_weight": 0.044,
+      "disease": "coronary_artery_disease",
+      "citation": "Nikpay 2015 ZEB2"
+    },
+    {
+      "rsid": "rs4420638",
+      "effect_allele": "G",
+      "effect_weight": 0.085,
+      "disease": "coronary_artery_disease",
+      "citation": "CARDIoGRAMplusC4D APOE cluster"
+    },
+    {
+      "rsid": "rs7903146",
+      "effect_allele": "T",
+      "effect_weight": 0.11,
+      "disease": "type_2_diabetes",
+      "citation": "DIAGRAM TCF7L2"
+    },
+    {
+      "rsid": "rs7901695",
+      "effect_allele": "C",
+      "effect_weight": 0.098,
+      "disease": "type_2_diabetes",
+      "citation": "Voight 2010 TCF7L2"
+    },
+    {
+      "rsid": "rs4506565",
+      "effect_allele": "T",
+      "effect_weight": 0.092,
+      "disease": "type_2_diabetes",
+      "citation": "DIAGRAM TCF7L2"
+    },
+    {
+      "rsid": "rs9939609",
+      "effect_allele": "A",
+      "effect_weight": 0.085,
+      "disease": "type_2_diabetes",
+      "citation": "Frayling 2007 FTO"
+    },
+    {
+      "rsid": "rs1552224",
+      "effect_allele": "A",
+      "effect_weight": 0.052,
+      "disease": "type_2_diabetes",
+      "citation": "Morris 2012 CENTD2"
+    },
+    {
+      "rsid": "rs10811661",
+      "effect_allele": "T",
+      "effect_weight": 0.078,
+      "disease": "type_2_diabetes",
+      "citation": "DIAGRAM CDKN2A/B"
+    },
+    {
+      "rsid": "rs4402960",
+      "effect_allele": "T",
+      "effect_weight": 0.065,
+      "disease": "type_2_diabetes",
+      "citation": "Saxena 2007 IGF2BP2"
+    },
+    {
+      "rsid": "rs5219",
+      "effect_allele": "T",
+      "effect_weight": 0.071,
+      "disease": "type_2_diabetes",
+      "citation": "Gloyn 2003 KCNJ11"
+    },
+    {
+      "rsid": "rs13266634",
+      "effect_allele": "C",
+      "effect_weight": 0.06,
+      "disease": "type_2_diabetes",
+      "citation": "Sladek 2007 SLC30A8"
+    },
+    {
+      "rsid": "rs1111875",
+      "effect_allele": "C",
+      "effect_weight": 0.068,
+      "disease": "type_2_diabetes",
+      "citation": "DIAGRAM HHEX"
+    },
+    {
+      "rsid": "rs1801282",
+      "effect_allele": "G",
+      "effect_weight": 0.055,
+      "disease": "type_2_diabetes",
+      "citation": "Altshuler 2000 PPARG"
+    },
+    {
+      "rsid": "rs7578597",
+      "effect_allele": "T",
+      "effect_weight": 0.048,
+      "disease": "type_2_diabetes",
+      "citation": "DIAGRAM THADA"
+    },
+    {
+      "rsid": "rs4607103",
+      "effect_allele": "C",
+      "effect_weight": 0.042,
+      "disease": "type_2_diabetes",
+      "citation": "Zeggini 2008 ADAMTS9"
+    },
+    {
+      "rsid": "rs10923931",
+      "effect_allele": "T",
+      "effect_weight": 0.057,
+      "disease": "type_2_diabetes",
+      "citation": "Voight 2010 NOTCH2"
+    },
+    {
+      "rsid": "rs12779790",
+      "effect_allele": "G",
+      "effect_weight": 0.044,
+      "disease": "type_2_diabetes",
+      "citation": "DIAGRAM CDC123"
+    },
+    {
+      "rsid": "rs896854",
+      "effect_allele": "T",
+      "effect_weight": 0.053,
+      "disease": "type_2_diabetes",
+      "citation": "Mahajan 2014 TPSD1"
+    },
+    {
+      "rsid": "rs864745",
+      "effect_allele": "T",
+      "effect_weight": 0.046,
+      "disease": "type_2_diabetes",
+      "citation": "DIAGRAM JAZF1"
+    },
+    {
+      "rsid": "rs780094",
+      "effect_allele": "C",
+      "effect_weight": 0.05,
+      "disease": "type_2_diabetes",
+      "citation": "Dupuis 2010 GCKR"
+    },
+    {
+      "rsid": "rs2943641",
+      "effect_allele": "C",
+      "effect_weight": 0.04,
+      "disease": "type_2_diabetes",
+      "citation": "Morris 2012 IRS1"
+    },
+    {
+      "rsid": "rs2982521",
+      "effect_allele": "G",
+      "effect_weight": 0.038,
+      "disease": "type_2_diabetes",
+      "citation": "DIAGRAM ZBED3"
+    },
+    {
+      "rsid": "rs2984618",
+      "effect_allele": "C",
+      "effect_weight": 0.104,
+      "disease": "breast_cancer",
+      "citation": "Michailidou 2017"
+    },
+    {
+      "rsid": "rs3803662",
+      "effect_allele": "T",
+      "effect_weight": 0.092,
+      "disease": "breast_cancer",
+      "citation": "Easton 2007 TOX3"
+    },
+    {
+      "rsid": "rs889312",
+      "effect_allele": "C",
+      "effect_weight": 0.07,
+      "disease": "breast_cancer",
+      "citation": "Easton 2007 MAP3K1"
+    },
+    {
+      "rsid": "rs3817198",
+      "effect_allele": "C",
+      "effect_weight": 0.065,
+      "disease": "breast_cancer",
+      "citation": "Easton 2007 LSP1"
+    },
+    {
+      "rsid": "rs13387042",
+      "effect_allele": "A",
+      "effect_weight": 0.082,
+      "disease": "breast_cancer",
+      "citation": "Stacey 2007 2q35"
+    },
+    {
+      "rsid": "rs13281615",
+      "effect_allele": "G",
+      "effect_weight": 0.058,
+      "disease": "breast_cancer",
+      "citation": "Easton 2007 8q24"
+    },
+    {
+      "rsid": "rs11249433",
+      "effect_allele": "C",
+      "effect_weight": 0.054,
+      "disease": "breast_cancer",
+      "citation": "Thomas 2009 1p11"
+    },
+    {
+      "rsid": "rs4973768",
+      "effect_allele": "T",
+      "effect_weight": 0.048,
+      "disease": "breast_cancer",
+      "citation": "Ahmed 2009 SLC4A7"
+    },
+    {
+      "rsid": "rs10069690",
+      "effect_allele": "T",
+      "effect_weight": 0.072,
+      "disease": "breast_cancer",
+      "citation": "Michailidou 2017 TERT"
+    },
+    {
+      "rsid": "rs10995190",
+      "effect_allele": "G",
+      "effect_weight": 0.062,
+      "disease": "breast_cancer",
+      "citation": "Turnbull 2010 ZNF365"
+    },
+    {
+      "rsid": "rs704010",
+      "effect_allele": "T",
+      "effect_weight": 0.044,
+      "disease": "breast_cancer",
+      "citation": "Michailidou 2017 ZMIZ1"
+    },
+    {
+      "rsid": "rs614367",
+      "effect_allele": "T",
+      "effect_weight": 0.056,
+      "disease": "breast_cancer",
+      "citation": "Michailidou 2013 11q13"
+    },
+    {
+      "rsid": "rs6504950",
+      "effect_allele": "G",
+      "effect_weight": 0.042,
+      "disease": "breast_cancer",
+      "citation": "Ahmed 2009 STXBP4"
+    },
+    {
+      "rsid": "rs2363956",
+      "effect_allele": "G",
+      "effect_weight": 0.038,
+      "disease": "breast_cancer",
+      "citation": "Michailidou 2017 ANKLE1"
+    },
+    {
+      "rsid": "rs1432679",
+      "effect_allele": "A",
+      "effect_weight": 0.068,
+      "disease": "breast_cancer",
+      "citation": "Michailidou 2017 EBF1"
+    },
+    {
+      "rsid": "rs6983267",
+      "effect_allele": "G",
+      "effect_weight": 0.095,
+      "disease": "prostate_cancer",
+      "citation": "Yeager 2007 8q24"
+    },
+    {
+      "rsid": "rs1447295",
+      "effect_allele": "A",
+      "effect_weight": 0.088,
+      "disease": "prostate_cancer",
+      "citation": "Amundadottir 2006 8q24"
+    },
+    {
+      "rsid": "rs10993994",
+      "effect_allele": "T",
+      "effect_weight": 0.075,
+      "disease": "prostate_cancer",
+      "citation": "Eeles 2008 MSMB"
+    },
+    {
+      "rsid": "rs4430796",
+      "effect_allele": "A",
+      "effect_weight": 0.065,
+      "disease": "prostate_cancer",
+      "citation": "Gudmundsson 2007 HNF1B"
+    },
+    {
+      "rsid": "rs1859962",
+      "effect_allele": "G",
+      "effect_weight": 0.058,
+      "disease": "prostate_cancer",
+      "citation": "Gudmundsson 2007 17q24"
+    },
+    {
+      "rsid": "rs16901979",
+      "effect_allele": "A",
+      "effect_weight": 0.092,
+      "disease": "prostate_cancer",
+      "citation": "Gudmundsson 2007 8q24"
+    },
+    {
+      "rsid": "rs7931342",
+      "effect_allele": "G",
+      "effect_weight": 0.072,
+      "disease": "prostate_cancer",
+      "citation": "Eeles 2013 11q13"
+    },
+    {
+      "rsid": "rs2735839",
+      "effect_allele": "G",
+      "effect_weight": 0.055,
+      "disease": "prostate_cancer",
+      "citation": "Eeles 2008 KLK3"
+    },
+    {
+      "rsid": "rs11649743",
+      "effect_allele": "G",
+      "effect_weight": 0.048,
+      "disease": "prostate_cancer",
+      "citation": "Kote-Jarai 2011 HNF1B"
+    },
+    {
+      "rsid": "rs4242382",
+      "effect_allele": "A",
+      "effect_weight": 0.085,
+      "disease": "prostate_cancer",
+      "citation": "Thomas 2008 8q24"
+    },
+    {
+      "rsid": "rs8102476",
+      "effect_allele": "C",
+      "effect_weight": 0.052,
+      "disease": "prostate_cancer",
+      "citation": "Gudmundsson 2009 19q13"
+    },
+    {
+      "rsid": "rs5945572",
+      "effect_allele": "A",
+      "effect_weight": 0.045,
+      "disease": "prostate_cancer",
+      "citation": "Eeles 2013 NUDT11"
+    },
+    {
+      "rsid": "rs429358",
+      "effect_allele": "C",
+      "effect_weight": 0.145,
+      "disease": "alzheimers_disease",
+      "citation": "Lambert 2013 APOE e4"
+    },
+    {
+      "rsid": "rs7412",
+      "effect_allele": "T",
+      "effect_weight": -0.085,
+      "disease": "alzheimers_disease",
+      "citation": "Lambert 2013 APOE e2"
+    },
+    {
+      "rsid": "rs6656401",
+      "effect_allele": "A",
+      "effect_weight": 0.058,
+      "disease": "alzheimers_disease",
+      "citation": "Lambert 2013 CR1"
+    },
+    {
+      "rsid": "rs6733839",
+      "effect_allele": "T",
+      "effect_weight": 0.065,
+      "disease": "alzheimers_disease",
+      "citation": "Lambert 2013 BIN1"
+    },
+    {
+      "rsid": "rs10948363",
+      "effect_allele": "G",
+      "effect_weight": 0.048,
+      "disease": "alzheimers_disease",
+      "citation": "Lambert 2013 CD2AP"
+    },
+    {
+      "rsid": "rs11771145",
+      "effect_allele": "A",
+      "effect_weight": 0.042,
+      "disease": "alzheimers_disease",
+      "citation": "Lambert 2013 EPHA1"
+    },
+    {
+      "rsid": "rs75932628",
+      "effect_allele": "T",
+      "effect_weight": 0.152,
+      "disease": "alzheimers_disease",
+      "citation": "Guerreiro 2013 TREM2"
+    },
+    {
+      "rsid": "rs9331896",
+      "effect_allele": "T",
+      "effect_weight": 0.055,
+      "disease": "alzheimers_disease",
+      "citation": "Lambert 2013 CLU"
+    },
+    {
+      "rsid": "rs10838725",
+      "effect_allele": "C",
+      "effect_weight": 0.05,
+      "disease": "alzheimers_disease",
+      "citation": "Lambert 2013 CELF1"
+    },
+    {
+      "rsid": "rs983392",
+      "effect_allele": "G",
+      "effect_weight": 0.046,
+      "disease": "alzheimers_disease",
+      "citation": "Lambert 2013 MS4A6A"
+    },
+    {
+      "rsid": "rs10792832",
+      "effect_allele": "G",
+      "effect_weight": 0.06,
+      "disease": "alzheimers_disease",
+      "citation": "Lambert 2013 PICALM"
+    },
+    {
+      "rsid": "rs4147929",
+      "effect_allele": "A",
+      "effect_weight": 0.052,
+      "disease": "alzheimers_disease",
+      "citation": "Lambert 2013 ABCA7"
+    },
+    {
+      "rsid": "rs3851179",
+      "effect_allele": "T",
+      "effect_weight": 0.044,
+      "disease": "alzheimers_disease",
+      "citation": "Harold 2009 PICALM"
+    },
+    {
+      "rsid": "rs17125944",
+      "effect_allele": "C",
+      "effect_weight": 0.058,
+      "disease": "alzheimers_disease",
+      "citation": "Lambert 2013 FERMT2"
+    },
+    {
+      "rsid": "rs10498633",
+      "effect_allele": "T",
+      "effect_weight": 0.05,
+      "disease": "alzheimers_disease",
+      "citation": "Seshadri 2010 SLC24A4"
+    },
+    {
+      "rsid": "rs2718058",
+      "effect_allele": "G",
+      "effect_weight": 0.042,
+      "disease": "alzheimers_disease",
+      "citation": "Lambert 2013 NME8"
+    },
+    {
+      "rsid": "rs1476679",
+      "effect_allele": "C",
+      "effect_weight": 0.047,
+      "disease": "alzheimers_disease",
+      "citation": "Lambert 2013 ZCWPW1"
+    },
+    {
+      "rsid": "rs7274581",
+      "effect_allele": "C",
+      "effect_weight": 0.052,
+      "disease": "alzheimers_disease",
+      "citation": "Jonsson 2013 CASS4"
+    },
+    {
+      "rsid": "rs2736100",
+      "effect_allele": "C",
+      "effect_weight": -0.042,
+      "disease": "telomere_length",
+      "citation": "Codd 2021 Nature Genetics; TERT — shorter LTL"
+    },
+    {
+      "rsid": "rs7705526",
+      "effect_allele": "A",
+      "effect_weight": -0.035,
+      "disease": "telomere_length",
+      "citation": "Codd 2021 TERT locus"
+    },
+    {
+      "rsid": "rs7675998",
+      "effect_allele": "A",
+      "effect_weight": -0.032,
+      "disease": "telomere_length",
+      "citation": "Codd 2021 NAF1 — shorter LTL"
+    },
+    {
+      "rsid": "rs9420907",
+      "effect_allele": "C",
+      "effect_weight": 0.034,
+      "disease": "telomere_length",
+      "citation": "Codd 2021 OBFC1 — longer LTL"
+    },
+    {
+      "rsid": "rs3027234",
+      "effect_allele": "T",
+      "effect_weight": -0.033,
+      "disease": "telomere_length",
+      "citation": "Codd 2021 CTC1 — shorter LTL"
+    },
+    {
+      "rsid": "rs10936599",
+      "effect_allele": "C",
+      "effect_weight": -0.038,
+      "disease": "telomere_length",
+      "citation": "Codd 2013 MYNN — shorter LTL"
+    },
+    {
+      "rsid": "rs12696304",
+      "effect_allele": "G",
+      "effect_weight": -0.031,
+      "disease": "telomere_length",
+      "citation": "Codd 2021 TERC — shorter LTL"
+    },
+    {
+      "rsid": "rs13137667",
+      "effect_allele": "C",
+      "effect_weight": -0.029,
+      "disease": "telomere_length",
+      "citation": "Codd 2021 ZNF676"
+    },
+    {
+      "rsid": "rs4691895",
+      "effect_allele": "G",
+      "effect_weight": 0.028,
+      "disease": "telomere_length",
+      "citation": "Codd 2021 PXK"
+    },
+    {
+      "rsid": "rs55689262",
+      "effect_allele": "T",
+      "effect_weight": 0.026,
+      "disease": "telomere_length",
+      "citation": "Li 2020 UK Biobank"
+    },
+    {
+      "rsid": "rs8192678",
+      "effect_allele": "A",
+      "effect_weight": 0.04,
+      "disease": "vo2max",
+      "citation": "PPARGC1A Gly482Ser — mitochondrial biogenesis"
+    },
+    {
+      "rsid": "rs11549465",
+      "effect_allele": "T",
+      "effect_weight": 0.032,
+      "disease": "vo2max",
+      "citation": "HIF1A Pro582Ser — hypoxia response"
+    },
+    {
+      "rsid": "rs28365990",
+      "effect_allele": "A",
+      "effect_weight": 0.038,
+      "disease": "vo2max",
+      "citation": "UK Biobank cardiorespiratory fitness"
+    },
+    {
+      "rsid": "rs1017894",
+      "effect_allele": "A",
+      "effect_weight": 0.03,
+      "disease": "vo2max",
+      "citation": "UK Biobank fitness GWAS"
+    },
+    {
+      "rsid": "rs1815739",
+      "effect_allele": "T",
+      "effect_weight": 0.048,
+      "disease": "grip_strength",
+      "citation": "ACTN3 R577X — alpha-actinin-3, fast-twitch"
+    },
+    {
+      "rsid": "rs752045",
+      "effect_allele": "G",
+      "effect_weight": 0.032,
+      "disease": "grip_strength",
+      "citation": "Willems 2017 UK Biobank"
+    },
+    {
+      "rsid": "rs3127574",
+      "effect_allele": "G",
+      "effect_weight": 0.03,
+      "disease": "grip_strength",
+      "citation": "UK Biobank SLC39A8"
+    },
+    {
+      "rsid": "rs7520453",
+      "effect_allele": "T",
+      "effect_weight": 0.025,
+      "disease": "grip_strength",
+      "citation": "UK Biobank hand grip GWAS"
+    },
+    {
+      "rsid": "rs730001",
+      "effect_allele": "G",
+      "effect_weight": 0.024,
+      "disease": "grip_strength",
+      "citation": "UK Biobank hand grip GWAS"
+    },
+    {
+      "rsid": "rs9340799",
+      "effect_allele": "G",
+      "effect_weight": 0.038,
+      "disease": "bone_density",
+      "citation": "Morris 2019 UK Biobank ESR1"
+    },
+    {
+      "rsid": "rs2234693",
+      "effect_allele": "C",
+      "effect_weight": 0.036,
+      "disease": "bone_density",
+      "citation": "Morris 2019 ESR1 PvuII"
+    },
+    {
+      "rsid": "rs2941740",
+      "effect_allele": "G",
+      "effect_weight": 0.032,
+      "disease": "bone_density",
+      "citation": "Morris 2019 UK Biobank"
+    },
+    {
+      "rsid": "rs9594759",
+      "effect_allele": "C",
+      "effect_weight": 0.03,
+      "disease": "bone_density",
+      "citation": "Morris 2019 RANKL (TNFSF11)"
+    },
+    {
+      "rsid": "rs884205",
+      "effect_allele": "A",
+      "effect_weight": 0.028,
+      "disease": "bone_density",
+      "citation": "Morris 2019 TNFRSF11B (OPG)"
+    },
+    {
+      "rsid": "rs2728132",
+      "effect_allele": "T",
+      "effect_weight": 0.026,
+      "disease": "bone_density",
+      "citation": "Morris 2019 SOST"
+    },
+    {
+      "rsid": "rs4869748",
+      "effect_allele": "T",
+      "effect_weight": 0.029,
+      "disease": "bone_density",
+      "citation": "Morris 2019 WNT16"
+    },
+    {
+      "rsid": "rs9930333",
+      "effect_allele": "G",
+      "effect_weight": -0.042,
+      "disease": "sleep_duration",
+      "citation": "Jones 2019 UK Biobank — shorter sleep"
+    },
+    {
+      "rsid": "rs181281717",
+      "effect_allele": "G",
+      "effect_weight": 0.03,
+      "disease": "sleep_duration",
+      "citation": "Dashti 2019 UK Biobank — longer sleep"
+    },
+    {
+      "rsid": "rs116402816",
+      "effect_allele": "A",
+      "effect_weight": -0.028,
+      "disease": "sleep_duration",
+      "citation": "Jones 2019 — shorter sleep"
+    },
+    {
+      "rsid": "rs7548151",
+      "effect_allele": "G",
+      "effect_weight": 0.042,
+      "disease": "chronotype_morningness",
+      "citation": "Jones 2019 PER2 — morningness"
+    },
+    {
+      "rsid": "rs10775493",
+      "effect_allele": "T",
+      "effect_weight": -0.034,
+      "disease": "chronotype_morningness",
+      "citation": "Hu 2016 PER3 — eveningness"
+    },
+    {
+      "rsid": "rs7221412",
+      "effect_allele": "A",
+      "effect_weight": 0.038,
+      "disease": "chronotype_morningness",
+      "citation": "Jones 2019 PER1"
+    },
+    {
+      "rsid": "rs10462021",
+      "effect_allele": "G",
+      "effect_weight": 0.04,
+      "disease": "chronotype_morningness",
+      "citation": "Lane 2016 CRY2 — morningness"
+    },
+    {
+      "rsid": "rs228697",
+      "effect_allele": "G",
+      "effect_weight": -0.032,
+      "disease": "chronotype_morningness",
+      "citation": "Hu 2016 PER3"
+    },
+    {
+      "rsid": "rs3768321",
+      "effect_allele": "T",
+      "effect_weight": 0.05,
+      "disease": "hdl_cholesterol",
+      "citation": "GLGC LIPG"
+    },
+    {
+      "rsid": "rs1260326",
+      "effect_allele": "T",
+      "effect_weight": 0.042,
+      "disease": "hdl_cholesterol",
+      "citation": "GLGC GCKR"
+    },
+    {
+      "rsid": "rs1532085",
+      "effect_allele": "A",
+      "effect_weight": 0.044,
+      "disease": "hdl_cholesterol",
+      "citation": "GLGC LIPC"
+    },
+    {
+      "rsid": "rs1800588",
+      "effect_allele": "T",
+      "effect_weight": 0.032,
+      "disease": "hdl_cholesterol",
+      "citation": "GLGC LIPC promoter"
+    },
+    {
+      "rsid": "rs328",
+      "effect_allele": "G",
+      "effect_weight": 0.048,
+      "disease": "hdl_cholesterol",
+      "citation": "GLGC LPL S447X"
+    },
+    {
+      "rsid": "rs6511720",
+      "effect_allele": "T",
+      "effect_weight": -0.062,
+      "disease": "ldl_cholesterol",
+      "citation": "GLGC LDLR — lower LDL"
+    },
+    {
+      "rsid": "rs7412",
+      "effect_allele": "T",
+      "effect_weight": -0.048,
+      "disease": "ldl_cholesterol",
+      "citation": "GLGC APOE e2 — lower LDL"
+    },
+    {
+      "rsid": "rs2479409",
+      "effect_allele": "G",
+      "effect_weight": 0.042,
+      "disease": "ldl_cholesterol",
+      "citation": "GLGC PCSK9"
+    },
+    {
+      "rsid": "rs11591147",
+      "effect_allele": "T",
+      "effect_weight": -0.072,
+      "disease": "ldl_cholesterol",
+      "citation": "GLGC PCSK9 R46L — strongly lower LDL"
+    },
+    {
+      "rsid": "rs3135506",
+      "effect_allele": "C",
+      "effect_weight": 0.044,
+      "disease": "triglycerides",
+      "citation": "GLGC APOA5"
+    },
+    {
+      "rsid": "rs662799",
+      "effect_allele": "G",
+      "effect_weight": 0.052,
+      "disease": "triglycerides",
+      "citation": "GLGC APOA5 promoter"
+    },
+    {
+      "rsid": "rs1260326",
+      "effect_allele": "C",
+      "effect_weight": 0.034,
+      "disease": "triglycerides",
+      "citation": "GLGC GCKR"
+    },
+    {
+      "rsid": "rs2681472",
+      "effect_allele": "T",
+      "effect_weight": 0.032,
+      "disease": "systolic_bp",
+      "citation": "ICBP ATP2B1"
+    },
+    {
+      "rsid": "rs699",
+      "effect_allele": "C",
+      "effect_weight": 0.028,
+      "disease": "systolic_bp",
+      "citation": "ICBP AGT"
+    },
+    {
+      "rsid": "rs13107325",
+      "effect_allele": "T",
+      "effect_weight": 0.034,
+      "disease": "systolic_bp",
+      "citation": "ICBP SLC39A8"
+    },
+    {
+      "rsid": "rs17367504",
+      "effect_allele": "G",
+      "effect_weight": -0.03,
+      "disease": "systolic_bp",
+      "citation": "ICBP MTHFR"
+    },
+    {
+      "rsid": "rs1205",
+      "effect_allele": "A",
+      "effect_weight": 0.058,
+      "disease": "crp_inflammation",
+      "citation": "Ligthart 2018 n=204K CRP gene"
+    },
+    {
+      "rsid": "rs2794520",
+      "effect_allele": "T",
+      "effect_weight": 0.052,
+      "disease": "crp_inflammation",
+      "citation": "Ligthart 2018 CRP promoter"
+    },
+    {
+      "rsid": "rs3093077",
+      "effect_allele": "A",
+      "effect_weight": 0.044,
+      "disease": "crp_inflammation",
+      "citation": "Ligthart 2018 CRP"
+    },
+    {
+      "rsid": "rs1130864",
+      "effect_allele": "T",
+      "effect_weight": 0.04,
+      "disease": "crp_inflammation",
+      "citation": "Ligthart 2018 CRP 3'UTR"
+    },
+    {
+      "rsid": "rs1805097",
+      "effect_allele": "A",
+      "effect_weight": 0.032,
+      "disease": "crp_inflammation",
+      "citation": "Ligthart 2018"
+    },
+    {
+      "rsid": "rs1800795",
+      "effect_allele": "C",
+      "effect_weight": 0.048,
+      "disease": "il6_inflammation",
+      "citation": "IL6 promoter G-174C — higher IL-6"
+    },
+    {
+      "rsid": "rs2228145",
+      "effect_allele": "C",
+      "effect_weight": -0.042,
+      "disease": "il6_inflammation",
+      "citation": "IL6R Asp358Ala — lower IL-6 signaling"
+    },
+    {
+      "rsid": "rs2066992",
+      "effect_allele": "T",
+      "effect_weight": 0.03,
+      "disease": "il6_inflammation",
+      "citation": "IL6 GWAS meta-analysis"
+    },
+    {
+      "rsid": "rs1520220",
+      "effect_allele": "C",
+      "effect_weight": 0.038,
+      "disease": "igf1_levels",
+      "citation": "UK Biobank IGF1 GWAS"
+    },
+    {
+      "rsid": "rs2195239",
+      "effect_allele": "G",
+      "effect_weight": 0.032,
+      "disease": "igf1_levels",
+      "citation": "CHARGE IGF1"
+    },
+    {
+      "rsid": "rs978458",
+      "effect_allele": "T",
+      "effect_weight": 0.028,
+      "disease": "igf1_levels",
+      "citation": "UK Biobank IGF1"
+    },
+    {
+      "rsid": "rs2943656",
+      "effect_allele": "C",
+      "effect_weight": 0.024,
+      "disease": "lean_body_mass",
+      "citation": "UK Biobank lean mass n=450K"
+    },
+    {
+      "rsid": "rs2802729",
+      "effect_allele": "A",
+      "effect_weight": 0.022,
+      "disease": "lean_body_mass",
+      "citation": "Zillikens 2017 body composition"
+    },
+    {
+      "rsid": "rs12785878",
+      "effect_allele": "T",
+      "effect_weight": -0.044,
+      "disease": "vitamin_d",
+      "citation": "SUNLIGHT DHCR7 — lower 25(OH)D"
+    },
+    {
+      "rsid": "rs10741657",
+      "effect_allele": "G",
+      "effect_weight": 0.042,
+      "disease": "vitamin_d",
+      "citation": "SUNLIGHT CYP2R1 — higher 25(OH)D"
+    },
+    {
+      "rsid": "rs6013897",
+      "effect_allele": "A",
+      "effect_weight": -0.032,
+      "disease": "vitamin_d",
+      "citation": "SUNLIGHT CYP24A1"
+    },
+    {
+      "rsid": "rs2282679",
+      "effect_allele": "C",
+      "effect_weight": -0.038,
+      "disease": "vitamin_d",
+      "citation": "SUNLIGHT GC — lower 25(OH)D"
+    },
+    {
+      "rsid": "rs1801133",
+      "effect_allele": "T",
+      "effect_weight": 0.052,
+      "disease": "homocysteine",
+      "citation": "MTHFR C677T — higher homocysteine"
+    },
+    {
+      "rsid": "rs1801131",
+      "effect_allele": "C",
+      "effect_weight": 0.03,
+      "disease": "homocysteine",
+      "citation": "MTHFR A1298C"
+    },
+    {
+      "rsid": "rs162036",
+      "effect_allele": "G",
+      "effect_weight": 0.024,
+      "disease": "homocysteine",
+      "citation": "van Meurs MTRR"
+    },
+    {
+      "rsid": "rs1805087",
+      "effect_allele": "G",
+      "effect_weight": 0.022,
+      "disease": "homocysteine",
+      "citation": "MTR — methionine synthase"
+    },
+    {
+      "rsid": "rs2274976",
+      "effect_allele": "T",
+      "effect_weight": 0.02,
+      "disease": "homocysteine",
+      "citation": "MTHFD1 — folate cycle"
+    },
+    {
+      "rsid": "rs9388289",
+      "effect_allele": "C",
+      "effect_weight": 0.034,
+      "disease": "epigenetic_age_grimage",
+      "citation": "McCartney 2021 GrimAge GWAS"
+    },
+    {
+      "rsid": "rs369536",
+      "effect_allele": "T",
+      "effect_weight": 0.028,
+      "disease": "epigenetic_age_grimage",
+      "citation": "McCartney 2021 GrimAge"
+    },
+    {
+      "rsid": "rs11655237",
+      "effect_allele": "A",
+      "effect_weight": 0.024,
+      "disease": "epigenetic_age_grimage",
+      "citation": "McCartney 2021 GrimAge clock"
+    },
+    {
+      "rsid": "rs1015362",
+      "effect_allele": "G",
+      "effect_weight": 0.03,
+      "disease": "reaction_time",
+      "citation": "Davies 2018 UK Biobank"
+    },
+    {
+      "rsid": "rs7554611",
+      "effect_allele": "G",
+      "effect_weight": 0.024,
+      "disease": "reaction_time",
+      "citation": "Davies 2018 UK Biobank"
+    },
+    {
+      "rsid": "rs9320913",
+      "effect_allele": "A",
+      "effect_weight": 0.04,
+      "disease": "cognitive_performance",
+      "citation": "Lee 2018 n=1.1M educational attainment"
+    },
+    {
+      "rsid": "rs1487432",
+      "effect_allele": "C",
+      "effect_weight": 0.032,
+      "disease": "cognitive_performance",
+      "citation": "Lee 2018 cognitive performance"
+    },
+    {
+      "rsid": "rs4851266",
+      "effect_allele": "T",
+      "effect_weight": 0.028,
+      "disease": "cognitive_performance",
+      "citation": "Davies 2018 general cognitive function"
+    },
+    {
+      "rsid": "rs10189832",
+      "effect_allele": "C",
+      "effect_weight": 0.03,
+      "disease": "cognitive_performance",
+      "citation": "Lee 2018 education/cognition"
+    },
+    {
+      "rsid": "rs2409632",
+      "effect_allele": "T",
+      "effect_weight": 0.022,
+      "disease": "cognitive_performance",
+      "citation": "UK Biobank cognitive GWAS"
+    },
+    {
+      "rsid": "rs11126620",
+      "effect_allele": "C",
+      "effect_weight": 0.032,
+      "disease": "neuroticism",
+      "citation": "Nagel 2018 n=449K neuroticism GWAS"
+    },
+    {
+      "rsid": "rs242924",
+      "effect_allele": "T",
+      "effect_weight": 0.028,
+      "disease": "neuroticism",
+      "citation": "23andMe/UK Biobank neuroticism"
+    },
+    {
+      "rsid": "rs12961969",
+      "effect_allele": "C",
+      "effect_weight": 0.024,
+      "disease": "neuroticism",
+      "citation": "Nagel 2018 CRHR1"
+    },
+    {
+      "rsid": "rs1229984",
+      "effect_allele": "T",
+      "effect_weight": -0.072,
+      "disease": "alcohol_consumption",
+      "citation": "Liu 2019 ADH1B — protective, lower intake"
+    },
+    {
+      "rsid": "rs671",
+      "effect_allele": "A",
+      "effect_weight": -0.082,
+      "disease": "alcohol_consumption",
+      "citation": "ALDH2 — strong protection"
+    },
+    {
+      "rsid": "rs2066702",
+      "effect_allele": "T",
+      "effect_weight": -0.042,
+      "disease": "alcohol_consumption",
+      "citation": "ADH1B variant"
+    },
+    {
+      "rsid": "rs762551",
+      "effect_allele": "A",
+      "effect_weight": 0.044,
+      "disease": "caffeine_metabolism",
+      "citation": "CYP1A2 — rapid caffeine metabolism"
+    },
+    {
+      "rsid": "rs4410790",
+      "effect_allele": "C",
+      "effect_weight": 0.034,
+      "disease": "caffeine_metabolism",
+      "citation": "Coffee intake GWAS AHR"
+    },
+    {
+      "rsid": "rs2472297",
+      "effect_allele": "T",
+      "effect_weight": 0.03,
+      "disease": "caffeine_metabolism",
+      "citation": "Coffee intake GWAS CYP1A1/CYP1A2"
+    },
+    {
+      "rsid": "rs6968865",
+      "effect_allele": "T",
+      "effect_weight": 0.022,
+      "disease": "caffeine_metabolism",
+      "citation": "Coffee consumption GWAS"
+    }
   ]
 }

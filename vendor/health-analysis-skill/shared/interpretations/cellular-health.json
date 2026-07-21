@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updated": "2026-07-20",
-  "description": "Aging biology, oxidative stress, telomere maintenance, and detox pathways",
+  "updated": "2026-07-21",
+  "description": "Curated genetic interpretations - cellular-health",
   "markers": {
     "rs4880": {
       "gene": "SOD2",

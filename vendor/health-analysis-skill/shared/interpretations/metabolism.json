@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updated": "2026-07-20",
-  "description": "Nutrition, vitamin metabolism, body composition, and energy balance",
+  "updated": "2026-07-21",
+  "description": "Curated genetic interpretations - metabolism",
   "markers": {
     "rs1801133": {
       "gene": "MTHFR",
@@ -5724,6 +5724,174 @@
           ],
           "priority": "low"
         }
+      }
+    },
+    "rs794316": {
+      "gene": "Unknown",
+      "name": "Antioxidant capacity",
+      "category": "metabolism",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs794316 - Antioxidant capacity",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs794316",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs7": {
+      "gene": "Unknown",
+      "name": "Calcium levels",
+      "category": "metabolism",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs7 - Calcium levels",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs7",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs17249754": {
+      "gene": "Unknown",
+      "name": "Diastolic blood pressure levels",
+      "category": "metabolism",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs17249754 - Diastolic blood pressure levels",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs17249754",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs17783015": {
+      "gene": "Unknown",
+      "name": "Diastolic blood pressure levels",
+      "category": "metabolism",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs17783015 - Diastolic blood pressure levels",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs17783015",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs73181210": {
+      "gene": "Unknown",
+      "name": "Diastolic blood pressure levels",
+      "category": "metabolism",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs73181210 - Diastolic blood pressure levels",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs73181210",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs526934": {
+      "gene": "Unknown",
+      "name": "Vitamin B12 levels",
+      "category": "metabolism",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs526934 - Vitamin B12 levels",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs526934",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs12272004": {
+      "gene": "Unknown",
+      "name": "Vitamin E levels",
+      "category": "metabolism",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs12272004 - Vitamin E levels",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs12272004",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
       }
     }
   }

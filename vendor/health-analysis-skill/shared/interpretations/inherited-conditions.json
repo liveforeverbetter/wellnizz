@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updated": "2026-07-20",
-  "description": "Monogenic disorders, carrier status, and rare disease variants",
+  "updated": "2026-07-21",
+  "description": "Curated genetic interpretations - inherited-conditions",
   "markers": {
     "rs2935873": {
       "gene": "BRCA1",
@@ -11602,6 +11602,2550 @@
           ],
           "priority": "high"
         }
+      }
+    },
+    "rs2": {
+      "gene": "Unknown",
+      "name": "Achromatopsia",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs2 - Achromatopsia",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs2",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs28929474": {
+      "gene": "Unknown",
+      "name": "Alpha-1 Antitrypsin Deficiency",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs28929474 - Alpha-1 Antitrypsin Deficiency",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs28929474",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs775982338": {
+      "gene": "Unknown",
+      "name": "Alpha-1 Antitrypsin Deficiency",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs775982338 - Alpha-1 Antitrypsin Deficiency",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs775982338",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs55819880": {
+      "gene": "Unknown",
+      "name": "Alpha-1 Antitrypsin Deficiency",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs55819880 - Alpha-1 Antitrypsin Deficiency",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs55819880",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs199422209": {
+      "gene": "Unknown",
+      "name": "Alpha-1 Antitrypsin Deficiency",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs199422209 - Alpha-1 Antitrypsin Deficiency",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs199422209",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs199422211": {
+      "gene": "Unknown",
+      "name": "Alpha-1 Antitrypsin Deficiency",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs199422211 - Alpha-1 Antitrypsin Deficiency",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs199422211",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs17580": {
+      "gene": "Unknown",
+      "name": "Alpha-1 Antitrypsin Deficiency",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs17580 - Alpha-1 Antitrypsin Deficiency",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs17580",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs28931570": {
+      "gene": "Unknown",
+      "name": "Alpha-1 Antitrypsin Deficiency",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs28931570 - Alpha-1 Antitrypsin Deficiency",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs28931570",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs121909715": {
+      "gene": "Unknown",
+      "name": "Amyloidosis, Finnish-type GSN gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs121909715 - Amyloidosis, Finnish-type GSN gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs121909715",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs104893768": {
+      "gene": "Unknown",
+      "name": "Autosomal Dominant Retinitis Pigmentosa",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs104893768 - Autosomal Dominant Retinitis Pigmentosa",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs104893768",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs29001566": {
+      "gene": "Unknown",
+      "name": "Autosomal Dominant Retinitis Pigmentosa",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs29001566 - Autosomal Dominant Retinitis Pigmentosa",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs29001566",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs527236113": {
+      "gene": "Unknown",
+      "name": "Autosomal Dominant Retinitis Pigmentosa",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs527236113 - Autosomal Dominant Retinitis Pigmentosa",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs527236113",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs80338903": {
+      "gene": "Unknown",
+      "name": "Autosomal recessive retinitis pigmentosa",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs80338903 - Autosomal recessive retinitis pigmentosa",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs80338903",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs80338902": {
+      "gene": "Unknown",
+      "name": "Autosomal recessive retinitis pigmentosa",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs80338902 - Autosomal recessive retinitis pigmentosa",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs80338902",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs148660051": {
+      "gene": "Unknown",
+      "name": "Autosomal recessive retinitis pigmentosa",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs148660051 - Autosomal recessive retinitis pigmentosa",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs148660051",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs397704718": {
+      "gene": "Unknown",
+      "name": "Autosomal recessive retinitis pigmentosa",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs397704718 - Autosomal recessive retinitis pigmentosa",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs397704718",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs121918583": {
+      "gene": "Unknown",
+      "name": "Autosomal recessive retinitis pigmentosa",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs121918583 - Autosomal recessive retinitis pigmentosa",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs121918583",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs398124533": {
+      "gene": "Unknown",
+      "name": "Birt-Hogg-Dube syndrome",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs398124533 - Birt-Hogg-Dube syndrome",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs398124533",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs749547712": {
+      "gene": "Unknown",
+      "name": "Catecholaminergic Polymorphic Ventricular Tachycardia CASQ2 gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs749547712 - Catecholaminergic Polymorphic Ventricular Tachycardia CASQ2 gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs749547712",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs121918600": {
+      "gene": "Unknown",
+      "name": "Catecholaminergic Polymorphic Ventricular Tachycardia RYR2 gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs121918600 - Catecholaminergic Polymorphic Ventricular Tachycardia RYR2 gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs121918600",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs768049331": {
+      "gene": "Unknown",
+      "name": "Catecholaminergic Polymorphic Ventricular Tachycardia TRDN gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs768049331 - Catecholaminergic Polymorphic Ventricular Tachycardia TRDN gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs768049331",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs121908096": {
+      "gene": "Unknown",
+      "name": "Cerebrotendinous Xanthomatosis",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs121908096 - Cerebrotendinous Xanthomatosis",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs121908096",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs1447564693": {
+      "gene": "Unknown",
+      "name": "Congenital Myasthenic Syndrome CHRNB1 gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs1447564693 - Congenital Myasthenic Syndrome CHRNB1 gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs1447564693",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs587776778": {
+      "gene": "Unknown",
+      "name": "Congenital Stationary Night Blindness Oguchi Disease",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs587776778 - Congenital Stationary Night Blindness Oguchi Disease",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs587776778",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs753470112": {
+      "gene": "Unknown",
+      "name": "Congenital Stationary Night Blindness Oguchi Disease",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs753470112 - Congenital Stationary Night Blindness Oguchi Disease",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs753470112",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs121908443": {
+      "gene": "Unknown",
+      "name": "Congenital disorder of glycosylation type 1c ALG6 gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs121908443 - Congenital disorder of glycosylation type 1c ALG6 gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs121908443",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs28939378": {
+      "gene": "Unknown",
+      "name": "Congenital disorder of glycosylation type 1k ALG1 gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs28939378 - Congenital disorder of glycosylation type 1k ALG1 gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs28939378",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs267607004": {
+      "gene": "Unknown",
+      "name": "Dilated Cardiomyopathy 1DD RBM20 gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs267607004 - Dilated Cardiomyopathy 1DD RBM20 gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs267607004",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs74315380": {
+      "gene": "Unknown",
+      "name": "Dilated Cardiomyopathy 1D TNNT2 gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs74315380 - Dilated Cardiomyopathy 1D TNNT2 gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs74315380",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs397516784": {
+      "gene": "Unknown",
+      "name": "Dilated Cardiomyopathy 1P PLN gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs397516784 - Dilated Cardiomyopathy 1P PLN gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs397516784",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs56199535": {
+      "gene": "Unknown",
+      "name": "Dubin-Johnson syndrome",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs56199535 - Dubin-Johnson syndrome",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs56199535",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs28937869": {
+      "gene": "Unknown",
+      "name": "Ehlers-Danlos Syndrome EDS",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs28937869 - Ehlers-Danlos Syndrome EDS",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs28937869",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs137929307": {
+      "gene": "Unknown",
+      "name": "Familial Hypercholesterolemia",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs137929307 - Familial Hypercholesterolemia",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs137929307",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs80357906": {
+      "gene": "Unknown",
+      "name": "Familial breast cancer BRCA1 and BRCA2 genes",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs80357906 - Familial breast cancer BRCA1 and BRCA2 genes",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs80357906",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs80357914": {
+      "gene": "Unknown",
+      "name": "Familial breast cancer BRCA1 and BRCA2 genes",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs80357914 - Familial breast cancer BRCA1 and BRCA2 genes",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs80357914",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs80359550": {
+      "gene": "Unknown",
+      "name": "Familial breast cancer BRCA1 and BRCA2 genes",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs80359550 - Familial breast cancer BRCA1 and BRCA2 genes",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs80359550",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs80356898": {
+      "gene": "Unknown",
+      "name": "Familial breast cancer BRCA1 and BRCA2 genes",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs80356898 - Familial breast cancer BRCA1 and BRCA2 genes",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs80356898",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs397507552": {
+      "gene": "Unknown",
+      "name": "Fanconi Anemia FANCA gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs397507552 - Fanconi Anemia FANCA gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs397507552",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs397507553": {
+      "gene": "Unknown",
+      "name": "Fanconi Anemia FANCA gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs397507553 - Fanconi Anemia FANCA gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs397507553",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs1302083447": {
+      "gene": "Unknown",
+      "name": "Fanconi Anemia FANCA gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs1302083447 - Fanconi Anemia FANCA gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs1302083447",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs755922289": {
+      "gene": "Unknown",
+      "name": "Fanconi Anemia FANCA gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs755922289 - Fanconi Anemia FANCA gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs755922289",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs755546887": {
+      "gene": "Unknown",
+      "name": "Fanconi Anemia FANCA gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs755546887 - Fanconi Anemia FANCA gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs755546887",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs587776640": {
+      "gene": "Unknown",
+      "name": "Fanconi Anemia FANCG gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs587776640 - Fanconi Anemia FANCG gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs587776640",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs121434425": {
+      "gene": "Unknown",
+      "name": "Fanconi Anemia FANCG gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs121434425 - Fanconi Anemia FANCG gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs121434425",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs200479612": {
+      "gene": "Unknown",
+      "name": "Fanconi Anemia FANCG gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs200479612 - Fanconi Anemia FANCG gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs200479612",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs1491369358": {
+      "gene": "Unknown",
+      "name": "Fanconi Anemia FANCG gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs1491369358 - Fanconi Anemia FANCG gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs1491369358",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs149616199": {
+      "gene": "Unknown",
+      "name": "Fanconi Anemia FANCG gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs149616199 - Fanconi Anemia FANCG gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs149616199",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs1166164399": {
+      "gene": "Unknown",
+      "name": "Hemophilia B",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs1166164399 - Hemophilia B",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs1166164399",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs121917868": {
+      "gene": "Unknown",
+      "name": "Hereditary Coproporphyria CPOX gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs121917868 - Hereditary Coproporphyria CPOX gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs121917868",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs74315323": {
+      "gene": "Unknown",
+      "name": "Hereditary Hemochromatosis Type 2A HJV gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs74315323 - Hereditary Hemochromatosis Type 2A HJV gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs74315323",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs1553769428": {
+      "gene": "Unknown",
+      "name": "Hereditary Hemochromatosis Type 2A HJV gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs1553769428 - Hereditary Hemochromatosis Type 2A HJV gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs1553769428",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs1227198230": {
+      "gene": "Unknown",
+      "name": "Hereditary Hemochromatosis Type 4 SLC40A1 gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs1227198230 - Hereditary Hemochromatosis Type 4 SLC40A1 gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs1227198230",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs80338845": {
+      "gene": "Unknown",
+      "name": "Hereditary Paraganglioma-Pheochromocytoma Syndrome",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs80338845 - Hereditary Paraganglioma-Pheochromocytoma Syndrome",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs80338845",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs121434295": {
+      "gene": "Unknown",
+      "name": "Homocystinuria due to MTHFR deficiency",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs121434295 - Homocystinuria due to MTHFR deficiency",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs121434295",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs543016186": {
+      "gene": "Unknown",
+      "name": "Homocystinuria due to MTHFR deficiency",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs543016186 - Homocystinuria due to MTHFR deficiency",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs543016186",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs121434296": {
+      "gene": "Unknown",
+      "name": "Homocystinuria due to MTHFR deficiency",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs121434296 - Homocystinuria due to MTHFR deficiency",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs121434296",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs121434297": {
+      "gene": "Unknown",
+      "name": "Homocystinuria due to MTHFR deficiency",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs121434297 - Homocystinuria due to MTHFR deficiency",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs121434297",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs200137991": {
+      "gene": "Unknown",
+      "name": "Homocystinuria due to MTHFR deficiency",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs200137991 - Homocystinuria due to MTHFR deficiency",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs200137991",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs137852769": {
+      "gene": "Unknown",
+      "name": "Long-chain 3-hydroxyacyl-CoA dehydrogenase deficiency",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs137852769 - Long-chain 3-hydroxyacyl-CoA dehydrogenase deficiency",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs137852769",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs781222705": {
+      "gene": "Unknown",
+      "name": "Long-chain 3-hydroxyacyl-CoA dehydrogenase deficiency",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs781222705 - Long-chain 3-hydroxyacyl-CoA dehydrogenase deficiency",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs781222705",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs397514251": {
+      "gene": "Unknown",
+      "name": "Long QT Syndrome Type 3",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs397514251 - Long QT Syndrome Type 3",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs397514251",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs137854600": {
+      "gene": "Unknown",
+      "name": "Long QT Syndrome Type 3",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs137854600 - Long QT Syndrome Type 3",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs137854600",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs120074190": {
+      "gene": "Unknown",
+      "name": "Long QT Syndrome Types 1 and 2",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs120074190 - Long QT Syndrome Types 1 and 2",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs120074190",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs17215500": {
+      "gene": "Unknown",
+      "name": "Long QT Syndrome Types 1 and 2",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs17215500 - Long QT Syndrome Types 1 and 2",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs17215500",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs63750580": {
+      "gene": "Unknown",
+      "name": "Lynch syndrome",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs63750580 - Lynch syndrome",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs63750580",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs193922370": {
+      "gene": "Unknown",
+      "name": "Lynch syndrome",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs193922370 - Lynch syndrome",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs193922370",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs267607760": {
+      "gene": "Unknown",
+      "name": "Lynch syndrome",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs267607760 - Lynch syndrome",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs267607760",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs63750303": {
+      "gene": "Unknown",
+      "name": "Lynch syndrome",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs63750303 - Lynch syndrome",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs63750303",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs19393922376": {
+      "gene": "Unknown",
+      "name": "Lynch syndrome",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs19393922376 - Lynch syndrome",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs19393922376",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs587779075": {
+      "gene": "Unknown",
+      "name": "Lynch syndrome",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs587779075 - Lynch syndrome",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs587779075",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs63749993": {
+      "gene": "Unknown",
+      "name": "Lynch syndrome",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs63749993 - Lynch syndrome",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs63749993",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs398124292": {
+      "gene": "Unknown",
+      "name": "Methylmalonic Aciduria with Homocystinuria, cblC type",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs398124292 - Methylmalonic Aciduria with Homocystinuria, cblC type",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs398124292",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs121918241": {
+      "gene": "Unknown",
+      "name": "Methylmalonic Aciduria with Homocystinuria, cblC type",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs121918241 - Methylmalonic Aciduria with Homocystinuria, cblC type",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs121918241",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs587776889": {
+      "gene": "Unknown",
+      "name": "Methylmalonic Aciduria with Homocystinuria, cblC type",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs587776889 - Methylmalonic Aciduria with Homocystinuria, cblC type",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs587776889",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs118204044": {
+      "gene": "Unknown",
+      "name": "Methylmalonic Aciduria with Homocystinuria, cblD type",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs118204044 - Methylmalonic Aciduria with Homocystinuria, cblD type",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs118204044",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs118204047": {
+      "gene": "Unknown",
+      "name": "Methylmalonic Aciduria with Homocystinuria, cblD type",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs118204047 - Methylmalonic Aciduria with Homocystinuria, cblD type",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs118204047",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs118204048": {
+      "gene": "Unknown",
+      "name": "Methylmalonic Aciduria with Homocystinuria, cblD type",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs118204048 - Methylmalonic Aciduria with Homocystinuria, cblD type",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs118204048",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs749272546": {
+      "gene": "Unknown",
+      "name": "Methylmalonic Aciduria with Homocystinuria, cblF type",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs749272546 - Methylmalonic Aciduria with Homocystinuria, cblF type",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs749272546",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs267606606": {
+      "gene": "Unknown",
+      "name": "Neurofibromatosis type I",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs267606606 - Neurofibromatosis type I",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs267606606",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs137854556": {
+      "gene": "Unknown",
+      "name": "Neurofibromatosis type I",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs137854556 - Neurofibromatosis type I",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs137854556",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs797045139": {
+      "gene": "Unknown",
+      "name": "Neurofibromatosis type I",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs797045139 - Neurofibromatosis type I",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs797045139",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs80358259": {
+      "gene": "Unknown",
+      "name": "Niemann-Pick Disease Type C",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs80358259 - Niemann-Pick Disease Type C",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs80358259",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs80358260": {
+      "gene": "Unknown",
+      "name": "Niemann-Pick Disease Type C",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs80358260 - Niemann-Pick Disease Type C",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs80358260",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs121912621": {
+      "gene": "Unknown",
+      "name": "Oculocutaneous Albinism SLC45A2 gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs121912621 - Oculocutaneous Albinism SLC45A2 gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs121912621",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs760780597": {
+      "gene": "Unknown",
+      "name": "Oculocutaneous Albinism SLC45A2 gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs760780597 - Oculocutaneous Albinism SLC45A2 gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs760780597",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs104894130": {
+      "gene": "Unknown",
+      "name": "Oculocutaneous Albinism TYRP1 gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs104894130 - Oculocutaneous Albinism TYRP1 gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs104894130",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs387906560": {
+      "gene": "Unknown",
+      "name": "Oculocutaneous Albinism TYRP1 gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs387906560 - Oculocutaneous Albinism TYRP1 gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs387906560",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs387906562": {
+      "gene": "Unknown",
+      "name": "Oculocutaneous Albinism TYRP1 gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs387906562 - Oculocutaneous Albinism TYRP1 gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs387906562",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs387907171": {
+      "gene": "Unknown",
+      "name": "Oculocutaneous Albinism TYRP1 gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs387907171 - Oculocutaneous Albinism TYRP1 gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs387907171",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs483352909": {
+      "gene": "Unknown",
+      "name": "Polymerase Proofreading–Associated Polyposis POLD1 and POLE genes",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs483352909 - Polymerase Proofreading–Associated Polyposis POLD1 and POLE genes",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs483352909",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs397514632": {
+      "gene": "Unknown",
+      "name": "Polymerase Proofreading–Associated Polyposis POLD1 and POLE genes",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs397514632 - Polymerase Proofreading–Associated Polyposis POLD1 and POLE genes",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs397514632",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs141138948": {
+      "gene": "Unknown",
+      "name": "Pontocerebellar Hypoplasia Type 1B EXOSC3 gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs141138948 - Pontocerebellar Hypoplasia Type 1B EXOSC3 gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs141138948",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs374550999": {
+      "gene": "Unknown",
+      "name": "Pontocerebellar Hypoplasia Type 1B EXOSC3 gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs374550999 - Pontocerebellar Hypoplasia Type 1B EXOSC3 gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs374550999",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs267607035": {
+      "gene": "Unknown",
+      "name": "Pontocerebellar Hypoplasia Type 2D SEPSECS gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs267607035 - Pontocerebellar Hypoplasia Type 2D SEPSECS gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs267607035",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs267607036": {
+      "gene": "Unknown",
+      "name": "Pontocerebellar Hypoplasia Type 2D SEPSECS gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs267607036 - Pontocerebellar Hypoplasia Type 2D SEPSECS gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs267607036",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs185803104": {
+      "gene": "Unknown",
+      "name": "Primary Hyperoxaluria Type 3 PH3",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs185803104 - Primary Hyperoxaluria Type 3 PH3",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs185803104",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs397509360": {
+      "gene": "Unknown",
+      "name": "Primary Hyperoxaluria Type 3 PH3",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs397509360 - Primary Hyperoxaluria Type 3 PH3",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs397509360",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs770050262": {
+      "gene": "Unknown",
+      "name": "Primary Hyperoxaluria Type 3 PH3",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs770050262 - Primary Hyperoxaluria Type 3 PH3",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs770050262",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs1564760008": {
+      "gene": "Unknown",
+      "name": "Primary Hyperoxaluria Type 3 PH3",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs1564760008 - Primary Hyperoxaluria Type 3 PH3",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs1564760008",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs749315029": {
+      "gene": "Unknown",
+      "name": "Primary Hyperoxaluria Type 3 PH3",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs749315029 - Primary Hyperoxaluria Type 3 PH3",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs749315029",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs202047589": {
+      "gene": "Unknown",
+      "name": "Primary Hyperoxaluria Type 3 PH3",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs202047589 - Primary Hyperoxaluria Type 3 PH3",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs202047589",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs121909612": {
+      "gene": "Unknown",
+      "name": "Systemic Amyloidosis FGA gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs121909612 - Systemic Amyloidosis FGA gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs121909612",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs118203914": {
+      "gene": "Unknown",
+      "name": "Tyrosinemia Type II",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs118203914 - Tyrosinemia Type II",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs118203914",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs1357257156": {
+      "gene": "Unknown",
+      "name": "Tyrosinemia Type II",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs1357257156 - Tyrosinemia Type II",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs1357257156",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs118203916": {
+      "gene": "Unknown",
+      "name": "Tyrosinemia Type II",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs118203916 - Tyrosinemia Type II",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs118203916",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs121918324": {
+      "gene": "Unknown",
+      "name": "Variegate Porphyria PPOX gene",
+      "category": "inherited-conditions",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs121918324 - Variegate Porphyria PPOX gene",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs121918324",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
       }
     }
   }

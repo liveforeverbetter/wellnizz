@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updated": "2026-07-20",
-  "description": "Cardiovascular health, blood pressure, cholesterol, and lipid profiles",
+  "updated": "2026-07-21",
+  "description": "Curated genetic interpretations - cardiometabolic",
   "markers": {
     "rs1799983": {
       "gene": "NOS3",
@@ -1311,6 +1311,414 @@
           ],
           "priority": "high"
         }
+      }
+    },
+    "rs74333950": {
+      "gene": "Unknown",
+      "name": "Acne vulgaris",
+      "category": "cardiometabolic",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs74333950 - Acne vulgaris",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs74333950",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs3849154": {
+      "gene": "Unknown",
+      "name": "Acne vulgaris",
+      "category": "cardiometabolic",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs3849154 - Acne vulgaris",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs3849154",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs1": {
+      "gene": "Unknown",
+      "name": "Alanine aminotransferase levels",
+      "category": "cardiometabolic",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs1 - Alanine aminotransferase levels",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs1",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs8176719": {
+      "gene": "Unknown",
+      "name": "Blood Group ABO/Rh",
+      "category": "cardiometabolic",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs8176719 - Blood Group ABO/Rh",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs8176719",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs9": {
+      "gene": "Unknown",
+      "name": "C-reactive protein levels",
+      "category": "cardiometabolic",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs9 - C-reactive protein levels",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs9",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs11": {
+      "gene": "Unknown",
+      "name": "Cognitive ability",
+      "category": "cardiometabolic",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs11 - Cognitive ability",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs11",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs1122171": {
+      "gene": "Unknown",
+      "name": "Dental caries and periodontitis",
+      "category": "cardiometabolic",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs1122171 - Dental caries and periodontitis",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs1122171",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs72748935": {
+      "gene": "Unknown",
+      "name": "Dental caries and periodontitis",
+      "category": "cardiometabolic",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs72748935 - Dental caries and periodontitis",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs72748935",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs9333075": {
+      "gene": "Unknown",
+      "name": "Earlobe type",
+      "category": "cardiometabolic",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs9333075 - Earlobe type",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs9333075",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs12273363": {
+      "gene": "Unknown",
+      "name": "Frequency of bowel movements",
+      "category": "cardiometabolic",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs12273363 - Frequency of bowel movements",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs12273363",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs3": {
+      "gene": "Unknown",
+      "name": "Insomnia",
+      "category": "cardiometabolic",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs3 - Insomnia",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs3",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs55974014": {
+      "gene": "Unknown",
+      "name": "Left-handedness (left lateral)",
+      "category": "cardiometabolic",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs55974014 - Left-handedness (left lateral)",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs55974014",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs66479618": {
+      "gene": "Unknown",
+      "name": "Left-handedness (left lateral)",
+      "category": "cardiometabolic",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs66479618 - Left-handedness (left lateral)",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs66479618",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs4550447": {
+      "gene": "Unknown",
+      "name": "Left-handedness (left lateral)",
+      "category": "cardiometabolic",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs4550447 - Left-handedness (left lateral)",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs4550447",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs12": {
+      "gene": "Unknown",
+      "name": "Neutrophil count",
+      "category": "cardiometabolic",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs12 - Neutrophil count",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs12",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs7924176": {
+      "gene": "Unknown",
+      "name": "Permanent tooth eruption",
+      "category": "cardiometabolic",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs7924176 - Permanent tooth eruption",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs7924176",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
+      }
+    },
+    "rs1805009": {
+      "gene": "Unknown",
+      "name": "Probability of having red hair",
+      "category": "cardiometabolic",
+      "chrom": "0",
+      "pos": 0,
+      "display": "rs1805009 - Probability of having red hair",
+      "interpretations": {
+        "default": {
+          "effect": "Variant detected",
+          "interpretation": "Marker rs1805009",
+          "recommendations": [],
+          "priority": "medium"
+        }
+      },
+      "evidenceTier": 3,
+      "provenance": {
+        "status": "curated",
+        "sources": [
+          "extracted_tellmegen_report"
+        ],
+        "reference_build": "GRCh38"
       }
     }
   }

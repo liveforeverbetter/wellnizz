@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updated": "2026-07-20",
-  "description": "Bone strength, joint integrity, tendinopathy risk, and connective tissue",
+  "updated": "2026-07-21",
+  "description": "Curated genetic interpretations - skeletal-health",
   "markers": {
     "rs1544410": {
       "gene": "VDR",

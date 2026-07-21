@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updated": "2026-07-20",
-  "description": "Appearance, sensory traits, blood type, and physical characteristics",
+  "updated": "2026-07-21",
+  "description": "Curated genetic interpretations - physical-traits",
   "markers": {
     "rs17602729": {
       "gene": "AMPD1",
