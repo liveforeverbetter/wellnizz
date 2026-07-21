@@ -43,10 +43,10 @@ ForeverBetter runs three ways, and this runbook is the **local pipeline half**:
   workers, and data store run on a machine the user controls (for example the Docker
   image at `http://localhost:8787`). This gives the full endpoint set and every hosted
   playbook, with data on the user's own infrastructure. Drive it with the hosted
-  onboarding skill `https://api.foreverbetter.xyz/SKILL.md`, pointing `HEALTH_API_URL`
+  onboarding skill `https://app.wellnizz.com/SKILL.md`, pointing `HEALTH_API_URL`
   at the local deployment. Follow the Docker quickstart at
   `https://foreverbetter.mintlify.app/self-hosting`.
-- **Cloud (managed).** The hosted API at `https://api.foreverbetter.xyz` (also over
+- **Cloud (managed).** The hosted API at `https://app.wellnizz.com` (also over
   MCP) adds ancestry proportions, first-party wearable OAuth, provider discovery,
   goals, retest reminders, stored history, and hosted private dashboard links.
 
@@ -60,7 +60,7 @@ processing the data.
 ## Full documentation
 
 - Full hosted docs as one text file: `https://foreverbetter.mintlify.app/llms-full.txt`
-- Hosted onboarding skill: `https://api.foreverbetter.xyz/SKILL.md`
+- Hosted onboarding skill: `https://app.wellnizz.com/SKILL.md`
 - Local depth: `PIPELINE.md` (module step map), `references/wgs-process.md`
   (best-available WGS interpretation), and the engine tables below.
 

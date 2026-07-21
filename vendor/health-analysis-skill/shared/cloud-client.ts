@@ -22,7 +22,7 @@ export interface CloudConfig {
   timeoutMs?: number;
 }
 
-const DEFAULT_BASE_URL = 'https://api.foreverbetter.xyz';
+const DEFAULT_BASE_URL = 'https://app.wellnizz.com';
 
 export function cloudConfig(env: NodeJS.ProcessEnv = process.env): CloudConfig {
   return {

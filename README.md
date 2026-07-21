@@ -10,17 +10,17 @@
 </p>
 
 <p align="center">
-  <a href="https://foreverbetter.xyz"><strong>Website</strong></a> ·
-  <a href="https://api.foreverbetter.xyz/dashboard"><strong>Developer dashboard</strong></a> ·
-  <a href="https://foreverbetter.mintlify.app/api-reference/introduction"><strong>Documentation</strong></a> ·
-  <a href="https://api.foreverbetter.xyz/openapi.json"><strong>OpenAPI</strong></a> ·
+  <a href="https://wellnizz.com"><strong>Website</strong></a> ·
+  <a href="https://app.wellnizz.com/dashboard"><strong>Developer dashboard</strong></a> ·
+  <a href="https://docs.wellnizz.com/api-reference/introduction"><strong>Documentation</strong></a> ·
+  <a href="https://app.wellnizz.com/openapi.json"><strong>OpenAPI</strong></a> ·
   <a href="#self-hosting"><strong>Self-host</strong></a>
 </p>
 
 <p align="center">
-  <a href="https://api.foreverbetter.xyz/ready"><img alt="API status" src="https://img.shields.io/badge/API-live-36b37e?style=flat-square" /></a>
-  <a href="https://api.foreverbetter.xyz/openapi.json"><img alt="OpenAPI 3.1" src="https://img.shields.io/badge/REST-OpenAPI_3.1-111111?style=flat-square" /></a>
-  <a href="https://foreverbetter.mintlify.app/connect-your-agent"><img alt="MCP compatible" src="https://img.shields.io/badge/agents-MCP_compatible-7c5cff?style=flat-square" /></a>
+  <a href="https://app.wellnizz.com/ready"><img alt="API status" src="https://img.shields.io/badge/API-live-36b37e?style=flat-square" /></a>
+  <a href="https://app.wellnizz.com/openapi.json"><img alt="OpenAPI 3.1" src="https://img.shields.io/badge/REST-OpenAPI_3.1-111111?style=flat-square" /></a>
+  <a href="https://docs.wellnizz.com/connect-your-agent"><img alt="MCP compatible" src="https://img.shields.io/badge/agents-MCP_compatible-7c5cff?style=flat-square" /></a>
   <a href="LICENSE"><img alt="AGPL 3.0 license" src="https://img.shields.io/badge/license-AGPL--3.0-256e5b?style=flat-square" /></a>
 </p>
 
@@ -92,7 +92,7 @@ The fastest onboarding is agent-led. Paste this into Claude, or into any agent t
 
 ```text
 Help me analyze and connect my longevity data.
-Read https://api.foreverbetter.xyz/SKILL.md and follow its onboarding instructions.
+Read https://app.wellnizz.com/SKILL.md and follow its onboarding instructions.
 ```
 
 The skill file is the agent operating contract. Install it as a skill or paste it as a prompt; either way the agent runs the whole onboarding:
@@ -105,11 +105,11 @@ With the key in hand, the same API attaches to Claude over MCP:
 
 ```bash
 claude mcp add --transport http foreverbetter \
-  https://api.foreverbetter.xyz/mcp \
+  https://app.wellnizz.com/mcp \
   --header "Authorization: Bearer <api key>"
 ```
 
-[Connect your agent](https://foreverbetter.mintlify.app/connect-your-agent) covers the complete hosted-agent setup.
+[Connect your agent](https://docs.wellnizz.com/connect-your-agent) covers the complete hosted-agent setup.
 
 ## Start building on the hosted API
 
@@ -118,17 +118,17 @@ claude mcp add --transport http foreverbetter \
 Discovery endpoints are public and reflect the configuration of the running deployment:
 
 ```bash
-curl -s https://api.foreverbetter.xyz/capabilities | jq .
-curl -s https://api.foreverbetter.xyz/design/systems | jq .
-curl -s https://api.foreverbetter.xyz/.well-known/health-agent.json | jq .
+curl -s https://app.wellnizz.com/capabilities | jq .
+curl -s https://app.wellnizz.com/design/systems | jq .
+curl -s https://app.wellnizz.com/.well-known/health-agent.json | jq .
 ```
 
 ### 2. Create a developer key
 
-Open the [developer dashboard](https://api.foreverbetter.xyz/dashboard), sign in with the code sent to your email, and create a personal workspace key. An agent can instead start the explicit approval flow at `POST /agent-login/start`. Agent-login keys are shown once and do not include billing or account-deletion permissions.
+Open the [developer dashboard](https://app.wellnizz.com/dashboard), sign in with the code sent to your email, and create a personal workspace key. An agent can instead start the explicit approval flow at `POST /agent-login/start`. Agent-login keys are shown once and do not include billing or account-deletion permissions.
 
 ```bash
-export FB_API=https://api.foreverbetter.xyz
+export FB_API=https://app.wellnizz.com
 export FB_KEY="your-api-key"
 export USER_ID="your-user-id"
 export ORGANIZATION_ID="your-workspace-id"
@@ -320,7 +320,7 @@ Export everything this agent is allowed to access for this user.
 
 For daily delivery, the agent should use a user-approved scoped key, read the latest health context and action plan, generate or reuse a private dashboard link, and schedule the notification in the user's OpenClaw or Hermes environment. ForeverBetter supplies the health data and scoped key. The agent runtime owns the schedule and delivery channel.
 
-Start with [Connect your agent](https://foreverbetter.mintlify.app/connect-your-agent), inspect the [agent manifest](https://api.foreverbetter.xyz/.well-known/health-agent.json), or call `POST /mcp` with `tools/list`.
+Start with [Connect your agent](https://docs.wellnizz.com/connect-your-agent), inspect the [agent manifest](https://app.wellnizz.com/.well-known/health-agent.json), or call `POST /mcp` with `tools/list`.
 
 ## Design systems are API features
 
@@ -397,9 +397,9 @@ AGPL-3.0-only. See [`LICENSE`](LICENSE).
 </p>
 
 <p align="center">
-  <a href="https://api.foreverbetter.xyz/dashboard">Create a developer key</a> ·
+  <a href="https://app.wellnizz.com/dashboard">Create a developer key</a> ·
   <a href="#self-hosting">Run it locally</a> ·
-  <a href="https://api.foreverbetter.xyz/openapi.json">Download OpenAPI</a>
+  <a href="https://app.wellnizz.com/openapi.json">Download OpenAPI</a>
 </p>
 
 <sub>ForeverBetter provides health-data and educational infrastructure. It is not medical advice and is not intended for diagnosis, treatment, or emergencies.</sub>

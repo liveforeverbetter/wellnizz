@@ -57,7 +57,7 @@ export function stripeBillingConfig(env: NodeJS.ProcessEnv = process.env): Strip
     secretKey,
     webhookSecret,
     priceIds: { standard, builder, growth },
-    returnUrl: env.STRIPE_BILLING_RETURN_URL ?? 'https://api.foreverbetter.xyz/dashboard',
+    returnUrl: env.STRIPE_BILLING_RETURN_URL ?? 'https://app.wellnizz.com/dashboard',
     portalConfigurationId: env.STRIPE_BILLING_PORTAL_CONFIGURATION_ID,
   };
 }
