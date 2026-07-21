@@ -309,19 +309,20 @@ export class PostgresHealthStore implements HealthStore {
     );
   }
 
-  async failGeneticAnalysisJob(id: string, error: string): Promise<void> {
+  async failGeneticAnalysisJob(id: string, error: string, options?: { retryable?: boolean }): Promise<void> {
+    const resolvedRetryable = options?.retryable !== undefined;
     await this.query(
       `update ${SCHEMA}.genetic_analysis_jobs
-       set status = case when attempts < max_attempts then 'queued' else 'failed' end,
-           stage = case when attempts < max_attempts then 'retry_queued' else 'failed' end,
-           progress_message = case when attempts < max_attempts
+       set status = case when ${resolvedRetryable ? '$3::boolean' : 'attempts < max_attempts'} then 'queued' else 'failed' end,
+           stage = case when ${resolvedRetryable ? '$3::boolean' : 'attempts < max_attempts'} then 'retry_queued' else 'failed' end,
+           progress_message = case when ${resolvedRetryable ? '$3::boolean' : 'attempts < max_attempts'}
              then 'This attempt failed and has been queued for retry.'
              else 'Analysis attempts are exhausted. The source can be reanalyzed after the reported issue is corrected.' end,
            last_progress_at=now(),
-           reanalysis_recommended = attempts >= max_attempts,
-           reanalysis_reason = case when attempts >= max_attempts then $2 else null end,
+           reanalysis_recommended = not (${resolvedRetryable ? '$3::boolean' : 'attempts < max_attempts'}),
+           reanalysis_reason = case when not (${resolvedRetryable ? '$3::boolean' : 'attempts < max_attempts'}) then $2 else null end,
            updated_at=now(), locked_at=null, worker_id=null, error=$2 where id=$1`,
-      [id, error],
+      resolvedRetryable ? [id, error, options!.retryable!] : [id, error],
     );
   }
 
