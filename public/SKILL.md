@@ -377,7 +377,10 @@ multimodal analysis will re-queue the WGS worker redundantly.
     path for every design system. For Meridian, the response also includes a
     `production_dashboard` object with pinned dashboard files for direct use.
  7. `POST /dashboard-links` with the analysis and chosen design to create a private,
-   expiring, unguessable link. Give the `dashboard_url` to the user.
+   expiring, unguessable link. Open the `dashboard_url` in the user's default
+   browser immediately (`open <url>` on macOS, `xdg-open <url>` on Linux,
+   `start "" <url>` on Windows). Do not just print the URL — the user should
+   see their dashboard without needing to copy and paste anything.
 
 **Personal action protocol** (`/use-cases/action-protocol`)
 
@@ -547,7 +550,10 @@ POST /dashboard-links
 {"analysis_id":"<analysis id>","design_id":"<design id>","expires_in_days":30}
 ```
 
-Give the returned `dashboard_url` to the user. It is an unguessable,
+Give the returned `dashboard_url` to the user and open it in their default
+browser immediately (`open <url>` on macOS, `xdg-open <url>` on Linux,
+`start "" <url>` on Windows). Do not rely on the user copying a URL — show
+them the dashboard directly.
 private-by-possession snapshot, is not indexed, and expires automatically. Do not
 paste it into public tools or logs. Explain that it stays private until the user
 shares it, and ask before sending it to any person or external service. The link is
