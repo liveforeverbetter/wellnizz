@@ -800,8 +800,9 @@ async function route(req: IncomingMessage, res: ServerResponse, store: HealthSto
     // First-party fallback: if the caller omits credentials, use the server's
     // configured OAuth app so a signed-up user can connect without pasting any.
     const firstParty = firstPartyOAuthFor(input.source_provider, authConfig);
+    const baseUrl = publicBaseUrl(req, authConfig);
     const clientId = input.client_id ?? firstParty?.clientId;
-    const redirectUri = input.redirect_uri ?? firstParty?.defaultRedirectUri;
+    const redirectUri = input.redirect_uri ?? firstParty?.defaultRedirectUri ?? `${baseUrl}/dashboard`;
     if (!clientId || !redirectUri) throw new HttpError(400, `${provider.display_name} OAuth requires client_id and redirect_uri (or a server-configured first-party app).`);
     const connectionState = firstParty
       ? issueFirstPartyConnectionState(input.source_provider, input.user_id, input.organization_id)
@@ -898,11 +899,12 @@ async function route(req: IncomingMessage, res: ServerResponse, store: HealthSto
     // First-party fallback (see the start handler): fill in server credentials
     // when the caller only sends the authorization code.
     const firstParty = firstPartyOAuthFor(input.source_provider, authConfig);
+    const callbackBaseUrl = publicBaseUrl(req, authConfig);
     const callbackInput = {
       ...input,
       client_id: input.client_id ?? firstParty?.clientId,
       client_secret: input.client_secret ?? firstParty?.clientSecret,
-      redirect_uri: input.redirect_uri ?? firstParty?.defaultRedirectUri,
+      redirect_uri: input.redirect_uri ?? firstParty?.defaultRedirectUri ?? `${callbackBaseUrl}/dashboard`,
     };
     if (!isBridge && (!callbackInput.code || !callbackInput.client_id || !callbackInput.client_secret || !callbackInput.redirect_uri)) {
       throw new HttpError(400, `${provider.display_name} OAuth callback requires code, client_id, client_secret, and redirect_uri (or a server-configured first-party app).`);
