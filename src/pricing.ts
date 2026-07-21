@@ -111,6 +111,10 @@ export const DEFAULT_API_KEY_ENDPOINTS: EndpointId[] = [
   'data.delete',
 ];
 
+// OTP sign-in sessions need api_keys.create so the app can exchange the
+// short-lived session for a durable scoped API key in one step.
+const OTP_SESSION_ENDPOINTS: EndpointId[] = [...DEFAULT_API_KEY_ENDPOINTS, 'api_keys.create'];
+
 const SANDBOX_SESSION_ENDPOINTS: EndpointId[] = [
   'capabilities.read',
   'analyses.read',
@@ -449,7 +453,7 @@ export async function issueUserSession(email: string, config: AuthConfig): Promi
     email: normalizedEmail,
     organization_id: organizationId,
     scope: DEFAULT_API_KEY_SCOPES.join(' '),
-    enabled_endpoints: DEFAULT_API_KEY_ENDPOINTS,
+    enabled_endpoints: OTP_SESSION_ENDPOINTS,
   })
     .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
     .setAudience(primaryAuthAudience(config))
