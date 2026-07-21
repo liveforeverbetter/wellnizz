@@ -29,14 +29,12 @@ const authShell = $('#auth-shell');
 const appShell = $('#app-shell');
 const overviewPage = $('#page-overview');
 const keysPage = $('#page-keys');
-const connectPage = $('#page-connect');
 const wearablesPage = $('#page-wearables');
 const geneticsPage = $('#page-genetics');
 const labsPage = $('#page-labs');
 const planPage = $('#page-plan');
 const resultOverlay = $('#result');
 const messageEl = $('#message');
-const connectMessageEl = $('#connect-message');
 
 let transitioning = false;
 let wearableStatusTimer;
@@ -73,7 +71,7 @@ function route() {
   if (appShell.classList.contains('hidden')) return;
   const hash = window.location.hash || '#overview';
   const page = hash.replace('#', '');
-  [overviewPage, keysPage, connectPage, wearablesPage, geneticsPage, labsPage, planPage].forEach(p => p?.classList.add('hidden'));
+  [overviewPage, keysPage, wearablesPage, geneticsPage, labsPage, planPage].forEach(p => p?.classList.add('hidden'));
 
   $$('.nav-item[data-route]').forEach(n => {
     const active = n.dataset.route === page;
@@ -81,19 +79,17 @@ function route() {
     n.toggleAttribute('aria-current', active);
   });
 
-  const target = page === 'connect'
-    ? connectPage
-    : page === 'overview'
-      ? overviewPage
-      : page === 'wearables'
-        ? wearablesPage
-        : page === 'genetics'
-          ? geneticsPage
-          : page === 'labs'
-            ? labsPage
-            : page === 'plan'
-              ? planPage
-              : keysPage;
+  const target = page === 'overview'
+    ? overviewPage
+    : page === 'wearables'
+      ? wearablesPage
+      : page === 'genetics'
+        ? geneticsPage
+        : page === 'labs'
+          ? labsPage
+          : page === 'plan'
+            ? planPage
+            : keysPage;
   target?.classList.remove('hidden');
   target?.scrollTo?.({ top: 0, behavior: 'instant' });
   void loadModalityPage(page);
@@ -212,8 +208,6 @@ copyAgentSetupBtn?.addEventListener('click', async () => {
   }
 });
 
-// The prompt block itself is a copy target so a tap anywhere on it works on
-// phones; it delegates to the button, which owns the confirmation state.
 const agentSetupPromptEl = $('#agent-setup-prompt');
 agentSetupPromptEl?.addEventListener('click', () => copyAgentSetupBtn?.click());
 agentSetupPromptEl?.addEventListener('keydown', (event) => {
@@ -235,9 +229,7 @@ authEmailForm?.addEventListener('submit', async (event) => {
   if (!email) return;
   setLoading(button);
   try {
-    await api('/auth/otp/start', {
-      email,
-    }, null, false);
+    await api('/auth/otp/start', { email }, null, false);
     authCodeForm?.classList.remove('hidden');
     showAuthMessage('Email sent. Enter the 8-digit sign-in code below.', false);
   } catch (error) {
@@ -258,15 +250,13 @@ authCodeForm?.addEventListener('submit', async (event) => {
   try {
     const session = await api('/auth/otp/verify', { email, token: code }, null, false);
     adoptSession(session.access_token, session.user);
-
     if (state.agentLoginCode) {
       authCodeForm?.classList.add('hidden');
       authEmailForm?.classList.add('hidden');
       await showAgentLoginApproval();
       return;
     }
-
-    window.location.hash = '#connect';
+    window.location.hash = '#overview';
     await enterDashboardMode();
   } catch (error) {
     showAuthMessage(error.message || String(error), true);
@@ -304,7 +294,6 @@ authKeyForm?.addEventListener('submit', async (event) => {
     clearLoading(button);
   }
 });
-
 
 function syncAuthSessionUi() {
   if (!state.user || !state.accessToken) {
@@ -398,7 +387,6 @@ async function loadBilling() {
           : 'Hosted billing is being configured.';
     $('#manage-billing')?.classList.toggle('hidden', !hasActiveSubscription);
     container.querySelectorAll('[data-billing-tier]').forEach(button => button.addEventListener('click', () => hasActiveSubscription ? openBillingPortal() : selectHostedPlan(button.dataset.billingTier)));
-    updateActivationRail();
   } catch (error) {
     if (status) status.textContent = error.message || 'Billing status is temporarily unavailable.';
   }
@@ -408,29 +396,9 @@ async function selectHostedPlan(tier) {
   if (!['standard', 'builder', 'growth'].includes(tier)) return;
   state.selectedBillingTier = tier;
   sessionStorage.setItem('fb_selected_billing_tier', tier);
-  if (introductoryPaymentRequired()) {
-    await beginHostedCheckout();
-    return;
-  }
-  updateActivationRail();
-  window.location.hash = '#connect';
+  if (introductoryPaymentRequired()) { await beginHostedCheckout(); return; }
+  window.location.hash = '#overview';
   void loadBilling();
-}
-
-function updateActivationRail() {
-  const copy = $('#activation-plan-copy');
-  if (!copy) return;
-  const tier = state.pricing?.tiers?.find((item) => item.id === state.selectedBillingTier);
-  const label = tier?.name || 'Standard';
-  const price = Number(tier?.monthly_usd ?? 9.99).toFixed(2);
-  const subscription = state.billing?.subscription;
-  const active = ['active', 'trialing', 'past_due', 'unpaid'].includes(subscription?.status);
-  const usage = state.billing?.introductory_usage;
-  copy.textContent = active
-    ? `${subscription.tier[0].toUpperCase()}${subscription.tier.slice(1)} is active. Connect any source to continue.`
-    : usage?.payment_required
-      ? `Your first ${usage.limit} hosted requests are complete. ${label} is selected; add a payment method to continue.`
-      : `${usage?.remaining ?? 100} of ${usage?.limit ?? 100} free hosted requests remain. ${label} is ready whenever you want to continue after the allowance.`;
 }
 
 function introductoryPaymentRequired() {
@@ -499,12 +467,26 @@ function refreshOverview() {
   if ($('#overview-connected-count')) $('#overview-connected-count').innerHTML = `${connectedCount}<span>/3</span>`;
   if ($('#overview-pipeline-count')) $('#overview-pipeline-count').textContent = '0';
   const wearablePipeline = $('#overview-wearable-pipeline');
-  if (wearablePipeline) {
-    wearablePipeline.className = `status ${connectedCount ? 'connected' : 'muted'}`;
-    wearablePipeline.textContent = connectedCount ? 'Connected' : 'Waiting';
-  }
   setOverviewProvider('whoop', state.whoopConnected);
   setOverviewProvider('oura', state.ouraConnected);
+}
+
+function updateHealthConnectStatus(connection) {
+  const connected = connection?.status === 'active' && connection?.mobile_sync_enabled === true;
+  state.healthConnectConnected = connected;
+  const statusText = connected ? 'Background sync active' : 'Not connected';
+  const metaText = connected
+    ? healthConnectFreshness(connection.last_synced_at)
+    : 'Install Wellnizz Connect to start syncing.';
+  for (const selector of ['#health-connect-status', '#overview-health-connect-status']) {
+    const status = $(selector);
+    if (!status) continue;
+    status.className = `status ${connected ? 'connected' : 'muted'}`;
+    status.textContent = statusText;
+  }
+  const overviewMeta = $('#overview-health-connect-meta');
+  if (overviewMeta) overviewMeta.textContent = metaText;
+  refreshOverview();
 }
 
 function healthConnectFreshness(lastSyncedAt) {
@@ -518,24 +500,6 @@ function healthConnectFreshness(lastSyncedAt) {
   return `Last received ${Math.round(hours / 24)}d ago.`;
 }
 
-function updateHealthConnectStatus(connection) {
-  const connected = connection?.status === 'active' && connection?.mobile_sync_enabled === true;
-  state.healthConnectConnected = connected;
-  const statusText = connected ? 'Background sync active' : 'Not connected';
-  const metaText = connected
-    ? healthConnectFreshness(connection.last_synced_at)
-    : 'Install ForeverBetter Connect to start syncing.';
-  for (const selector of ['#health-connect-status', '#overview-health-connect-status']) {
-    const status = $(selector);
-    if (!status) continue;
-    status.className = `status ${connected ? 'connected' : 'muted'}`;
-    status.textContent = statusText;
-  }
-  const overviewMeta = $('#overview-health-connect-meta');
-  if (overviewMeta) overviewMeta.textContent = metaText;
-  refreshOverview();
-}
-
 $('#copy-key')?.addEventListener('click', () => copyText(state.apiKey, 'Key copied.'));
 $('#copy-agent-handoff')?.addEventListener('click', () => copyText(state.agentHandoff, 'Copied. Paste it into your agent.'));
 $('#copy-quickstart')?.addEventListener('click', () => copyText(quickstartOutput.textContent, 'Copied.'));
@@ -543,30 +507,8 @@ $('#close-result').addEventListener('click', () => { resultOverlay.hidden = true
 resultOverlay?.addEventListener('click', (e) => { if (e.target === resultOverlay) resultOverlay.hidden = true; });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !resultOverlay.hidden) resultOverlay.hidden = true; });
 
-// ---- Connect Page (OAuth) ----
+// ---- Working Key ----
 
-const whoopBtn = $('#whoop-connect-btn');
-const ouraBtn = $('#oura-connect-btn');
-const oauthFormArea = $('#oauth-form-area');
-const oauthCallbackArea = $('#oauth-callback-area');
-const oauthProviderLabel = $('#oauth-provider-label');
-const oauthStartBtn = $('#oauth-start-btn');
-const oauthCancelBtn = $('#oauth-cancel-btn');
-const oauthCallbackBtn = $('#oauth-callback-btn');
-const biomarkerConnectBtn = $('#biomarker-connect-btn');
-const geneticsConnectBtn = $('#genetics-connect-btn');
-const healthConnectBtn = $('#health-connect-btn');
-const biomarkerUploadBtn = $('#biomarker-upload-btn');
-const geneticsUploadBtn = $('#genetics-upload-btn');
-
-// WHOOP and Oura use server-side OAuth. Google Health Connect connects through
-// the separate ForeverBetter Connect mobile app.
-const OAUTH_PROVIDER_LABELS = { whoop: 'WHOOP', oura: 'Oura' };
-const providerLabel = (provider) => OAUTH_PROVIDER_LABELS[provider] || provider;
-
-// Session tokens carry no endpoint grants, so connection calls need an API
-// key. Prefer the key the user just created; otherwise mint a disposable
-// 1-day self-serve key (never persisted anywhere).
 async function workingKey() {
   if (state.apiKey) return state.apiKey;
   if (state.workingKey) return state.workingKey;
@@ -576,6 +518,13 @@ async function workingKey() {
   state.workingKey = issued.api_key;
   return state.workingKey;
 }
+
+async function workingKeySilent() {
+  if (state.apiKey || state.workingKey) return state.apiKey || state.workingKey;
+  try { return await workingKey(); } catch { return null; }
+}
+
+// ---- Capabilities & Connection Status ----
 
 async function loadCapabilities() {
   try {
@@ -594,28 +543,13 @@ async function loadCapabilities() {
     state.ouraFirstParty = false;
     state.ouraAvailability = 'unavailable';
   }
-  syncProviderCardUi('whoop');
-  syncProviderCardUi('oura');
-}
-
-function syncProviderCardUi(provider) {
-  const availability = provider === 'whoop' ? state.whoopAvailability : state.ouraAvailability;
-  const button = provider === 'whoop' ? whoopBtn : ouraBtn;
-  const available = availability === 'first_party';
-  if (button) {
-    button.disabled = !available;
-    button.innerHTML = available
-      ? `<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Connect your ${providerLabel(provider)}`
-      : `${providerLabel(provider)} connection temporarily unavailable`;
-  }
-  $(`#${provider}-byo-link`)?.classList.toggle('hidden', available || availability === 'loading');
-  refreshOverview();
 }
 
 async function loadWearableConnectionStatus() {
   if (!state.user?.id) return;
   try {
-    const key = await workingKey();
+    const key = await workingKeySilent();
+    if (!key) return;
     const params = new URLSearchParams({
       user_id: state.user.id,
       organization_id: personalOrganizationId(state.user.id),
@@ -623,69 +557,54 @@ async function loadWearableConnectionStatus() {
     const result = await apiGet(`/connections/wearables/status?${params}`, key);
     for (const provider of ['whoop', 'oura']) {
       const connection = result.connections?.find((item) => item.source_provider === provider);
-      updateProviderStatus(provider, connection?.status === 'active', connection?.webhook_sync_enabled === true || connection?.server_sync_enabled === true);
+      const connected = connection?.status === 'active';
+      const autoSync = connection?.webhook_sync_enabled === true || connection?.server_sync_enabled === true;
+      if (provider === 'whoop') state.whoopConnected = connected;
+      if (provider === 'oura') state.ouraConnected = connected;
     }
     const healthConnect = result.connections?.find((item) => item.source_provider === 'health_connect');
     updateHealthConnectStatus(healthConnect);
-  } catch {
-    // Capabilities and OAuth remain usable if the status read is temporarily unavailable.
-  }
+  } catch { /* Status read is best-effort */ }
 }
 
 function hasActiveHostedSubscription() {
   return ['active', 'trialing', 'past_due', 'unpaid'].includes(state.billing?.subscription?.status);
 }
 
-async function activateSource(action, button) {
-  if (!state.user?.id) return;
-  if (!state.billing) {
-    try {
-      state.billing = await apiGet(`/billing/subscription?organization_id=${encodeURIComponent(personalOrganizationId(state.user.id))}`);
-    } catch (error) {
-      showConnectMessage(error.message || String(error), true);
+// ---- Wearable Connection (inline on Wearables page) ----
+
+async function startFirstPartyConnect(provider) {
+  try {
+    const key = await workingKey();
+    const result = await api('/connections/wearables/start', {
+      user_id: state.user?.id,
+      organization_id: personalOrganizationId(state.user?.id),
+      source_provider: provider,
+    }, key);
+    if (!result.authorization_url) {
+      showMessage('Failed to get an authorization URL.', true);
       return;
     }
-  }
-  if (introductoryPaymentRequired()) {
-    showConnectMessage('Your free hosted request allowance is complete. Choose a plan to add a payment method and continue.', false);
-    window.location.hash = '#plan';
-    return;
-  }
-  return continueSourceActivation(action);
-}
-
-function continueSourceActivation(action) {
-  if (action?.type === 'wearable') return startFirstPartyConnect(action.provider);
-  if (action?.type === 'oauth') return openOAuthSetup(action.provider);
-  if (action?.type === 'health_connect') {
-    showConnectMessage('Opening ForeverBetter Connect. Sign in there with this same account to enable Health Connect sync.', false);
-    window.location.assign('https://play.google.com/apps/testing/com.foreverbetterhealthconnect.myapp');
-    return;
-  }
-  if (action?.type === 'biomarkers' || action?.type === 'genetics') {
-    showDataUploadPanel(action.type);
+    const oauthState = new URL(result.authorization_url).searchParams.get('state');
+    if (!oauthState || oauthState.length < 8) {
+      showMessage(`${providerLabel(provider)} authorization did not return a secure state. Start the connection again.`, true);
+      return;
+    }
+    sessionStorage.setItem('fb_pending_oauth', JSON.stringify({ provider, mode: 'first_party', state: oauthState }));
+    window.location.assign(result.authorization_url);
+  } catch (error) {
+    showMessage(error.message || String(error), true);
   }
 }
 
-function showDataUploadPanel(type) {
-  const area = $('#data-upload-area');
-  const biomarkerPanel = $('#biomarker-upload-panel');
-  const geneticsPanel = $('#genetics-upload-panel');
-  area?.classList.remove('hidden');
-  biomarkerPanel?.classList.toggle('hidden', type !== 'biomarkers');
-  geneticsPanel?.classList.toggle('hidden', type !== 'genetics');
-  window.location.hash = '#connect';
-  (type === 'biomarkers' ? biomarkerPanel : geneticsPanel)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  showConnectMessage(type === 'biomarkers'
-    ? 'Choose your lab file to upload it to your private workspace.'
-    : 'Choose a VCF, SNP-array, or 23andMe/AncestryDNA raw export. It uploads directly to private storage.', false);
-}
+// ---- File Uploads (inline on modality pages) ----
 
 async function uploadBiomarkerFile() {
   const file = $('#biomarker-file')?.files?.[0];
-  if (!file) { showConnectMessage('Choose a biomarker file first.', true); return; }
-  if (file.size > 7 * 1024 * 1024) { showConnectMessage('This biomarker file is too large for dashboard upload. Use a smaller export or upload it through your agent.', true); return; }
-  setLoading(biomarkerUploadBtn);
+  if (!file) { showMessage('Choose a biomarker file first.', true); return; }
+  if (file.size > 7 * 1024 * 1024) { showMessage('This biomarker file is too large for dashboard upload. Use a smaller export or upload it through your agent.', true); return; }
+  const btn = $('#biomarker-upload-btn');
+  setLoading(btn);
   try {
     const key = await workingKey();
     const data = bytesToBase64(await file.arrayBuffer());
@@ -699,22 +618,24 @@ async function uploadBiomarkerFile() {
       data_base64: data,
     }, key);
     const readings = result.normalized_observations?.length ?? 0;
-    showConnectMessage(`Biomarker panel uploaded${readings ? ` · ${readings} readings recognized` : ''}. Your agent can analyze it now.`, false);
+    showMessage(`Biomarker panel uploaded${readings ? ` · ${readings} readings recognized` : ''}. Your agent can analyze it now.`, false);
+    void loadModalityPage('labs');
   } catch (error) {
-    showConnectMessage(error.message || String(error), true);
+    showMessage(error.message || String(error), true);
   } finally {
-    clearLoading(biomarkerUploadBtn);
+    clearLoading(btn);
   }
 }
 
 async function uploadGeneticsFile() {
   const file = $('#genetics-file')?.files?.[0];
-  if (!file) { showConnectMessage('Choose a VCF or SNP-array raw export first.', true); return; }
+  if (!file) { showMessage('Choose a VCF or SNP-array raw export first.', true); return; }
   if (!/\.(vcf|txt|tsv|csv|snp|raw)(?:\.gz)?$/i.test(file.name)) {
-    showConnectMessage('Use a VCF/VCF.GZ or a SNP-array raw export (.txt, .tsv, .csv, .snp, or .raw; optional .gz).', true);
+    showMessage('Use a VCF/VCF.GZ or a SNP-array raw export (.txt, .tsv, .csv, .snp, or .raw; optional .gz).', true);
     return;
   }
-  setLoading(geneticsUploadBtn);
+  const btn = $('#genetics-upload-btn');
+  setLoading(btn);
   try {
     const key = await workingKey();
     const session = await api('/genetics/uploads', {
@@ -725,14 +646,15 @@ async function uploadGeneticsFile() {
       content_type: file.type || inferredContentType(file.name),
       provider: 'dashboard_upload',
     }, key);
-    if (geneticsUploadBtn) geneticsUploadBtn.textContent = 'Uploading securely…';
+    if (btn) btn.textContent = 'Uploading securely…';
     await uploadDirectGeneticsFile(session.upload, file);
     await api(session.finalize.endpoint, session.finalize.body, key);
-    showConnectMessage('Genetic file uploaded to private storage. Your agent can now run genetics or ancestry analysis.', false);
+    showMessage('Genetic file uploaded to private storage. Your agent can now run genetics analysis.', false);
+    void loadModalityPage('genetics');
   } catch (error) {
-    showConnectMessage(error.message || String(error), true);
+    showMessage(error.message || String(error), true);
   } finally {
-    clearLoading(geneticsUploadBtn);
+    clearLoading(btn);
   }
 }
 
@@ -761,170 +683,240 @@ function inferredContentType(filename) {
   return 'text/plain';
 }
 
-async function startFirstPartyConnect(provider) {
-  const button = provider === 'whoop' ? whoopBtn : ouraBtn;
-  setLoading(button);
+// ---- Modality Pages (consumer-facing) ----
+
+const MODALITY_META = {
+  wearables: { category: 'wearables', label: 'wearable', connectId: 'wearables-connect', interpId: 'wearables-interpretations', promptId: 'wearables-prompt' },
+  genetics: { category: 'genetics', label: 'genetics', connectId: 'genetics-connect', interpId: 'genetics-interpretations', promptId: 'genetics-prompt' },
+  labs: { category: 'biomarkers', label: 'biomarker', connectId: 'labs-connect', interpId: 'labs-interpretations', promptId: 'labs-prompt' },
+};
+
+let modalityTimers = {};
+
+async function loadModalityPage(page) {
+  const meta = MODALITY_META[page];
+  if (!meta) return;
+  if (modalityTimers[page]) window.clearTimeout(modalityTimers[page]);
+  const key = await workingKeySilent();
+  if (!key || !state.user?.id) return;
+  const orgId = personalOrganizationId(state.user.id);
+  const params = new URLSearchParams({ user_id: state.user.id, organization_id: orgId, limit: '15' });
+
+  renderModalityPrompt(page);
+
+  if (page === 'wearables') await loadWearablesConnectSection(key, params);
+  if (page === 'genetics') await loadGeneticsConnectSection(key, params);
+  if (page === 'labs') await loadLabsConnectSection(key, params);
+
+  await loadModalityInterpretations(page, meta.category, key, params);
+}
+
+function renderModalityPrompt(page) {
+  const container = $(`#${page}-prompt`);
+  if (!container) return;
+  const prompts = {
+    wearables: { prompt: 'Show me my latest recovery, sleep, and activity trends from my wearables. Give me the healthspan dashboard.', btn: 'Copy prompt for your agent' },
+    genetics: { prompt: 'Analyze my genetic markers and tell me about any notable findings. Give me the healthspan dashboard.', btn: 'Copy prompt for your agent' },
+    labs: { prompt: 'Show me my latest biomarker results and trends. Give me the healthspan dashboard.', btn: 'Copy prompt for your agent' },
+  };
+  const info = prompts[page];
+  container.innerHTML = `
+    <div class="card prompt-card">
+      <div class="card-head"><h2>Ask your agent</h2></div>
+      <p>Paste this into your agent to get personalized insights from your data.</p>
+      <pre class="code" tabindex="0">${escapeHtml(info.prompt)}</pre>
+      <button type="button" class="wide copy-prompt-btn" data-prompt-text="${escapeHtml(info.prompt)}">${info.btn}</button>
+    </div>`;
+  container.querySelector('.copy-prompt-btn')?.addEventListener('click', async (e) => {
+    const text = e.target.dataset.promptText;
+    await copyText(text, 'Copied. Paste it into your agent.');
+  });
+  container.querySelector('pre.code')?.addEventListener('click', (e) => {
+    copyText(e.target.textContent, 'Copied. Paste it into your agent.');
+  });
+}
+
+async function loadWearablesConnectSection(key, params) {
+  const container = $('#wearables-connect');
+  if (!container) return;
   try {
-    const key = await workingKey();
-    const result = await api('/connections/wearables/start', {
-      user_id: state.user?.id,
-      organization_id: personalOrganizationId(state.user?.id),
-      source_provider: provider,
-    }, key);
-    if (!result.authorization_url) {
-      showConnectMessage('Failed to get an authorization URL.', true);
+    const result = await apiGet(`/connections/wearables/status?${params}`, key);
+    const connections = result.connections || [];
+    const whoop = connections.find(c => c.source_provider === 'whoop');
+    const oura = connections.find(c => c.source_provider === 'oura');
+    const hc = connections.find(c => c.source_provider === 'health_connect');
+
+    const whoopConnected = whoop?.status === 'active' && (whoop.webhook_sync_enabled || whoop.server_sync_enabled);
+    const ouraConnected = oura?.status === 'active' && (oura.webhook_sync_enabled || oura.server_sync_enabled);
+    const hcConnected = hc?.status === 'active' && hc?.mobile_sync_enabled === true;
+
+    const providerCards = [
+      {
+        id: 'whoop',
+        name: 'WHOOP',
+        desc: 'Recovery, strain, sleep, HRV, and respiratory rate.',
+        connected: whoopConnected,
+        status: whoopConnected ? 'Connected' : 'Not connected',
+        detail: whoopConnected ? (whoop.webhook_sync_enabled ? 'Automatic updates enabled' : 'Server sync enabled') : 'Connect to begin',
+        canConnect: state.whoopFirstParty,
+      },
+      {
+        id: 'oura',
+        name: 'Oura',
+        desc: 'Sleep, readiness, activity, HRV, resting heart rate, and steps.',
+        connected: ouraConnected,
+        status: ouraConnected ? 'Connected' : 'Not connected',
+        detail: ouraConnected ? (oura.webhook_sync_enabled ? 'Automatic updates enabled' : 'Server sync enabled') : 'Connect to begin',
+        canConnect: state.ouraFirstParty,
+      },
+      {
+        id: 'health_connect',
+        name: 'Health Connect',
+        desc: 'Android health data from Fitbit, Samsung Health, Google Fit, and more.',
+        connected: hcConnected,
+        status: hcConnected ? 'Syncing' : 'Not connected',
+        detail: hcConnected ? healthConnectFreshness(hc?.last_synced_at) : 'Install Wellnizz Connect (internal test)',
+        canConnect: true,
+      },
+    ];
+
+    container.innerHTML = `<div class="section-heading-row"><h2>Connected devices</h2></div>
+      <div class="modality-status-grid">${providerCards.map(card => `
+        <article class="card source-data-card">
+          <div class="source-card-top">
+            <span class="source-mark source-mark-${card.id}">${providerInitials(card.id)}</span>
+            <span class="status ${card.connected ? 'connected' : 'muted'}">${card.status}</span>
+          </div>
+          <h3>${escapeHtml(card.name)}</h3>
+          <p style="margin:0;font-size:12px;color:var(--ink-muted);">${escapeHtml(card.desc)}</p>
+          <div class="source-meta">
+            <div><strong>Status</strong><span>${escapeHtml(card.detail)}</span></div>
+          </div>
+          ${card.id !== 'health_connect' && card.canConnect ? `<button type="button" class="provider-btn modality-connect-btn" data-provider="${card.id}">${card.connected ? 'Reconnect' : `Connect ${card.name}`}</button>` : card.id === 'health_connect' ? `<a href="https://play.google.com/apps/testing/com.foreverbetterhealthconnect.myapp" target="_blank" class="provider-btn">Install Wellnizz Connect</a>` : ''}
+        </article>
+      `).join('')}</div>`;
+
+    container.querySelectorAll('.modality-connect-btn').forEach(btn => {
+      btn.addEventListener('click', () => startFirstPartyConnect(btn.dataset.provider));
+    });
+  } catch {
+    container.innerHTML = '<div class="card modality-placeholder"><p>Could not load wearable connections.</p></div>';
+  }
+}
+
+async function loadGeneticsConnectSection(key, params) {
+  const container = $('#genetics-connect');
+  if (!container) return;
+  try {
+    const result = await apiGet(`/sources?category=genetics&${params}`, key);
+    const sources = result.sources || [];
+    if (sources.length) {
+      container.innerHTML = `
+        <div class="section-heading-row"><h2>Your genetic data</h2></div>
+        <div class="modality-sources">${sources.map(source => `
+          <article class="card source-data-card">
+            <div class="source-card-top">
+              <span class="source-mark">DNA</span>
+              <span class="status ${source.upload_status === 'complete' ? 'connected' : 'muted'}">${source.upload_status === 'complete' ? 'Ready' : 'Uploading'}</span>
+            </div>
+            <h3>${escapeHtml(source.filename || 'Genetic file')}</h3>
+            <div class="source-meta">
+              <div><strong>Provider</strong><span>${escapeHtml(source.provider || '—')}</span></div>
+              <div><strong>Size</strong><span>${formatFileSize(source.byte_length)}</span></div>
+              <div><strong>Received</strong><span>${formatRelDate(source.received_at)}</span></div>
+            </div>
+          </article>`).join('')}
+        </div>`;
+    }
+  } catch { /* default upload UI is already in HTML */ }
+}
+
+async function loadLabsConnectSection(key, params) {
+  const container = $('#labs-connect');
+  if (!container) return;
+  try {
+    const result = await apiGet(`/sources?category=biomarkers&${params}`, key);
+    const sources = result.sources || [];
+    if (sources.length) {
+      container.innerHTML = `
+        <div class="section-heading-row"><h2>Your lab panels</h2></div>
+        <div class="modality-sources">${sources.map(source => `
+          <article class="card source-data-card">
+            <div class="source-card-top">
+              <span class="source-mark">LAB</span>
+              <span class="status connected">Ready</span>
+            </div>
+            <h3>${escapeHtml(source.filename || 'Lab panel')}</h3>
+            <div class="source-meta">
+              <div><strong>Provider</strong><span>${escapeHtml(source.provider || '—')}</span></div>
+              <div><strong>Received</strong><span>${formatRelDate(source.received_at)}</span></div>
+            </div>
+          </article>`).join('')}
+        </div>`;
+    }
+  } catch { /* default upload UI is already in HTML */ }
+}
+
+async function loadModalityInterpretations(page, modality, key, params) {
+  const container = $(`#${MODALITY_META[page].interpId}`);
+  if (!container) return;
+  try {
+    const result = await apiGet(`/analyses?modality=${modality}&${params}`, key);
+    const analyses = result.analyses || [];
+    if (!analyses.length) {
+      const labels = { wearables: 'wearable', genetics: 'genetics', labs: 'biomarker' };
+      container.innerHTML = `<div class="section-heading-row"><h2>What your data says</h2></div>
+        <div class="card modality-placeholder">
+          <h2>No ${labels[page]} insights yet.</h2>
+          <p>Run an analysis with your agent to see findings and recommendations here.</p>
+        </div>`;
       return;
     }
-    const oauthState = new URL(result.authorization_url).searchParams.get('state');
-    if (!oauthState || oauthState.length < 8) {
-      showConnectMessage(`${providerLabel(provider)} authorization did not return a secure state. Start the connection again.`, true);
+
+    // Fetch full analyses to get interpretations
+    const fullAnalyses = await Promise.all(analyses.slice(0, 5).map(async (a) => {
+      try {
+        const full = await apiGet(`/analyses/${a.id}`, key);
+        return full;
+      } catch { return null; }
+    }));
+
+    const interpretations = fullAnalyses
+      .filter(Boolean)
+      .flatMap(a => (a.derived_interpretations || []).map(interp => ({ ...interp, analysis_id: a.id, analysis_created: a.created_at })))
+      .sort((a, b) => (b.analysis_created || '').localeCompare(a.analysis_created || ''))
+      .slice(0, 12);
+
+    if (!interpretations.length) {
+      container.innerHTML = `<div class="section-heading-row"><h2>What your data says</h2></div>
+        <div class="card modality-placeholder">
+          <h2>Waiting for insights.</h2>
+          <p>Your analysis is complete. Run a deeper analysis with your agent to generate interpretations.</p>
+        </div>`;
       return;
     }
-    sessionStorage.setItem('fb_pending_oauth', JSON.stringify({ provider, mode: 'first_party', state: oauthState }));
-    showConnectMessage(`Taking you to ${providerLabel(provider)} to approve access...`, false);
-    window.location.assign(result.authorization_url);
-  } catch (error) {
-    showConnectMessage(error.message || String(error), true);
-  } finally {
-    clearLoading(button);
+
+    container.innerHTML = `<div class="section-heading-row"><h2>What your data says</h2></div>
+      <div class="modality-interp-grid">${interpretations.map(interp => {
+        const statusClass = interp.score != null ? (interp.score >= 70 ? 'positive' : interp.score >= 40 ? 'neutral' : 'attention') : 'neutral';
+        const statusLabel = interp.score != null ? (interp.score >= 70 ? 'Good' : interp.score >= 40 ? 'Moderate' : 'Needs attention') : '';
+        return `<article class="card interpretation-card" data-status="${statusClass}">
+          <div class="interp-head">
+            <span class="interp-category">${escapeHtml(titleCase(interp.category))}</span>
+            ${interp.score != null ? `<span class="interp-score ${statusClass}">${interp.score}<small>/100</small></span>` : ''}
+          </div>
+          <h3>${escapeHtml(interp.title)}</h3>
+          ${interp.summary ? `<p>${escapeHtml(interp.summary)}</p>` : ''}
+          ${interp.action ? `<div class="interp-action"><strong>What to do</strong><p>${escapeHtml(interp.action)}</p></div>` : ''}
+        </article>`;
+      }).join('')}</div>`;
+  } catch {
+    container.innerHTML = `<div class="section-heading-row"><h2>What your data says</h2></div>
+      <div class="card modality-placeholder"><p>Could not load insights. Run an analysis with your agent first.</p></div>`;
   }
 }
 
-function openOAuthSetup(provider) {
-  state.oauthProvider = provider;
-  if (oauthProviderLabel) oauthProviderLabel.textContent = `Connect ${providerLabel(provider)}`;
-  if ($('#oauth-client-id')) $('#oauth-client-id').value = state.oauthClientId || '';
-  if ($('#oauth-client-secret')) $('#oauth-client-secret').value = state.oauthClientSecret || '';
-  if ($('#oauth-redirect-uri')) $('#oauth-redirect-uri').value = state.oauthRedirectUri;
-  oauthFormArea?.classList.remove('hidden');
-  oauthCallbackArea?.classList.add('hidden');
-  if (connectMessageEl) connectMessageEl.textContent = '';
-  oauthFormArea?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
-
-whoopBtn?.addEventListener('click', () => {
-  if (state.whoopFirstParty) activateSource({ type: 'wearable', provider: 'whoop' }, whoopBtn);
-});
-
-ouraBtn?.addEventListener('click', () => {
-  if (state.ouraFirstParty) activateSource({ type: 'wearable', provider: 'oura' }, ouraBtn);
-});
-
-$('#whoop-byo-link')?.addEventListener('click', () => activateSource({ type: 'oauth', provider: 'whoop' }));
-$('#oura-byo-link')?.addEventListener('click', () => activateSource({ type: 'oauth', provider: 'oura' }));
-biomarkerConnectBtn?.addEventListener('click', () => activateSource({ type: 'biomarkers' }, biomarkerConnectBtn));
-geneticsConnectBtn?.addEventListener('click', () => activateSource({ type: 'genetics' }, geneticsConnectBtn));
-healthConnectBtn?.addEventListener('click', () => activateSource({ type: 'health_connect' }, healthConnectBtn));
-biomarkerUploadBtn?.addEventListener('click', uploadBiomarkerFile);
-geneticsUploadBtn?.addEventListener('click', uploadGeneticsFile);
-$('#change-activation-plan')?.addEventListener('click', () => { window.location.hash = '#plan'; });
-
-oauthCancelBtn?.addEventListener('click', () => {
-  oauthFormArea?.classList.add('hidden');
-  state.oauthProvider = null;
-});
-
-oauthStartBtn?.addEventListener('click', async () => {
-  const provider = state.oauthProvider;
-  const clientId = $('#oauth-client-id')?.value.trim();
-  const clientSecret = $('#oauth-client-secret')?.value.trim();
-  const redirectUri = $('#oauth-redirect-uri')?.value.trim();
-
-  if (!clientId || !clientSecret) {
-    showConnectMessage('Client ID and Secret are required.', true);
-    return;
-  }
-
-  state.oauthClientId = clientId;
-  state.oauthClientSecret = clientSecret;
-  state.oauthRedirectUri = redirectUri;
-
-  setLoading(oauthStartBtn);
-  try {
-    const key = await workingKey();
-    const result = await api('/connections/wearables/start', {
-      user_id: state.user?.id,
-      organization_id: personalOrganizationId(state.user?.id),
-      source_provider: provider,
-      client_id: clientId,
-      redirect_uri: redirectUri,
-      scopes: provider === 'oura'
-        ? ['daily', 'heartrate', 'personal', 'workout']
-        : ['offline', 'read:profile', 'read:cycles', 'read:recovery', 'read:sleep', 'read:workout'],
-    }, key);
-
-    if (result.authorization_url) {
-      showConnectMessage(`Redirecting to ${providerLabel(provider)}...`, false);
-      oauthFormArea?.classList.add('hidden');
-      oauthCallbackArea?.classList.remove('hidden');
-      oauthCallbackArea?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      window.open(result.authorization_url, '_blank');
-    } else {
-      showConnectMessage('Failed to get authorization URL.', true);
-    }
-  } catch (error) {
-    showConnectMessage(error.message || String(error), true);
-  } finally {
-    clearLoading(oauthStartBtn);
-  }
-});
-
-oauthCallbackBtn?.addEventListener('click', async () => {
-  const code = $('#oauth-code')?.value.trim();
-  const provider = state.oauthProvider;
-  if (!code) { showConnectMessage('Paste the authorization code.', true); return; }
-
-  setLoading(oauthCallbackBtn);
-  try {
-    const key = await workingKey();
-    const payload = {
-      user_id: state.user?.id,
-      organization_id: personalOrganizationId(state.user?.id),
-      source_provider: provider,
-      code,
-    };
-    if (state.oauthClientId) {
-      payload.client_id = state.oauthClientId;
-      payload.client_secret = state.oauthClientSecret;
-      payload.redirect_uri = state.oauthRedirectUri;
-    }
-    await api('/connections/wearables/callback', payload, key);
-
-    updateProviderStatus(provider, true);
-    showConnectMessage(`${providerLabel(provider)} connected.`, false);
-    oauthCallbackArea?.classList.add('hidden');
-    state.oauthProvider = null;
-    if ($('#oauth-code')) $('#oauth-code').value = '';
-  } catch (error) {
-    showConnectMessage(error.message || String(error), true);
-  } finally {
-    clearLoading(oauthCallbackBtn);
-  }
-});
-
-function updateProviderStatus(provider, connected, automaticUpdates = false) {
-  if (provider === 'whoop') state.whoopConnected = connected;
-  if (provider === 'oura') state.ouraConnected = connected;
-  const statusEl = $(`#${provider}-status`);
-  const btnEl = $(`#${provider}-connect-btn`);
-  if (statusEl) {
-    statusEl.innerHTML = connected
-      ? `<span class="status connected">${automaticUpdates ? 'Connected · Automatic updates enabled' : 'Connected'}</span>`
-      : '<span class="status muted">Not connected</span>';
-  }
-  if (btnEl) btnEl.textContent = connected ? 'Reconnect' : `Connect ${providerLabel(provider)}`;
-  setOverviewProvider(provider, connected, automaticUpdates);
-  refreshOverview();
-}
-
-function showConnectMessage(text, error = false) {
-  if (connectMessageEl) {
-    connectMessageEl.textContent = text;
-    connectMessageEl.className = 'message' + (error ? ' error' : ' success');
-  }
-}
-
-// ---- Shared ----
+// ---- Result Overlay ----
 
 function renderKey(issued) {
   const orgId = issued.created.organization_id;
@@ -940,7 +932,7 @@ function renderKey(issued) {
 
 function agentHandoffPrompt(baseUrl, key, userId, orgId) {
   return [
-    'You now have access to my ForeverBetter API.',
+    'You now have access to my Wellnizz API.',
     `Base URL: ${baseUrl}`,
     `API key (keep it secret): ${key}`,
     'Send it on every call as: Authorization: Bearer <key>',
@@ -949,117 +941,6 @@ function agentHandoffPrompt(baseUrl, key, userId, orgId) {
     `Endpoints: read ${baseUrl}/.well-known/health-agent.json, or connect over MCP at POST ${baseUrl}/mcp.`,
     'Start by calling GET /capabilities, then help me upload longevity data or connect my WHOOP.',
   ].join('\n');
-}
-
-// ---- OAuth redirect return (?code=...) ----
-
-function oauthReturn() {
-  const params = new URLSearchParams(window.location.search);
-  const code = params.get('code');
-  const state = params.get('state');
-  const error = params.get('error_description') || params.get('error');
-  if (!code && !error) return null;
-  for (const key of ['code', 'state', 'scope', 'error', 'error_description', 'error_hint']) params.delete(key);
-  const query = params.toString();
-  history.replaceState(null, '', `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`);
-  return { code, state, error };
-}
-
-function checkoutReturn() {
-  const params = new URLSearchParams(window.location.search);
-  const checkout = params.get('checkout');
-  if (!checkout) return null;
-  params.delete('checkout');
-  const query = params.toString();
-  history.replaceState(null, '', `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`);
-  return checkout;
-}
-
-async function resumePendingSourceActivation(checkout) {
-  if (checkout !== 'success') {
-    if (checkout === 'cancelled') showConnectMessage('Checkout was cancelled. Your free request allowance is still available.', false);
-    return;
-  }
-  try {
-    state.billing = await apiGet(`/billing/subscription?organization_id=${encodeURIComponent(personalOrganizationId(state.user?.id))}`);
-  } catch {
-    // Stripe can deliver the subscription webhook just after redirect.
-  }
-  window.location.hash = '#connect';
-  showConnectMessage('Your hosted plan is active. Connect a source whenever you are ready.', false);
-}
-
-async function completePendingOauth(returned) {
-  const pending = readJson(sessionStorage.getItem('fb_pending_oauth'));
-  sessionStorage.removeItem('fb_pending_oauth');
-  const agentStartedProvider = providerFromFirstPartyState(returned.state);
-  const provider = pending?.provider || agentStartedProvider || 'whoop';
-    window.location.hash = '#overview';
-  route();
-  if (returned.error) {
-    showConnectMessage(returned.error, true);
-    return;
-  }
-  const code = returned.code;
-  if (!code) {
-    showConnectMessage(`${providerLabel(provider)} did not return an authorization code. Start the connection again.`, true);
-    return;
-  }
-  if ((!pending || pending.mode !== 'first_party') && !agentStartedProvider) {
-    // Bring-your-own flows keep the client secret in the tab that started
-    // them, so here we only prefill the paste box.
-    state.oauthProvider = state.oauthProvider || provider;
-    if ($('#oauth-code')) $('#oauth-code').value = code;
-    oauthCallbackArea?.classList.remove('hidden');
-    showConnectMessage('Authorization code detected. Complete the connection below.', false);
-    return;
-  }
-  if (pending?.mode === 'first_party' && (!returned.state || returned.state !== pending.state)) {
-    showConnectMessage(`${providerLabel(provider)} returned an invalid state. Start the connection again so your account stays protected.`, true);
-    return;
-  }
-  showConnectMessage(`Completing ${providerLabel(provider)} connection...`, false);
-  try {
-    const key = await workingKey();
-    const result = await api('/connections/wearables/callback', {
-      user_id: state.user?.id,
-      organization_id: personalOrganizationId(state.user?.id),
-      source_provider: provider,
-      code,
-      state: returned.state,
-    }, key);
-    updateProviderStatus(provider, true);
-    showConnectMessage(result.webhook_sync_enabled || result.server_sync_enabled
-      ? `${providerLabel(provider)} connected. Automatic updates are enabled.`
-      : `${providerLabel(provider)} connected. Sync it from your agent or run an analysis when data arrives.`, false);
-  } catch (error) {
-    if (agentStartedProvider) {
-      showConnectMessage(error.message || String(error), true);
-      return;
-    }
-    state.oauthProvider = provider;
-    if ($('#oauth-code')) $('#oauth-code').value = code;
-    oauthCallbackArea?.classList.remove('hidden');
-    showConnectMessage(`${error.message || String(error)} The code is prefilled below so you can retry.`, true);
-  }
-}
-
-function providerFromFirstPartyState(value) {
-  const match = /^fb1\.(whoop|oura)\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.exec(value || '');
-  return match?.[1] || null;
-}
-
-function showOauthCodePanel(returned) {
-  agentPanel?.classList.add('hidden');
-  devPanel?.classList.add('hidden');
-  authModeToggle?.classList.add('hidden');
-  oauthCodePanel?.classList.remove('hidden');
-  if (returned.error) {
-    showAuthMessage(returned.error, true);
-    if ($('#oauth-code-display')) $('#oauth-code-display').textContent = 'Authorization failed. Ask your agent to start a new wearable connection.';
-    return;
-  }
-  if ($('#oauth-code-display')) $('#oauth-code-display').textContent = `code: ${returned.code}\nstate: ${returned.state || 'missing'}`;
 }
 
 function fullLoopScript(baseUrl, key, userId, orgId) {
@@ -1087,6 +968,90 @@ function fullLoopScript(baseUrl, key, userId, orgId) {
   ].join('\n');
 }
 
+// ---- OAuth Redirect Return ----
+
+function oauthReturn() {
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('code');
+  const state = params.get('state');
+  const error = params.get('error_description') || params.get('error');
+  if (!code && !error) return null;
+  for (const key of ['code', 'state', 'scope', 'error', 'error_description', 'error_hint']) params.delete(key);
+  const query = params.toString();
+  history.replaceState(null, '', `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`);
+  return { code, state, error };
+}
+
+function checkoutReturn() {
+  const params = new URLSearchParams(window.location.search);
+  const checkout = params.get('checkout');
+  if (!checkout) return null;
+  params.delete('checkout');
+  const query = params.toString();
+  history.replaceState(null, '', `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`);
+  return checkout;
+}
+
+async function completePendingOauth(returned) {
+  const pending = readJson(sessionStorage.getItem('fb_pending_oauth'));
+  sessionStorage.removeItem('fb_pending_oauth');
+  const agentStartedProvider = providerFromFirstPartyState(returned.state);
+  const provider = pending?.provider || agentStartedProvider || 'whoop';
+  window.location.hash = '#wearables';
+  route();
+  if (returned.error) { showMessage(returned.error, true); return; }
+  const code = returned.code;
+  if (!code) { showMessage(`${providerLabel(provider)} did not return an authorization code. Start the connection again.`, true); return; }
+  if ((!pending || pending.mode !== 'first_party') && !agentStartedProvider) return;
+  if (pending?.mode === 'first_party' && (!returned.state || returned.state !== pending.state)) {
+    showMessage(`${providerLabel(provider)} returned an invalid state. Start the connection again so your account stays protected.`, true);
+    return;
+  }
+  try {
+    const key = await workingKey();
+    const result = await api('/connections/wearables/callback', {
+      user_id: state.user?.id,
+      organization_id: personalOrganizationId(state.user?.id),
+      source_provider: provider,
+      code,
+      state: returned.state,
+    }, key);
+    updateProviderStatus(provider, true);
+    showMessage(result.webhook_sync_enabled || result.server_sync_enabled
+      ? `${providerLabel(provider)} connected. Automatic updates are enabled.`
+      : `${providerLabel(provider)} connected. Sync it from your agent or run an analysis when data arrives.`, false);
+    void loadModalityPage('wearables');
+  } catch (error) {
+    showMessage(error.message || String(error), true);
+  }
+}
+
+function updateProviderStatus(provider, connected, automaticUpdates = false) {
+  if (provider === 'whoop') state.whoopConnected = connected;
+  if (provider === 'oura') state.ouraConnected = connected;
+  refreshOverview();
+}
+
+function providerFromFirstPartyState(value) {
+  const match = /^fb1\.(whoop|oura)\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.exec(value || '');
+  return match?.[1] || null;
+}
+
+function showOauthCodePanel(returned) {
+  agentPanel?.classList.add('hidden');
+  devPanel?.classList.add('hidden');
+  authModeToggle?.classList.add('hidden');
+  oauthCodePanel?.classList.remove('hidden');
+  if (returned.error) {
+    showAuthMessage(returned.error, true);
+    if ($('#oauth-code-display')) $('#oauth-code-display').textContent = 'Authorization failed. Ask your agent to start a new wearable connection.';
+    return;
+  }
+  if ($('#oauth-code-display')) $('#oauth-code-display').textContent = `code: ${returned.code}\nstate: ${returned.state || 'missing'}`;
+}
+
+// ---- Helpers ----
+
 async function api(path, body, bearerToken, useAuth = true) {
   const headers = { 'content-type': 'application/json' };
   const token = bearerToken ?? state.accessToken;
@@ -1097,9 +1062,7 @@ async function api(path, body, bearerToken, useAuth = true) {
   const text = await response.text();
   const payload = text ? JSON.parse(text) : {};
   if (!response.ok) {
-    if (response.status === 401 && useAuth) {
-      expireDashboardSession();
-    }
+    if (response.status === 401 && useAuth) expireDashboardSession();
     throw new Error(payload.detail || payload.error || payload.message || `Request failed (${response.status})`);
   }
   return payload;
@@ -1136,18 +1099,11 @@ function showMessage(text, error = false) {
   messageEl.className = 'message' + (error ? ' error' : ' success');
 }
 
-function clearMessage() {
-  if (messageEl) { messageEl.textContent = ''; messageEl.className = 'message'; }
-  if (authMessageEl) { authMessageEl.textContent = ''; authMessageEl.className = 'message'; }
-}
-
 async function copyText(text, successMessage) {
   try {
     if (!navigator.clipboard?.writeText) throw new Error('Clipboard API unavailable');
     await navigator.clipboard.writeText(text);
   } catch {
-    // Local HTTP and privacy-hardened browsers can expose the API but deny it.
-    // Fall back to a focused textarea so copy still works outside HTTPS.
     const fallback = document.createElement('textarea');
     fallback.value = text;
     fallback.setAttribute('readonly', '');
@@ -1155,9 +1111,8 @@ async function copyText(text, successMessage) {
     fallback.style.opacity = '0';
     document.body.appendChild(fallback);
     fallback.select();
-    const copied = document.execCommand('copy');
+    document.execCommand('copy');
     fallback.remove();
-    if (!copied) throw new Error('Could not copy. Select the text and copy it manually.');
   }
   if (successMessage) showMessage(successMessage);
 }
@@ -1169,9 +1124,51 @@ function personalOrganizationId(userId) {
 
 function readJson(value) {
   if (!value) return null;
-  try { return JSON.parse(value); }
-  catch { return null; }
+  try { return JSON.parse(value); } catch { return null; }
 }
+
+function providerLabel(provider) {
+  if (provider === 'whoop') return 'WHOOP';
+  if (provider === 'oura') return 'Oura';
+  return provider || '';
+}
+
+function providerInitials(provider) {
+  if (!provider) return '·';
+  if (provider === 'whoop') return 'W';
+  if (provider === 'oura') return 'O';
+  if (provider === 'health_connect') return 'HC';
+  return provider.slice(0, 2).toUpperCase();
+}
+
+function formatFileSize(bytes) {
+  if (bytes == null) return '—';
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  if (bytes < 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  return `${(bytes / (1024 * 1024 * 1024)).toFixed(1)} GB`;
+}
+
+function formatRelDate(value) {
+  if (!value) return '—';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  const deltaMs = Date.now() - date.getTime();
+  const minutes = Math.max(0, Math.round(deltaMs / 60_000));
+  if (minutes < 1) return 'Just now';
+  if (minutes < 60) return `${minutes}m ago`;
+  const hours = Math.round(minutes / 60);
+  if (hours < 48) return `${hours}h ago`;
+  const days = Math.round(hours / 24);
+  if (days < 90) return `${days}d ago`;
+  return date.toLocaleDateString('en', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function titleCase(value) {
+  return (value || '').replace(/[_-]+/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+
+// ---- Agent Login Flow ----
 
 function enterAgentLoginMode() {
   document.querySelector('.auth-card')?.classList.add('agent-login');
@@ -1283,213 +1280,7 @@ function showAgentLoginDenied() {
   }, 3000);
 }
 
-// ---- Modality Pages ----
-
-const MODALITY_META = {
-  wearables: { category: 'wearables', sourcesId: 'wearables-sources', analysesId: 'wearables-analyses' },
-  genetics: { category: 'genetics', sourcesId: 'genetics-sources', analysesId: 'genetics-analyses' },
-  labs: { category: 'biomarkers', sourcesId: 'labs-sources', analysesId: 'labs-analyses' },
-};
-
-let modalityTimers = {};
-
-async function loadModalityPage(page) {
-  const meta = MODALITY_META[page];
-  if (!meta) return;
-  if (modalityTimers[page]) window.clearTimeout(modalityTimers[page]);
-  const key = await workingKeySilent();
-  if (!key || !state.user?.id) return;
-  const orgId = personalOrganizationId(state.user.id);
-  const params = new URLSearchParams({ user_id: state.user.id, organization_id: orgId, limit: '20' });
-  await Promise.all([
-    loadModalitySources(page, meta.category, key, params),
-    loadModalityAnalyses(page, meta.category, key, params),
-  ]);
-  if (page === 'wearables') await loadWearablesModalityConnections(key, params);
-  if (page === 'genetics') await loadGeneticsJobs(key, params);
-}
-
-async function workingKeySilent() {
-  if (state.apiKey || state.workingKey) return state.apiKey || state.workingKey;
-  try {
-    return await workingKey();
-  } catch {
-    return null;
-  }
-}
-
-async function loadModalitySources(page, category, key, params) {
-  const container = $(`#${MODALITY_META[page].sourcesId}`);
-  if (!container) return;
-  try {
-    const result = await apiGet(`/sources?category=${category}&${params}`, key);
-    const sources = result.sources || [];
-    if (!sources.length) {
-      const labels = { wearables: 'wearable', genetics: 'genetic', labs: 'lab' };
-      const descs = {
-        wearables: 'Connect WHOOP, Oura, or Health Connect to begin streaming recovery, sleep, and activity metrics.',
-        genetics: 'Upload a VCF, SNP-array, or whole-genome file through your agent or the Connect page.',
-        labs: 'Upload a lab panel or biomarker file in CSV, JSON, PDF, or plain-text format through your agent or the Connect page.',
-      };
-      container.innerHTML = `<div class="card modality-placeholder"><div class="card-head"><h2>No ${labels[page]} data uploaded yet.</h2></div><p>${descs[page]}</p></div>`;
-      return;
-    }
-    container.innerHTML = sources.map(source => `
-      <article class="card source-data-card">
-        <div class="source-card-top">
-          <span class="source-mark">${sourceIcon(category)}</span>
-          <div>
-            <span class="status ${source.upload_status === 'complete' ? 'connected' : 'muted'}">${source.upload_status === 'pending' ? 'Uploading...' : 'Ready'}</span>
-          </div>
-        </div>
-        <h3>${escapeHtml(source.filename || source.provider || 'Upload')}</h3>
-        <div class="source-meta">
-          <div><strong>Provider</strong><span>${escapeHtml(source.provider || '—')}</span></div>
-          <div><strong>Size</strong><span>${formatFileSize(source.byte_length)}</span></div>
-          <div><strong>Received</strong><span>${formatRelDate(source.received_at)}</span></div>
-          <div><strong>Source ID</strong><code>${escapeHtml(source.id)}</code></div>
-        </div>
-      </article>
-    `).join('');
-  } catch {
-    container.innerHTML = '<div class="card modality-placeholder"><p>Could not load sources. Try again shortly.</p></div>';
-  }
-}
-
-async function loadModalityAnalyses(page, modality, key, params) {
-  const container = $(`#${MODALITY_META[page].analysesId}`);
-  if (!container) return;
-  try {
-    const result = await apiGet(`/analyses?modality=${modality}&${params}`, key);
-    const analyses = result.analyses || [];
-    if (!analyses.length) {
-      const labels = { wearables: 'wearable', genetics: 'genetics', labs: 'biomarker' };
-      container.innerHTML = `<div class="card modality-placeholder"><p>No ${labels[page]} analyses have been run yet.</p></div>`;
-      return;
-    }
-    container.innerHTML = analyses.map(analysis => `
-      <article class="card analysis-data-card">
-        <div class="analysis-card-head">
-          <span class="source-mark">${sourceIcon(modality)}</span>
-          <div><h3>${escapeHtml(analysis.operation || 'Analysis')}</h3></div>
-          <span class="status ${analysis.healthspan_score != null ? 'connected' : 'muted'}">${analysis.healthspan_score != null ? `${Math.round(analysis.healthspan_score)}/100` : 'Complete'}</span>
-        </div>
-        <div class="source-meta">
-          <div><strong>Analysis ID</strong><code>${escapeHtml(analysis.id)}</code></div>
-          <div><strong>Created</strong><span>${formatRelDate(analysis.created_at)}</span></div>
-          <div><strong>Sources</strong><span>${analysis.source_count ?? analysis.source_ids?.length ?? '—'}</span></div>
-          <div><strong>Findings</strong><span>${analysis.finding_count ?? '—'}</span></div>
-        </div>
-      </article>
-    `).join('');
-  } catch {
-    container.innerHTML = '<div class="card modality-placeholder"><p>Could not load analyses. Try again shortly.</p></div>';
-  }
-}
-
-async function loadWearablesModalityConnections(key, params) {
-  const container = $('#wearables-connections');
-  if (!container) return;
-  try {
-    const result = await apiGet(`/connections/wearables/status?${params}`, key);
-    const connections = result.connections || [];
-    if (!connections.length) {
-      container.innerHTML = '<div class="card modality-placeholder"><div class="card-head"><h2>No wearables connected yet.</h2></div><p>Connect WHOOP, Oura, or Health Connect to begin syncing health metrics.</p></div>';
-      return;
-    }
-    container.innerHTML = connections.map(conn => {
-      const connected = conn.status === 'active' && (conn.webhook_sync_enabled || conn.server_sync_enabled || conn.mobile_sync_enabled);
-      return `
-        <article class="card source-data-card">
-          <div class="source-card-top">
-            <span class="source-mark source-mark-${conn.source_provider}">${providerInitials(conn.source_provider)}</span>
-            <span class="status ${connected ? 'connected' : 'muted'}">${connected ? 'Connected' : 'Inactive'}</span>
-          </div>
-          <h3>${escapeHtml(providerLabel(conn.source_provider))}</h3>
-          <div class="source-meta">
-            <div><strong>Status</strong><span>${escapeHtml(conn.status || 'unknown')}</span></div>
-            <div><strong>Sync</strong><span>${conn.webhook_sync_enabled ? 'Automatic (webhook)' : conn.server_sync_enabled ? 'Automatic (server)' : conn.mobile_sync_enabled ? 'Mobile bridge' : 'Manual'}</span></div>
-            <div><strong>Last synced</strong><span>${conn.last_synced_at ? formatRelDate(conn.last_synced_at) : 'Never'}</span></div>
-          </div>
-        </article>
-      `;
-    }).join('');
-  } catch {
-    container.innerHTML = '<div class="card modality-placeholder"><p>Could not load wearable connections. Try again shortly.</p></div>';
-  }
-}
-
-async function loadGeneticsJobs(key, params) {
-  const container = $('#genetics-jobs');
-  if (!container) return;
-  try {
-    const sourcesResult = await apiGet(`/sources?category=genetics&${params}`, key);
-    const sources = sourcesResult.sources || [];
-    if (!sources.length) {
-      container.innerHTML = '<div class="card modality-placeholder"><div class="card-head"><h2>No genetics uploaded.</h2></div><p>Upload a genetic file to start analysis.</p></div>';
-      return;
-    }
-    container.innerHTML = sources.map(source => `
-      <article class="card source-data-card">
-        <div class="source-card-top">
-          <span class="source-mark">DNA</span>
-          <span class="status ${source.upload_status === 'complete' ? 'connected' : 'muted'}">${source.upload_status === 'complete' ? 'Ready' : source.upload_status === 'pending' ? 'Uploading' : 'Stored'}</span>
-        </div>
-        <h3>${escapeHtml(source.filename || 'Genetic file')}</h3>
-        <div class="source-meta">
-          <div><strong>Provider</strong><span>${escapeHtml(source.provider || '—')}</span></div>
-          <div><strong>Size</strong><span>${formatFileSize(source.byte_length)}</span></div>
-          <div><strong>Received</strong><span>${formatRelDate(source.received_at)}</span></div>
-          <div><strong>Source ID</strong><code>${escapeHtml(source.id)}</code></div>
-        </div>
-      </article>
-    `).join('');
-  } catch {
-    container.innerHTML = '<div class="card modality-placeholder"><p>Could not load genetics status. Try again shortly.</p></div>';
-  }
-}
-
-function sourceIcon(category) {
-  if (category === 'wearables') return '⌁';
-  if (category === 'genetics') return 'DNA';
-  if (category === 'biomarkers') return 'LAB';
-  return '·';
-}
-
-function providerInitials(provider) {
-  if (!provider) return '·';
-  if (provider === 'whoop') return 'W';
-  if (provider === 'oura') return 'O';
-  if (provider === 'health_connect') return 'HC';
-  return provider.slice(0, 2).toUpperCase();
-}
-
-function formatFileSize(bytes) {
-  if (bytes == null) return '—';
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  if (bytes < 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-  return `${(bytes / (1024 * 1024 * 1024)).toFixed(1)} GB`;
-}
-
-function formatRelDate(value) {
-  if (!value) return '—';
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return value;
-  const deltaMs = Date.now() - date.getTime();
-  const minutes = Math.max(0, Math.round(deltaMs / 60_000));
-  if (minutes < 1) return 'Just now';
-  if (minutes < 60) return `${minutes}m ago`;
-  const hours = Math.round(minutes / 60);
-  if (hours < 48) return `${hours}h ago`;
-  const days = Math.round(hours / 24);
-  if (days < 90) return `${days}d ago`;
-  return date.toLocaleDateString('en', { month: 'short', day: 'numeric', year: 'numeric' });
-}
-
 // ---- Init ----
-// Runs last so every const binding above is initialized before the
-// session-restore path touches the auth or dashboard UI.
 
 if (state.agentLoginCode) {
   const cleaned = new URL(window.location.href);
@@ -1533,14 +1324,19 @@ if (state.accessToken && state.user) {
   setUnauthenticated();
 }
 
+async function resumePendingSourceActivation(checkout) {
+  if (checkout !== 'success') return;
+  try {
+    state.billing = await apiGet(`/billing/subscription?organization_id=${encodeURIComponent(personalOrganizationId(state.user?.id))}`);
+  } catch { /* Stripe may deliver webhook after redirect */ }
+  showMessage('Your hosted plan is active. Connect a source whenever you are ready.', false);
+}
+
 if (returnedOauth) {
   if (state.accessToken && state.user) {
     sessionStorage.removeItem('fb_pending_oauth_return');
     completePendingOauth(returnedOauth);
   } else if (providerFromFirstPartyState(returnedOauth.state)) {
-    // Agent-started OAuth can return before the dashboard has an authenticated
-    // browser session. Keep the short-lived, signed redirect state locally and
-    // complete it automatically as soon as this user signs in.
     sessionStorage.setItem('fb_pending_oauth_return', JSON.stringify(returnedOauth));
     showAuthMessage('Sign in to finish connecting your wearable.', false);
   } else {
@@ -1550,3 +1346,7 @@ if (returnedOauth) {
 
 loadCapabilities();
 if (!state.agentLoginCode) loadWearableConnectionStatus();
+
+// Wire up inline upload buttons
+$('#biomarker-upload-btn')?.addEventListener('click', uploadBiomarkerFile);
+$('#genetics-upload-btn')?.addEventListener('click', uploadGeneticsFile);

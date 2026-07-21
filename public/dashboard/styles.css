@@ -1921,6 +1921,24 @@ code {
   margin: 0 auto;
 }
 
+.modality-placeholder label {
+  margin: 14px 0 6px;
+  text-align: left;
+}
+
+.modality-placeholder input[type="file"] {
+  max-width: 460px;
+}
+
+.modality-placeholder button.wide {
+  margin-top: 12px;
+  max-width: 460px;
+}
+
+.modality-connect-section {
+  margin-bottom: 28px;
+}
+
 .modality-status-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -1928,10 +1946,19 @@ code {
   margin-bottom: 22px;
 }
 
-.modality-sources,
-.modality-analyses {
+.modality-sources {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.modality-interpretations {
+  margin-bottom: 28px;
+}
+
+.modality-interp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 14px;
 }
 
@@ -1993,39 +2020,151 @@ code {
 .source-mark-oura { background: rgba(212, 160, 95, 0.13); color: #d4a05f; }
 .source-mark-health_connect { background: rgba(100, 140, 255, 0.1); color: #648cff; }
 
-.analysis-data-card {
+/* ---- Interpretation Cards ---- */
+
+.interpretation-card {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
+  border-left: 3px solid var(--line);
   transition: border-color 180ms ease, box-shadow 180ms ease, transform 120ms ease;
 }
 
-.analysis-data-card:hover {
+.interpretation-card:hover {
   border-color: var(--line-strong);
   box-shadow: 0 4px 12px rgba(10, 8, 6, 0.06);
   transform: translateY(-1px);
 }
 
-.analysis-card-head {
+.interpretation-card[data-status="positive"] { border-left-color: var(--success); }
+.interpretation-card[data-status="attention"] { border-left-color: var(--warning); }
+.interpretation-card[data-status="neutral"] { border-left-color: var(--line-strong); }
+
+.interp-head {
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
+  gap: 10px;
 }
 
-.analysis-card-head h3 {
+.interp-category {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+}
+
+.interp-score {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.interp-score small {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--ink-muted);
+  letter-spacing: 0;
+}
+
+.interp-score.positive { color: var(--success); }
+.interp-score.attention { color: var(--warning); }
+
+.interpretation-card h3 {
   margin: 0;
   color: var(--ink);
   font-size: 15px;
   font-weight: 600;
-  text-transform: capitalize;
+  line-height: 1.3;
 }
 
-.analysis-card-head > div:last-child { flex: 1; }
+.interpretation-card > p {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.interp-action {
+  margin-top: 6px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--bg-sidebar);
+  border: 1px solid var(--line);
+}
+
+.interp-action strong {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.interp-action p {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+/* ---- Prompt Card ---- */
+
+.modality-prompt {
+  margin-top: 28px;
+}
+
+.prompt-card {
+  border: 1px solid var(--line-strong);
+  background: linear-gradient(112deg, rgba(14, 14, 14, 0.02), rgba(255, 255, 255, 0.62) 46%, rgba(14, 14, 14, 0.015));
+}
+
+.prompt-card h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 16px;
+}
+
+.prompt-card > p {
+  margin: 0 0 12px;
+  color: var(--ink-muted);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.prompt-card pre.code {
+  margin: 0 0 14px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  cursor: pointer;
+  white-space: pre-wrap;
+}
+
+.prompt-card pre.code:hover {
+  border-color: var(--line-strong);
+}
+
+.prompt-card button {
+  width: 100%;
+}
+
+/* ---- Modality connect button (within cards) ---- */
+
+.modality-connect-btn {
+  margin-top: 8px;
+}
 
 @media (max-width: 768px) {
   .modality-status-grid,
   .modality-sources,
-  .modality-analyses {
+  .modality-interp-grid {
     grid-template-columns: 1fr;
   }
 }
