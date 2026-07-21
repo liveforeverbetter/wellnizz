@@ -213,6 +213,23 @@
             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
             <span>Connect</span>
           </a>
+        </nav>
+
+        <div class="sidebar-section-label">Your data</div>
+
+        <nav class="sidebar-nav">
+          <a href="#wearables" class="nav-item" data-route="wearables">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2.5-6 4 12 2.5-6H21"/></svg>
+            <span>Wearables</span>
+          </a>
+          <a href="#genetics" class="nav-item" data-route="genetics">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3c5 2.5 5 7 0 9.5S4 19.5 9 21"/><path d="M15 3c-5 2.5-5 7 0 9.5s5 6.5 0 8.5"/><path d="M9.8 7.5h4.4M9.8 16.5h4.4"/></svg>
+            <span>Genetics</span>
+          </a>
+          <a href="#labs" class="nav-item" data-route="labs">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3.5s6 6.6 6 10.6a6 6 0 0 1-12 0c0-4 6-10.6 6-10.6z"/><path d="M9.5 14a2.5 2.5 0 0 0 2.5 2.5"/></svg>
+            <span>Labs</span>
+          </a>
           <a href="#plan" class="nav-item" data-route="plan">
             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6"/></svg>
             <span>Plan & billing</span>
@@ -481,6 +498,80 @@
           </div>
 
           <p id="connect-message" class="message" role="status" aria-live="polite"></p>
+        </div>
+
+        <div id="page-wearables" class="page hidden">
+          <div class="page-header">
+            <div>
+              <h1>Wearables</h1>
+              <p class="page-lede">Your connected devices and the wellness signals they share.</p>
+            </div>
+            <a href="#connect" class="quiet-link">Connect more <span aria-hidden="true">→</span></a>
+          </div>
+
+          <div class="page-body">
+            <section class="modality-status-grid" id="wearables-connections" aria-label="Wearable connections">
+              <div class="card modality-placeholder"><div class="card-head"><h2>Loading connections...</h2></div></div>
+            </section>
+
+            <div class="section-heading-row"><h2>Wearable sources</h2></div>
+            <section class="modality-sources" id="wearables-sources" aria-label="Wearable data sources">
+              <div class="card modality-placeholder"><div class="card-head"><h2>No wearable data uploaded yet.</h2></div><p>Connect WHOOP, Oura, or Health Connect to begin streaming recovery, sleep, and activity metrics.</p></div>
+            </section>
+
+            <div class="section-heading-row"><h2>Recent analyses</h2></div>
+            <section class="modality-analyses" id="wearables-analyses" aria-label="Wearable analyses">
+              <div class="card modality-placeholder"><p>No wearable analyses have been run yet.</p></div>
+            </section>
+          </div>
+        </div>
+
+        <div id="page-genetics" class="page hidden">
+          <div class="page-header">
+            <div>
+              <h1>Genetics</h1>
+              <p class="page-lede">Your genetic data, analysis jobs, and interpretation results.</p>
+            </div>
+            <a href="#connect" class="quiet-link">Upload genetics <span aria-hidden="true">→</span></a>
+          </div>
+
+          <div class="page-body">
+            <section class="modality-status-grid" id="genetics-jobs" aria-label="Genetics analysis jobs">
+              <div class="card modality-placeholder"><div class="card-head"><h2>Loading jobs...</h2></div></div>
+            </section>
+
+            <div class="section-heading-row"><h2>Genetic sources</h2></div>
+            <section class="modality-sources" id="genetics-sources" aria-label="Genetic data sources">
+              <div class="card modality-placeholder"><div class="card-head"><h2>No genetic data uploaded yet.</h2></div><p>Upload a VCF, SNP-array, or whole-genome file through your agent or the Connect page.</p></div>
+            </section>
+
+            <div class="section-heading-row"><h2>Recent analyses</h2></div>
+            <section class="modality-analyses" id="genetics-analyses" aria-label="Genetics analyses">
+              <div class="card modality-placeholder"><p>No genetics analyses have been run yet.</p></div>
+            </section>
+          </div>
+        </div>
+
+        <div id="page-labs" class="page hidden">
+          <div class="page-header">
+            <div>
+              <h1>Labs</h1>
+              <p class="page-lede">Your uploaded biomarker panels and their analysis results.</p>
+            </div>
+            <a href="#connect" class="quiet-link">Upload labs <span aria-hidden="true">→</span></a>
+          </div>
+
+          <div class="page-body">
+            <div class="section-heading-row"><h2>Biomarker sources</h2></div>
+            <section class="modality-sources" id="labs-sources" aria-label="Lab biomarker sources">
+              <div class="card modality-placeholder"><div class="card-head"><h2>No lab panels uploaded yet.</h2></div><p>Upload a lab panel or biomarker file in CSV, JSON, PDF, or plain-text format through your agent or the Connect page.</p></div>
+            </section>
+
+            <div class="section-heading-row"><h2>Recent analyses</h2></div>
+            <section class="modality-analyses" id="labs-analyses" aria-label="Labs analyses">
+              <div class="card modality-placeholder"><p>No biomarker analyses have been run yet.</p></div>
+            </section>
+          </div>
         </div>
 
         <div id="page-plan" class="page hidden">

@@ -30,6 +30,9 @@ const appShell = $('#app-shell');
 const overviewPage = $('#page-overview');
 const keysPage = $('#page-keys');
 const connectPage = $('#page-connect');
+const wearablesPage = $('#page-wearables');
+const geneticsPage = $('#page-genetics');
+const labsPage = $('#page-labs');
 const planPage = $('#page-plan');
 const resultOverlay = $('#result');
 const messageEl = $('#message');
@@ -70,7 +73,7 @@ function route() {
   if (appShell.classList.contains('hidden')) return;
   const hash = window.location.hash || '#overview';
   const page = hash.replace('#', '');
-  [overviewPage, keysPage, connectPage, planPage].forEach(p => p?.classList.add('hidden'));
+  [overviewPage, keysPage, connectPage, wearablesPage, geneticsPage, labsPage, planPage].forEach(p => p?.classList.add('hidden'));
 
   $$('.nav-item[data-route]').forEach(n => {
     const active = n.dataset.route === page;
@@ -82,11 +85,18 @@ function route() {
     ? connectPage
     : page === 'overview'
       ? overviewPage
-      : page === 'plan'
-        ? planPage
-        : keysPage;
+      : page === 'wearables'
+        ? wearablesPage
+        : page === 'genetics'
+          ? geneticsPage
+          : page === 'labs'
+            ? labsPage
+            : page === 'plan'
+              ? planPage
+              : keysPage;
   target?.classList.remove('hidden');
   target?.scrollTo?.({ top: 0, behavior: 'instant' });
+  void loadModalityPage(page);
 }
 
 window.addEventListener('hashchange', route);
@@ -1271,6 +1281,210 @@ function showAgentLoginDenied() {
     window.location.hash = '#overview';
     void enterDashboardMode();
   }, 3000);
+}
+
+// ---- Modality Pages ----
+
+const MODALITY_META = {
+  wearables: { category: 'wearables', sourcesId: 'wearables-sources', analysesId: 'wearables-analyses' },
+  genetics: { category: 'genetics', sourcesId: 'genetics-sources', analysesId: 'genetics-analyses' },
+  labs: { category: 'biomarkers', sourcesId: 'labs-sources', analysesId: 'labs-analyses' },
+};
+
+let modalityTimers = {};
+
+async function loadModalityPage(page) {
+  const meta = MODALITY_META[page];
+  if (!meta) return;
+  if (modalityTimers[page]) window.clearTimeout(modalityTimers[page]);
+  const key = await workingKeySilent();
+  if (!key || !state.user?.id) return;
+  const orgId = personalOrganizationId(state.user.id);
+  const params = new URLSearchParams({ user_id: state.user.id, organization_id: orgId, limit: '20' });
+  await Promise.all([
+    loadModalitySources(page, meta.category, key, params),
+    loadModalityAnalyses(page, meta.category, key, params),
+  ]);
+  if (page === 'wearables') await loadWearablesModalityConnections(key, params);
+  if (page === 'genetics') await loadGeneticsJobs(key, params);
+}
+
+async function workingKeySilent() {
+  if (state.apiKey || state.workingKey) return state.apiKey || state.workingKey;
+  try {
+    return await workingKey();
+  } catch {
+    return null;
+  }
+}
+
+async function loadModalitySources(page, category, key, params) {
+  const container = $(`#${MODALITY_META[page].sourcesId}`);
+  if (!container) return;
+  try {
+    const result = await apiGet(`/sources?category=${category}&${params}`, key);
+    const sources = result.sources || [];
+    if (!sources.length) {
+      const labels = { wearables: 'wearable', genetics: 'genetic', labs: 'lab' };
+      const descs = {
+        wearables: 'Connect WHOOP, Oura, or Health Connect to begin streaming recovery, sleep, and activity metrics.',
+        genetics: 'Upload a VCF, SNP-array, or whole-genome file through your agent or the Connect page.',
+        labs: 'Upload a lab panel or biomarker file in CSV, JSON, PDF, or plain-text format through your agent or the Connect page.',
+      };
+      container.innerHTML = `<div class="card modality-placeholder"><div class="card-head"><h2>No ${labels[page]} data uploaded yet.</h2></div><p>${descs[page]}</p></div>`;
+      return;
+    }
+    container.innerHTML = sources.map(source => `
+      <article class="card source-data-card">
+        <div class="source-card-top">
+          <span class="source-mark">${sourceIcon(category)}</span>
+          <div>
+            <span class="status ${source.upload_status === 'complete' ? 'connected' : 'muted'}">${source.upload_status === 'pending' ? 'Uploading...' : 'Ready'}</span>
+          </div>
+        </div>
+        <h3>${escapeHtml(source.filename || source.provider || 'Upload')}</h3>
+        <div class="source-meta">
+          <div><strong>Provider</strong><span>${escapeHtml(source.provider || '—')}</span></div>
+          <div><strong>Size</strong><span>${formatFileSize(source.byte_length)}</span></div>
+          <div><strong>Received</strong><span>${formatRelDate(source.received_at)}</span></div>
+          <div><strong>Source ID</strong><code>${escapeHtml(source.id)}</code></div>
+        </div>
+      </article>
+    `).join('');
+  } catch {
+    container.innerHTML = '<div class="card modality-placeholder"><p>Could not load sources. Try again shortly.</p></div>';
+  }
+}
+
+async function loadModalityAnalyses(page, modality, key, params) {
+  const container = $(`#${MODALITY_META[page].analysesId}`);
+  if (!container) return;
+  try {
+    const result = await apiGet(`/analyses?modality=${modality}&${params}`, key);
+    const analyses = result.analyses || [];
+    if (!analyses.length) {
+      const labels = { wearables: 'wearable', genetics: 'genetics', labs: 'biomarker' };
+      container.innerHTML = `<div class="card modality-placeholder"><p>No ${labels[page]} analyses have been run yet.</p></div>`;
+      return;
+    }
+    container.innerHTML = analyses.map(analysis => `
+      <article class="card analysis-data-card">
+        <div class="analysis-card-head">
+          <span class="source-mark">${sourceIcon(modality)}</span>
+          <div><h3>${escapeHtml(analysis.operation || 'Analysis')}</h3></div>
+          <span class="status ${analysis.healthspan_score != null ? 'connected' : 'muted'}">${analysis.healthspan_score != null ? `${Math.round(analysis.healthspan_score)}/100` : 'Complete'}</span>
+        </div>
+        <div class="source-meta">
+          <div><strong>Analysis ID</strong><code>${escapeHtml(analysis.id)}</code></div>
+          <div><strong>Created</strong><span>${formatRelDate(analysis.created_at)}</span></div>
+          <div><strong>Sources</strong><span>${analysis.source_count ?? analysis.source_ids?.length ?? '—'}</span></div>
+          <div><strong>Findings</strong><span>${analysis.finding_count ?? '—'}</span></div>
+        </div>
+      </article>
+    `).join('');
+  } catch {
+    container.innerHTML = '<div class="card modality-placeholder"><p>Could not load analyses. Try again shortly.</p></div>';
+  }
+}
+
+async function loadWearablesModalityConnections(key, params) {
+  const container = $('#wearables-connections');
+  if (!container) return;
+  try {
+    const result = await apiGet(`/connections/wearables/status?${params}`, key);
+    const connections = result.connections || [];
+    if (!connections.length) {
+      container.innerHTML = '<div class="card modality-placeholder"><div class="card-head"><h2>No wearables connected yet.</h2></div><p>Connect WHOOP, Oura, or Health Connect to begin syncing health metrics.</p></div>';
+      return;
+    }
+    container.innerHTML = connections.map(conn => {
+      const connected = conn.status === 'active' && (conn.webhook_sync_enabled || conn.server_sync_enabled || conn.mobile_sync_enabled);
+      return `
+        <article class="card source-data-card">
+          <div class="source-card-top">
+            <span class="source-mark source-mark-${conn.source_provider}">${providerInitials(conn.source_provider)}</span>
+            <span class="status ${connected ? 'connected' : 'muted'}">${connected ? 'Connected' : 'Inactive'}</span>
+          </div>
+          <h3>${escapeHtml(providerLabel(conn.source_provider))}</h3>
+          <div class="source-meta">
+            <div><strong>Status</strong><span>${escapeHtml(conn.status || 'unknown')}</span></div>
+            <div><strong>Sync</strong><span>${conn.webhook_sync_enabled ? 'Automatic (webhook)' : conn.server_sync_enabled ? 'Automatic (server)' : conn.mobile_sync_enabled ? 'Mobile bridge' : 'Manual'}</span></div>
+            <div><strong>Last synced</strong><span>${conn.last_synced_at ? formatRelDate(conn.last_synced_at) : 'Never'}</span></div>
+          </div>
+        </article>
+      `;
+    }).join('');
+  } catch {
+    container.innerHTML = '<div class="card modality-placeholder"><p>Could not load wearable connections. Try again shortly.</p></div>';
+  }
+}
+
+async function loadGeneticsJobs(key, params) {
+  const container = $('#genetics-jobs');
+  if (!container) return;
+  try {
+    const sourcesResult = await apiGet(`/sources?category=genetics&${params}`, key);
+    const sources = sourcesResult.sources || [];
+    if (!sources.length) {
+      container.innerHTML = '<div class="card modality-placeholder"><div class="card-head"><h2>No genetics uploaded.</h2></div><p>Upload a genetic file to start analysis.</p></div>';
+      return;
+    }
+    container.innerHTML = sources.map(source => `
+      <article class="card source-data-card">
+        <div class="source-card-top">
+          <span class="source-mark">DNA</span>
+          <span class="status ${source.upload_status === 'complete' ? 'connected' : 'muted'}">${source.upload_status === 'complete' ? 'Ready' : source.upload_status === 'pending' ? 'Uploading' : 'Stored'}</span>
+        </div>
+        <h3>${escapeHtml(source.filename || 'Genetic file')}</h3>
+        <div class="source-meta">
+          <div><strong>Provider</strong><span>${escapeHtml(source.provider || '—')}</span></div>
+          <div><strong>Size</strong><span>${formatFileSize(source.byte_length)}</span></div>
+          <div><strong>Received</strong><span>${formatRelDate(source.received_at)}</span></div>
+          <div><strong>Source ID</strong><code>${escapeHtml(source.id)}</code></div>
+        </div>
+      </article>
+    `).join('');
+  } catch {
+    container.innerHTML = '<div class="card modality-placeholder"><p>Could not load genetics status. Try again shortly.</p></div>';
+  }
+}
+
+function sourceIcon(category) {
+  if (category === 'wearables') return '⌁';
+  if (category === 'genetics') return 'DNA';
+  if (category === 'biomarkers') return 'LAB';
+  return '·';
+}
+
+function providerInitials(provider) {
+  if (!provider) return '·';
+  if (provider === 'whoop') return 'W';
+  if (provider === 'oura') return 'O';
+  if (provider === 'health_connect') return 'HC';
+  return provider.slice(0, 2).toUpperCase();
+}
+
+function formatFileSize(bytes) {
+  if (bytes == null) return '—';
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  if (bytes < 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  return `${(bytes / (1024 * 1024 * 1024)).toFixed(1)} GB`;
+}
+
+function formatRelDate(value) {
+  if (!value) return '—';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  const deltaMs = Date.now() - date.getTime();
+  const minutes = Math.max(0, Math.round(deltaMs / 60_000));
+  if (minutes < 1) return 'Just now';
+  if (minutes < 60) return `${minutes}m ago`;
+  const hours = Math.round(minutes / 60);
+  if (hours < 48) return `${hours}h ago`;
+  const days = Math.round(hours / 24);
+  if (days < 90) return `${days}d ago`;
+  return date.toLocaleDateString('en', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
 // ---- Init ----
