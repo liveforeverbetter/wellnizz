@@ -11,7 +11,7 @@ Aperture, and Meridian. These are **public reference data (no auth required)**.
 
 ```bash
 curl -s "$FB_API/design/systems" | jq .
-curl -s "$FB_API/design/systems/aperture" | jq .
+curl -s "$FB_API/design/systems/foreverbetter" | jq .
 ```
 
 ## What you get
@@ -59,14 +59,18 @@ structure as well as palette. `hero`, `sections`, and `voice` give the order
 and tone, so a client can reproduce the intended information hierarchy instead
 of applying a palette-only theme.
 
-## Retrieve the full Aperture or Meridian handoff
+## Retrieve the full Aperture, Meridian, or wellnizz handoff
 
 Tokens help an agent design a new UI. If it needs the supplied source material,
-use an implementation package. Both handoffs include component source, design
+use an implementation package. Each handoff includes component source, design
 tokens, templates, UI-kit starting points, a component/template manifest,
-checksums, and URLs for included binary assets.
+checksums, and URLs for included binary assets. The wellnizz handoff also
+includes a `voice` block (brand tone rules), a `template` block (dashboard
+entrypoint and canonical section order), and a `prompt_injection` directive
+for reproducible agent-driven dashboard generation.
 
 ```bash
+curl -s "$FB_API/design/systems/foreverbetter/implementation" > foreverbetter-handoff.json
 curl -s "$FB_API/design/systems/aperture/implementation" > aperture-handoff.json
 curl -s "$FB_API/design/systems/meridian/implementation" > meridian-dashboard.json
 ```
@@ -84,8 +88,8 @@ WHOOP. Its response also contains the pinned production `dashboard/index.html`,
 `dashboard/styles.css`, and `dashboard/app.js` package plus the API bindings it
 expects. The entry point is `dashboard/index.html` and is intended to be served
 at `/dashboard` on the same API origin. Over MCP, call
-`get_design_implementation` with `{ "design_id": "aperture" }` or
-`{ "design_id": "meridian" }`.
+`get_design_implementation` with `{ "design_id": "foreverbetter" }`,
+`{ "design_id": "aperture" }`, or `{ "design_id": "meridian" }`.
 
 Every visual system carries the same full dashboard contract. Alongside tokens
 and components it exposes `metrics`, `modality_sections`, `responsive`,
@@ -93,6 +97,16 @@ and components it exposes `metrics`, `modality_sections`, `responsive`,
 voice, and section order still change by system, but no visual system drops a
 modality or the action plan. These fields let an agent or custom dashboard
 builder reproduce the information architecture without copying reference HTML.
+
+`foreverbetter` is the house design: warm-paper editorial with Plus Jakarta Sans
+and JetBrains Mono, a single coral accent (`#df1e39`), and a composite Genomic
+Longevity Index hero. It reads like a clinical report with editorial heart. Its
+implementation response includes the full dashboard template, UI kits for both
+the marketing site and the product dashboard, 88 design tokens, 34 component
+preview cards, and a `prompt_injection` field agents should use when building
+dashboards — directing them to use all available user data, render placeholder
+CTAs for missing data, preserve canonical section order, and speak in the
+design system's evidence-first voice.
 
 `aperture` is a calm, consumer-health interface with teal-led tokens, Fustat
 and Geist Mono type roles, five health-pillar colors, source-aware metric rules,
@@ -112,7 +126,7 @@ derived scores and keeps a generated UI from inventing health values.
 
 | id                | inspired by                | scheme | best for                                                          |
 | ----------------- | -------------------------- | ------ | ----------------------------------------------------------------- |
-| `foreverbetter`   | wellnizz              | light  | full multimodal longevity dossiers, composite healthspan index    |
+| `foreverbetter`   | wellnizz house design      | light  | full multimodal longevity dossiers, composite healthspan index, editorial reports |
 | `meridian`        | WHOOP (Meridian handoff)   | dark   | agent-built wearable apps, recovery, strain, sleep, data readiness |
 | `aperture`        | Aperture Design System handoff | light | consumer health coaching, pillars, source-aware daily overview |
 

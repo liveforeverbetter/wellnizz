@@ -46,7 +46,7 @@ export async function serveDashboardAsset(req: IncomingMessage, res: ServerRespo
 }
 
 function assetPathFor(pathname: string): string | undefined {
-  if (pathname === '/SKILL.md') return PUBLIC_SKILL_PATH;
+  if (pathname.toLowerCase() === '/skill.md') return PUBLIC_SKILL_PATH;
   if (pathname === '/dashboard' || pathname === '/dashboard/') return join(DASHBOARD_ROOT, 'index.html');
   if (pathname.startsWith('/dashboard/')) return publicAssetPath(DASHBOARD_ROOT, pathname.slice('/dashboard/'.length));
   if (pathname.startsWith('/design-system-specs/')) return publicAssetPath(DESIGN_SYSTEM_SPECS_ROOT, pathname.slice('/design-system-specs/'.length));

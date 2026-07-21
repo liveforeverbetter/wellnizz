@@ -86,7 +86,15 @@ curl -s "$FB_API/analyses/$AN/recommendations" -H "authorization: Bearer $FB_KEY
 Skip design bikeshedding: pull a ready design-token set and a `DESIGN.md`.
 
 ```bash
-curl -s "$FB_API/design/systems/aperture" | jq '{colors,typography,radii}'
+curl -s "$FB_API/design/systems/foreverbetter" | jq '{colors,typography,radii}'
+```
+
+For agent-driven dashboard generation, download the full handoff ZIP that
+includes the dashboard template, all 88 tokens, 34 component previews, UI kits,
+and the `prompt_injection` directive for reproducible layout:
+
+```bash
+curl -s "$FB_API/design/systems/foreverbetter/implementation" | jq '.download.url'
 ```
 
 ## 6. Create an expiring private dashboard link
