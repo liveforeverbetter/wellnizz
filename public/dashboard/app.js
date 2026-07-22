@@ -947,9 +947,16 @@ async function loadModalityInterpretations(page, modality, key, params) {
 
     const current = analyses[0];
     const full = await apiGet(`/analyses/${current.id}`, key);
-    const interpretations = prioritizeInterpretations(full.derived_interpretations || []).slice(0, 12);
+    const allInterpretations = full.derived_interpretations || [];
+    // A current analysis can contain many observations of one metric (for
+    // example, several days of steps). The dashboard is a current-signal view:
+    // retain the source data for trends, but show one decision-ready card per
+    // signal here.
+    const currentSignals = dedupeCurrentInterpretations(page, allInterpretations);
+    const interpretations = prioritizeInterpretations(page, currentSignals).slice(0, 12);
     const historyCount = Math.max(0, Number(result.total ?? analyses.length) - 1);
-    const analysisSummary = currentAnalysisSummary(page, current, historyCount, interpretations.length);
+    const duplicateCount = Math.max(0, allInterpretations.length - currentSignals.length);
+    const analysisSummary = currentAnalysisSummary(page, current, historyCount, currentSignals.length, duplicateCount);
 
     if (!interpretations.length) {
       container.innerHTML = `${analysisSummary}<div class="section-heading-row"><h2>Current interpretation</h2></div>
@@ -960,8 +967,18 @@ async function loadModalityInterpretations(page, modality, key, params) {
       return;
     }
 
-    container.innerHTML = `${analysisSummary}<div class="section-heading-row"><div><p class="page-eyebrow">Current interpretation</p><h2>What your latest analysis says</h2></div><p>Showing the ${interpretations.length} highest-priority findings.</p></div>
-      ${interpretationSections(interpretations)}`;
+    const remaining = prioritizeInterpretations(page, currentSignals).slice(12);
+    container.innerHTML = `${analysisSummary}<div class="section-heading-row"><div><p class="page-eyebrow">Current interpretation</p><h2>What your latest analysis says</h2></div><p>Showing ${interpretations.length} priority findings from ${currentSignals.length} current ${currentSignals.length === 1 ? 'signal' : 'signals'}.</p></div>
+      ${interpretationSections(interpretations)}
+      ${remaining.length ? `<details class="all-findings" id="${page}-all-findings"><summary>Explore all ${currentSignals.length} current findings by section</summary><div class="all-findings-content"></div></details>` : ''}`;
+
+    const allFindings = container.querySelector(`#${page}-all-findings`);
+    allFindings?.addEventListener('toggle', () => {
+      if (!allFindings.open || allFindings.dataset.rendered) return;
+      const content = allFindings.querySelector('.all-findings-content');
+      if (content) content.innerHTML = interpretationSections(remaining);
+      allFindings.dataset.rendered = 'true';
+    });
   } catch {
     container.innerHTML = `<div class="section-heading-row"><h2>What your data says</h2></div>
       <div class="card modality-placeholder"><p>Could not load insights. Run an analysis with your agent first.</p></div>`;
@@ -996,14 +1013,15 @@ function sourceHistory(sources, heading) {
   return `<details class="source-history"><summary>${heading} (${sources.length})</summary><ul>${sources.map(source => `<li><strong>${escapeHtml(source.filename || 'Uploaded file')}</strong><span>${formatRelDate(source.received_at)}</span></li>`).join('')}</ul></details>`;
 }
 
-function currentAnalysisSummary(page, analysis, historyCount, findingCount) {
+function currentAnalysisSummary(page, analysis, historyCount, findingCount, duplicateCount = 0) {
   const history = historyCount
     ? `${historyCount} earlier ${historyCount === 1 ? 'run is' : 'runs are'} kept separately as history.`
     : 'This is the first recorded run.';
   const geneticsNote = page === 'genetics'
     ? 'Your DNA is stable, but interpretation changes as analysis methods and evidence improve.'
     : 'Older runs are not blended into this current interpretation.';
-  return `<div class="analysis-summary current-analysis-summary"><strong>Current</strong><span>Updated ${escapeHtml(formatRelDate(analysis.created_at))} · ${findingCount} highlighted finding${findingCount === 1 ? '' : 's'}</span><small>${history} ${geneticsNote}</small></div>`;
+  const dedupeNote = duplicateCount ? ` ${duplicateCount} repeated observation${duplicateCount === 1 ? ' is' : 's are'} kept for trends, not repeated here.` : '';
+  return `<div class="analysis-summary current-analysis-summary"><strong>Current</strong><span>Updated ${escapeHtml(formatRelDate(analysis.created_at))} · ${findingCount} current ${findingCount === 1 ? 'finding' : 'findings'}</span><small>${history} ${geneticsNote}${dedupeNote}</small></div>`;
 }
 
 function interpretationPriority(interp) {
@@ -1013,19 +1031,58 @@ function interpretationPriority(interp) {
   return 2;
 }
 
-function prioritizeInterpretations(interpretations) {
-  return [...interpretations].sort((a, b) => interpretationPriority(a) - interpretationPriority(b) || String(a.category || a.type || '').localeCompare(String(b.category || b.type || '')) || String(a.title || '').localeCompare(String(b.title || '')));
+function dedupeCurrentInterpretations(page, interpretations) {
+  if (page !== 'wearables') return interpretations;
+  const unique = new Map();
+  for (const interpretation of interpretations) {
+    const raw = interpretation.raw && typeof interpretation.raw === 'object' ? interpretation.raw : {};
+    const key = String(raw.id || interpretation.title || interpretation.type || 'wearable-signal').toLowerCase();
+    const existing = unique.get(key);
+    if (!existing || interpretationPriority(interpretation) < interpretationPriority(existing)) unique.set(key, interpretation);
+  }
+  return [...unique.values()];
+}
+
+function geneticTypePriority(interp) {
+  return ({
+    genetic_pipeline_analysis: -1,
+    genetic_drug_response: 0,
+    genetic_risk_finding: 1,
+    genetic_prs_score: 2,
+    genetic_consumer_insight: 3,
+    genetic_condition_finding: 4,
+    genetic_condition_catalog_match: 5,
+  })[interp.type] ?? 6;
+}
+
+function prioritizeInterpretations(page, interpretations) {
+  return [...interpretations].sort((a, b) => interpretationPriority(a) - interpretationPriority(b) || (page === 'genetics' ? geneticTypePriority(a) - geneticTypePriority(b) : 0) || String(a.category || a.type || '').localeCompare(String(b.category || b.type || '')) || String(a.title || '').localeCompare(String(b.title || '').trim()));
 }
 
 function interpretationSections(interpretations) {
   const groups = new Map();
   for (const interpretation of interpretations) {
-    const category = titleCase(interpretation.category || interpretation.type || 'Other findings');
+    const category = interpretationSectionName(interpretation);
     const items = groups.get(category) || [];
     items.push(interpretation);
     groups.set(category, items);
   }
   return [...groups.entries()].map(([category, items]) => `<section class="interpretation-section"><h3>${escapeHtml(category)}</h3><div class="modality-interp-grid">${items.map(interpretationCard).join('')}</div></section>`).join('');
+}
+
+function interpretationSectionName(interpretation) {
+  if (interpretation.category === 'genetics') {
+    return ({
+      genetic_pipeline_analysis: 'Analysis overview',
+      genetic_drug_response: 'Medication response',
+      genetic_risk_finding: 'Risk context',
+      genetic_prs_score: 'Polygenic scores',
+      genetic_consumer_insight: 'Trait context',
+      genetic_condition_finding: 'Condition findings',
+      genetic_condition_catalog_match: 'Catalog matches',
+    })[interpretation.type] || 'Genetic findings';
+  }
+  return titleCase(interpretation.category || interpretation.type || 'Other findings');
 }
 
 function interpretationCard(interp) {

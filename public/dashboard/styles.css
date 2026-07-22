@@ -2135,6 +2135,24 @@ code {
   text-transform: uppercase;
 }
 
+.all-findings {
+  margin-top: 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.38);
+}
+
+.all-findings summary {
+  padding: 13px 14px;
+  cursor: pointer;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.all-findings-content { padding: 0 14px 16px; }
+.all-findings-content .interpretation-section:first-child { margin-top: 4px; }
+
 .source-data-card {
   display: flex;
   flex-direction: column;

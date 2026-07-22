@@ -123,6 +123,10 @@ test('dashboard renders only the current analysis and keeps history separate', a
   assert.match(app, /const full = await apiGet\(`\/analyses\/\$\{current\.id\}`/);
   assert.doesNotMatch(app, /analyses\.slice\(0, 5\)/);
   assert.match(app, /function interpretationSections\(interpretations\)/);
+  assert.match(app, /function dedupeCurrentInterpretations\(page, interpretations\)/);
+  assert.match(app, /kept for trends, not repeated here/i);
+  assert.match(app, /Explore all \$\{currentSignals\.length\} current findings by section/);
+  assert.match(app, /genetic_condition_catalog_match: 'Catalog matches'/);
   assert.match(app, /function sourceHistory\(sources, heading\)/);
   assert.match(app, /Wearable data by provider/);
   assert.match(app, /older runs are not blended into this current interpretation/i);
