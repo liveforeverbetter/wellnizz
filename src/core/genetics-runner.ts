@@ -55,6 +55,17 @@ export interface GeneticsPipelineOptions {
    * the tail on demand. When omitted, behaviour is unchanged.
    */
   saveFullArtifact?: (body: Buffer) => Promise<FullAnalysisArtifactRef | undefined>;
+  /**
+   * Restores a previously cached dbSNP-annotated VCF into the given path (the
+   * sibling the pipeline reuses), letting the run skip the multi-hour bcftools
+   * annotation. Returns true when a cached annotation was restored.
+   */
+  restoreAnnotatedVcf?: (destinationPath: string) => Promise<boolean>;
+  /**
+   * Persists the freshly produced dbSNP-annotated VCF for reuse. Called even
+   * when a later pipeline step fails, so the expensive annotation is never lost.
+   */
+  saveAnnotatedVcf?: (filePath: string) => Promise<void>;
   /** Produced by the dedicated pgsc_calc PRS process; never inferred from the 91-marker ancestry endpoint. */
   pgsPopulationSimilarity?: PgsPopulationSimilarity;
   /** When aborted, kills the current subprocess and rejects with an AbortError so the caller can requeue cleanly. */
@@ -172,10 +183,51 @@ export async function runGeneticsPipelineWithWriter(
     };
   }
 
+  // The bundled pipeline reuses an annotated sibling named
+  // `<basename>.annotated.vcf.gz` next to the input (parse-vcf analyzeVCF). If a
+  // cached annotation exists for this source+depth, restore it there so the run
+  // skips the multi-hour bcftools annotation entirely.
+  const annotatedSiblingPath = path.join(tempDir, `${path.basename(inputPath, path.extname(inputPath))}.annotated.vcf.gz`);
+  let restoredAnnotation = false;
+  if (options.restoreAnnotatedVcf) {
+    try {
+      restoredAnnotation = await options.restoreAnnotatedVcf(annotatedSiblingPath);
+      if (restoredAnnotation) {
+        await options.onProgress?.({ stage: 'annotating_variants', progress_pct: 45, progress_message: 'Reusing the previously annotated genome; skipping dbSNP annotation.' });
+      }
+    } catch (restoreError) {
+      restoredAnnotation = false;
+      console.warn(JSON.stringify({
+        ts: new Date().toISOString(),
+        event: 'annotated_vcf_restore_failed',
+        user_id: userId,
+        source_id: source.id,
+        error: restoreError instanceof Error ? restoreError.message : String(restoreError),
+      }));
+    }
+  }
+
   const commandArgs = buildGeneticsPipelineArgs(userId, inputPath, outputDir, env, options);
   const tsxCommand = env.TSX_BIN ?? path.resolve(process.cwd(), 'node_modules/.bin/tsx');
-  await options.onProgress?.({ stage: 'annotating_variants', progress_pct: 10, progress_message: 'Normalizing the VCF and annotating variants.' });
+  await options.onProgress?.({ stage: 'annotating_variants', progress_pct: 10, progress_message: restoredAnnotation ? 'Loading the cached annotated genome.' : 'Normalizing the VCF and annotating variants.' });
   const result = await runCommand(tsxCommand, commandArgs, skillDir, timeoutMs, options.onProgress, options.signal);
+  // Preserve the freshly annotated VCF for reuse BEFORE checking exit code, so a
+  // failure in a later pipeline step (e.g. dashboard transform) never discards
+  // the expensive annotation. Only save what we did not just restore from cache.
+  if (!restoredAnnotation && options.saveAnnotatedVcf && await exists(annotatedSiblingPath)) {
+    try {
+      await options.saveAnnotatedVcf(annotatedSiblingPath);
+      console.log(JSON.stringify({ ts: new Date().toISOString(), event: 'annotated_vcf_cached', user_id: userId, source_id: source.id }));
+    } catch (saveError) {
+      console.warn(JSON.stringify({
+        ts: new Date().toISOString(),
+        event: 'annotated_vcf_cache_failed',
+        user_id: userId,
+        source_id: source.id,
+        error: saveError instanceof Error ? saveError.message : String(saveError),
+      }));
+    }
+  }
   if (result.exitCode !== 0) {
     return {
       status: 'failed',

@@ -35,6 +35,9 @@ export function geneticUploadPayloadKey(source: Pick<RawSourceReference, 'id' | 
 export interface PayloadStore {
   readonly driver: 'filesystem' | 's3';
   upload(objectKey: string, payload: Buffer, contentType?: string): Promise<void>;
+  // Streaming upload from a local file, so large artifacts (e.g. a multi-hundred-MB
+  // dbSNP-annotated VCF) are not buffered wholesale in the process.
+  uploadFile(objectKey: string, filePath: string, contentType?: string): Promise<void>;
   download(objectKey: string): Promise<Buffer | undefined>;
   writeToFile(objectKey: string, destination: string): Promise<boolean>;
   size(objectKey: string): Promise<number | undefined>;
@@ -61,6 +64,12 @@ export class FilesystemPayloadStore implements PayloadStore {
     const path = this.pathFor(objectKey);
     await mkdir(dirname(path), { recursive: true });
     await writeFile(path, payload);
+  }
+
+  async uploadFile(objectKey: string, filePath: string): Promise<void> {
+    const path = this.pathFor(objectKey);
+    await mkdir(dirname(path), { recursive: true });
+    await pipeline(createReadStream(filePath), createWriteStream(path));
   }
 
   async download(objectKey: string): Promise<Buffer | undefined> {
@@ -141,6 +150,20 @@ export class S3PayloadStore implements PayloadStore {
       Bucket: this.bucket,
       Key: objectKey,
       Body: payload,
+      ContentType: contentType ?? 'application/octet-stream',
+    }));
+  }
+
+  async uploadFile(objectKey: string, filePath: string, contentType?: string): Promise<void> {
+    const { client, PutObjectCommand } = await this.sdk();
+    // Stream from disk with an explicit ContentLength so PutObject accepts a
+    // non-buffered body and the large annotated VCF never loads into memory.
+    const { size } = await stat(filePath);
+    await client.send(new PutObjectCommand({
+      Bucket: this.bucket,
+      Key: objectKey,
+      Body: createReadStream(filePath),
+      ContentLength: size,
       ContentType: contentType ?? 'application/octet-stream',
     }));
   }

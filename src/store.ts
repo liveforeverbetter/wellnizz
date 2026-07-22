@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { writeFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import type { AnalysisResult, ConnectorSyncJob, DataExportResult, ExternalAccount, GeneticAnalysisJob, GeneticAnalysisJobStage, GeneticsAnnotationDepth, Goal, NormalizedObservation, OtpChallenge, ProviderToken, RawSourceReference, TombstoneResult, WebhookEvent } from './types.js';
 
 export interface IdempotencyRecord {
@@ -55,6 +55,14 @@ export interface HealthStore {
   saveGeneticAnalysisCheckpoint(sourceId: string, annotationDepth: GeneticsAnnotationDepth | undefined, result: unknown): Promise<void>;
   getGeneticAnalysisCheckpoint(sourceId: string, annotationDepth: GeneticsAnnotationDepth | undefined): Promise<unknown | undefined>;
   clearGeneticAnalysisCheckpoint(sourceId: string, annotationDepth: GeneticsAnnotationDepth | undefined): Promise<void>;
+  // Durable cache of the dbSNP-annotated VCF (the multi-hour bcftools output),
+  // keyed by source + annotation depth. Saved from the worker's temp file even
+  // when a later pipeline step fails, so a retry or re-analysis reuses the
+  // annotation and skips bcftools entirely. Stored as a file stream, never
+  // buffered in the API process.
+  saveGeneticAnnotationArtifact(sourceId: string, annotationDepth: GeneticsAnnotationDepth | undefined, filePath: string): Promise<void>;
+  getGeneticAnnotationArtifactToFile(sourceId: string, annotationDepth: GeneticsAnnotationDepth | undefined, destination: string): Promise<boolean>;
+  clearGeneticAnnotationArtifact(sourceId: string, annotationDepth: GeneticsAnnotationDepth | undefined): Promise<void>;
   upsertExternalAccount(account: ExternalAccount): Promise<ExternalAccount>;
   listExternalAccountsForUser(userId: string, organizationIds?: Set<string>): Promise<ExternalAccount[]>;
   saveProviderToken(token: ProviderToken): Promise<ProviderToken>;
@@ -87,6 +95,7 @@ export class HealthApiStore implements HealthStore {
   private idempotency = new Map<string, IdempotencyRecord>();
   private geneticJobs = new Map<string, GeneticAnalysisJob>();
   private geneticCheckpoints = new Map<string, unknown>();
+  private geneticAnnotationArtifacts = new Map<string, Buffer>();
   private externalAccounts = new Map<string, ExternalAccount>();
   private providerTokens = new Map<string, ProviderToken>();
   private connectorSyncJobs = new Map<string, ConnectorSyncJob>();
@@ -109,6 +118,7 @@ export class HealthApiStore implements HealthStore {
       idempotency: new Map(this.idempotency),
       geneticJobs: new Map(this.geneticJobs),
       geneticCheckpoints: new Map(this.geneticCheckpoints),
+      geneticAnnotationArtifacts: new Map(Array.from(this.geneticAnnotationArtifacts, ([key, value]) => [key, Buffer.from(value)])),
       externalAccounts: new Map(this.externalAccounts),
       providerTokens: new Map(this.providerTokens),
       connectorSyncJobs: new Map(this.connectorSyncJobs),
@@ -127,6 +137,7 @@ export class HealthApiStore implements HealthStore {
       this.idempotency = snapshot.idempotency;
       this.geneticJobs = snapshot.geneticJobs;
       this.geneticCheckpoints = snapshot.geneticCheckpoints;
+      this.geneticAnnotationArtifacts = snapshot.geneticAnnotationArtifacts;
       this.externalAccounts = snapshot.externalAccounts;
       this.providerTokens = snapshot.providerTokens;
       this.connectorSyncJobs = snapshot.connectorSyncJobs;
@@ -363,6 +374,21 @@ export class HealthApiStore implements HealthStore {
     this.geneticCheckpoints.delete(geneticCheckpointObjectKey(sourceId, annotationDepth));
   }
 
+  async saveGeneticAnnotationArtifact(sourceId: string, annotationDepth: GeneticsAnnotationDepth | undefined, filePath: string): Promise<void> {
+    this.geneticAnnotationArtifacts.set(geneticAnnotationObjectKey(sourceId, annotationDepth), await readFile(filePath));
+  }
+
+  async getGeneticAnnotationArtifactToFile(sourceId: string, annotationDepth: GeneticsAnnotationDepth | undefined, destination: string): Promise<boolean> {
+    const body = this.geneticAnnotationArtifacts.get(geneticAnnotationObjectKey(sourceId, annotationDepth));
+    if (!body) return false;
+    await writeFile(destination, body);
+    return true;
+  }
+
+  async clearGeneticAnnotationArtifact(sourceId: string, annotationDepth: GeneticsAnnotationDepth | undefined): Promise<void> {
+    this.geneticAnnotationArtifacts.delete(geneticAnnotationObjectKey(sourceId, annotationDepth));
+  }
+
   async upsertExternalAccount(account: ExternalAccount): Promise<ExternalAccount> {
     const existing = Array.from(this.externalAccounts.values()).find(item => (
       item.user_id === account.user_id
@@ -580,6 +606,7 @@ export class HealthApiStore implements HealthStore {
       this.sources.delete(sourceId);
       for (const depth of ['compact', 'full_dbsnp'] as const) {
         this.geneticCheckpoints.delete(geneticCheckpointObjectKey(sourceId, depth));
+        this.geneticAnnotationArtifacts.delete(geneticAnnotationObjectKey(sourceId, depth));
       }
     }
     let analyses = 0;
@@ -643,6 +670,12 @@ export function createId(prefix: string): string {
 // does not collide with a stored checkpoint from a prior depth.
 export function geneticCheckpointObjectKey(sourceId: string, annotationDepth: GeneticsAnnotationDepth | undefined): string {
   return `genetic-checkpoints/${sourceId}/${annotationDepth ?? 'compact'}.json`;
+}
+
+// Object-storage key for the cached dbSNP-annotated VCF, keyed by source and
+// annotation depth (compact and full_dbsnp produce different annotations).
+export function geneticAnnotationObjectKey(sourceId: string, annotationDepth: GeneticsAnnotationDepth | undefined): string {
+  return `genetic-annotations/${sourceId}/${annotationDepth ?? 'compact'}.annotated.vcf.gz`;
 }
 
 function isAllowedOrganization(resourceOrganizationId: string | undefined, organizationIds?: Set<string>): boolean {

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import * as os from 'node:os';
 import * as path from 'node:path';
-import { readFile, rm } from 'node:fs/promises';
+import { readFile, rm, writeFile } from 'node:fs/promises';
 import { appendCommandOutputTail, buildGeneticsPipelineArgs, compactGeneticsDashboardForPersistence, geneticsPipelineTimeoutMs, progressFromPipelineOutput, resolveGeneticsPipeline, type GeneticsPipelineResult } from '../src/core/genetics-runner.js';
 import { createId, HealthApiStore } from '../src/store.js';
 import type { AnalysisResult, GeneticAnalysisJob } from '../src/types.js';
@@ -238,6 +238,47 @@ test('genetic analysis checkpoints round-trip and clear by source and depth', as
   await store.clearGeneticAnalysisCheckpoint(sourceId, 'compact');
   assert.equal(await store.getGeneticAnalysisCheckpoint(sourceId, 'compact'), undefined);
   assert.deepEqual(await store.getGeneticAnalysisCheckpoint(sourceId, 'full_dbsnp'), full);
+});
+
+test('genetic annotation artifacts round-trip from a file and are namespaced by depth', async () => {
+  const store = new HealthApiStore();
+  const sourceId = createId('src');
+  const srcFile = path.join(os.tmpdir(), `fb-annot-src-${Date.now()}.vcf.gz`);
+  await writeFile(srcFile, Buffer.from('##fileformat=VCFv4.2\nannotated-full\n'));
+
+  await store.saveGeneticAnnotationArtifact(sourceId, 'full_dbsnp', srcFile);
+
+  // Wrong depth has no cached annotation, so a run would re-annotate.
+  assert.equal(await store.getGeneticAnnotationArtifactToFile(sourceId, 'compact', path.join(os.tmpdir(), `x-${Date.now()}`)), false);
+
+  const dest = path.join(os.tmpdir(), `fb-annot-dest-${Date.now()}.vcf.gz`);
+  const restored = await store.getGeneticAnnotationArtifactToFile(sourceId, 'full_dbsnp', dest);
+  assert.equal(restored, true);
+  assert.deepEqual(await readFile(dest), await readFile(srcFile));
+
+  await store.clearGeneticAnnotationArtifact(sourceId, 'full_dbsnp');
+  assert.equal(await store.getGeneticAnnotationArtifactToFile(sourceId, 'full_dbsnp', dest), false);
+
+  await rm(srcFile, { force: true });
+  await rm(dest, { force: true });
+});
+
+test('tombstoning a user deletes their cached annotated VCF', async () => {
+  const store = new HealthApiStore();
+  const source: import('../src/types.js').RawSourceReference = {
+    id: createId('src'), user_id: 'user_1', organization_id: 'org_1', category: 'genetics',
+    filename: 'genome.vcf.gz', content_type: 'application/gzip',
+    received_at: new Date().toISOString(), byte_length: 30, storage_mode: 'durable',
+  };
+  await store.saveSource(source, [], Buffer.from('##fileformat=VCFv4.2\n'));
+  const srcFile = path.join(os.tmpdir(), `fb-annot-tomb-${Date.now()}.vcf.gz`);
+  await writeFile(srcFile, Buffer.from('annotated'));
+  await store.saveGeneticAnnotationArtifact(source.id, 'full_dbsnp', srcFile);
+  assert.equal(await store.getGeneticAnnotationArtifactToFile(source.id, 'full_dbsnp', path.join(os.tmpdir(), `y-${Date.now()}`)), true);
+
+  await store.tombstoneUserData('user_1', 'org_1');
+  assert.equal(await store.getGeneticAnnotationArtifactToFile(source.id, 'full_dbsnp', path.join(os.tmpdir(), `z-${Date.now()}`)), false);
+  await rm(srcFile, { force: true });
 });
 
 test('resolveGeneticsPipeline runs once, checkpoints, then resumes without re-running', async () => {

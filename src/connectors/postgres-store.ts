@@ -1,7 +1,7 @@
 import { AsyncLocalStorage } from 'node:async_hooks';
 import type pg from 'pg';
 import { getPool } from '../db/pool.js';
-import { createId, geneticCheckpointObjectKey } from '../store.js';
+import { createId, geneticCheckpointObjectKey, geneticAnnotationObjectKey } from '../store.js';
 import { configuredPayloadStore, payloadKey, S3PayloadStore, type PayloadStore, type SignedPayloadUpload } from './payload-store.js';
 import type { HealthStore, IdempotencyRecord } from '../store.js';
 import type {
@@ -373,6 +373,20 @@ export class PostgresHealthStore implements HealthStore {
     await this.payloads.remove(geneticCheckpointObjectKey(sourceId, annotationDepth));
   }
 
+  // Cache of the dbSNP-annotated VCF. Streamed to/from object storage so the
+  // multi-hundred-MB artifact is never buffered in the process.
+  async saveGeneticAnnotationArtifact(sourceId: string, annotationDepth: GeneticsAnnotationDepth | undefined, filePath: string): Promise<void> {
+    await this.payloads.uploadFile(geneticAnnotationObjectKey(sourceId, annotationDepth), filePath, 'application/gzip');
+  }
+
+  async getGeneticAnnotationArtifactToFile(sourceId: string, annotationDepth: GeneticsAnnotationDepth | undefined, destination: string): Promise<boolean> {
+    return this.payloads.writeToFile(geneticAnnotationObjectKey(sourceId, annotationDepth), destination);
+  }
+
+  async clearGeneticAnnotationArtifact(sourceId: string, annotationDepth: GeneticsAnnotationDepth | undefined): Promise<void> {
+    await this.payloads.remove(geneticAnnotationObjectKey(sourceId, annotationDepth));
+  }
+
   async upsertExternalAccount(account: ExternalAccount): Promise<ExternalAccount> {
     const organizationId = requireOrganizationId(account.organization_id, account.id);
     const rows = await this.rows(
@@ -638,15 +652,18 @@ export class PostgresHealthStore implements HealthStore {
       // genomic compute is not left behind in object storage after deletion.
       for (const row of sources.rows) {
         for (const depth of ['compact', 'full_dbsnp'] as const) {
-          try {
-            await this.payloads.remove(geneticCheckpointObjectKey(String(row.id), depth));
-          } catch (error) {
-            console.warn(JSON.stringify({
-              ts: new Date().toISOString(),
-              event: 'genetic_checkpoint_tombstone_cleanup_failed',
-              source_id: String(row.id),
-              error: error instanceof Error ? error.message : String(error),
-            }));
+          for (const objectKey of [geneticCheckpointObjectKey(String(row.id), depth), geneticAnnotationObjectKey(String(row.id), depth)]) {
+            try {
+              await this.payloads.remove(objectKey);
+            } catch (error) {
+              console.warn(JSON.stringify({
+                ts: new Date().toISOString(),
+                event: 'genetic_artifact_tombstone_cleanup_failed',
+                source_id: String(row.id),
+                object_key: objectKey,
+                error: error instanceof Error ? error.message : String(error),
+              }));
+            }
           }
         }
       }
