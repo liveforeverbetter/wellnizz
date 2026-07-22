@@ -782,7 +782,7 @@ async function route(req: IncomingMessage, res: ServerResponse, store: HealthSto
         id: `acct_${randomUUID()}`,
         user_id: input.user_id,
         organization_id: input.organization_id,
-        provider: 'wearables',
+        provider: input.source_provider,
         external_user_id: input.user_id,
         status: 'active',
         metadata: { source_provider: input.source_provider, connection_type: 'mobile_bridge' },
@@ -842,7 +842,7 @@ async function route(req: IncomingMessage, res: ServerResponse, store: HealthSto
     const organizationIds = organizationId ? new Set([organizationId]) : auth.organizationIds;
     const accounts = await store.listExternalAccountsForUser(userId, organizationIds);
     const connections = accounts
-      .filter(account => account.provider === 'wearables')
+      .filter(account => wearableProviderInfo(account.provider as ProviderId) || account.provider === 'wearables')
       .map(account => ({
         id: account.id,
         source_provider: account.metadata.source_provider ?? account.provider,
@@ -917,7 +917,7 @@ async function route(req: IncomingMessage, res: ServerResponse, store: HealthSto
       id: `acct_${randomUUID()}`,
       user_id: input.user_id,
       organization_id: input.organization_id,
-      provider: 'wearables',
+      provider: input.source_provider,
       external_user_id: externalUserId,
       status: 'active',
       metadata: isBridge
@@ -1001,7 +1001,7 @@ async function route(req: IncomingMessage, res: ServerResponse, store: HealthSto
       const provider = syncMatch[1] as ProviderId;
       const firstParty = firstPartyOAuthFor(provider, authConfig);
       const ouraAccount = provider === 'oura'
-        ? (await store.listExternalAccountsForUser(input.user_id, new Set([input.organization_id!]))).find(account => account.provider === 'wearables' && account.metadata.source_provider === 'oura')
+        ? (await store.listExternalAccountsForUser(input.user_id, new Set([input.organization_id!]))).find(account => account.provider === 'oura' || (account.provider === 'wearables' && account.metadata.source_provider === 'oura'))
         : undefined;
       const ouraMemberId = input.provider_user_id
         ?? input.external_user_id
@@ -1915,7 +1915,7 @@ async function ingestHealthConnectSdkPayload(
     id: `acct_${randomUUID()}`,
     user_id: userId,
     organization_id: organizationId,
-    provider: 'wearables',
+    provider: 'health_connect',
     external_user_id: userId,
     status: 'active',
     last_synced_at: new Date().toISOString(),
@@ -2454,7 +2454,7 @@ async function saveRotatedProviderToken(store: HealthStore, token: import('./typ
 // target the same durable connection.
 async function persistOuraTokens(params: {
   store: HealthStore;
-  account: { id: string; user_id: string; organization_id: string; external_user_id: string; metadata: Record<string, unknown> };
+  account: { id: string; user_id: string; organization_id: string; provider: string; external_user_id: string; metadata: Record<string, unknown> };
   tokenResult: OAuthTokenSet;
   key: Buffer;
   authConfig: AuthConfig;
@@ -2485,7 +2485,7 @@ async function persistOuraTokens(params: {
   const webhookEnabled = await ensureOuraWebhookSubscriptions(authConfig).catch(() => false);
   await store.upsertExternalAccount({
     ...account,
-    provider: 'wearables',
+    provider: account.provider,
     status: 'active',
     metadata: { ...account.metadata, oura_user_id: ouraUserId, server_sync_enabled: true, webhook_sync_enabled: webhookEnabled },
     created_at: new Date().toISOString(),
@@ -2499,7 +2499,7 @@ async function persistOuraTokens(params: {
 // webhook-syncable token was stored.
 async function persistWhoopTokens(params: {
   store: HealthStore;
-  account: { id: string; user_id: string; organization_id: string; external_user_id: string; metadata: Record<string, unknown> };
+  account: { id: string; user_id: string; organization_id: string; provider: string; external_user_id: string; metadata: Record<string, unknown> };
   tokenResult: OAuthTokenSet;
   key: Buffer;
 }): Promise<boolean> {
@@ -2540,7 +2540,7 @@ async function persistWhoopTokens(params: {
     id: account.id,
     user_id: account.user_id,
     organization_id: account.organization_id,
-    provider: 'wearables',
+    provider: account.provider,
     external_user_id: account.external_user_id,
     status: 'active',
     metadata: { ...account.metadata, whoop_user_id: whoopUserId, webhook_sync_enabled: true },

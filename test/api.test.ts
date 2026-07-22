@@ -329,12 +329,11 @@ test('starts and completes a WHOOP OAuth wearables connection flow', async () =>
       client_id: 'client_123',
       client_secret: 'client_secret',
       redirect_uri: 'http://localhost:8788/callback',
-      external_user_id: 'whoop_user_123',
     });
     assert.equal(completed.provider, 'wearables');
     assert.equal(completed.connection_type, 'oauth');
-    assert.equal(completed.external_account.provider, 'wearables');
-    assert.equal(completed.external_account.external_user_id, 'whoop_user_123');
+    assert.equal(completed.external_account.provider, 'whoop');
+    assert.equal(completed.external_account.external_user_id, 'connect_user');
     assert.equal(completed.external_account.metadata.source_provider, 'whoop');
     assert.equal(completed.token_storage, 'external_secret_store_required');
     const connectionStatus = await get('/connections/wearables/status?user_id=connect_user&organization_id=connect_org');
@@ -358,8 +357,15 @@ test('connects Google Health Connect through the mobile bridge (no OAuth redirec
   assert.equal(started.authorization_url, undefined);
   assert.ok(Array.isArray(started.data_types) && started.data_types.includes('steps'));
   assert.equal(started.ingestion.import_provider, 'health_connect');
+  assert.equal(started.external_account.provider, 'health_connect');
   assert.ok(started.external_account.id.startsWith('acct_'));
   assert.match(started.connection_event_id, /^evt_/);
+
+  const statusAfterBridgeStart = await get('/connections/wearables/status?user_id=connect_user&organization_id=connect_org');
+  assert.deepEqual(
+    statusAfterBridgeStart.connections.map((connection: any) => connection.source_provider).sort(),
+    ['health_connect', 'whoop'],
+  );
 
   const completed = await post('/connections/wearables/callback', {
     user_id: 'connect_user',

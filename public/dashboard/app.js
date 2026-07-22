@@ -8,8 +8,13 @@ const state = {
   ouraFirstParty: false,
   ouraAvailability: 'loading',
   whoopConnected: false,
+  whoopAutomaticUpdates: false,
   ouraConnected: false,
+  ouraAutomaticUpdates: false,
   healthConnectConnected: false,
+  overviewSources: [],
+  overviewAnalyses: [],
+  overviewLoaded: false,
   oauthProvider: null,
   oauthClientId: '',
   oauthClientSecret: '',
@@ -356,7 +361,7 @@ function syncDashboardSessionUi() {
   if (workspaceChip) { workspaceChip.textContent = workspace; workspaceChip.classList.remove('hidden'); }
   renderOverviewGreeting();
   refreshOverview();
-  void loadOverviewGenetics();
+  void loadOverviewData();
   void loadBilling();
 }
 
@@ -461,17 +466,74 @@ function setOverviewProvider(provider, connected, automaticUpdates = false) {
     : 'Connect when you are ready.';
 }
 
+function setOverviewModality(modality, connected, statusText, metaText) {
+  const status = $(`#overview-${modality}-status`);
+  const meta = $(`#overview-${modality}-meta`);
+  if (status) {
+    status.className = `status ${connected ? 'connected' : 'muted'}`;
+    status.textContent = statusText;
+  }
+  if (meta) meta.textContent = metaText;
+}
+
+function newestFirst(items, dateField) {
+  return [...items].sort((a, b) => String(b[dateField] || '').localeCompare(String(a[dateField] || '')));
+}
+
+function pluralize(count, singular, plural = `${singular}s`) {
+  return `${count} ${count === 1 ? singular : plural}`;
+}
+
 function refreshOverview() {
   const connectedCount = Number(state.whoopConnected) + Number(state.ouraConnected) + Number(state.healthConnectConnected);
-  const percent = Math.round((connectedCount / 3) * 100);
+  const sourcesByCategory = {
+    wearables: state.overviewSources.filter(source => source.category === 'wearables' && source.upload_status === 'complete'),
+    genetics: state.overviewSources.filter(source => source.category === 'genetics' && source.upload_status === 'complete'),
+    biomarkers: state.overviewSources.filter(source => source.category === 'biomarkers' && source.upload_status === 'complete'),
+  };
+  const dataCategoriesReady = Object.values(sourcesByCategory).filter(sources => sources.length > 0).length;
+  const currentAnalyses = ['wearables', 'genetics', 'biomarkers']
+    .filter(modality => state.overviewAnalyses.some(analysis => analysis.modality === modality)).length;
+  const wearableDataReady = sourcesByCategory.wearables.length > 0 || connectedCount > 0;
+  const contextCategoriesReady = Number(wearableDataReady) + Number(sourcesByCategory.genetics.length > 0) + Number(sourcesByCategory.biomarkers.length > 0);
+  const percent = Math.round((contextCategoriesReady / 3) * 100);
   const gauge = $('.readiness-gauge');
   if (gauge) gauge.style.setProperty('--readiness-angle', `${(percent / 100) * 360}deg`);
   if ($('#overview-ready-percent')) $('#overview-ready-percent').textContent = `${percent}%`;
-  if ($('#overview-connected-count')) $('#overview-connected-count').innerHTML = `${connectedCount}<span>/3</span>`;
-  if ($('#overview-pipeline-count')) $('#overview-pipeline-count').textContent = '0';
-  const wearablePipeline = $('#overview-wearable-pipeline');
-  setOverviewProvider('whoop', state.whoopConnected);
-  setOverviewProvider('oura', state.ouraConnected);
+  if ($('#overview-connected-count')) $('#overview-connected-count').textContent = String(connectedCount);
+  if ($('#overview-data-count')) $('#overview-data-count').textContent = String(dataCategoriesReady);
+  if ($('#overview-pipeline-count')) $('#overview-pipeline-count').textContent = String(currentAnalyses);
+  setOverviewProvider('whoop', state.whoopConnected, state.whoopAutomaticUpdates);
+  setOverviewProvider('oura', state.ouraConnected, state.ouraAutomaticUpdates);
+
+  if (!state.overviewLoaded) return;
+  const latestWearable = newestFirst(sourcesByCategory.wearables, 'received_at')[0];
+  const latestGeneticAnalysis = newestFirst(state.overviewAnalyses.filter(analysis => analysis.modality === 'genetics'), 'created_at')[0];
+  const latestLab = newestFirst(sourcesByCategory.biomarkers, 'received_at')[0];
+  const geneticRunCount = state.overviewAnalyses.filter(analysis => analysis.modality === 'genetics').length;
+
+  setOverviewModality(
+    'wearables',
+    wearableDataReady,
+    state.whoopConnected ? 'WHOOP connected' : sourcesByCategory.wearables.length ? 'Data ready' : 'No wearable data',
+    state.whoopConnected
+      ? `${pluralize(sourcesByCategory.wearables.length, 'wearable data batch', 'wearable data batches')} received${latestWearable ? ` · latest ${formatRelDate(latestWearable.received_at)}.` : '.'}`
+      : sourcesByCategory.wearables.length ? `${pluralize(sourcesByCategory.wearables.length, 'wearable data batch', 'wearable data batches')} available.` : 'Connect WHOOP, Oura, or Health Connect when you are ready.',
+  );
+  setOverviewModality(
+    'genetics',
+    sourcesByCategory.genetics.length > 0,
+    sourcesByCategory.genetics.length ? `${pluralize(sourcesByCategory.genetics.length, 'file')} ready` : 'No genetic file',
+    latestGeneticAnalysis
+      ? `Current interpretation updated ${formatRelDate(latestGeneticAnalysis.created_at)}${geneticRunCount > 1 ? ` · ${geneticRunCount - 1} earlier run${geneticRunCount === 2 ? '' : 's'} kept as history.` : '.'}`
+      : sourcesByCategory.genetics.length ? 'Genetic data is ready for analysis.' : 'Upload a VCF or SNP-array export when you choose.',
+  );
+  setOverviewModality(
+    'labs',
+    sourcesByCategory.biomarkers.length > 0,
+    sourcesByCategory.biomarkers.length ? `${pluralize(sourcesByCategory.biomarkers.length, 'panel')} ready` : 'No lab panel',
+    latestLab ? `Latest panel received ${formatRelDate(latestLab.received_at)}. Historical panels are kept for trends.` : 'Upload a lab panel when you are ready.',
+  );
 }
 
 function updateHealthConnectStatus(connection) {
@@ -492,43 +554,28 @@ function updateHealthConnectStatus(connection) {
   refreshOverview();
 }
 
-async function loadOverviewGenetics() {
+async function loadOverviewData() {
   if (!state.user?.id) return;
-  const status = $('#overview-genetics-status');
-  const meta = $('#overview-genetics-meta');
   const key = await workingKeySilent();
   if (!key) return;
   const params = new URLSearchParams({
     user_id: state.user.id,
     organization_id: personalOrganizationId(state.user.id),
-    limit: '15',
+    limit: '200',
   });
   try {
     const [sourceResult, analysisResult] = await Promise.all([
-      apiGet(`/sources?category=genetics&${params}`, key),
-      apiGet(`/analyses?modality=genetics&${params}`, key),
+      apiGet(`/sources?${params}`, key),
+      apiGet(`/analyses?${params}`, key),
     ]);
-    const sources = sourceResult.sources || [];
-    const analyses = analysisResult.analyses || [];
-    const readySources = sources.filter(source => source.upload_status === 'complete');
-    if (!sources.length) {
-      if (status) { status.className = 'status muted'; status.textContent = 'Agent-ready'; }
-      if (meta) meta.textContent = 'No genetic file is connected yet.';
-      return;
-    }
-    if (status) {
-      status.className = `status ${readySources.length ? 'connected' : 'muted'}`;
-      status.textContent = readySources.length ? `${readySources.length} file${readySources.length === 1 ? '' : 's'} ready` : 'Upload in progress';
-    }
-    if (meta) {
-      const latest = analyses[0];
-      meta.textContent = analyses.length
-        ? `${analyses.length} genetic ${analyses.length === 1 ? 'analysis' : 'analyses'} · latest ${formatRelDate(latest.created_at)}.`
-        : 'Genetic data is ready for analysis.';
-    }
+    state.overviewSources = sourceResult.sources || [];
+    state.overviewAnalyses = analysisResult.analyses || [];
+    state.overviewLoaded = true;
+    refreshOverview();
   } catch {
-    if (status) { status.className = 'status muted'; status.textContent = 'Check Genetics'; }
-    if (meta) meta.textContent = 'Open Genetics to view your uploaded data.';
+    setOverviewModality('wearables', false, 'Check data', 'Open Wearables to view your connected data.');
+    setOverviewModality('genetics', false, 'Check genetics', 'Open Genetics to view your uploaded data.');
+    setOverviewModality('labs', false, 'Check labs', 'Open Labs to view your uploaded panels.');
   }
 }
 
@@ -772,7 +819,7 @@ async function loadModalityPage(page) {
   const key = await workingKeySilent();
   if (!key || !state.user?.id) return;
   const orgId = personalOrganizationId(state.user.id);
-  const params = new URLSearchParams({ user_id: state.user.id, organization_id: orgId, limit: '15' });
+  const params = new URLSearchParams({ user_id: state.user.id, organization_id: orgId, limit: '200' });
 
   renderModalityPrompt(page);
 
@@ -812,6 +859,38 @@ async function loadWearablesConnectSection(key, params) {
   await loadWearableConnectionStatus();
   syncProviderCardUi('whoop');
   syncProviderCardUi('oura');
+  const container = $('#wearables-sources');
+  if (!container) return;
+  try {
+    const result = await apiGet(`/sources?category=wearables&${params}`, key);
+    const sources = result.sources || [];
+    const grouped = new Map();
+    for (const source of sources) {
+      const provider = source.provider || 'wearable_upload';
+      const items = grouped.get(provider) || [];
+      items.push(source);
+      grouped.set(provider, items);
+    }
+    for (const [provider, connected] of Object.entries({ whoop: state.whoopConnected, oura: state.ouraConnected, health_connect: state.healthConnectConnected })) {
+      if (connected && !grouped.has(provider)) grouped.set(provider, []);
+    }
+    if (!grouped.size) {
+      container.innerHTML = `<div class="section-heading-row"><div><p class="page-eyebrow">Incoming data</p><h2>Wearable data</h2></div></div><div class="card modality-placeholder"><p>Your connected provider will appear here after its first usable data batch arrives.</p></div>`;
+      return;
+    }
+    const providerCards = [...grouped.entries()]
+      .map(([provider, items]) => ({ provider, items: newestFirst(items, 'received_at') }))
+      .sort((a, b) => String(b.items[0]?.received_at || '').localeCompare(String(a.items[0]?.received_at || '')))
+      .map(({ provider, items }) => `<article class="card source-data-card">
+        <div class="source-card-top"><span class="source-mark">${escapeHtml(providerInitials(provider))}</span><span class="status ${items.length ? 'connected' : 'muted'}">${items.length ? 'Data ready' : 'Waiting for data'}</span></div>
+        <p class="page-eyebrow">${escapeHtml(wearableProviderName(provider))}</p>
+        <h3>${items.length ? `${pluralize(items.length, 'data batch', 'data batches')} received` : 'Connected, awaiting first data batch'}</h3>
+        <div class="source-meta">${items.length ? `<div><strong>Latest</strong><span>${formatRelDate(items[0]?.received_at)}</span></div>` : `<div><strong>Next step</strong><span>We will show a batch here as soon as your provider sends usable data.</span></div>`}</div>
+      </article>`).join('');
+    container.innerHTML = `<div class="section-heading-row"><div><p class="page-eyebrow">Incoming data</p><h2>Wearable data by provider</h2></div><p>Connection state and incoming data are shown separately so a new connection never looks like a completed sync.</p></div><div class="modality-sources">${providerCards}</div>`;
+  } catch {
+    container.innerHTML = '';
+  }
 }
 
 async function loadGeneticsConnectSection(key, params) {
@@ -819,24 +898,13 @@ async function loadGeneticsConnectSection(key, params) {
   if (!container) return;
   try {
     const result = await apiGet(`/sources?category=genetics&${params}`, key);
-    const sources = result.sources || [];
+    const sources = newestFirst(result.sources || [], 'received_at');
     if (sources.length) {
+      const [currentSource, ...previousSources] = sources;
       container.innerHTML = `
-        <div class="section-heading-row"><h2>Your genetic data</h2></div>
-        <div class="modality-sources">${sources.map(source => `
-          <article class="card source-data-card">
-            <div class="source-card-top">
-              <span class="source-mark">DNA</span>
-              <span class="status ${source.upload_status === 'complete' ? 'connected' : 'muted'}">${source.upload_status === 'complete' ? 'Ready' : 'Uploading'}</span>
-            </div>
-            <h3>${escapeHtml(source.filename || 'Genetic file')}</h3>
-            <div class="source-meta">
-              <div><strong>Provider</strong><span>${escapeHtml(source.provider || '—')}</span></div>
-              <div><strong>Size</strong><span>${formatFileSize(source.byte_length)}</span></div>
-              <div><strong>Received</strong><span>${formatRelDate(source.received_at)}</span></div>
-            </div>
-          </article>`).join('')}
-        </div>`;
+        <div class="section-heading-row"><div><p class="page-eyebrow">Current data</p><h2>Your latest genetic file</h2></div><p>${pluralize(sources.length, 'file')} stored privately</p></div>
+        <div class="modality-sources">${sourceCard(currentSource, 'DNA', 'Current genetic file')}</div>
+        ${sourceHistory(previousSources, 'Earlier genetic files')}`;
     } else {
       container.innerHTML = '';
     }
@@ -844,28 +912,18 @@ async function loadGeneticsConnectSection(key, params) {
 }
 
 async function loadLabsConnectSection(key, params) {
-  const container = $('#labs-connect');
+  const container = $('#labs-sources');
   if (!container) return;
   try {
     const result = await apiGet(`/sources?category=biomarkers&${params}`, key);
-    const sources = result.sources || [];
+    const sources = newestFirst(result.sources || [], 'received_at');
     if (sources.length) {
+      const [currentSource, ...previousSources] = sources;
       container.innerHTML = `
-        <div class="section-heading-row"><h2>Your lab panels</h2></div>
-        <div class="modality-sources">${sources.map(source => `
-          <article class="card source-data-card">
-            <div class="source-card-top">
-              <span class="source-mark">LAB</span>
-              <span class="status connected">Ready</span>
-            </div>
-            <h3>${escapeHtml(source.filename || 'Lab panel')}</h3>
-            <div class="source-meta">
-              <div><strong>Provider</strong><span>${escapeHtml(source.provider || '—')}</span></div>
-              <div><strong>Received</strong><span>${formatRelDate(source.received_at)}</span></div>
-            </div>
-          </article>`).join('')}
-        </div>`;
-    }
+        <div class="section-heading-row"><div><p class="page-eyebrow">Current data</p><h2>Your latest lab panel</h2></div><p>${pluralize(sources.length, 'panel')} stored</p></div>
+        <div class="modality-sources">${sourceCard(currentSource, 'LAB', 'Current lab panel')}</div>
+        ${sourceHistory(previousSources, 'Earlier lab panels')}`;
+    } else container.innerHTML = '';
   } catch { /* default upload UI is already in HTML */ }
 }
 
@@ -873,7 +931,9 @@ async function loadModalityInterpretations(page, modality, key, params) {
   const container = $(`#${MODALITY_META[page].interpId}`);
   if (!container) return;
   try {
-    const result = await apiGet(`/analyses?modality=${modality}&${params}`, key);
+    const analysisParams = new URLSearchParams(params);
+    analysisParams.set('limit', '1');
+    const result = await apiGet(`/analyses?modality=${modality}&${analysisParams}`, key);
     const analyses = result.analyses || [];
     if (!analyses.length) {
       const labels = { wearables: 'wearable', genetics: 'genetics', labs: 'biomarker' };
@@ -885,51 +945,100 @@ async function loadModalityInterpretations(page, modality, key, params) {
       return;
     }
 
-    const analysisSummary = page === 'genetics'
-      ? `<div class="analysis-summary"><strong>${analyses.length}</strong><span>${analyses.length === 1 ? 'genetic analysis ready' : 'genetic analyses ready'}</span><small>Latest: ${escapeHtml(formatRelDate(analyses[0]?.created_at))}</small></div>`
-      : '';
-
-    // Fetch full analyses to get interpretations
-    const fullAnalyses = await Promise.all(analyses.slice(0, 5).map(async (a) => {
-      try {
-        const full = await apiGet(`/analyses/${a.id}`, key);
-        return full;
-      } catch { return null; }
-    }));
-
-    const interpretations = fullAnalyses
-      .filter(Boolean)
-      .flatMap(a => (a.derived_interpretations || []).map(interp => ({ ...interp, analysis_id: a.id, analysis_created: a.created_at })))
-      .sort((a, b) => (b.analysis_created || '').localeCompare(a.analysis_created || ''))
-      .slice(0, 12);
+    const current = analyses[0];
+    const full = await apiGet(`/analyses/${current.id}`, key);
+    const interpretations = prioritizeInterpretations(full.derived_interpretations || []).slice(0, 12);
+    const historyCount = Math.max(0, Number(result.total ?? analyses.length) - 1);
+    const analysisSummary = currentAnalysisSummary(page, current, historyCount, interpretations.length);
 
     if (!interpretations.length) {
-      container.innerHTML = `${analysisSummary}<div class="section-heading-row"><h2>What your data says</h2></div>
+      container.innerHTML = `${analysisSummary}<div class="section-heading-row"><h2>Current interpretation</h2></div>
         <div class="card modality-placeholder">
           <h2>Waiting for insights.</h2>
-          <p>Your analysis is complete. Run a deeper analysis with your agent to generate interpretations.</p>
+          <p>Your current analysis is complete. Run a deeper analysis with your agent to generate interpretation cards.</p>
         </div>`;
       return;
     }
 
-    container.innerHTML = `${analysisSummary}<div class="section-heading-row"><h2>What your data says</h2></div>
-      <div class="modality-interp-grid">${interpretations.map(interp => {
-        const statusClass = interp.score != null ? (interp.score >= 70 ? 'positive' : interp.score >= 40 ? 'neutral' : 'attention') : 'neutral';
-        const statusLabel = interp.score != null ? (interp.score >= 70 ? 'Good' : interp.score >= 40 ? 'Moderate' : 'Needs attention') : '';
-        return `<article class="card interpretation-card" data-status="${statusClass}">
-          <div class="interp-head">
-            <span class="interp-category">${escapeHtml(titleCase(interp.category))}</span>
-            ${interp.score != null ? `<span class="interp-score ${statusClass}">${interp.score}<small>/100</small></span>` : ''}
-          </div>
-          <h3>${escapeHtml(interp.title)}</h3>
-          ${interp.summary ? `<p>${escapeHtml(interp.summary)}</p>` : ''}
-          ${interp.action ? `<div class="interp-action"><strong>What to do</strong><p>${escapeHtml(interp.action)}</p></div>` : ''}
-        </article>`;
-      }).join('')}</div>`;
+    container.innerHTML = `${analysisSummary}<div class="section-heading-row"><div><p class="page-eyebrow">Current interpretation</p><h2>What your latest analysis says</h2></div><p>Showing the ${interpretations.length} highest-priority findings.</p></div>
+      ${interpretationSections(interpretations)}`;
   } catch {
     container.innerHTML = `<div class="section-heading-row"><h2>What your data says</h2></div>
       <div class="card modality-placeholder"><p>Could not load insights. Run an analysis with your agent first.</p></div>`;
   }
+}
+
+function sourceCard(source, mark, label) {
+  return `<article class="card source-data-card source-data-card-current">
+    <div class="source-card-top">
+      <span class="source-mark">${mark}</span>
+      <span class="status ${source.upload_status === 'complete' ? 'connected' : 'muted'}">${source.upload_status === 'complete' ? 'Ready' : 'Uploading'}</span>
+    </div>
+    <p class="page-eyebrow">${label}</p>
+    <h3>${escapeHtml(source.filename || label)}</h3>
+    <div class="source-meta">
+      <div><strong>Provider</strong><span>${escapeHtml(source.provider || 'Dashboard upload')}</span></div>
+      <div><strong>Received</strong><span>${formatRelDate(source.received_at)}</span></div>
+      ${source.byte_length != null ? `<div><strong>Size</strong><span>${formatFileSize(source.byte_length)}</span></div>` : ''}
+    </div>
+  </article>`;
+}
+
+function wearableProviderName(provider) {
+  if (provider === 'health_connect') return 'Health Connect';
+  if (provider === 'whoop') return 'WHOOP';
+  if (provider === 'oura') return 'Oura';
+  return titleCase(provider || 'Wearable');
+}
+
+function sourceHistory(sources, heading) {
+  if (!sources.length) return '';
+  return `<details class="source-history"><summary>${heading} (${sources.length})</summary><ul>${sources.map(source => `<li><strong>${escapeHtml(source.filename || 'Uploaded file')}</strong><span>${formatRelDate(source.received_at)}</span></li>`).join('')}</ul></details>`;
+}
+
+function currentAnalysisSummary(page, analysis, historyCount, findingCount) {
+  const history = historyCount
+    ? `${historyCount} earlier ${historyCount === 1 ? 'run is' : 'runs are'} kept separately as history.`
+    : 'This is the first recorded run.';
+  const geneticsNote = page === 'genetics'
+    ? 'Your DNA is stable, but interpretation changes as analysis methods and evidence improve.'
+    : 'Older runs are not blended into this current interpretation.';
+  return `<div class="analysis-summary current-analysis-summary"><strong>Current</strong><span>Updated ${escapeHtml(formatRelDate(analysis.created_at))} · ${findingCount} highlighted finding${findingCount === 1 ? '' : 's'}</span><small>${history} ${geneticsNote}</small></div>`;
+}
+
+function interpretationPriority(interp) {
+  if (interp.score == null) return 1;
+  if (interp.score < 40) return 0;
+  if (interp.score < 70) return 1;
+  return 2;
+}
+
+function prioritizeInterpretations(interpretations) {
+  return [...interpretations].sort((a, b) => interpretationPriority(a) - interpretationPriority(b) || String(a.category || a.type || '').localeCompare(String(b.category || b.type || '')) || String(a.title || '').localeCompare(String(b.title || '')));
+}
+
+function interpretationSections(interpretations) {
+  const groups = new Map();
+  for (const interpretation of interpretations) {
+    const category = titleCase(interpretation.category || interpretation.type || 'Other findings');
+    const items = groups.get(category) || [];
+    items.push(interpretation);
+    groups.set(category, items);
+  }
+  return [...groups.entries()].map(([category, items]) => `<section class="interpretation-section"><h3>${escapeHtml(category)}</h3><div class="modality-interp-grid">${items.map(interpretationCard).join('')}</div></section>`).join('');
+}
+
+function interpretationCard(interp) {
+  const statusClass = interp.score != null ? (interp.score >= 70 ? 'positive' : interp.score >= 40 ? 'neutral' : 'attention') : 'neutral';
+  return `<article class="card interpretation-card" data-status="${statusClass}">
+    <div class="interp-head">
+      <span class="interp-category">${escapeHtml(titleCase(interp.category || interp.type || 'Finding'))}</span>
+      ${interp.score != null ? `<span class="interp-score ${statusClass}">${interp.score}<small>/100</small></span>` : ''}
+    </div>
+    <h3>${escapeHtml(interp.title)}</h3>
+    ${interp.summary ? `<p>${escapeHtml(interp.summary)}</p>` : ''}
+    ${interp.action ? `<div class="interp-action"><strong>What to do</strong><p>${escapeHtml(interp.action)}</p></div>` : ''}
+  </article>`;
 }
 
 // ---- Result Overlay ----
@@ -1045,6 +1154,8 @@ async function completePendingOauth(returned) {
 function updateProviderStatus(provider, connected, automaticUpdates = false) {
   if (provider === 'whoop') state.whoopConnected = connected;
   if (provider === 'oura') state.ouraConnected = connected;
+  if (provider === 'whoop') state.whoopAutomaticUpdates = automaticUpdates;
+  if (provider === 'oura') state.ouraAutomaticUpdates = automaticUpdates;
   syncProviderCardUi(provider);
   refreshOverview();
 }

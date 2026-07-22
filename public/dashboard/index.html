@@ -258,20 +258,39 @@
             <div class="readiness-copy">
               <p class="page-eyebrow">Your starting point</p>
               <h2 id="readiness-title">Build a clearer picture, one signal at a time.</h2>
-              <p>Start with WHOOP for recovery, strain, and sleep. Add other sources only when they make your next decision clearer.</p>
+              <p>Add your data sources across multiple dimensions to customize an action plan and dashboard specific to you.</p>
             </div>
             <div class="readiness-stats" aria-label="Workspace status">
-              <div><strong id="overview-connected-count">0<span>/3</span></strong><span>sources connected</span></div>
-              <div><strong id="overview-agent-count">6</strong><span>tools available</span></div>
-              <div><strong id="overview-pipeline-count">0</strong><span>analyses running</span></div>
+              <div><strong id="overview-connected-count">0</strong><span>wearable connections</span></div>
+              <div><strong id="overview-data-count">0</strong><span>data categories ready</span></div>
+              <div><strong id="overview-pipeline-count">0</strong><span>current analyses</span></div>
             </div>
           </section>
 
           <div class="section-heading-row">
-            <h2>Signals that shape your wellness</h2>
+            <h2>Your connected health data</h2>
           </div>
           <section class="source-grid" aria-label="Health data source status">
-            <article class="source-card source-card-whoop" data-overview-source="whoop">
+            <article class="source-card source-card-whoop" data-overview-source="wearables">
+              <div class="source-card-top"><span class="source-mark source-mark-whoop">W</span><span id="overview-wearables-status" class="status muted">Checking data</span></div>
+              <h3>Wearables</h3><p>Recovery, HRV, strain, sleep, activity, and respiratory signals.</p><small id="overview-wearables-meta">Checking your connected wearable data.</small>
+            </article>
+            <article class="source-card">
+              <div class="source-card-top"><span class="source-mark">DNA</span><span id="overview-genetics-status" class="status muted">Checking sources</span></div>
+              <h3>Genetics</h3><p>Your latest interpretation is current; older analysis runs stay separate for traceability.</p><small id="overview-genetics-meta">Checking your uploaded genetic data.</small>
+            </article>
+            <article class="source-card">
+              <div class="source-card-top"><span class="source-mark">LAB</span><span id="overview-labs-status" class="status muted">Checking panels</span></div>
+              <h3>Lab biomarkers</h3><p>Your newest panel is the current view. Historical panels belong in trends, not a blended result.</p><small id="overview-labs-meta">Checking your uploaded panels.</small>
+            </article>
+          </section>
+
+          <div class="section-heading-row overview-connections-heading">
+            <div><p class="page-eyebrow">Optional integrations</p><h2>Wearable connections</h2></div>
+            <p>WHOOP, Oura, and Health Connect are separate connections.</p>
+          </div>
+          <section class="source-grid source-grid-connections" aria-label="Wearable connection status">
+            <article class="source-card" data-overview-source="whoop">
               <div class="source-card-top"><span class="source-mark source-mark-whoop">W</span><span id="overview-whoop-status" class="status muted">Not connected</span></div>
               <h3>WHOOP</h3><p>Recovery, HRV, strain, sleep, and respiratory rate.</p><small id="overview-whoop-meta">Connect when you are ready.</small>
             </article>
@@ -281,15 +300,7 @@
             </article>
             <article class="source-card" data-overview-source="health_connect">
               <div class="source-card-top"><span class="source-mark">HC</span><span id="overview-health-connect-status" class="status muted">Not connected</span></div>
-              <h3>Health Connect</h3><p>Bring together compatible Android health sources through Wellnizz Connect.</p><small id="overview-health-connect-meta">Connect through the mobile app.</small>
-            </article>
-            <article class="source-card">
-              <div class="source-card-top"><span class="source-mark">DNA</span><span id="overview-genetics-status" class="status muted">Checking sources</span></div>
-              <h3>Genetics</h3><p>Analyze a VCF, SNP-array, or whole-genome file through your agent when you choose.</p><small id="overview-genetics-meta">Checking your uploaded genetic data.</small>
-            </article>
-            <article class="source-card">
-              <div class="source-card-top"><span class="source-mark">LAB</span><span class="status muted">Agent-ready</span></div>
-              <h3>Lab biomarkers</h3><p>Upload a supported lab panel through your agent and see the results alongside your other health data.</p><small>No panel is connected yet.</small>
+              <h3>Health Connect</h3><p>An optional Android bridge for compatible health sources, separate from WHOOP.</p><small id="overview-health-connect-meta">Connect through the mobile app.</small>
             </article>
           </section>
 
@@ -374,6 +385,7 @@
                   <a href="https://play.google.com/apps/testing/com.foreverbetterhealthconnect.myapp" target="_blank" rel="noopener" class="provider-btn">Install Wellnizz Connect</a>
                 </article>
               </div>
+              <div id="wearables-sources"></div>
             </section>
             <div id="wearables-interpretations" class="modality-interpretations"></div>
             <div id="wearables-prompt" class="modality-prompt"></div>
@@ -429,6 +441,7 @@
                 <input id="biomarker-file" type="file" accept=".csv,.json,.pdf,.txt,text/csv,application/json,application/pdf,text/plain">
                 <button id="biomarker-upload-btn" type="button" class="wide">Upload biomarker panel</button>
               </div>
+              <div id="labs-sources"></div>
             </section>
             <div id="labs-interpretations" class="modality-interpretations"></div>
             <div id="labs-prompt" class="modality-prompt"></div>

@@ -78,13 +78,18 @@ test('dashboard is agent-first with a first-party OTP flow behind a toggle', asy
   assert.match(html, /android-logo/);
   assert.match(html, /Bring Fitbit, Samsung Health, Google Fit, and other Android health sources together/);
   assert.match(html, /id="wearables-connect"/);
+  assert.match(html, /id="wearables-sources"/);
   assert.match(html, /id="whoop-connect-btn"/);
   assert.match(html, /id="oura-connect-btn"/);
-  assert.match(html, /Signals that shape your wellness/);
+  assert.match(html, /Your connected health data/);
+  assert.match(html, /Add your data sources across multiple dimensions to customize an action plan and dashboard specific to you\./);
   assert.match(html, /id="overview-genetics-status"/);
-  assert.match(app, /function loadOverviewGenetics\(\)/);
+  assert.match(html, /id="overview-data-count"/);
+  assert.match(html, /Wearable connections/);
+  assert.match(app, /function loadOverviewData\(\)/);
   assert.match(html, /class="genetics-upload-card"/);
   assert.match(html, /id="genetics-sources"/);
+  assert.match(html, /id="labs-sources"/);
   assert.doesNotMatch(html, /Prefer to run it yourself/);
   assert.doesNotMatch(html, /id="page-health-connect"/);
   assert.doesNotMatch(html, /data-route="health-connect"/);
@@ -105,5 +110,21 @@ test('dashboard is agent-first with a first-party OTP flow behind a toggle', asy
   assert.match(styles, /--accent: #df1e39/);
   assert.doesNotMatch(styles, /--brand: #12d982/);
   assert.doesNotMatch(styles, /Metropolis/);
-  assert.match(app, /connectedCount \/ 3/);
+  assert.match(app, /contextCategoriesReady \/ 3/);
+});
+
+test('dashboard renders only the current analysis and keeps history separate', async () => {
+  const [app, html] = await Promise.all([
+    readFile('public/dashboard/app.js', 'utf8'),
+    readFile('public/dashboard/index.html', 'utf8'),
+  ]);
+
+  assert.match(app, /analysisParams\.set\('limit', '1'\)/);
+  assert.match(app, /const full = await apiGet\(`\/analyses\/\$\{current\.id\}`/);
+  assert.doesNotMatch(app, /analyses\.slice\(0, 5\)/);
+  assert.match(app, /function interpretationSections\(interpretations\)/);
+  assert.match(app, /function sourceHistory\(sources, heading\)/);
+  assert.match(app, /Wearable data by provider/);
+  assert.match(app, /older runs are not blended into this current interpretation/i);
+  assert.match(html, /Historical panels belong in trends, not a blended result/);
 });

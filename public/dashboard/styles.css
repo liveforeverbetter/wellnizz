@@ -2067,6 +2067,39 @@ code {
   font-size: 10px;
 }
 
+.current-analysis-summary {
+  align-items: center;
+  margin: 22px 0 18px;
+}
+
+.current-analysis-summary strong { font-size: 15px; }
+
+.current-analysis-summary small {
+  max-width: 430px;
+  line-height: 1.45;
+  text-align: right;
+}
+
+.overview-connections-heading {
+  align-items: flex-end;
+  margin-top: 34px;
+}
+
+.overview-connections-heading .page-eyebrow { margin: 0 0 4px; }
+.overview-connections-heading h2 { margin: 0; }
+
+.overview-connections-heading > p,
+.section-heading-row > p {
+  max-width: 360px;
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 12px;
+  line-height: 1.45;
+  text-align: right;
+}
+
+.source-grid-connections { margin-bottom: 28px; }
+
 .modality-status-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -2090,6 +2123,18 @@ code {
   gap: 14px;
 }
 
+.interpretation-section { margin-top: 20px; }
+
+.interpretation-section > h3 {
+  margin: 0 0 10px;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .source-data-card {
   display: flex;
   flex-direction: column;
@@ -2110,6 +2155,49 @@ code {
   font-weight: 600;
   word-break: break-word;
 }
+
+.source-data-card-current .page-eyebrow { margin: 2px 0 -4px; }
+
+.source-history {
+  margin-top: 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.38);
+}
+
+.source-history summary {
+  padding: 12px 14px;
+  cursor: pointer;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.source-history ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0 14px 14px;
+  list-style: none;
+}
+
+.source-history li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--ink-muted);
+  font-size: 12px;
+}
+
+.source-history li strong {
+  overflow: hidden;
+  color: var(--ink-2);
+  font-weight: 550;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.source-history li span { flex: 0 0 auto; }
 
 .source-data-card .source-card-top {
   display: flex;
@@ -2308,6 +2396,23 @@ code {
   .analysis-summary small {
     width: 100%;
     margin-left: 0;
+  }
+
+  .current-analysis-summary small { text-align: left; }
+
+  .overview-connections-heading,
+  .section-heading-row {
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .overview-connections-heading > p,
+  .section-heading-row > p { text-align: left; }
+
+  .source-history li {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 2px;
   }
 
   .modality-status-grid,
