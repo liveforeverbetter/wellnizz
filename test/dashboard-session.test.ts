@@ -48,6 +48,8 @@ test('dashboard is agent-first with a first-party OTP flow behind a toggle', asy
   assert.match(html, /id="page-overview"/);
   assert.match(html, /data-route="overview"/);
   assert.match(html, /id="overview-connected-count"/);
+  assert.match(html, /sources connected/);
+  assert.match(html, /wearable connections/);
   assert.match(html, /id="overview-whoop-status"/);
   assert.match(html, /role="tabpanel"/);
   assert.match(app, /ArrowLeft/);
@@ -111,6 +113,7 @@ test('dashboard is agent-first with a first-party OTP flow behind a toggle', asy
   assert.doesNotMatch(styles, /--brand: #12d982/);
   assert.doesNotMatch(styles, /Metropolis/);
   assert.match(app, /contextCategoriesReady \/ 3/);
+  assert.match(app, /overview counts the three user-facing health sources/i);
 });
 
 test('dashboard renders only the current analysis and keeps history separate', async () => {
