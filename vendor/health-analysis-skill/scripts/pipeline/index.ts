@@ -2637,13 +2637,18 @@ function statusColorToLabel(color: StatusColor): string {
 function mapCategoryGLI(
   categoryGli: Record<string, number>
 ): Record<string, number> {
+  // Keys must match the categories the loop below pushes to and the ids
+  // buildCategories reads back via mapped[def.id]: vulnerability, pharmacology,
+  // hereditary, traits, wellness, ancestry. A mismatch here means a push targets
+  // an undefined array and throws "Cannot read properties of undefined (reading
+  // 'push')" after the full analysis has already run.
   const groups: Record<string, number[]> = {
-    'health-vulnerability': [],
-    pharmacogenomics: [],
-    'inherited-conditions': [],
+    vulnerability: [],
+    pharmacology: [],
+    hereditary: [],
     traits: [],
-    metabolism: [],
-    'physical-traits': [],
+    wellness: [],
+    ancestry: [],
   };
 
   for (const [key, score] of Object.entries(categoryGli)) {
@@ -2828,22 +2833,26 @@ function getCategoryMarkerCounts(): Record<string, number> {
   return counts;
 }
 
+// Keyed by the canonical category ids passed to generateSubitems (def.id):
+// vulnerability, pharmacology, hereditary, traits, wellness, ancestry. A
+// mismatch here does not crash (generateSubitems falls back), but it silently
+// replaces the real per-category subitems with a generic placeholder.
 const CATEGORY_SUBITEMS: Record<string, string[][]> = {
-  'health-vulnerability': [
+  vulnerability: [
     ["Cardiovascular Risk (APOE, LPA)", "LPA/APOB/LDLR polygenic"],
     ["Metabolic Health (TCF7L2, FTO)", "Insulin/glucose GWAS"],
     ["Inflammatory Markers (IL6, IL6R)", "CRP/TNFα pathway"],
     ["Thrombosis Panel (F5, F2, F13A1)", "Clotting cascade"],
     ["DNA Repair Capacity (XRCC1, OGG1)", "BER/NER pathway"],
   ],
-  pharmacogenomics: [
+  pharmacology: [
     ["CYP2D6 Metabolism", "Antidepressants/opioids"],
     ["CYP2C19 Metabolism", "Clopidogrel/PPIs"],
     ["CYP2C9 Metabolism", "Warfarin/NSAIDs"],
     ["CYP3A4/3A5 Metabolism", "Statins/immunosuppressants"],
     ["SLCO1B1 Transporter", "Statin myopathy risk"],
   ],
-  'inherited-conditions': [
+  hereditary: [
     ["Hereditary Hemochromatosis (HFE)", "Iron overload"],
     ["Cystic Fibrosis Carrier (CFTR)", "Respiratory"],
     ["G6PD Deficiency", "Hemolytic anemia"],
@@ -2857,14 +2866,14 @@ const CATEGORY_SUBITEMS: Record<string, string[][]> = {
     ["BDNF Val66Met", "Neuroplasticity"],
     ["Muscle Fiber Type (ACTN3)", "Fast vs endurance"],
   ],
-  metabolism: [
+  wellness: [
     ["Methylation Cycle (MTHFR, MTR)", "Folate/B12"],
     ["Vitamin D Receptor (VDR)", "Bone/immune"],
     ["Omega-3 Metabolism (FADS1/2)", "Anti-inflammatory"],
     ["Antioxidant Defense (SOD2, GPX1)", "Oxidative stress"],
     ["NAD+ Metabolism (NAMPT, SIRT1)", "Energy/aging"],
   ],
-  'physical-traits': [
+  ancestry: [
     ["Y-Chromosomal Haplogroup", "Paternal lineage"],
     ["Mitochondrial Haplogroup", "Maternal lineage"],
     ["Neanderthal Admixture", "Archaic introgression"],
@@ -2900,18 +2909,20 @@ function buildCategories(categoryGli: Record<string, number>): Category[] {
   const mapped = mapCategoryGLI(categoryGli);
   const markerCounts = getCategoryMarkerCounts();
 
+  // Keyed by the same category ids used in defs below (def.id), so descs[def.id]
+  // resolves instead of rendering "undefined" in the category description.
   const descs: Record<string, string> = {
-    'health-vulnerability':
+    vulnerability:
       "Disease-associated markers assessing polygenic risk for cardiometabolic, neurological, and inflammatory conditions.",
-    pharmacogenomics:
+    pharmacology:
       "Pharmacogenetic markers across CYP450 family and drug transporters. These influence how your body processes medications.",
-    'inherited-conditions':
+    hereditary:
       "Monogenic condition markers. These check for carrier status of single-gene conditions.",
     traits:
       "Markers related to cognition, neurotransmitter function, and behavioral tendencies.",
-    metabolism:
+    wellness:
       "Markers covering nutrition absorption, methylation, metabolism, and inflammation.",
-    'physical-traits':
+    ancestry:
       "Markers tracing your deep ancestry through Y-chromosomal and mitochondrial haplogroups.",
   };
 
