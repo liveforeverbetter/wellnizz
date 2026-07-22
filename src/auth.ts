@@ -144,12 +144,45 @@ export function loadAuthConfig(env: NodeJS.ProcessEnv = process.env): AuthConfig
     apiKeySecret: env.API_KEY_JWT_SECRET ?? env.SERVICE_ACCOUNT_JWT_SECRET,
     publicSandbox: env.HEALTH_API_PUBLIC_SANDBOX === 'true',
     whoopOAuth: env.WHOOP_CLIENT_ID && env.WHOOP_CLIENT_SECRET
-      ? { clientId: env.WHOOP_CLIENT_ID, clientSecret: env.WHOOP_CLIENT_SECRET, defaultRedirectUri: env.WHOOP_REDIRECT_URI }
+      ? { clientId: env.WHOOP_CLIENT_ID, clientSecret: env.WHOOP_CLIENT_SECRET, defaultRedirectUri: resolveOAuthRedirectUri(env.WHOOP_REDIRECT_URI, env.PUBLIC_BASE_URL, 'WHOOP_REDIRECT_URI') }
       : undefined,
     ouraOAuth: env.OURA_CLIENT_ID && env.OURA_CLIENT_SECRET
-      ? { clientId: env.OURA_CLIENT_ID, clientSecret: env.OURA_CLIENT_SECRET, defaultRedirectUri: env.OURA_REDIRECT_URI }
+      ? { clientId: env.OURA_CLIENT_ID, clientSecret: env.OURA_CLIENT_SECRET, defaultRedirectUri: resolveOAuthRedirectUri(env.OURA_REDIRECT_URI, env.PUBLIC_BASE_URL, 'OURA_REDIRECT_URI') }
       : undefined,
   };
+}
+
+// The OAuth redirect URI must exactly match a URL pre-registered with the
+// provider (WHOOP/Oura), and that URL must live at the app's public origin. An
+// explicit *_REDIRECT_URI left over from a previous domain (e.g. after a rename)
+// keeps a stale origin that no longer matches PUBLIC_BASE_URL, which the provider
+// rejects with "redirect_uri does not match". Honor the explicit value only when
+// its origin matches PUBLIC_BASE_URL; otherwise drop it so the request-time
+// PUBLIC_BASE_URL derivation (`${base}/dashboard`) is used instead, keeping the
+// redirect URI self-healing across domain changes.
+export function resolveOAuthRedirectUri(explicit: string | undefined, publicBaseUrl: string | undefined, envName: string): string | undefined {
+  const configured = explicit?.trim();
+  if (!configured) return undefined;
+  const base = publicBaseUrl?.trim();
+  if (!base) return configured;
+  let configuredOrigin: string;
+  let baseOrigin: string;
+  try {
+    configuredOrigin = new URL(configured).origin;
+    baseOrigin = new URL(base).origin;
+  } catch {
+    return configured;
+  }
+  if (configuredOrigin === baseOrigin) return configured;
+  console.warn(JSON.stringify({
+    ts: new Date().toISOString(),
+    event: 'oauth_redirect_uri_origin_mismatch',
+    env: envName,
+    configured_origin: configuredOrigin,
+    public_base_origin: baseOrigin,
+    action: 'ignoring stale redirect URI and deriving from PUBLIC_BASE_URL',
+  }));
+  return undefined;
 }
 
 function assertProductionSecret(name: string, value: string | undefined): void {
