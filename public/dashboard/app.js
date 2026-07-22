@@ -491,7 +491,6 @@ function refreshOverview() {
     genetics: state.overviewSources.filter(source => source.category === 'genetics' && source.upload_status === 'complete'),
     biomarkers: state.overviewSources.filter(source => source.category === 'biomarkers' && source.upload_status === 'complete'),
   };
-  const dataCategoriesReady = Object.values(sourcesByCategory).filter(sources => sources.length > 0).length;
   const currentAnalyses = ['wearables', 'genetics', 'biomarkers']
     .filter(modality => state.overviewAnalyses.some(analysis => analysis.modality === modality)).length;
   const wearableDataReady = sourcesByCategory.wearables.length > 0 || connectedCount > 0;
@@ -500,8 +499,11 @@ function refreshOverview() {
   const gauge = $('.readiness-gauge');
   if (gauge) gauge.style.setProperty('--readiness-angle', `${(percent / 100) * 360}deg`);
   if ($('#overview-ready-percent')) $('#overview-ready-percent').textContent = `${percent}%`;
-  if ($('#overview-connected-count')) $('#overview-connected-count').textContent = String(connectedCount);
-  if ($('#overview-data-count')) $('#overview-data-count').textContent = String(dataCategoriesReady);
+  // The overview counts the three user-facing health sources, not each device
+  // or upload batch beneath them. Wearables count once whether they arrive via
+  // WHOOP, Oura, Health Connect, or more than one of those providers.
+  if ($('#overview-connected-count')) $('#overview-connected-count').textContent = String(contextCategoriesReady);
+  if ($('#overview-data-count')) $('#overview-data-count').textContent = String(connectedCount);
   if ($('#overview-pipeline-count')) $('#overview-pipeline-count').textContent = String(currentAnalyses);
   setOverviewProvider('whoop', state.whoopConnected, state.whoopAutomaticUpdates);
   setOverviewProvider('oura', state.ouraConnected, state.ouraAutomaticUpdates);
