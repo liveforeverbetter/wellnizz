@@ -95,6 +95,34 @@ Help me analyze and connect my longevity data.
 Read https://app.wellnizz.com/SKILL.md and follow its onboarding instructions.
 ```
 
+### Install the `wellnizz` skill
+
+The skill is `wellnizz`: one self-contained `SKILL.md` with no local dependencies (every reference is a live URL or an API call), so it installs identically from the hosted URL or from a local folder.
+
+Install from the hosted URL (always current):
+
+```bash
+# Claude Code / Claude App
+/skill https://app.wellnizz.com/SKILL.md
+
+# Codex / OpenAI
+codex skill add wellnizz https://app.wellnizz.com/SKILL.md
+
+# Hermes
+hermes skill install https://app.wellnizz.com/SKILL.md
+
+# Openclaw
+openclaw skill add wellnizz https://app.wellnizz.com/SKILL.md
+```
+
+Install from a local folder (offline, air-gapped, or vendored in a repo). The `skills/wellnizz/` folder in this repo is self-contained; copy it into your agent's skills directory:
+
+```bash
+cp -R skills/wellnizz ~/.claude/skills/wellnizz    # or ~/.codex/skills/wellnizz
+```
+
+The folder name is the skill name, and `SKILL.md` is the only required file. Regenerate the folder from the canonical `public/SKILL.md` any time with `npm run skill:package`. For any other agent, paste the contents of `SKILL.md` as a skill or system prompt and point it at `https://app.wellnizz.com`.
+
 The skill file is the agent operating contract. Install it as a skill or paste it as a prompt; either way the agent runs the whole onboarding:
 
 1. It reads the skill, then discovers the live surface with `GET /capabilities` and the agent manifest at `/.well-known/health-agent.json`.
