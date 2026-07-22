@@ -3571,6 +3571,7 @@ function buildPRSExpanded(prsScores: PRSScore[]): {
     metabolic: [],
     inflammation: [],
     cognitive: [],
+    wellness: [],
   };
 
   for (const score of prsScores) {
