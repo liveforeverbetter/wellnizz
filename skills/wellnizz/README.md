@@ -10,6 +10,12 @@ API, so it behaves identically installed from the hosted URL or from this folder
 
 ## Install
 
+With the `skills` CLI (recommended, works across agents):
+
+```
+npx skills add liveforeverbetter/wellnizz --skill wellnizz
+```
+
 Hosted URL (always current):
 
 ```
@@ -36,5 +42,5 @@ The folder name is the skill name; `SKILL.md` is the only required file.
 
 ## Source
 
-Regenerated from `public/SKILL.md` in the Wellnizz API repo via
-`npm run skill:package`. Edit the skill there, not here.
+This folder is the canonical source of the skill. The Wellnizz API also serves
+`SKILL.md` verbatim at `https://app.wellnizz.com/SKILL.md`. Edit `SKILL.md` here.

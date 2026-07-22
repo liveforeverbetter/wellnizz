@@ -16,7 +16,6 @@
     "docs:dev": "npm run openapi:generate && cd docs && PUPPETEER_SKIP_DOWNLOAD=1 npx --yes --package=node@22 --package=mint@4.2.700 -c 'mint dev'",
     "demos:record": "node scripts/record-readme-demos.mjs",
     "skill:bundle": "bash scripts/bundle-health-skill.sh",
-    "skill:package": "bash scripts/package-wellnizz-skill.sh",
     "skill:verify": "node scripts/verify-health-skill-bundle.mjs",
     "skill:verify:fresh": "node scripts/verify-health-skill-bundle.mjs --require-source",
     "package:verify": "node scripts/verify-package-contents.mjs",

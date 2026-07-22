@@ -5,7 +5,10 @@ import { securityHeaders, type AuthConfig } from './auth.js';
 
 const DASHBOARD_ROOT = join(process.cwd(), 'public', 'dashboard');
 const DESIGN_SYSTEM_SPECS_ROOT = join(process.cwd(), 'public', 'design-system-specs');
-const PUBLIC_SKILL_PATH = join(process.cwd(), 'public', 'SKILL.md');
+// Served at /SKILL.md. The canonical agent skill lives in skills/wellnizz/ (a
+// self-contained folder installable with `npx skills add`), and is served from
+// there so there is a single source of truth with no duplicate copy.
+const PUBLIC_SKILL_PATH = join(process.cwd(), 'skills', 'wellnizz', 'SKILL.md');
 const CONTENT_TYPES: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css; charset=utf-8',

@@ -25,8 +25,17 @@ description: |
 ## Installing the skill
 
 The skill is `wellnizz`. It is one self-contained file with no local dependencies:
-every reference is a live URL or an API call, so it works the same whether you
-install it from the hosted URL or from a local folder.
+every reference is a live URL or an API call, so it works the same however you
+install it.
+
+**Install with the `skills` CLI (recommended, works across agents):**
+
+```
+npx skills add liveforeverbetter/wellnizz --skill wellnizz
+```
+
+This pulls the skill straight from the public GitHub repo and installs it for
+Claude Code, Codex, Cursor, and other agents. Add `-g` to install globally.
 
 **Install from the hosted URL (always current):**
 

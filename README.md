@@ -97,7 +97,13 @@ Read https://app.wellnizz.com/SKILL.md and follow its onboarding instructions.
 
 ### Install the `wellnizz` skill
 
-The skill is `wellnizz`: one self-contained `SKILL.md` with no local dependencies (every reference is a live URL or an API call), so it installs identically from the hosted URL or from a local folder.
+The skill is `wellnizz`: one self-contained `SKILL.md` with no local dependencies (every reference is a live URL or an API call), so it installs identically however you add it.
+
+Install with the `skills` CLI (recommended, works across Claude Code, Codex, Cursor, and more):
+
+```bash
+npx skills add liveforeverbetter/wellnizz --skill wellnizz
+```
 
 Install from the hosted URL (always current):
 
@@ -121,7 +127,7 @@ Install from a local folder (offline, air-gapped, or vendored in a repo). The `s
 cp -R skills/wellnizz ~/.claude/skills/wellnizz    # or ~/.codex/skills/wellnizz
 ```
 
-The folder name is the skill name, and `SKILL.md` is the only required file. Regenerate the folder from the canonical `public/SKILL.md` any time with `npm run skill:package`. For any other agent, paste the contents of `SKILL.md` as a skill or system prompt and point it at `https://app.wellnizz.com`.
+The folder name is the skill name, and `SKILL.md` is the only required file. `skills/wellnizz/` is the canonical source of the skill; the API serves the same `SKILL.md` at `https://app.wellnizz.com/SKILL.md`. For any other agent, paste the contents of `SKILL.md` as a skill or system prompt and point it at `https://app.wellnizz.com`.
 
 The skill file is the agent operating contract. Install it as a skill or paste it as a prompt; either way the agent runs the whole onboarding:
 

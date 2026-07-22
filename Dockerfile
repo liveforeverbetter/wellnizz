@@ -33,6 +33,8 @@ RUN npm ci --omit=dev \
 # Built JS
 COPY --from=builder /app/dist ./dist
 COPY public ./public
+# The agent skill served at /SKILL.md lives here (single source of truth).
+COPY skills ./skills
 COPY migrations ./migrations
 COPY scripts ./scripts
 COPY data/genetics ./data/genetics
