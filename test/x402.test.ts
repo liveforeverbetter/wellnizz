@@ -94,7 +94,7 @@ test('x402 offers Bazaar-discoverable routes and settles successful wallet-scope
     const providerChallenge = await fetch(`${base}/providers`);
     assert.equal(providerChallenge.status, 402);
     const providerRequired = paymentRequired(providerChallenge);
-    assert.match(JSON.stringify(providerRequired), /ForeverBetter API/);
+    assert.match(JSON.stringify(providerRequired), /Wellnizz API/);
     assert.deepEqual(providerRequired.accepts.map(option => option.network), [X402_NETWORKS.base, X402_NETWORKS.polygon, X402_NETWORKS.solana]);
     assert.equal(providerRequired.resource.url, 'https://api.example.test/providers');
     assert.equal((providerRequired.extensions?.bazaar as any).info.input.method, 'GET');

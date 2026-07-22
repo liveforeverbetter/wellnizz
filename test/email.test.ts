@@ -12,10 +12,10 @@ test('otpEmailHtml renders a branded, escaped sign-in code', () => {
   assert.match(html, /expires in 10 minutes/i);
 });
 
-test('otpEmailHtml falls back to ForeverBetter for an empty brand', () => {
+test('otpEmailHtml falls back to Wellnizz for an empty brand', () => {
   const html = otpEmailHtml('12345678', '   ');
 
-  assert.match(html, /Sign in to ForeverBetter/);
+  assert.match(html, /Sign in to Wellnizz/);
   assert.match(html, />12345678<\/span>/);
 });
 
@@ -43,8 +43,8 @@ test('Resend receives matching text and HTML when EMAIL_BRAND is empty', async (
 
   assert.equal(requestBody?.from, 'ForeverBetter <login@foreverbetter.xyz>');
   assert.equal(requestBody?.to, 'person@example.com');
-  assert.equal(requestBody?.subject, 'Your ForeverBetter sign-in code');
-  assert.match(String(requestBody?.text), /Your ForeverBetter sign-in code is 12345678/);
-  assert.match(String(requestBody?.html), /Sign in to ForeverBetter/);
+  assert.equal(requestBody?.subject, 'Your Wellnizz sign-in code');
+  assert.match(String(requestBody?.text), /Your Wellnizz sign-in code is 12345678/);
+  assert.match(String(requestBody?.html), /Sign in to Wellnizz/);
   assert.match(String(requestBody?.html), />12345678<\/span>/);
 });
