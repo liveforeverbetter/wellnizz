@@ -32,6 +32,12 @@ export interface HealthStore {
   saveAnalysisArtifact(analysisId: string, body: Buffer, contentType?: string): Promise<{ object_key: string; bytes: number; storage: string }>;
   writeAnalysisArtifactToFile(analysisId: string, destination: string): Promise<boolean>;
   getAnalysisArtifactSize(analysisId: string): Promise<number | undefined>;
+  // The gene/rsID slice index can be tens of MB (it indexes every variant). It
+  // is stored as its own artifact rather than inline in the analysis row, so the
+  // analysis stays small for routine reads/writes; the /genetic-slice endpoint
+  // loads it on demand.
+  saveAnalysisSliceArtifact(analysisId: string, body: Buffer): Promise<void>;
+  writeAnalysisSliceArtifactToFile(analysisId: string, destination: string): Promise<boolean>;
   getAnalysesForUser(ids: string[], userId: string, organizationIds?: Set<string>): Promise<AnalysisResult[]>;
   getIdempotencyRecord(key: string, method: string, route: string, subject: string): Promise<IdempotencyRecord | undefined>;
   saveIdempotencyRecord(record: IdempotencyRecord): Promise<void>;
@@ -215,6 +221,17 @@ export class HealthApiStore implements HealthStore {
 
   async writeAnalysisArtifactToFile(analysisId: string, destination: string): Promise<boolean> {
     const body = this.analysisArtifacts.get(`analyses/${analysisId}/full-analysis.json`);
+    if (!body) return false;
+    await writeFile(destination, body);
+    return true;
+  }
+
+  async saveAnalysisSliceArtifact(analysisId: string, body: Buffer): Promise<void> {
+    this.analysisArtifacts.set(`analyses/${analysisId}/genetic-slice-index.json`, Buffer.from(body));
+  }
+
+  async writeAnalysisSliceArtifactToFile(analysisId: string, destination: string): Promise<boolean> {
+    const body = this.analysisArtifacts.get(`analyses/${analysisId}/genetic-slice-index.json`);
     if (!body) return false;
     await writeFile(destination, body);
     return true;
@@ -614,6 +631,7 @@ export class HealthApiStore implements HealthStore {
       if (analysis.user_id === userId && (organizationId == null || analysis.organization_id === organizationId)) {
         this.analyses.delete(id);
         this.analysisArtifacts.delete(`analyses/${id}/full-analysis.json`);
+        this.analysisArtifacts.delete(`analyses/${id}/genetic-slice-index.json`);
         analyses += 1;
       }
     }

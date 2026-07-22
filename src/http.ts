@@ -1,5 +1,8 @@
 import { createHash, createHmac, randomBytes, randomUUID, timingSafeEqual } from 'node:crypto';
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
+import { readFile, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join as pathJoin } from 'node:path';
 import { URL } from 'node:url';
 import { runHealthAnalysis, queryHealthContext, summarizeAnalysis, type AnalysisOptions } from './core/analysis.js';
 import { runAncestryAnalysis, type AncestryAnalysisInput } from './core/ancestry-analysis.js';
@@ -1224,9 +1227,12 @@ async function route(req: IncomingMessage, res: ServerResponse, store: HealthSto
     const metadata = dashboardRaw && typeof dashboardRaw === 'object' && !Array.isArray(dashboardRaw)
       ? (dashboardRaw as Record<string, unknown>).metadata
       : undefined;
-    const sliceIndex = metadata && typeof metadata === 'object' && !Array.isArray(metadata)
+    const inlineSliceIndex = metadata && typeof metadata === 'object' && !Array.isArray(metadata)
       ? (metadata as Record<string, unknown>).genetic_slice_index as GeneticSliceIndex | undefined
       : undefined;
+    // The slice index is offloaded to its own artifact (it indexes every variant
+    // and can be tens of MB). Load it on demand when it is not inline.
+    const sliceIndex = inlineSliceIndex ?? await loadOffloadedSliceIndex(store, geneticSliceMatch[1]!);
     const consumerGenetics = metadata && typeof metadata === 'object' && !Array.isArray(metadata)
       ? (metadata as Record<string, unknown>).consumer_genetics as Record<string, unknown> | undefined
       : undefined;
@@ -2326,6 +2332,22 @@ function agentApiKeyTtlDays(env: NodeJS.ProcessEnv = process.env): number {
   const requested = Number(env.AGENT_API_KEY_TTL_DAYS ?? AGENT_API_KEY_DEFAULT_TTL_DAYS);
   if (!Number.isFinite(requested)) return AGENT_API_KEY_DEFAULT_TTL_DAYS;
   return Math.min(AGENT_API_KEY_MAX_TTL_DAYS, Math.max(AGENT_API_KEY_MIN_TTL_DAYS, Math.floor(requested)));
+}
+
+// Load the offloaded gene/rsID slice index from its artifact into memory for a
+// slice query. Streamed to a temp file first (never buffered from object storage
+// directly), then parsed. Returns undefined when no artifact exists.
+async function loadOffloadedSliceIndex(store: HealthStore, analysisId: string): Promise<GeneticSliceIndex | undefined> {
+  const destination = pathJoin(tmpdir(), `genetic-slice-${randomUUID()}.json`);
+  try {
+    const wrote = await store.writeAnalysisSliceArtifactToFile(analysisId, destination);
+    if (!wrote) return undefined;
+    return JSON.parse(await readFile(destination, 'utf8')) as GeneticSliceIndex;
+  } catch {
+    return undefined;
+  } finally {
+    await rm(destination, { force: true }).catch(() => undefined);
+  }
 }
 
 function publicBaseUrl(req: IncomingMessage, config: AuthConfig): string {

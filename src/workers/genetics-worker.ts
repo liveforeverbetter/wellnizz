@@ -93,6 +93,7 @@ async function processNextJob(): Promise<boolean> {
             annotation_depth: job.annotation_depth,
             onProgress: progress => store.updateGeneticAnalysisJobProgress(job.id, progress),
             saveFullArtifact: body => store.saveAnalysisArtifact(job.analysis_id, body),
+            saveSliceArtifact: body => store.saveAnalysisSliceArtifact(job.analysis_id, body),
             restoreAnnotatedVcf: destinationPath => store.getGeneticAnnotationArtifactToFile(source.id, job.annotation_depth, destinationPath),
             saveAnnotatedVcf: filePath => store.saveGeneticAnnotationArtifact(source.id, job.annotation_depth, filePath),
             pgsPopulationSimilarity,

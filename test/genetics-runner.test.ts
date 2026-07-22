@@ -136,7 +136,7 @@ test('compaction records the full-analysis artifact reference when provided', ()
     bytes: 31_800_000,
     storage: 's3',
   }) as { metadata: { persistence_compaction: { full_artifact: { object_key: string; bytes: number; storage: string } | null; version: number } } };
-  assert.equal(withRef.metadata.persistence_compaction.version, 2);
+  assert.equal(withRef.metadata.persistence_compaction.version, 3);
   assert.deepEqual(withRef.metadata.persistence_compaction.full_artifact, {
     object_key: 'analyses/an_1/full-analysis.json',
     bytes: 31_800_000,
@@ -146,6 +146,38 @@ test('compaction records the full-analysis artifact reference when provided', ()
   // Without a ref (e.g. object storage not configured), the field is explicit null.
   const withoutRef = compactGeneticsDashboardForPersistence(dashboard) as { metadata: { persistence_compaction: { full_artifact: unknown } } };
   assert.equal(withoutRef.metadata.persistence_compaction.full_artifact, null);
+});
+
+test('compaction drops the multi-MB slice index from the inline analysis', () => {
+  const dashboard = {
+    gli: 100,
+    metadata: {
+      variant_cards: { uncommon_mutations: [] },
+      genetic_slice_index: { genes: { BRCA1: [{ rsid: 'rs1' }], TP53: [{ rsid: 'rs2' }] }, rsids: {} },
+    },
+  };
+  const compact = compactGeneticsDashboardForPersistence(dashboard) as {
+    metadata: { genetic_slice_index?: unknown; persistence_compaction: { slice_index_offloaded: boolean; slice_index_gene_count: number | null } };
+  };
+  // Not inline any more (loaded on demand from its own artifact instead).
+  assert.equal(compact.metadata.genetic_slice_index, undefined);
+  assert.equal(compact.metadata.persistence_compaction.slice_index_offloaded, true);
+  assert.equal(compact.metadata.persistence_compaction.slice_index_gene_count, 2);
+});
+
+test('the store round-trips a genetic slice artifact and tombstone deletes it', async () => {
+  const store = new HealthApiStore();
+  const analysisId = createId('analysis');
+  const body = Buffer.from(JSON.stringify({ genes: { BRCA1: [{ rsid: 'rs1' }] } }));
+  await store.saveAnalysisSliceArtifact(analysisId, body);
+
+  const dest = path.join(os.tmpdir(), `fb-slice-${Date.now()}.json`);
+  assert.equal(await store.writeAnalysisSliceArtifactToFile(analysisId, dest), true);
+  assert.deepEqual(JSON.parse(await readFile(dest, 'utf8')), JSON.parse(body.toString('utf8')));
+  await rm(dest, { force: true });
+
+  // A missing artifact returns false rather than throwing.
+  assert.equal(await store.writeAnalysisSliceArtifactToFile('missing', dest), false);
 });
 
 test('the store round-trips a full-analysis artifact without buffering on read', async () => {
