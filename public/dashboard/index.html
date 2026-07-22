@@ -268,7 +268,7 @@
           </section>
 
           <div class="section-heading-row">
-            <h2>Signals that shape your context</h2>
+            <h2>Signals that shape your wellness</h2>
           </div>
           <section class="source-grid" aria-label="Health data source status">
             <article class="source-card source-card-whoop" data-overview-source="whoop">
@@ -284,8 +284,8 @@
               <h3>Health Connect</h3><p>Bring together compatible Android health sources through Wellnizz Connect.</p><small id="overview-health-connect-meta">Connect through the mobile app.</small>
             </article>
             <article class="source-card">
-              <div class="source-card-top"><span class="source-mark">DNA</span><span class="status muted">Agent-ready</span></div>
-              <h3>Genetics</h3><p>Analyze a VCF, SNP-array, or whole-genome file through your agent when you choose.</p><small>No file is connected yet.</small>
+              <div class="source-card-top"><span class="source-mark">DNA</span><span id="overview-genetics-status" class="status muted">Checking sources</span></div>
+              <h3>Genetics</h3><p>Analyze a VCF, SNP-array, or whole-genome file through your agent when you choose.</p><small id="overview-genetics-meta">Checking your uploaded genetic data.</small>
             </article>
             <article class="source-card">
               <div class="source-card-top"><span class="source-mark">LAB</span><span class="status muted">Agent-ready</span></div>
@@ -340,7 +340,40 @@
 
           <div class="page-body">
             <section class="modality-connect-section" id="wearables-connect" aria-label="Wearable connections">
-              <div class="card modality-placeholder"><p>Loading connections...</p></div>
+              <div class="section-heading-row"><h2>Connect a wearable</h2></div>
+              <div class="provider-grid provider-grid-wearables">
+                <article class="provider-card whoop-card">
+                  <div class="provider-logo whoop-logo">
+                    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2"/><path d="M10 22c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="11" r="3" stroke="currentColor" stroke-width="2"/></svg>
+                  </div>
+                  <h3>WHOOP</h3>
+                  <p class="provider-desc">Recovery, strain, sleep, HRV, and respiratory rate, ready for your daily context.</p>
+                  <div id="whoop-status" class="provider-status"><span class="status muted">Checking availability...</span></div>
+                  <button id="whoop-connect-btn" type="button" class="provider-btn" disabled>Checking WHOOP availability...</button>
+                  <a id="whoop-byo-link" class="byo-link hidden" href="https://docs.wellnizz.com/wearable-onboarding" target="_blank" rel="noopener">Developer: use your own WHOOP app</a>
+                </article>
+
+                <article class="provider-card oura-card">
+                  <div class="provider-logo" aria-hidden="true">
+                    <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="11" stroke="currentColor" stroke-width="2.5"/><circle cx="16" cy="16" r="4" fill="currentColor"/></svg>
+                  </div>
+                  <h3>Oura</h3>
+                  <p class="provider-desc">Sleep, readiness, activity, HRV, resting heart rate, and daily steps.</p>
+                  <div id="oura-status" class="provider-status"><span class="status muted">Checking availability...</span></div>
+                  <button id="oura-connect-btn" type="button" class="provider-btn" disabled>Checking Oura availability...</button>
+                  <a id="oura-byo-link" class="byo-link hidden" href="https://docs.wellnizz.com/wearable-onboarding" target="_blank" rel="noopener">Developer: use your own Oura app</a>
+                </article>
+
+                <article class="provider-card connect-note">
+                  <div class="provider-logo android-logo" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" fill="none"><path d="M16 19a8 8 0 0 1 16 0H16Z" fill="currentColor"/><rect x="12" y="18" width="24" height="19" rx="5" fill="currentColor"/><rect x="7" y="21" width="4" height="14" rx="2" fill="currentColor"/><rect x="37" y="21" width="4" height="14" rx="2" fill="currentColor"/><rect x="17" y="35" width="4" height="9" rx="2" fill="currentColor"/><rect x="27" y="35" width="4" height="9" rx="2" fill="currentColor"/><path d="m18 12 3 5M30 12l-3 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="20" cy="23" r="1.5" fill="var(--bg-raised)"/><circle cx="28" cy="23" r="1.5" fill="var(--bg-raised)"/></svg>
+                  </div>
+                  <h3>Android Health Connect</h3>
+                  <p class="provider-desc">Bring Fitbit, Samsung Health, Google Fit, and other Android health sources together in Wellnizz Connect.</p>
+                  <div class="provider-status"><span id="health-connect-status" class="status muted">Not connected</span></div>
+                  <a href="https://play.google.com/apps/testing/com.foreverbetterhealthconnect.myapp" target="_blank" rel="noopener" class="provider-btn">Install Wellnizz Connect</a>
+                </article>
+              </div>
             </section>
             <div id="wearables-interpretations" class="modality-interpretations"></div>
             <div id="wearables-prompt" class="modality-prompt"></div>
@@ -358,13 +391,20 @@
 
           <div class="page-body">
             <section class="modality-connect-section" id="genetics-connect" aria-label="Genetics upload">
-              <div class="card modality-placeholder">
-                <div class="card-head"><h2>Upload genetic data</h2></div>
-                <p>Upload a VCF, SNP-array, or 23andMe-style raw export. Large files go directly to private storage.</p>
-                <label for="genetics-file">Genetic file</label>
-                <input id="genetics-file" type="file" accept=".vcf,.vcf.gz,.txt,.txt.gz,.tsv,.tsv.gz,.csv,.csv.gz,.snp,.snp.gz,.raw,.raw.gz,text/vcf,text/plain,text/csv,text/tab-separated-values,application/gzip">
-                <button id="genetics-upload-btn" type="button" class="wide">Upload genetic file</button>
-              </div>
+              <article class="genetics-upload-card">
+                <div class="genetics-upload-copy">
+                  <span class="genetics-upload-mark">DNA</span>
+                  <div><p class="page-eyebrow">Private direct upload</p><h2>Add genetic data</h2></div>
+                  <p>Upload a VCF, SNP-array, or 23andMe-style raw export. Larger genome files go directly to private storage and never pass through the dashboard.</p>
+                </div>
+                <div class="genetics-upload-action">
+                  <label for="genetics-file">Choose a genetic file</label>
+                  <input id="genetics-file" type="file" accept=".vcf,.vcf.gz,.txt,.txt.gz,.tsv,.tsv.gz,.csv,.csv.gz,.snp,.snp.gz,.raw,.raw.gz,text/vcf,text/plain,text/csv,text/tab-separated-values,application/gzip">
+                  <button id="genetics-upload-btn" type="button">Upload securely</button>
+                  <small>VCF, VCF.GZ, SNP-array, 23andMe, or AncestryDNA export</small>
+                </div>
+              </article>
+              <div id="genetics-sources"></div>
             </section>
             <div id="genetics-interpretations" class="modality-interpretations"></div>
             <div id="genetics-prompt" class="modality-prompt"></div>
@@ -406,11 +446,6 @@
           </div>
           <p id="billing-status" class="message" role="status" aria-live="polite"></p>
           <section id="pricing-cards" class="pricing-grid" aria-label="Hosted plan options"></section>
-          <section class="card self-host-card">
-            <h2>Prefer to run it yourself?</h2>
-            <p>Wellnizz API is open source. You can self-host the API, workers, storage, and your health data without a hosted subscription.</p>
-            <a class="quiet-link" href="https://github.com/liveforeverbetter/foreverbetter/blob/main/SELF_HOSTING.md" target="_blank" rel="noopener">Read the self-hosting guide <span aria-hidden="true">→</span></a>
-          </section>
         </div>
 
       </main>

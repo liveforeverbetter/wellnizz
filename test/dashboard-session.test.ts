@@ -2,20 +2,20 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 
-test('wearable connection messages render without requiring provider state', async () => {
+test('wearable connection messages render in the dashboard message area', async () => {
   const app = await readFile('public/dashboard/app.js', 'utf8');
   const source = app.match(
-    /function showConnectMessage\(text, error = false\) \{[\s\S]*?\n\}\n\n\/\/ ---- Shared ----/,
+    /function showMessage\(text, error = false\) \{[\s\S]*?\n\}/,
   )?.[0];
-  assert.ok(source, 'showConnectMessage source is present');
+  assert.ok(source, 'showMessage source is present');
 
   const message = { textContent: '', className: '' };
   const run = new Function(
-    'connectMessageEl',
-    `${source}\nshowConnectMessage('Taking you to WHOOP to approve access...', false);`,
+    'messageEl', 'showAuthMessage',
+    `${source}\nshowMessage('Taking you to WHOOP to approve access...', false);`,
   );
 
-  assert.doesNotThrow(() => run(message));
+  assert.doesNotThrow(() => run(message, () => {}));
   assert.equal(message.textContent, 'Taking you to WHOOP to approve access...');
   assert.equal(message.className, 'message success');
 });
@@ -74,9 +74,18 @@ test('dashboard is agent-first with a first-party OTP flow behind a toggle', asy
   assert.match(app, /Connect your \$\{providerLabel\(provider\)\}/);
   assert.match(html, /id="oura-connect-btn"/);
   assert.match(html, /Developer: use your own Oura app/);
-  assert.match(html, /ForeverBetter Connect/);
+  assert.match(html, /Install Wellnizz Connect/);
   assert.match(html, /android-logo/);
-  assert.match(html, /Google Health Connect brings together data from Google Fit, OHealth, Fitbit, and other apps/);
+  assert.match(html, /Bring Fitbit, Samsung Health, Google Fit, and other Android health sources together/);
+  assert.match(html, /id="wearables-connect"/);
+  assert.match(html, /id="whoop-connect-btn"/);
+  assert.match(html, /id="oura-connect-btn"/);
+  assert.match(html, /Signals that shape your wellness/);
+  assert.match(html, /id="overview-genetics-status"/);
+  assert.match(app, /function loadOverviewGenetics\(\)/);
+  assert.match(html, /class="genetics-upload-card"/);
+  assert.match(html, /id="genetics-sources"/);
+  assert.doesNotMatch(html, /Prefer to run it yourself/);
   assert.doesNotMatch(html, /id="page-health-connect"/);
   assert.doesNotMatch(html, /data-route="health-connect"/);
   assert.doesNotMatch(app, /page-health-connect/);

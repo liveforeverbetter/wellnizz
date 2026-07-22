@@ -1934,6 +1934,139 @@ code {
   margin-bottom: 28px;
 }
 
+.provider-grid-wearables {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.genetics-upload-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(290px, 0.8fr);
+  gap: 28px;
+  align-items: center;
+  overflow: hidden;
+  padding: 28px;
+  border: 1px solid rgba(99, 77, 172, 0.22);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(99, 77, 172, 0.12), transparent 42%),
+    linear-gradient(125deg, var(--bg-raised), var(--bg-card));
+  box-shadow: 0 12px 32px rgba(31, 23, 64, 0.06);
+}
+
+.genetics-upload-copy {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0 14px;
+  align-items: center;
+}
+
+.genetics-upload-mark {
+  display: grid;
+  grid-row: span 2;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 14px;
+  background: rgba(99, 77, 172, 0.12);
+  color: #634dac;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.genetics-upload-copy .page-eyebrow {
+  margin: 0 0 3px;
+}
+
+.genetics-upload-copy h2 {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.genetics-upload-copy > p {
+  grid-column: 1 / -1;
+  max-width: 580px;
+  margin: 18px 0 0;
+  color: var(--ink-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.genetics-upload-action {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.56);
+}
+
+.genetics-upload-action label {
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.genetics-upload-action input[type="file"] {
+  width: 100%;
+  padding: 9px;
+  border: 1px dashed rgba(99, 77, 172, 0.35);
+  border-radius: 9px;
+  background: rgba(99, 77, 172, 0.04);
+  color: var(--ink-muted);
+  font-size: 11px;
+}
+
+.genetics-upload-action button {
+  width: 100%;
+  margin-top: 3px;
+}
+
+.genetics-upload-action small {
+  color: var(--ink-faint, #a8a59c);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.analysis-summary {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  margin: 22px 0 -14px;
+  padding: 13px 16px;
+  border: 1px solid rgba(99, 77, 172, 0.16);
+  border-radius: 12px;
+  background: rgba(99, 77, 172, 0.05);
+}
+
+.analysis-summary strong {
+  color: #634dac;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.analysis-summary span {
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.analysis-summary small {
+  margin-left: auto;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
 .modality-status-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -2157,6 +2290,26 @@ code {
 }
 
 @media (max-width: 768px) {
+  .provider-grid-wearables {
+    grid-template-columns: 1fr;
+  }
+
+  .genetics-upload-card {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 22px;
+  }
+
+  .analysis-summary {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .analysis-summary small {
+    width: 100%;
+    margin-left: 0;
+  }
+
   .modality-status-grid,
   .modality-sources,
   .modality-interp-grid {

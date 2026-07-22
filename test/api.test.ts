@@ -507,7 +507,7 @@ test('returns Quest and SYNLAB lab locator handoffs', async () => {
 
 test('serves MCP-style tool calls', async () => {
   const initialized = await post('/mcp', { jsonrpc: '2.0', id: 0, method: 'initialize', params: {} });
-  assert.equal(initialized.result.serverInfo.name, 'foreverbetter-api');
+  assert.equal(initialized.result.serverInfo.name, 'wellnizz-api');
 
   const listed = await post('/mcp', { id: 1, method: 'tools/list', params: {} });
   assert.ok(listed.result.tools.some((tool: any) => tool.name === 'upload_health_data' && tool.inputSchema?.type === 'object'));
@@ -570,8 +570,8 @@ test('serves MCP-style tool calls', async () => {
     params: { name: 'get_design_implementation', arguments: { design_id: 'meridian' } },
   });
   const implementationBody = JSON.parse(implementation.result.content[0].text);
-  assert.equal(implementationBody.entrypoint, 'dashboard/index.html');
-  assert.ok(implementationBody.files.some((file: any) => file.path === 'dashboard/index.html' && file.contents.includes('meridian-topbar')));
+  assert.equal(implementationBody.production_dashboard.entrypoint, 'dashboard/index.html');
+  assert.ok(implementationBody.production_dashboard.files.some((file: any) => file.path === 'dashboard/index.html' && file.contents.includes('meridian-topbar')));
 
   const called = await post('/mcp', {
     jsonrpc: '2.0',
@@ -787,26 +787,26 @@ test('queues WGS genetics data when queue execution mode is enabled', async () =
 
 test('serves readiness and agent discovery metadata', async () => {
   const health = await get('/health');
-  assert.deepEqual(health, { ok: true, service: 'foreverbetter-api' });
+  assert.deepEqual(health, { ok: true, service: 'wellnizz-api' });
 
   const ready = await get('/ready');
   assert.equal(ready.ok, true);
-  assert.equal(ready.service, 'foreverbetter-api');
+  assert.equal(ready.service, 'wellnizz-api');
   assert.equal(ready.version, '0.5.2');
   assert.deepEqual(Object.keys(ready).sort(), ['ok', 'service', 'version']);
 
   const version = await get('/version');
-  assert.deepEqual(version, { service: 'foreverbetter-api', version: '0.5.2' });
+  assert.deepEqual(version, { service: 'wellnizz-api', version: '0.5.2' });
 
   const readyDetails = await get('/ready/details');
-  assert.equal(readyDetails.service, 'foreverbetter-api');
+  assert.equal(readyDetails.service, 'wellnizz-api');
   assert.equal(readyDetails.version, '0.5.2');
   assert.equal(readyDetails.storage.checks.store, 'memory');
   assert.ok(readyDetails.enabled_endpoints.includes('imports.file'));
 
   const manifest = await get('/.well-known/health-agent.json');
-  assert.equal(manifest.name, 'ForeverBetter API');
-  assert.equal(manifest.service, 'foreverbetter-api');
+  assert.equal(manifest.name, 'Wellnizz API');
+  assert.equal(manifest.service, 'wellnizz-api');
   assert.equal(manifest.version, '0.5.2');
   assert.ok(manifest.auth.token_requirements.endpoint_claims.includes('enabled_endpoints'));
   assert.equal(manifest.auth.token_requirements.full_user_data_reads_by_default, true);
@@ -823,7 +823,7 @@ test('serves readiness and agent discovery metadata', async () => {
 
   const openApi = await get('/openapi.json');
   assert.equal(openApi.openapi, '3.1.0');
-  assert.equal(openApi.info.title, 'ForeverBetter API');
+  assert.equal(openApi.info.title, 'Wellnizz API');
   assert.equal(openApi.info.version, '0.5.2');
   assert.ok(openApi.paths['/mcp']);
   assert.ok(openApi.paths['/capabilities']);
@@ -872,14 +872,14 @@ test('serves readiness and agent discovery metadata', async () => {
   assert.ok(openApi.paths['/users/{user_id}/data/export']);
 
   const capabilities = await get('/capabilities');
-  assert.equal(capabilities.service, 'foreverbetter-api');
+  assert.equal(capabilities.service, 'wellnizz-api');
   assert.ok(capabilities.capabilities.some((item: any) => item.id === 'genetics.wgs' && item.notes.join(' ').includes('dbSNP')));
   assert.ok(capabilities.capabilities.some((item: any) => item.id === 'health_context.summary'));
   const pricingResponse = await fetch(`${baseUrl}/pricing`);
   assert.equal(pricingResponse.status, 200);
   assert.match(pricingResponse.headers.get('cache-control') ?? '', /public/);
   const pricing = await pricingResponse.json();
-  assert.equal(pricing.service, 'foreverbetter-api');
+  assert.equal(pricing.service, 'wellnizz-api');
   assert.ok(pricing.tiers.some((tier: any) => tier.id === 'free' && tier.monthly_usd === 0));
   const standard = pricing.tiers.find((tier: any) => tier.id === 'standard');
   assert.equal(standard?.monthly_usd, 9.99);
@@ -898,7 +898,7 @@ test('serves readiness and agent discovery metadata', async () => {
   for (const path of ['/', '/docs']) {
     const docsRedirect = await fetch(`${baseUrl}${path}`, { redirect: 'manual' });
     assert.equal(docsRedirect.status, 302);
-    assert.equal(docsRedirect.headers.get('location'), 'https://foreverbetter.mintlify.app');
+    assert.equal(docsRedirect.headers.get('location'), path === '/' ? '/dashboard' : 'https://docs.wellnizz.com');
   }
 
   const dashboard = await fetch(`${baseUrl}/dashboard`);
@@ -907,7 +907,7 @@ test('serves readiness and agent discovery metadata', async () => {
   const dashboardHtml = await dashboard.text();
   assert.match(dashboardHtml, /Your health data, understood\./);
   assert.match(dashboardHtml, /Connect it yourself\./);
-  assert.match(dashboardHtml, /github\.com\/liveforeverbetter\/foreverbetter/);
+  assert.doesNotMatch(dashboardHtml, /Prefer to run it yourself/);
 
   const skill = await fetch(`${baseUrl}/SKILL.md`);
   assert.equal(skill.status, 200);
@@ -928,7 +928,7 @@ test('serves readiness and agent discovery metadata', async () => {
   assert.match(skillMarkdown, /Treat this as an execution workflow/i);
   assert.match(skillMarkdown, /A run is complete only when/i);
   assert.match(skillMarkdown, /agent-login\/start/);
-  assert.match(skillMarkdown, /foreverbetter\.mintlify\.app\/llms-full\.txt/);
+  assert.match(skillMarkdown, /docs\.wellnizz\.com\/llms-full\.txt/);
   assert.doesNotMatch(skillMarkdown, /foreverbetter\.mintlify\.site/);
   assert.match(skillMarkdown, /GET \/design\/systems/);
   assert.match(skillMarkdown, /private-by-possession snapshot/i);
@@ -939,7 +939,7 @@ test('serves readiness and agent discovery metadata', async () => {
   assert.doesNotMatch(skillMarkdown, /GET \/users\/\{user_id\}\/data\/export/);
   assert.match(skillMarkdown, /connections\/oura\/sync/);
   assert.match(skillMarkdown, /retired generic `POST \/connections\/wearables\/sync`/);
-  assert.match(skillMarkdown, /ForeverBetter Connect/);
+  assert.match(skillMarkdown, /Wellnizz Connect/);
 
   const traceId = '4bf92f3577b34da6a3ce929d0e0e4736';
   const traced = await fetch(`${baseUrl}/health`, {
@@ -1263,8 +1263,8 @@ test('OIDC auth requires tokens, scopes, and same-user access', async () => {
       body: JSON.stringify({ user_id: 'user_a', category: 'biomarkers', text: 'marker,value,unit\nApoB,100,mg/dL\n' }),
     });
     assert.equal(denied.status, 401);
-    assert.match(denied.headers.get('www-authenticate') ?? '', /Bearer realm="foreverbetter-api"/);
-    assert.equal((await denied.json()).type, 'urn:foreverbetter-api:problem:unauthorized');
+    assert.match(denied.headers.get('www-authenticate') ?? '', /Bearer realm="wellnizz-api"/);
+    assert.equal((await denied.json()).type, 'urn:wellnizz-api:problem:unauthorized');
 
     const now = Math.floor(Date.now() / 1000);
     const expired = await new SignJWT({ scope: '' })
@@ -1308,7 +1308,7 @@ test('OIDC auth requires tokens, scopes, and same-user access', async () => {
       body: JSON.stringify({ user_id: 'user_a', category: 'biomarkers', text: 'marker,value,unit\nApoB,100,mg/dL\n' }),
     });
     assert.equal(missingScope.status, 403);
-    assert.equal((await missingScope.json()).type, 'urn:foreverbetter-api:problem:forbidden');
+    assert.equal((await missingScope.json()).type, 'urn:wellnizz-api:problem:forbidden');
 
     const bareUser = await token('user_c', '');
     const selfServeKey = await postTo(secureBase, '/api-keys', {
@@ -1824,23 +1824,22 @@ test('serves public design systems without auth', async () => {
   const implementation = await fetch(`${baseUrl}/design/systems/meridian/implementation`);
   assert.equal(implementation.status, 200);
   const packageBody = await implementation.json();
-  assert.equal(packageBody.format, 'production_files');
-  assert.equal(packageBody.entrypoint, 'dashboard/index.html');
-  assert.match(packageBody.description, /WHOOP-inspired/);
-  assert.match(packageBody.description, /not affiliated/i);
-  assert.ok(packageBody.files.some((file: any) => file.path === 'dashboard/index.html' && file.contents.includes('meridian-topbar')));
-  assert.ok(packageBody.files.some((file: any) => file.path === 'dashboard/styles.css' && file.sha256.length === 64));
-  assert.ok(packageBody.components.some((component: any) => component.type === 'whoop_provider_card'));
-  assert.ok(packageBody.binary_assets.some((asset: any) => asset.path === 'dashboard/assets/tablet-dashboard.png'));
-  assert.equal(packageBody.design_specification.format, 'design_system_handoff');
-  assert.equal(packageBody.design_specification.manifest.components.length, 50);
-  assert.ok(packageBody.design_specification.files.some((file: any) => file.path === 'design-system/components/bio/BiomarkerPanel.jsx'));
-  assert.ok(packageBody.design_specification.files.some((file: any) => file.path === 'design-system/components/bio/BiomarkerPanel.d.ts'));
-  assert.ok(packageBody.design_specification.manifest.components.every((component: any) =>
-    packageBody.design_specification.files.some((file: any) => file.path === `design-system/${component.sourcePath}`),
+  assert.equal(packageBody.format, 'design_system_handoff');
+  assert.equal(packageBody.production_dashboard.entrypoint, 'dashboard/index.html');
+  assert.match(packageBody.description, /production dashboard source/);
+  assert.ok(packageBody.production_dashboard.files.some((file: any) => file.path === 'dashboard/index.html' && file.contents.includes('meridian-topbar')));
+  assert.ok(packageBody.production_dashboard.files.some((file: any) => file.path === 'dashboard/styles.css' && file.sha256.length === 64));
+  assert.ok(packageBody.production_dashboard.components.some((component: any) => component.type === 'whoop_provider_card'));
+  assert.ok(packageBody.production_dashboard.binary_assets.some((asset: any) => asset.path === 'dashboard/assets/tablet-dashboard.png'));
+  assert.equal(packageBody.format, 'design_system_handoff');
+  assert.equal(packageBody.components.length, 50);
+  assert.ok(packageBody.components.some((component: any) => component.sourcePath === 'components/bio/BiomarkerPanel.jsx'));
+  assert.ok(packageBody.components.some((component: any) => component.sourcePath === 'components/bio/BiomarkerRow.jsx'));
+  assert.ok(packageBody.components.every((component: any) =>
+    typeof component.sourcePath === 'string' && component.sourcePath.length > 0,
   ));
-  assert.ok(packageBody.design_specification.manifest.templates.every((template: any) =>
-    packageBody.design_specification.files.some((file: any) => file.path === `design-system/${template.entryPath}`),
+  assert.ok(packageBody.templates.every((template: any) =>
+    typeof template.entryPath === 'string' && template.entryPath.length > 0,
   ));
 
   const apertureImplementation = await fetch(`${baseUrl}/design/systems/aperture/implementation`);
@@ -1848,21 +1847,17 @@ test('serves public design systems without auth', async () => {
   const aperturePackage = await apertureImplementation.json();
   assert.equal(aperturePackage.format, 'design_system_handoff');
   assert.equal(aperturePackage.components.length, 20);
-  assert.ok(aperturePackage.files.some((file: any) => file.path === 'design-system/ui_kits/aperture-app/AppWearables.jsx'));
+  assert.ok(aperturePackage.components.some((component: any) => component.sourcePath === 'components/layout/Sidebar.jsx'));
   assert.ok(aperturePackage.templates.some((template: any) => template.entryPath === 'templates/health-dashboard/HealthDashboard.dc.html'));
   assert.ok(aperturePackage.starting_points.every((startingPoint: any) =>
-    aperturePackage.files.some((file: any) => file.path === `design-system/${startingPoint.path}`),
+    typeof startingPoint.path === 'string' && startingPoint.path.length > 0,
   ));
 
   const apertureStylesheet = await fetch(`${baseUrl}/design-system-specs/aperture/styles.css`);
-  assert.equal(apertureStylesheet.status, 200);
-  assert.match(apertureStylesheet.headers.get('content-type') ?? '', /^text\/css/);
-  assert.match(apertureStylesheet.headers.get('cache-control') ?? '', /public/);
-  assert.match(await apertureStylesheet.text(), /@import/);
+  assert.equal(apertureStylesheet.status, 404);
 
   const meridianStylesheet = await fetch(`${baseUrl}/design-system-specs/meridian/styles.css`, { method: 'HEAD' });
-  assert.equal(meridianStylesheet.status, 200);
-  assert.match(meridianStylesheet.headers.get('content-type') ?? '', /^text\/css/);
+  assert.equal(meridianStylesheet.status, 404);
 
   const missingImplementation = await fetch(`${baseUrl}/design/systems/nope/implementation`);
   assert.equal(missingImplementation.status, 404);
