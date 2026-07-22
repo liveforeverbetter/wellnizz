@@ -951,14 +951,14 @@ async function loadModalityInterpretations(page, modality, key, params) {
     const full = await apiGet(`/analyses/${current.id}`, key);
     const allInterpretations = full.derived_interpretations || [];
     // A current analysis can contain many observations of one metric (for
-    // example, several days of steps). The dashboard is a current-signal view:
-    // retain the source data for trends, but show one decision-ready card per
-    // signal here.
-    const currentSignals = dedupeCurrentInterpretations(page, allInterpretations);
+    // example, several days of steps) or many variants supporting one genetic
+    // trait. The dashboard is a current-signal view: retain source evidence,
+    // but show one decision-ready card per signal or trait here.
+    const currentSignals = currentInterpretations(page, allInterpretations);
     const interpretations = prioritizeInterpretations(page, currentSignals).slice(0, 12);
     const historyCount = Math.max(0, Number(result.total ?? analyses.length) - 1);
-    const duplicateCount = Math.max(0, allInterpretations.length - currentSignals.length);
-    const analysisSummary = currentAnalysisSummary(page, current, historyCount, currentSignals.length, duplicateCount);
+    const condensedCount = Math.max(0, allInterpretations.length - currentSignals.length);
+    const analysisSummary = currentAnalysisSummary(page, current, historyCount, currentSignals.length, allInterpretations.length, condensedCount);
 
     if (!interpretations.length) {
       container.innerHTML = `${analysisSummary}<div class="section-heading-row"><h2>Current interpretation</h2></div>
@@ -970,7 +970,8 @@ async function loadModalityInterpretations(page, modality, key, params) {
     }
 
     const remaining = prioritizeInterpretations(page, currentSignals).slice(12);
-    container.innerHTML = `${analysisSummary}<div class="section-heading-row"><div><p class="page-eyebrow">Current interpretation</p><h2>What your latest analysis says</h2></div><p>Showing ${interpretations.length} priority findings from ${currentSignals.length} current ${currentSignals.length === 1 ? 'signal' : 'signals'}.</p></div>
+    const currentLabel = page === 'genetics' ? 'trait-level findings' : 'current signals';
+    container.innerHTML = `${analysisSummary}<div class="section-heading-row"><div><p class="page-eyebrow">Current interpretation</p><h2>What your latest analysis says</h2></div><p>Showing ${interpretations.length} priority findings from ${currentSignals.length} ${currentLabel}.</p></div>
       ${interpretationSections(interpretations)}
       ${remaining.length ? `<details class="all-findings" id="${page}-all-findings"><summary>Explore all ${currentSignals.length} current findings by section</summary><div class="all-findings-content"></div></details>` : ''}`;
 
@@ -1015,15 +1016,17 @@ function sourceHistory(sources, heading) {
   return `<details class="source-history"><summary>${heading} (${sources.length})</summary><ul>${sources.map(source => `<li><strong>${escapeHtml(source.filename || 'Uploaded file')}</strong><span>${formatRelDate(source.received_at)}</span></li>`).join('')}</ul></details>`;
 }
 
-function currentAnalysisSummary(page, analysis, historyCount, findingCount, duplicateCount = 0) {
+function currentAnalysisSummary(page, analysis, historyCount, findingCount, rawFindingCount = findingCount, condensedCount = 0) {
   const history = historyCount
     ? `${historyCount} earlier ${historyCount === 1 ? 'run is' : 'runs are'} kept separately as history.`
     : 'This is the first recorded run.';
   const geneticsNote = page === 'genetics'
     ? 'Your DNA is stable, but interpretation changes as analysis methods and evidence improve.'
     : 'Older runs are not blended into this current interpretation.';
-  const dedupeNote = duplicateCount ? ` ${duplicateCount} repeated observation${duplicateCount === 1 ? ' is' : 's are'} kept for trends, not repeated here.` : '';
-  return `<div class="analysis-summary current-analysis-summary"><strong>Current</strong><span>Updated ${escapeHtml(formatRelDate(analysis.created_at))} · ${findingCount} current ${findingCount === 1 ? 'finding' : 'findings'}</span><small>${history} ${geneticsNote}${dedupeNote}</small></div>`;
+  const consolidationNote = page === 'genetics' && condensedCount
+    ? ` ${rawFindingCount} variant-level interpretations are organized into ${findingCount} trait-level findings; genes and rsIDs remain available as evidence.`
+    : condensedCount ? ` ${condensedCount} repeated observation${condensedCount === 1 ? ' is' : 's are'} kept for trends, not repeated here.` : '';
+  return `<div class="analysis-summary current-analysis-summary"><strong>Current</strong><span>Updated ${escapeHtml(formatRelDate(analysis.created_at))} · ${findingCount} current ${findingCount === 1 ? 'finding' : 'findings'}</span><small>${history} ${geneticsNote}${consolidationNote}</small></div>`;
 }
 
 function interpretationPriority(interp) {
@@ -1033,7 +1036,8 @@ function interpretationPriority(interp) {
   return 2;
 }
 
-function dedupeCurrentInterpretations(page, interpretations) {
+function currentInterpretations(page, interpretations) {
+  if (page === 'genetics') return groupGeneticInterpretations(interpretations);
   if (page !== 'wearables') return interpretations;
   const unique = new Map();
   for (const interpretation of interpretations) {
@@ -1043,6 +1047,42 @@ function dedupeCurrentInterpretations(page, interpretations) {
     if (!existing || interpretationPriority(interpretation) < interpretationPriority(existing)) unique.set(key, interpretation);
   }
   return [...unique.values()];
+}
+
+function groupGeneticInterpretations(interpretations) {
+  const groups = new Map();
+  const ungrouped = [];
+  for (const interpretation of interpretations) {
+    const raw = interpretation.raw && typeof interpretation.raw === 'object' ? interpretation.raw : {};
+    const trait = raw.disease;
+    const canGroup = ['genetic_drug_response', 'genetic_risk_finding', 'genetic_condition_finding'].includes(interpretation.type)
+      && typeof trait === 'string' && trait.trim() && (raw.gene || raw.rsid);
+    if (!canGroup) {
+      ungrouped.push(interpretation);
+      continue;
+    }
+    const normalizedTrait = trait.split(',').map(part => part.trim()).filter(part => part && part !== 'not specified').sort().join(' | ').toLowerCase();
+    const key = `${interpretation.type}:${normalizedTrait}`;
+    const members = groups.get(key) || [];
+    members.push(interpretation);
+    groups.set(key, members);
+  }
+  return [...groups.values()].map(geneticTraitGroup).concat(ungrouped);
+}
+
+function geneticTraitGroup(members) {
+  const first = members[0];
+  const evidence = members.map(item => item.raw && typeof item.raw === 'object' ? item.raw : {});
+  const genes = [...new Set(evidence.map(raw => raw.gene).filter(Boolean))].sort();
+  const variants = [...new Set(evidence.map(raw => raw.rsid).filter(Boolean))].sort();
+  const trait = String(evidence[0]?.disease || first.title);
+  return {
+    ...first,
+    title: trait,
+    summary: `${variants.length} associated variant${variants.length === 1 ? '' : 's'} across ${genes.length} gene${genes.length === 1 ? '' : 's'}. Open the evidence to review the genes and rsIDs behind this trait.`,
+    raw: { ...evidence[0], trait, genes, variants, grouped_variant_count: variants.length },
+    grouped_genetic_trait: true,
+  };
 }
 
 function geneticTypePriority(interp) {
@@ -1089,15 +1129,27 @@ function interpretationSectionName(interpretation) {
 
 function interpretationCard(interp) {
   const statusClass = interp.score != null ? (interp.score >= 70 ? 'positive' : interp.score >= 40 ? 'neutral' : 'attention') : 'neutral';
+  const raw = interp.raw && typeof interp.raw === 'object' ? interp.raw : {};
+  const evidence = interp.grouped_genetic_trait ? geneticEvidence(raw) : '';
   return `<article class="card interpretation-card" data-status="${statusClass}">
     <div class="interp-head">
-      <span class="interp-category">${escapeHtml(titleCase(interp.category || interp.type || 'Finding'))}</span>
+      <span class="interp-category">${escapeHtml(interpretationSectionName(interp))}</span>
       ${interp.score != null ? `<span class="interp-score ${statusClass}">${interp.score}<small>/100</small></span>` : ''}
     </div>
     <h3>${escapeHtml(interp.title)}</h3>
     ${interp.summary ? `<p>${escapeHtml(interp.summary)}</p>` : ''}
+    ${evidence}
     ${interp.action ? `<div class="interp-action"><strong>What to do</strong><p>${escapeHtml(interp.action)}</p></div>` : ''}
   </article>`;
+}
+
+function geneticEvidence(raw) {
+  const genes = Array.isArray(raw.genes) ? raw.genes : [];
+  const variants = Array.isArray(raw.variants) ? raw.variants : [];
+  return `<details class="genetic-evidence"><summary>${variants.length} associated variant${variants.length === 1 ? '' : 's'} across ${genes.length} gene${genes.length === 1 ? '' : 's'}</summary>
+    ${genes.length ? `<p><strong>Genes</strong><span>${escapeHtml(genes.join(', '))}</span></p>` : ''}
+    ${variants.length ? `<p><strong>Variants</strong><span>${escapeHtml(variants.join(', '))}</span></p>` : ''}
+  </details>`;
 }
 
 // ---- Result Overlay ----

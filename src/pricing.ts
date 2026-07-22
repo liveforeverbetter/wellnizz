@@ -438,7 +438,7 @@ export async function issueUserSession(email: string, config: AuthConfig): Promi
 }> {
   const secret = config.apiKeySecret ?? config.serviceAccountSecret;
   if (!secret) throw new Error('OTP sessions require API_KEY_JWT_SECRET or SERVICE_ACCOUNT_JWT_SECRET.');
-  const ttlSeconds = Number(process.env.OTP_SESSION_TTL_SECONDS ?? 3600);
+  const ttlSeconds = Number(process.env.OTP_SESSION_TTL_SECONDS ?? 7 * 24 * 60 * 60);
   const normalizedEmail = email.trim().toLowerCase();
   const userId = otpSessionUserId(normalizedEmail);
   const organizationId = personalOrganizationId(userId);

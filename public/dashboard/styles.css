@@ -2349,6 +2349,39 @@ code {
   line-height: 1.5;
 }
 
+.genetic-evidence {
+  margin-top: 2px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.38);
+}
+
+.genetic-evidence summary {
+  padding: 10px 12px;
+  cursor: pointer;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.genetic-evidence p {
+  display: grid;
+  gap: 3px;
+  margin: 0;
+  padding: 0 12px 10px;
+  color: var(--ink-muted);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.genetic-evidence strong {
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 /* ---- Prompt Card ---- */
 
 .modality-prompt {

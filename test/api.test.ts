@@ -1193,6 +1193,8 @@ test('self-contained email OTP mints a session and rejects bad codes', async () 
     assert.match(verified.user.id, /^usr_/);
     assert.equal(verified.token_type, 'Bearer');
     assert.equal(verified.access_token.split('.').length, 3, 'session is a signed JWT');
+    const claims = decodeJwt(verified.access_token);
+    assert.ok(Number(claims.exp) - Number(claims.iat) >= 7 * 24 * 60 * 60 - 1, 'email sign-in session lasts one week by default');
 
     // The minted session token authenticates a subsequent request.
     const caps = await fetch(`${base}/capabilities`, { headers: { authorization: `Bearer ${verified.access_token}` } });

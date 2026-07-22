@@ -126,7 +126,11 @@ test('dashboard renders only the current analysis and keeps history separate', a
   assert.match(app, /const full = await apiGet\(`\/analyses\/\$\{current\.id\}`/);
   assert.doesNotMatch(app, /analyses\.slice\(0, 5\)/);
   assert.match(app, /function interpretationSections\(interpretations\)/);
-  assert.match(app, /function dedupeCurrentInterpretations\(page, interpretations\)/);
+  assert.match(app, /function currentInterpretations\(page, interpretations\)/);
+  assert.match(app, /function groupGeneticInterpretations\(interpretations\)/);
+  assert.match(app, /function geneticTraitGroup\(members\)/);
+  assert.match(app, /associated variant\$\{variants\.length/);
+  assert.match(app, /genes and rsIDs remain available as evidence/i);
   assert.match(app, /kept for trends, not repeated here/i);
   assert.match(app, /Explore all \$\{currentSignals\.length\} current findings by section/);
   assert.match(app, /genetic_condition_catalog_match: 'Catalog matches'/);
@@ -134,4 +138,21 @@ test('dashboard renders only the current analysis and keeps history separate', a
   assert.match(app, /Wearable data by provider/);
   assert.match(app, /older runs are not blended into this current interpretation/i);
   assert.match(html, /Historical panels belong in trends, not a blended result/);
+});
+
+test('dashboard groups genetic variants into one trait-level finding with evidence', async () => {
+  const app = await readFile('public/dashboard/app.js', 'utf8');
+  const source = app.match(/function currentInterpretations\(page, interpretations\) \{[\s\S]*?(?=\nfunction geneticTypePriority)/)?.[0];
+  assert.ok(source, 'genetic grouping helpers are present');
+  const groupGeneticInterpretations = new Function(`${source}\nreturn groupGeneticInterpretations;`)();
+  const grouped = groupGeneticInterpretations([
+    { type: 'genetic_drug_response', title: 'ABCB1 — Tramadol response', raw: { gene: 'ABCB1', rsid: 'rs1922242', disease: 'Tramadol response' } },
+    { type: 'genetic_drug_response', title: 'ABCB1 — Tramadol response', raw: { gene: 'ABCB1', rsid: 'rs2235046', disease: 'Tramadol response' } },
+    { type: 'genetic_drug_response', title: 'CYP2D6 — Tramadol response', raw: { gene: 'CYP2D6', rsid: 'rs28371738', disease: 'Tramadol response' } },
+  ]);
+
+  assert.equal(grouped.length, 1);
+  assert.equal(grouped[0].title, 'Tramadol response');
+  assert.deepEqual(grouped[0].raw.genes, ['ABCB1', 'CYP2D6']);
+  assert.deepEqual(grouped[0].raw.variants, ['rs1922242', 'rs2235046', 'rs28371738']);
 });
