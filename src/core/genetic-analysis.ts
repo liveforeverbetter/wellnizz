@@ -54,6 +54,12 @@ export function upsertGeneticPipelineInterpretation(
   for (const consumerInterpretation of consumerGeneticInterpretations(analysis, source, pipeline)) {
     analysis.derived_interpretations.push(consumerInterpretation);
   }
+  // Surface the actionable variant, drug-response, polygenic, and condition
+  // findings as first-class interpretations so the analysis reflects the real
+  // depth of a WGS (clinically significant findings, not just a summary card).
+  for (const finding of geneticFindingInterpretations(analysis, source, pipeline)) {
+    analysis.derived_interpretations.push(finding);
+  }
   analysis.dashboard_spec.cards.unshift({
     id: interpretation.id,
     title: interpretation.title,
@@ -110,6 +116,152 @@ function consumerGeneticsSection(dashboard: unknown): ConsumerGeneticsSection | 
   const section = (metadata as Record<string, unknown>).consumer_genetics;
   if (!section || typeof section !== 'object' || Array.isArray(section)) return undefined;
   return section as unknown as ConsumerGeneticsSection;
+}
+
+// Per-category caps keep the exploratory long tail out of the inline analysis
+// while retaining every clinically meaningful finding. The uncommon-mutation
+// tail (tens of thousands) is never emitted here; use the full-analysis artifact
+// for it.
+const MAX_VARIANT_FINDINGS_PER_CATEGORY = 500;
+const MAX_PRS_FINDINGS = 100;
+const MAX_CONDITION_FINDINGS_PER_MODALITY = 250;
+
+const VARIANT_FINDING_CATEGORIES: Array<{ key: string; type: string; noun: string }> = [
+  { key: 'genetic_conditions', type: 'genetic_condition_finding', noun: 'Genetic condition' },
+  { key: 'drug_response', type: 'genetic_drug_response', noun: 'Drug-response marker' },
+  { key: 'other_risks', type: 'genetic_risk_finding', noun: 'Risk marker' },
+  { key: 'rare_mutations', type: 'genetic_rare_variant', noun: 'Rare variant' },
+];
+
+// Expand the analyze-health dashboard's actionable collections into first-class
+// derived interpretations: clinically significant variants, pharmacogenomic
+// (drug-response) markers, polygenic risk scores, and condition-catalog matches.
+// Exploratory uncommon variants are intentionally excluded (long tail; available
+// via the full-analysis artifact).
+function geneticFindingInterpretations(
+  analysis: AnalysisResult,
+  source: RawSourceReference,
+  pipeline: GeneticsPipelineResult,
+): AnalysisResult['derived_interpretations'] {
+  const metadata = dashboardMetadataRecord(pipeline.dashboard);
+  if (!metadata) return [];
+  const generatedAt = new Date().toISOString();
+  const provenance = (extra: Record<string, unknown> = {}) => ({
+    source_ids: [source.id],
+    source_categories: ['genetics' as const],
+    source_type: 'derived' as const,
+    engine: 'bundled analyze-health pipeline',
+    generated_at: generatedAt,
+    ...extra,
+  });
+  const base = (type: string, title: string, summary: string, action: string, status: string, raw: Record<string, unknown>, score?: number, extraProvenance?: Record<string, unknown>) => ({
+    id: createId('der'),
+    user_id: analysis.user_id,
+    organization_id: analysis.organization_id,
+    analysis_id: analysis.id,
+    category: 'genetics' as const,
+    type,
+    title,
+    status,
+    ...(score != null ? { score } : {}),
+    summary,
+    action,
+    provenance: provenance(extraProvenance),
+    raw,
+  });
+  const findings: AnalysisResult['derived_interpretations'] = [];
+
+  const variantCards = isRecord(metadata.variant_cards) ? metadata.variant_cards : {};
+  for (const { key, type, noun } of VARIANT_FINDING_CATEGORIES) {
+    const cards = Array.isArray(variantCards[key]) ? variantCards[key] : [];
+    for (const card of cards.slice(0, MAX_VARIANT_FINDINGS_PER_CATEGORY)) {
+      if (!isRecord(card)) continue;
+      const gene = stringValue(card.gene) ?? '';
+      const disease = stringValue(card.disease) ?? '';
+      const title = [gene, disease].filter(Boolean).join(' — ') || noun;
+      const summary = stringValue(card.annotation)
+        ?? `${noun}${gene ? ` in ${gene}` : ''}${disease ? ` associated with ${disease}` : ''}.`;
+      findings.push(base(type, title, summary, geneticFindingAction(card), variantFindingStatus(card), { ...card }));
+    }
+  }
+
+  const prsScores = Array.isArray(metadata.prs_scores) ? metadata.prs_scores : [];
+  for (const score of prsScores.slice(0, MAX_PRS_FINDINGS)) {
+    if (!isRecord(score)) continue;
+    const disease = (stringValue(score.disease) ?? 'polygenic trait').replace(/_/g, ' ');
+    const summary = stringValue(score.description)
+      ?? `Polygenic score for ${disease}: ${stringValue(score.riskLabel) ?? 'reported'}.`;
+    findings.push(base(
+      'genetic_prs_score',
+      `Polygenic risk — ${disease}`,
+      summary,
+      'Polygenic scores are population-relative context, not a diagnosis. Confirm high-stakes risks with a clinician.',
+      'informational',
+      { ...score },
+      numberValue(score.percentile),
+    ));
+  }
+
+  // Condition-catalog findings: conditions whose gene panels the genome matched
+  // (carrier status, disease risk). Drop the potentially large panel_genes array
+  // from the stored copy to bound size; keep its count for context.
+  const catalog = metadata.condition_catalog_findings;
+  const modalities = isRecord(catalog) && isRecord(catalog.modalities) ? catalog.modalities : undefined;
+  if (modalities) {
+    for (const [modality, entries] of Object.entries(modalities)) {
+      if (!Array.isArray(entries)) continue;
+      for (const entry of entries.slice(0, MAX_CONDITION_FINDINGS_PER_MODALITY)) {
+        if (!isRecord(entry)) continue;
+        const name = stringValue(entry.name);
+        if (!name) continue;
+        const panelGenes = Array.isArray(entry.panel_genes) ? entry.panel_genes.length : undefined;
+        const { panel_genes: _omitted, ...rest } = entry;
+        findings.push(base(
+          'genetic_condition_catalog_match',
+          name,
+          `Condition-catalog match in the ${modality.replace(/-/g, ' ')} modality${panelGenes != null ? ` across ${panelGenes} panel genes` : ''}.`,
+          'Catalog matches indicate relevant genes, not a diagnosis. Review carrier or disease-risk findings with a clinician.',
+          'informational',
+          { ...rest, ...(panelGenes != null ? { panel_gene_count: panelGenes } : {}) },
+          undefined,
+          { modality },
+        ));
+      }
+    }
+  }
+
+  return findings;
+}
+
+function variantFindingStatus(card: Record<string, unknown>): string {
+  const significance = `${stringValue(card.clinicalSignificance) ?? ''} ${stringValue(card.confidenceTier) ?? ''}`.toLowerCase();
+  if (significance.includes('pathogenic')) return 'action_recommended';
+  if (String(card.category) === 'drug_response' || significance.includes('drug')) return 'pharmacogenomic';
+  return 'informational';
+}
+
+function geneticFindingAction(card: Record<string, unknown>): string {
+  if (String(card.category) === 'drug_response') {
+    return 'Share this drug-response finding with a clinician or pharmacist before starting or changing a related medication.';
+  }
+  return 'Educational context. Confirm clinically significant or carrier findings with a qualified clinician or genetic counselor.';
+}
+
+function dashboardMetadataRecord(dashboard: unknown): Record<string, unknown> | undefined {
+  if (!isRecord(dashboard)) return undefined;
+  return isRecord(dashboard.metadata) ? dashboard.metadata : undefined;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+}
+
+function stringValue(value: unknown): string | undefined {
+  return typeof value === 'string' && value.trim() ? value : undefined;
+}
+
+function numberValue(value: unknown): number | undefined {
+  return typeof value === 'number' && Number.isFinite(value) ? value : undefined;
 }
 
 function consumerInsightStatus(insight: GeneticConsumerInsight): string {

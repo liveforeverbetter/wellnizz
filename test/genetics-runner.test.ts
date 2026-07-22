@@ -81,7 +81,9 @@ test('worker output maps to stable user-facing progress stages', () => {
 
 test('WGS persistence keeps actionable results and bounds exploratory collections', () => {
   const uncommonMutations = Array.from({ length: 1000 }, (_, index) => ({ rsid: `rs${index}`, note: 'exploratory' }));
-  const hereditaryFindings = Array.from({ length: 40 }, (_, index) => ({ id: `condition-${index}` }));
+  // A realistic WGS produces low hundreds of actionable condition findings; they
+  // are kept inline rather than truncated to a token sample.
+  const hereditaryFindings = Array.from({ length: 168 }, (_, index) => ({ id: `condition-${index}` }));
   const dashboard = {
     gli: 459,
     traits: [{ trait_id: 'drug_metabolism', score: 25 }],
@@ -120,9 +122,11 @@ test('WGS persistence keeps actionable results and bounds exploratory collection
   assert.deepEqual(compact.metadata.variant_cards.drug_response, [{ rsid: 'rs-drug' }]);
   assert.deepEqual(compact.metadata.variant_cards.other_risks, [{ rsid: 'rs-risk' }]);
   assert.equal(compact.metadata.variant_cards.uncommon_mutations.length, 0);
-  assert.equal(compact.metadata.condition_catalog_findings.modalities.hereditary.length, 25);
+  // Actionable condition findings are retained in full (under the 500 cap);
+  // only the exploratory uncommon-mutation tail is bounded out of the inline payload.
+  assert.equal(compact.metadata.condition_catalog_findings.modalities.hereditary.length, 168);
   assert.equal(compact.metadata.persistence_compaction.omitted.uncommon_mutations, 1000);
-  assert.equal(compact.metadata.persistence_compaction.omitted.condition_catalog_findings.hereditary, 15);
+  assert.equal(compact.metadata.persistence_compaction.omitted.condition_catalog_findings.hereditary, 0);
 });
 
 test('compaction records the full-analysis artifact reference when provided', () => {

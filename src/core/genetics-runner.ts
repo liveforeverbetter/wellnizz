@@ -76,7 +76,13 @@ const DEFAULT_TIMEOUT_MS = 120_000;
 const DEFAULT_FULL_DBSNP_TIMEOUT_MS = 14_400_000;
 const COMMAND_OUTPUT_TAIL_BYTES = 256 * 1024;
 const INLINE_UNCOMMON_MUTATION_LIMIT = 0;
-const INLINE_CONDITION_ENTRIES_PER_MODALITY = 25;
+// Condition-catalog findings are the actionable, bounded collections (carrier
+// status, disease risk, pharmacogenomic conditions) a WGS user actually wants,
+// typically low hundreds per modality. Keep them inline rather than truncating
+// to a token sample; only the exploratory uncommon-mutation tail stays out of
+// the inline payload. The cap guards against a pathological genome producing a
+// multi-megabyte inline result, and omitted counts remain for on-demand paging.
+const INLINE_CONDITION_ENTRIES_PER_MODALITY = 500;
 const DEFAULT_BUNDLED_SKILL_DIR = 'vendor/health-analysis-skill';
 const LEGACY_SKILL_DIR = '../open-source/skills/genomic-analysis';
 
