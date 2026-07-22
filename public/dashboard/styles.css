@@ -1395,11 +1395,6 @@ code {
   transform: none;
 }
 
-.agent-tabs { display: flex; gap: 4px; margin: 0 0 14px; padding: 4px; border: 1px solid var(--line); border-radius: 14px; background: var(--bg-sidebar); }
-.agent-tab { padding: 7px 14px; border: none; border-radius: 11px; background: transparent; color: var(--ink-muted); font-family: var(--font-body); font-size: 12.5px; font-weight: 500; cursor: pointer; transition: background .2s, color .2s; }
-.agent-tab:hover { color: var(--ink); }
-.agent-tab.active { background: var(--bg-card); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
-
 .agent-prompt {
   margin: 0 0 14px;
   white-space: pre-wrap;

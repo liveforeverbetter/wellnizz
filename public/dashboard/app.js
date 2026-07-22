@@ -1295,15 +1295,6 @@ const returnedOauth = oauthReturn() || readJson(sessionStorage.getItem('fb_pendi
 
 if ($('#agent-setup-prompt')) $('#agent-setup-prompt').textContent = agentSetupPromptDisplay();
 
-const agentTabs = document.querySelectorAll('.agent-tab');
-agentTabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    agentTabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
-    tab.classList.add('active');
-    tab.setAttribute('aria-selected', 'true');
-  });
-});
-
 if (state.accessToken && state.user) {
   if (state.agentLoginCode) {
     void (async () => {
