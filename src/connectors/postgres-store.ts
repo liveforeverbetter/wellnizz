@@ -28,6 +28,15 @@ export class PostgresHealthStore implements HealthStore {
   async withTransaction<T>(work: () => Promise<T>, isolationKey?: string): Promise<T> {
     if (this.transaction.getStore()) return work();
     const client = await this.pool.connect();
+    // A checked-out client can emit an async 'error' if the connection drops
+    // mid-transaction (e.g. a DB failover or a slow/large write). Without a
+    // listener, Node rethrows it as an uncaught exception and crashes the worker.
+    // Log it instead; the in-flight query/commit rejects and the caller's
+    // transient-retry wrapper handles the retry.
+    const onClientError = (error: unknown) => {
+      console.warn(JSON.stringify({ ts: new Date().toISOString(), event: 'pg_client_error', message: error instanceof Error ? error.message : String(error) }));
+    };
+    client.on('error', onClientError);
     const context = { client, rollback: [] as Array<() => Promise<void>> };
     try {
       await client.query('begin');
@@ -40,6 +49,7 @@ export class PostgresHealthStore implements HealthStore {
       for (const cleanup of context.rollback.reverse()) await cleanup().catch(() => undefined);
       throw error;
     } finally {
+      client.removeListener('error', onClientError);
       client.release();
     }
   }
@@ -141,6 +151,20 @@ export class PostgresHealthStore implements HealthStore {
 
   async getAnalysisArtifactSize(analysisId: string): Promise<number | undefined> {
     return this.payloads.size(this.analysisArtifactKey(analysisId));
+  }
+
+  // Dedicated gene/rsID slice-index artifact, kept out of the analysis row so
+  // routine reads/writes stay small; loaded to a file on demand by /genetic-slice.
+  private analysisSliceArtifactKey(analysisId: string): string {
+    return `analyses/${analysisId}/genetic-slice-index.json`;
+  }
+
+  async saveAnalysisSliceArtifact(analysisId: string, body: Buffer): Promise<void> {
+    await this.payloads.upload(this.analysisSliceArtifactKey(analysisId), body, 'application/json');
+  }
+
+  async writeAnalysisSliceArtifactToFile(analysisId: string, destination: string): Promise<boolean> {
+    return this.payloads.writeToFile(this.analysisSliceArtifactKey(analysisId), destination);
   }
 
   // Signed direct-download URL for the full analysis, so the client fetches it
@@ -637,15 +661,18 @@ export class PostgresHealthStore implements HealthStore {
       // lifecycle remains the backstop, so a transient object-store error here
       // must not fail the deletion receipt.
       for (const row of analyses.rows) {
-        try {
-          await this.payloads.remove(this.analysisArtifactKey(String(row.id)));
-        } catch (error) {
-          console.warn(JSON.stringify({
-            ts: new Date().toISOString(),
-            event: 'analysis_artifact_tombstone_cleanup_failed',
-            analysis_id: String(row.id),
-            error: error instanceof Error ? error.message : String(error),
-          }));
+        for (const objectKey of [this.analysisArtifactKey(String(row.id)), this.analysisSliceArtifactKey(String(row.id))]) {
+          try {
+            await this.payloads.remove(objectKey);
+          } catch (error) {
+            console.warn(JSON.stringify({
+              ts: new Date().toISOString(),
+              event: 'analysis_artifact_tombstone_cleanup_failed',
+              analysis_id: String(row.id),
+              object_key: objectKey,
+              error: error instanceof Error ? error.message : String(error),
+            }));
+          }
         }
       }
       // Delete any genetics checkpoints for the tombstoned sources so completed

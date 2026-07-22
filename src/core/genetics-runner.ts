@@ -56,6 +56,12 @@ export interface GeneticsPipelineOptions {
    */
   saveFullArtifact?: (body: Buffer) => Promise<FullAnalysisArtifactRef | undefined>;
   /**
+   * Persists the gene/rsID slice index as its own artifact so it is not carried
+   * inline in the analysis row (it indexes every variant and can be tens of MB).
+   * The /genetic-slice endpoint loads it on demand. Failure is non-fatal.
+   */
+  saveSliceArtifact?: (body: Buffer) => Promise<void>;
+  /**
    * Restores a previously cached dbSNP-annotated VCF into the given path (the
    * sibling the pipeline reuses), letting the run skip the multi-hour bcftools
    * annotation. Returns true when a cached annotation was restored.
@@ -306,6 +312,23 @@ export async function runGeneticsPipelineWithWriter(
   if (sliceIndex && isRecord(dashboard) && isRecord(dashboard.metadata)) {
     dashboard.metadata.genetic_slice_index = sliceIndex;
   }
+  // Persist the slice index as its own artifact. It indexes every variant and
+  // can be tens of MB, so it is dropped from the inline analysis (see
+  // compactGeneticsDashboardForPersistence) and loaded on demand by the
+  // /genetic-slice endpoint. Non-fatal on failure.
+  if (sliceIndex && options.saveSliceArtifact) {
+    try {
+      await options.saveSliceArtifact(Buffer.from(JSON.stringify(sliceIndex)));
+    } catch (sliceError) {
+      console.warn(JSON.stringify({
+        ts: new Date().toISOString(),
+        event: 'genetic_slice_artifact_save_failed',
+        user_id: userId,
+        source_id: source.id,
+        error: sliceError instanceof Error ? sliceError.message : String(sliceError),
+      }));
+    }
+  }
   const raw = summarizeDashboard(dashboard);
   raw.consumer_genetics = {
     ...consumerGenetics.summary,
@@ -373,7 +396,14 @@ export function compactGeneticsDashboardForPersistence(
   fullArtifact?: FullAnalysisArtifactRef,
 ): unknown {
   if (!isRecord(dashboard)) return dashboard;
-  const metadata = isRecord(dashboard.metadata) ? dashboard.metadata : {};
+  const fullMetadata = isRecord(dashboard.metadata) ? dashboard.metadata : {};
+  // The gene/rsID slice index indexes every variant (tens of MB). It is saved as
+  // its own artifact and must not ride inline in the analysis row, which would
+  // bloat every read and can exceed the DB's write capacity.
+  const { genetic_slice_index: _sliceIndex, ...metadata } = fullMetadata;
+  const sliceIndexEntries = isRecord(_sliceIndex) && isRecord(_sliceIndex.genes)
+    ? Object.keys(_sliceIndex.genes).length
+    : undefined;
   const variantCards = isRecord(metadata.variant_cards) ? metadata.variant_cards : {};
   const uncommonMutations = Array.isArray(variantCards.uncommon_mutations)
     ? variantCards.uncommon_mutations
@@ -392,8 +422,8 @@ export function compactGeneticsDashboardForPersistence(
       condition_catalog_matches: conditionMatches.value,
       condition_catalog_findings: conditionFindings.value,
       persistence_compaction: {
-        version: 2,
-        reason: 'Large exploratory WGS collections are bounded in the inline API result; actionable clinical, drug-response, risk, trait, insight, protocol, and PRS results are retained. The complete analysis is preserved in the full_artifact when durable object storage is configured.',
+        version: 3,
+        reason: 'Large exploratory WGS collections are bounded in the inline API result; actionable clinical, drug-response, risk, trait, insight, protocol, and PRS results are retained. The complete analysis is preserved in the full_artifact, and the gene/rsID slice index is stored as its own artifact (queried via /analyses/{id}/genetic-slice) rather than inline.',
         limits: {
           uncommon_mutations: INLINE_UNCOMMON_MUTATION_LIMIT,
           condition_entries_per_modality: INLINE_CONDITION_ENTRIES_PER_MODALITY,
@@ -403,6 +433,9 @@ export function compactGeneticsDashboardForPersistence(
           condition_catalog_matches: conditionMatches.omitted,
           condition_catalog_findings: conditionFindings.omitted,
         },
+        // The slice index is offloaded to its own artifact; not inline.
+        slice_index_offloaded: sliceIndexEntries != null,
+        slice_index_gene_count: sliceIndexEntries ?? null,
         // Reference to the complete, uncompacted analysis in durable storage.
         // Absent when object storage is not configured (e.g. local dev).
         full_artifact: fullArtifact ?? null,
