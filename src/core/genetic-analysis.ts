@@ -181,7 +181,10 @@ function geneticFindingInterpretations(
       const title = [gene, disease].filter(Boolean).join(' — ') || noun;
       const summary = stringValue(card.annotation)
         ?? `${noun}${gene ? ` in ${gene}` : ''}${disease ? ` associated with ${disease}` : ''}.`;
-      findings.push(base(type, title, summary, geneticFindingAction(card), variantFindingStatus(card), { ...card }));
+      findings.push(base(type, title, summary, geneticFindingAction(card), variantFindingStatus(card), {
+        ...card,
+        consumer_report: geneticFindingConsumerReport(type, summary, geneticFindingAction(card), card),
+      }));
     }
   }
 
@@ -197,7 +200,15 @@ function geneticFindingInterpretations(
       summary,
       'Polygenic scores are population-relative context, not a diagnosis. Confirm high-stakes risks with a clinician.',
       'informational',
-      { ...score },
+      {
+        ...score,
+        consumer_report: geneticFindingConsumerReport(
+          'genetic_prs_score',
+          summary,
+          'Polygenic scores are population-relative context, not a diagnosis. Confirm high-stakes risks with a clinician.',
+          score,
+        ),
+      },
       numberValue(score.percentile),
     ));
   }
@@ -222,7 +233,16 @@ function geneticFindingInterpretations(
           `Condition-catalog match in the ${modality.replace(/-/g, ' ')} modality${panelGenes != null ? ` across ${panelGenes} panel genes` : ''}.`,
           'Catalog matches indicate relevant genes, not a diagnosis. Review carrier or disease-risk findings with a clinician.',
           'informational',
-          { ...rest, ...(panelGenes != null ? { panel_gene_count: panelGenes } : {}) },
+          {
+            ...rest,
+            ...(panelGenes != null ? { panel_gene_count: panelGenes } : {}),
+            consumer_report: geneticFindingConsumerReport(
+              'genetic_condition_catalog_match',
+              `Condition-catalog match in the ${modality.replace(/-/g, ' ')} modality${panelGenes != null ? ` across ${panelGenes} panel genes` : ''}.`,
+              'Catalog matches indicate relevant genes, not a diagnosis. Review carrier or disease-risk findings with a clinician.',
+              { ...rest, ...(panelGenes != null ? { panel_gene_count: panelGenes } : {}) },
+            ),
+          },
           undefined,
           { modality },
         ));
@@ -247,6 +267,58 @@ function geneticFindingAction(card: Record<string, unknown>): string {
   return 'Educational context. Confirm clinically significant or carrier findings with a qualified clinician or genetic counselor.';
 }
 
+// This compact, API-owned view keeps the existing Wellnizz categories and
+// generated interpretation text, but gives clients a stable consumer-report
+// hierarchy instead of asking every client to reverse-engineer opaque raw data.
+// It deliberately does not invent dose changes or references when the pipeline
+// has not supplied them.
+function geneticFindingConsumerReport(
+  findingType: string,
+  resultSummary: string,
+  action: string,
+  raw: Record<string, unknown>,
+): Record<string, unknown> {
+  const gene = stringValue(raw.gene);
+  const rsid = stringValue(raw.rsid);
+  const limitations = stringArray(raw.limitations);
+  const source = isRecord(raw.source) ? raw.source : undefined;
+  return {
+    schema_version: '1.0',
+    category: findingType,
+    description: stringValue(raw.consumer_value) ?? stringValue(raw.description) ?? stringValue(raw.annotation),
+    result: {
+      label: resultSummary,
+      explanation: stringValue(raw.annotation),
+    },
+    evidence: {
+      genes: gene ? [gene] : stringArray(raw.genes),
+      variants: rsid ? [{
+        rsid,
+        gene,
+        genotype: stringValue(raw.zygosity),
+        clinical_significance: stringValue(raw.clinicalSignificance),
+        confidence: stringValue(raw.confidenceTier) ?? stringValue(raw.confidenceLabel),
+        review_status: stringValue(raw.reviewStatus),
+      }] : [],
+      coverage: isRecord(raw.coverage) ? raw.coverage : undefined,
+      matching: isRecord(raw.matching) ? raw.matching : undefined,
+      calibration: isRecord(raw.calibration) ? raw.calibration : undefined,
+    },
+    action,
+    technical: compactTechnicalContext(raw),
+    limitations,
+    references: source ? [source] : [],
+  };
+}
+
+function compactTechnicalContext(raw: Record<string, unknown>): Record<string, unknown> {
+  const fields = [
+    'clinicalSignificance', 'confidenceTier', 'confidenceLabel', 'reviewStatus',
+    'calculationState', 'riskLabel', 'coveragePct', 'genomeBuild', 'sourceName', 'sourceRelease',
+  ];
+  return Object.fromEntries(fields.flatMap(field => raw[field] == null ? [] : [[field, raw[field]]])) as Record<string, unknown>;
+}
+
 function dashboardMetadataRecord(dashboard: unknown): Record<string, unknown> | undefined {
   if (!isRecord(dashboard)) return undefined;
   return isRecord(dashboard.metadata) ? dashboard.metadata : undefined;
@@ -258,6 +330,10 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 function stringValue(value: unknown): string | undefined {
   return typeof value === 'string' && value.trim() ? value : undefined;
+}
+
+function stringArray(value: unknown): string[] {
+  return Array.isArray(value) ? value.filter((item): item is string => typeof item === 'string' && Boolean(item.trim())) : [];
 }
 
 function numberValue(value: unknown): number | undefined {

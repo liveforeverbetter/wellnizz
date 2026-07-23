@@ -1057,14 +1057,22 @@ function geneticTraitGroup(members) {
   const evidence = members.map(item => item.raw && typeof item.raw === 'object' ? item.raw : {});
   const genes = [...new Set(evidence.map(raw => raw.gene).filter(Boolean))].sort();
   const variants = [...new Set(evidence.map(raw => raw.rsid).filter(Boolean))].sort();
-  const trait = String(evidence[0]?.disease || first.title);
+  const trait = geneticFindingTitle(String(evidence[0]?.disease || first.title));
+  const storedReports = evidence.map(raw => raw.consumer_report).filter(report => report && typeof report === 'object');
+  const report = storedReports.length ? mergeGeneticReports(storedReports) : undefined;
   return {
     ...first,
     title: trait,
-    summary: `${variants.length} associated variant${variants.length === 1 ? '' : 's'} across ${genes.length} gene${genes.length === 1 ? '' : 's'}. Open the evidence to review the genes and rsIDs behind this trait.`,
-    raw: { ...evidence[0], trait, genes, variants, grouped_variant_count: variants.length },
+    summary: report?.result?.label || first.summary,
+    raw: { ...evidence[0], trait, genes, variants, grouped_variant_count: variants.length, ...(report ? { consumer_report: report } : {}) },
     grouped_genetic_trait: true,
   };
+}
+
+function geneticFindingTitle(value) {
+  const parts = [...new Set(String(value).split(',').map(part => part.trim()).filter(part => part && part.toLowerCase() !== 'not specified'))];
+  if (!parts.length) return value;
+  return parts.length > 2 ? `${parts.slice(0, 2).join(' · ')} +${parts.length - 2} more` : parts.join(' · ');
 }
 
 function geneticTypePriority(interp) {
@@ -1110,6 +1118,7 @@ function interpretationSectionName(interpretation) {
 }
 
 function interpretationCard(interp) {
+  if (interp.category === 'genetics' && interp.type !== 'genetic_pipeline_analysis') return geneticFindingCard(interp);
   const statusClass = interp.score != null ? (interp.score >= 70 ? 'positive' : interp.score >= 40 ? 'neutral' : 'attention') : 'neutral';
   const raw = interp.raw && typeof interp.raw === 'object' ? interp.raw : {};
   const evidence = interp.grouped_genetic_trait ? geneticEvidence(raw) : '';
@@ -1125,13 +1134,119 @@ function interpretationCard(interp) {
   </article>`;
 }
 
-function geneticEvidence(raw) {
-  const genes = Array.isArray(raw.genes) ? raw.genes : [];
-  const variants = Array.isArray(raw.variants) ? raw.variants : [];
+function geneticFindingCard(interp) {
+  const raw = interp.raw && typeof interp.raw === 'object' ? interp.raw : {};
+  const report = geneticConsumerReport(interp, raw);
+  const result = report.result || {};
+  const evidence = geneticEvidence(report.evidence || {});
+  const technical = geneticTechnicalReport(report);
+  const limitations = geneticLimitations(report.limitations || []);
+  const references = geneticReferences(report.references || []);
+  return `<article class="card interpretation-card genetic-finding-card">
+    <div class="interp-head"><span class="interp-category">${escapeHtml(interpretationSectionName(interp))}</span></div>
+    <h3>${escapeHtml(interp.title)}</h3>
+    ${report.description && report.description !== result.label ? `<p class="genetic-context">${escapeHtml(report.description)}</p>` : ''}
+    <div class="genetic-result-band"><span>Result</span><strong>${escapeHtml(result.label || interp.summary || 'Result available')}</strong>${result.explanation && result.explanation !== result.label ? `<p>${escapeHtml(result.explanation)}</p>` : ''}</div>
+    ${evidence}
+    ${report.action ? `<div class="interp-action"><strong>How to use this</strong><p>${escapeHtml(report.action)}</p></div>` : ''}
+    ${technical}${limitations}${references}
+  </article>`;
+}
+
+function geneticConsumerReport(interp, raw) {
+  const contract = raw.consumer_report && typeof raw.consumer_report === 'object' ? raw.consumer_report : {};
+  const contractResult = contract.result && typeof contract.result === 'object' ? contract.result : {};
+  const genes = Array.isArray(raw.genes) ? raw.genes : raw.gene ? [raw.gene] : [];
+  const variants = Array.isArray(raw.variants)
+    ? raw.variants.map(rsid => typeof rsid === 'string' ? { rsid } : rsid)
+    : raw.rsid ? [{ rsid: raw.rsid, gene: raw.gene, genotype: raw.zygosity, clinical_significance: raw.clinicalSignificance, confidence: raw.confidenceTier || raw.confidenceLabel, review_status: raw.reviewStatus }] : [];
+  const evidence = contract.evidence && typeof contract.evidence === 'object' ? contract.evidence : {};
+  return {
+    ...contract,
+    description: contract.description || raw.consumer_value || raw.description || raw.annotation || '',
+    result: {
+      label: contractResult.label || interp.summary || raw.annotation || '',
+      explanation: contractResult.explanation || raw.annotation || '',
+    },
+    evidence: {
+      ...evidence,
+      genes: Array.isArray(evidence.genes) ? evidence.genes : genes,
+      variants: Array.isArray(evidence.variants) && evidence.variants.length ? evidence.variants : variants,
+      coverage: evidence.coverage || raw.coverage,
+      matching: evidence.matching || raw.matching,
+      calibration: evidence.calibration || raw.calibration,
+    },
+    action: contract.action || interp.action || '',
+    technical: contract.technical && typeof contract.technical === 'object' ? contract.technical : geneticTechnicalFields(raw),
+    limitations: Array.isArray(contract.limitations) ? contract.limitations : Array.isArray(raw.limitations) ? raw.limitations : [],
+    references: Array.isArray(contract.references) ? contract.references : raw.source ? [raw.source] : [],
+  };
+}
+
+function mergeGeneticReports(reports) {
+  const first = reports[0] || { result: {}, evidence: {} };
+  const genes = [...new Set(reports.flatMap(report => report.evidence?.genes || []).filter(Boolean))].sort();
+  const variants = [...new Map(reports.flatMap(report => report.evidence?.variants || []).filter(variant => variant?.rsid).map(variant => [variant.rsid, variant])).values()];
+  const limitations = [...new Set(reports.flatMap(report => report.limitations || []).filter(Boolean))];
+  const references = [...new Map(reports.flatMap(report => report.references || []).filter(reference => reference && typeof reference === 'object').map(reference => [reference.url || reference.name || JSON.stringify(reference), reference])).values()];
+  return { ...first, evidence: { ...(first.evidence || {}), genes, variants }, limitations, references };
+}
+
+function geneticEvidence(evidence) {
+  const genes = Array.isArray(evidence.genes) ? evidence.genes.filter(Boolean) : [];
+  const variants = Array.isArray(evidence.variants) ? evidence.variants.filter(Boolean) : [];
+  if (!genes.length && !variants.length) return '';
+  const rows = variants.map(variant => {
+    const record = typeof variant === 'object' ? variant : { rsid: variant };
+    const detail = [record.gene, record.genotype, record.clinical_significance].filter(Boolean).join(' · ');
+    return `<li><strong>${escapeHtml(String(record.rsid || 'Variant'))}</strong>${detail ? `<span>${escapeHtml(detail)}</span>` : ''}</li>`;
+  }).join('');
   return `<details class="genetic-evidence"><summary>${variants.length} associated variant${variants.length === 1 ? '' : 's'} across ${genes.length} gene${genes.length === 1 ? '' : 's'}</summary>
     ${genes.length ? `<p><strong>Genes</strong><span>${escapeHtml(genes.join(', '))}</span></p>` : ''}
-    ${variants.length ? `<p><strong>Variants</strong><span>${escapeHtml(variants.join(', '))}</span></p>` : ''}
+    ${rows ? `<ul>${rows}</ul>` : ''}
   </details>`;
+}
+
+function geneticTechnicalFields(raw) {
+  const fields = ['clinicalSignificance', 'confidenceTier', 'confidenceLabel', 'reviewStatus', 'calculationState', 'riskLabel', 'coveragePct', 'genomeBuild', 'sourceName', 'sourceRelease'];
+  return Object.fromEntries(fields.filter(field => raw[field] != null && raw[field] !== '').map(field => [field, raw[field]]));
+}
+
+function geneticTechnicalReport(report) {
+  const fields = { ...(report.technical || {}) };
+  if (report.evidence?.coverage) fields.coverage = report.evidence.coverage;
+  if (report.evidence?.matching) fields.matching = report.evidence.matching;
+  if (report.evidence?.calibration) fields.calibration = report.evidence.calibration;
+  const rows = Object.entries(fields).filter(([, value]) => value != null && value !== '').map(([key, value]) => `<li><strong>${escapeHtml(titleCase(key.replace(/([A-Z])/g, ' $1').trim()))}</strong><span>${escapeHtml(typeof value === 'object' ? compactEvidenceValue(value) : String(value))}</span></li>`).join('');
+  return rows ? `<details class="genetic-technical"><summary>Technical context</summary><ul>${rows}</ul></details>` : '';
+}
+
+function compactEvidenceValue(value) {
+  return Object.entries(value).filter(([, item]) => item != null && item !== '').map(([key, item]) => `${key.replace(/([A-Z])/g, ' $1').trim()}: ${item}`).join(' · ');
+}
+
+function geneticLimitations(limitations) {
+  const items = limitations.filter(item => typeof item === 'string' && item.trim()).map(item => `<li>${escapeHtml(item)}</li>`).join('');
+  return items ? `<details class="genetic-limitations"><summary>Interpretation limits</summary><ul>${items}</ul></details>` : '';
+}
+
+function geneticReferences(references) {
+  const items = references.filter(reference => reference && typeof reference === 'object').map(reference => {
+    const label = reference.name || reference.id || reference.url;
+    const url = safeEvidenceUrl(reference.url);
+    return url ? `<li><a href="${escapeHtml(url)}" target="_blank" rel="noopener">${escapeHtml(String(label))}</a></li>` : `<li>${escapeHtml(String(label))}</li>`;
+  }).join('');
+  return items ? `<details class="genetic-references"><summary>Evidence source</summary><ul>${items}</ul></details>` : '';
+}
+
+function safeEvidenceUrl(value) {
+  if (!value) return undefined;
+  try {
+    const url = new URL(String(value));
+    return ['https:', 'http:'].includes(url.protocol) ? url.toString() : undefined;
+  } catch {
+    return undefined;
+  }
 }
 
 // ---- Result Overlay ----
