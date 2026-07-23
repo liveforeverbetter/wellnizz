@@ -188,14 +188,14 @@ authModeToggle?.addEventListener('keydown', (event) => {
 function agentSetupPrompt() {
   const base = window.location.origin;
   return [
-    'Help me connect, analyze, and interpret my wellness data.',
+    'Help me connect, analyze, and interpret my longevity data.',
     `Read ${base}/SKILL.md and follow its onboarding instructions.`,
     'Use cloud mode. Follow the skill\'s authentication and onboarding flow, then create a custom dashboard using one of the designs the user selects.',
   ].join('\n');
 }
 
 function agentSetupPromptDisplay() {
-  return 'Help me connect, analyze, and interpret my wellness data.';
+  return 'Help me connect, analyze, and interpret my longevity data.';
 }
 
 copyAgentSetupBtn?.addEventListener('click', async () => {
