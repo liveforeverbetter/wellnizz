@@ -1261,7 +1261,8 @@ function interpretationSectionName(interpretation) {
 }
 
 function interpretationCard(interp) {
-  if (interp.category === 'genetics' && interp.type !== 'genetic_pipeline_analysis') return geneticFindingCard(interp);
+  if (interp.category === 'genetics' && interp.type === 'genetic_pipeline_analysis') return geneticAnalysisOverviewCard(interp);
+  if (interp.category === 'genetics') return geneticFindingCard(interp);
   const statusClass = interp.score != null ? (interp.score >= 70 ? 'positive' : interp.score >= 40 ? 'neutral' : 'attention') : 'neutral';
   const raw = interp.raw && typeof interp.raw === 'object' ? interp.raw : {};
   const evidence = interp.grouped_genetic_trait ? geneticEvidence(raw) : '';
@@ -1275,6 +1276,30 @@ function interpretationCard(interp) {
     ${evidence}
     ${interp.action ? `<div class="interp-action"><strong>What to do</strong><p>${escapeHtml(interp.action)}</p></div>` : ''}
   </article>`;
+}
+
+function geneticAnalysisOverviewCard(interp) {
+  const pipeline = interp.raw && typeof interp.raw === 'object' ? interp.raw : {};
+  const raw = pipeline.raw && typeof pipeline.raw === 'object' ? pipeline.raw : pipeline;
+  const details = [
+    raw.variant_count != null ? [formatCompactNumber(raw.variant_count), 'variants reviewed'] : null,
+    raw.annotated_count != null ? [formatCompactNumber(raw.annotated_count), 'rsID-linked variants'] : null,
+    raw.cpic_actionable != null ? [String(raw.cpic_actionable), 'CPIC medication findings'] : null,
+    raw.clinvar_pathogenic != null ? [String(raw.clinvar_pathogenic), 'ClinVar pathogenic findings'] : null,
+  ].filter(Boolean);
+  return `<article class="card interpretation-card genetic-analysis-card">
+    <div class="interp-head"><span class="interp-category">Analysis & evidence</span><span class="status connected">Complete</span></div>
+    <h3>Your WGS interpretation</h3>
+    <p>${escapeHtml(interp.summary || 'Your genetic file was processed into grouped, evidence-aware findings.')}</p>
+    ${details.length ? `<div class="genetic-analysis-metrics">${details.map(([value, label]) => `<span><strong>${escapeHtml(value)}</strong><small>${escapeHtml(label)}</small></span>`).join('')}</div>` : ''}
+    <div class="interp-action"><strong>How to read this</strong><p>These findings are educational context, not a diagnosis. Medication and clinical findings are grouped separately so you can review them with a qualified clinician.</p></div>
+  </article>`;
+}
+
+function formatCompactNumber(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return String(value);
+  return new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 }).format(number);
 }
 
 function geneticFindingCard(interp) {
