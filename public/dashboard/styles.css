@@ -2404,6 +2404,23 @@ code {
    while variant-level and technical context stay available without crowding it. */
 .genetic-finding-card { gap: 12px; border-left-color: #6d5ab3; }
 
+.genetic-analysis-card { gap: 12px; border-left-color: #425569; }
+.genetic-analysis-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+  gap: 8px;
+}
+.genetic-analysis-metrics span {
+  display: grid;
+  gap: 3px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.42);
+}
+.genetic-analysis-metrics strong { color: var(--ink); font-family: var(--font-display); font-size: 17px; font-weight: 600; letter-spacing: -0.03em; }
+.genetic-analysis-metrics small { color: var(--ink-muted); font-size: 9.5px; line-height: 1.35; }
+
 .genetic-context { color: var(--ink-muted); }
 
 .genetic-result-band {
