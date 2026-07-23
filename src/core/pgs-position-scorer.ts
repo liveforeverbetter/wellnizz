@@ -402,7 +402,9 @@ async function queryDbsnpReferenceAlleles(dbsnpVcf: string, requestedKeys: Set<s
   const regionPath = path.join(tempDir, 'score-positions.tsv');
   const regions = Array.from(requestedKeys).sort(comparePositionKeys).map(key => {
     const [chrom, pos] = key.split(':');
-    return `${grch37Contig(chrom)}\t${pos}`;
+    // `bcftools -R` expects the tabular form CHROM, FROM, TO. The explicit
+    // end keeps this fallback to an exact single-base lookup.
+    return `${grch37Contig(chrom)}\t${pos}\t${pos}`;
   }).join('\n');
   await writeFile(regionPath, `${regions}\n`);
   const output = new Map<string, string>();
