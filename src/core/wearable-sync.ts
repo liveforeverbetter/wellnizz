@@ -1,4 +1,5 @@
 import { syncWearableProvider } from '../connectors/wearables.js';
+import { runWearableAutoAnalysis } from './analysis.js';
 import { decryptToken, encryptToken, loadTokenEncryptionKey } from '../connectors/token-crypto.js';
 import { createId, type HealthStore } from '../store.js';
 import { buildSourceReference, normalizeImportedFile } from './normalization.js';
@@ -84,6 +85,7 @@ export async function runWhoopWebhookSync(input: ConnectorSyncRequest, store: He
   }, payload);
   const normalized_observations = normalizeImportedFile(source, JSON.stringify({ readings: syncResult.readings }));
   await store.saveSource(source, normalized_observations);
+  await refreshWearableAnalysis(store, input.user_id, input.organization_id);
   return {
     provider: 'whoop',
     readings_count: syncResult.readings.length,
@@ -156,6 +158,7 @@ export async function runOuraWebhookSync(input: ConnectorSyncRequest, store: Hea
   }, payload);
   const normalized_observations = normalizeImportedFile(source, JSON.stringify({ readings: syncResult.readings }));
   await store.saveSource(source, normalized_observations);
+  await refreshWearableAnalysis(store, input.user_id, input.organization_id);
   return { provider: 'oura', readings_count: syncResult.readings.length, resource_type: input.webhook_resource_type, source, normalized_observations };
 }
 
@@ -166,6 +169,24 @@ async function resolveOuraToken(input: ConnectorSyncRequest, store: HealthStore)
     if (token) return token;
   }
   return undefined;
+}
+
+// Refresh the stored wearables analysis after a webhook sync persists new
+// readings, so the dashboard reflects the sync without a manual re-analysis.
+// Best-effort: a failure must not fail the webhook job.
+async function refreshWearableAnalysis(store: HealthStore, userId: string, organizationId?: string): Promise<void> {
+  try {
+    await runWearableAutoAnalysis(store, userId, organizationId);
+  } catch (error) {
+    console.warn(JSON.stringify({
+      ts: new Date().toISOString(),
+      service: 'wellnizz-api',
+      event: 'wearable_auto_analysis_failed',
+      user_id: userId,
+      organization_id: organizationId,
+      error: error instanceof Error ? error.message : String(error),
+    }));
+  }
 }
 
 function isoDaysAgo(days: number): string {

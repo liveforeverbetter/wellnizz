@@ -553,6 +553,83 @@ test('imported Health Connect record-type names resolve beyond steps', async () 
   assert.ok(names.includes('spo2'), 'spo2 resolved from OxygenSaturation');
 });
 
+test('Health Connect SDK sync auto-refreshes the wearables analysis with a heart_rate finding', async () => {
+  const userId = 'hc_auto_user';
+  const orgId = personalOrganizationId(userId);
+  const sync = await fetch(`${baseUrl}/api/v1/sdk/users/${userId}/sync`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({
+      provider: 'health_connect',
+      sdkVersion: '0.10.0',
+      syncTimestamp: '2026-07-20T08:00:00Z',
+      data: {
+        records: [
+          { id: 'hr-1', type: 'heartRate', startDate: '2026-07-20T07:00:00Z', endDate: '2026-07-20T07:00:00Z', value: 62, unit: 'bpm' },
+          { id: 'hrv-1', type: 'heartRateVariabilityRmssd', startDate: '2026-07-20T07:00:00Z', endDate: '2026-07-20T07:00:00Z', value: 44, unit: 'ms' },
+          { id: 'steps-1', type: 'steps', startDate: '2026-07-20T07:00:00Z', endDate: '2026-07-20T07:00:00Z', value: 9000, unit: 'count' },
+        ],
+        sleep: [],
+        workouts: [],
+      },
+    }),
+  });
+  assert.equal(sync.status, 202);
+
+  // No manual /wearables/analyze call: the sync itself refreshed the analysis.
+  const list = await get(`/analyses?modality=wearables&user_id=${userId}&organization_id=${orgId}&limit=1`);
+  assert.equal(list.analyses.length, 1);
+  const analysis = await get(`/analyses/${list.analyses[0].id}`);
+  const names = analysis.derived_interpretations.map((item: any) => item.raw?.id).filter(Boolean);
+  assert.ok(names.includes('heart_rate'), 'plain heart_rate now produces a finding');
+  assert.ok(names.includes('hrv'), 'hrv finding present');
+});
+
+test('a nested Health Connect value object is not dropped', async () => {
+  const userId = 'hc_nested_user';
+  const orgId = personalOrganizationId(userId);
+  const sync = await fetch(`${baseUrl}/api/v1/sdk/users/${userId}/sync`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({
+      provider: 'health_connect',
+      sdkVersion: '0.10.0',
+      syncTimestamp: '2026-07-21T08:00:00Z',
+      data: {
+        records: [
+          { id: 'rhr-1', type: 'restingHeartRate', startDate: '2026-07-21T07:00:00Z', endDate: '2026-07-21T07:00:00Z', value: { numericValue: 55 }, unit: 'bpm' },
+        ],
+        sleep: [],
+        workouts: [],
+      },
+    }),
+  });
+  const body = await sync.json();
+  assert.equal(body.readings_count, 1, 'nested { numericValue } value is parsed, not dropped');
+  const source = await get(`/sources/${body.source_id}`);
+  assert.equal(source.normalized_observations.find((observation: any) => observation.name === 'resting_heart_rate')?.value, 55);
+});
+
+test('wearable auto-analysis keeps one finding per metric across repeated imports', async () => {
+  const userId = 'wearable_dedup_user';
+  const orgId = personalOrganizationId(userId);
+  for (const steps of [6000, 11000]) {
+    await post('/imports/file', {
+      user_id: userId,
+      organization_id: orgId,
+      category: 'wearables',
+      filename: 'steps.csv',
+      content_type: 'text/csv',
+      text: `metric,value,unit\nsteps,${steps},steps\n`,
+    });
+  }
+  const list = await get(`/analyses?modality=wearables&user_id=${userId}&organization_id=${orgId}&limit=1`);
+  assert.equal(list.analyses.length, 1);
+  const analysis = await get(`/analyses/${list.analyses[0].id}`);
+  const stepFindings = analysis.derived_interpretations.filter((item: any) => item.raw?.id === 'steps');
+  assert.equal(stepFindings.length, 1, 'two step imports collapse to a single steps finding');
+});
+
 test('retires the legacy wearable pull endpoint', async () => {
   const response = await fetch(`${baseUrl}/connections/wearables/sync`, {
     method: 'POST',

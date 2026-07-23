@@ -4,12 +4,13 @@ import { readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join as pathJoin } from 'node:path';
 import { URL } from 'node:url';
-import { runHealthAnalysis, queryHealthContext, summarizeAnalysis, type AnalysisOptions } from './core/analysis.js';
+import { runHealthAnalysis, queryHealthContext, summarizeAnalysis, runWearableAutoAnalysis, type AnalysisOptions } from './core/analysis.js';
 import { runAncestryAnalysis, type AncestryAnalysisInput } from './core/ancestry-analysis.js';
 import { buildHealthContext } from './core/health-context.js';
 import { buildHealthTrends } from './core/trends.js';
 import { computeRetestReminders } from './core/reminders.js';
 import { enrichAnalysisWithGeneticPipeline } from './core/genetic-analysis.js';
+import { dispatchQueuedWgsWorker } from './core/fly-wgs-dispatch.js';
 import { queryGeneticSlice, type GeneticSliceIndex } from './core/genetic-slice.js';
 import { buildRecommendations } from './core/recommendations.js';
 import { buildActionPlan } from './core/action-plan.js';
@@ -528,6 +529,7 @@ async function route(req: IncomingMessage, res: ServerResponse, store: HealthSto
     assertUserQuota(quotaLimiter, quotaConfig, 'connections.sync', userId, organizationId);
     const payload = await readJson<HealthConnectSdkPayload>(req, bodyLimitForRoute(authConfig, method, originalUrl.pathname));
     const result = await ingestHealthConnectSdkPayload(payload, userId, organizationId, store);
+    await refreshWearableAnalysis(store, userId, organizationId);
     await emitWebhookEvent(store, 'wearables.sync.completed', {
       userId,
       organizationId,
@@ -681,6 +683,7 @@ async function route(req: IncomingMessage, res: ServerResponse, store: HealthSto
       });
       return { status: 201, body: { source, normalized_observations: observations, ...(warnings.length ? { warnings } : {}) } };
     });
+    if (input.category === 'wearables') await refreshWearableAnalysis(store, input.user_id, input.organization_id);
     auditEvent(req, 'success', { route: url.pathname, status: 201, auth });
     return sendJson(req, res, authConfig, result.status, result.body);
   }
@@ -1046,6 +1049,9 @@ async function route(req: IncomingMessage, res: ServerResponse, store: HealthSto
       }
       return { status: 200, body: syncBody };
     });
+    if (result.body && typeof result.body === 'object' && 'normalized_observations' in result.body) {
+      await refreshWearableAnalysis(store, input.user_id, input.organization_id);
+    }
     // Re-attach the rotated token only on a fresh sync (undefined on idempotent
     // replay, which is correct: the token was already delivered and has rotated).
     const responseBody = refreshedToken && result.body && typeof result.body === 'object'
@@ -1753,7 +1759,39 @@ async function createStoredAnalysis(
   if (requiresQueuedGeneticPreSave(sources)) await store.saveAnalysis(baseAnalysis);
   const analysis = await enrichAnalysisWithGeneticPipeline(baseAnalysis, sources, store, { annotation_depth: input.annotation_depth });
   await store.saveAnalysis(analysis);
+  await requestQueuedWgsCapacity(analysis, store);
   return analysis;
+}
+
+async function requestQueuedWgsCapacity(analysis: AnalysisResult, store: HealthStore): Promise<void> {
+  const queued = analysis.derived_interpretations.find(item => item.type === 'genetic_pipeline_queued');
+  const raw = queued?.raw;
+  const jobId = raw && typeof raw === 'object' ? (raw as Record<string, unknown>).job_id : undefined;
+  if (typeof jobId !== 'string') return;
+  const dispatch = await dispatchQueuedWgsWorker();
+  await store.updateGeneticAnalysisJobProgress(jobId, {
+    stage: 'queued',
+    progress_pct: 0,
+    progress_message: dispatch.message,
+  });
+}
+
+// Refresh the stored wearables analysis after new wearable data lands so the
+// dashboard's "latest analysis" is never stale. Best-effort: a failure here must
+// not fail the ingest that already persisted the data.
+async function refreshWearableAnalysis(store: HealthStore, userId: string, organizationId?: string): Promise<void> {
+  try {
+    await runWearableAutoAnalysis(store, userId, organizationId);
+  } catch (error) {
+    console.warn(JSON.stringify({
+      ts: new Date().toISOString(),
+      service: 'wellnizz-api',
+      event: 'wearable_auto_analysis_failed',
+      user_id: userId,
+      organization_id: organizationId,
+      error: error instanceof Error ? error.message : String(error),
+    }));
+  }
 }
 
 async function emitAnalysisWebhook(req: IncomingMessage, store: HealthStore, analysis: AnalysisResult): Promise<void> {
