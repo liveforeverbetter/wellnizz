@@ -944,6 +944,7 @@ async function route(req: IncomingMessage, res: ServerResponse, store: HealthSto
         account,
         tokenResult: tokenResult as OAuthTokenSet,
         key: getTokenEncryptionKey()!,
+        authConfig,
       });
       serverSyncEnabled = webhookEnabled;
     } else if (!isBridge && input.source_provider === 'oura' && firstParty && getTokenEncryptionKey()) {
@@ -2539,8 +2540,9 @@ async function persistWhoopTokens(params: {
   account: { id: string; user_id: string; organization_id: string; provider: string; external_user_id: string; metadata: Record<string, unknown> };
   tokenResult: OAuthTokenSet;
   key: Buffer;
+  authConfig: AuthConfig;
 }): Promise<boolean> {
-  const { store, account, tokenResult, key } = params;
+  const { store, account, tokenResult, key, authConfig } = params;
   const accessToken = tokenResult?.access_token;
   const refreshToken = tokenResult?.refresh_token;
   if (!accessToken && !refreshToken) return false;
@@ -2584,7 +2586,44 @@ async function persistWhoopTokens(params: {
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
   });
+
+  // Register WHOOP webhook subscriptions so incoming data is synced automatically.
+  // Subscription registration is idempotent; we call it on every connection to
+  // ensure the deployment's callback URL is registered even if it was removed.
+  if (accessToken) {
+    await ensureWhoopWebhookSubscriptions(accessToken, authConfig).catch(() => false);
+  }
+
   return true;
+}
+
+const WHOOP_WEBHOOK_EVENT_TYPES = ['sleep.updated', 'recovery.updated', 'workout.updated'];
+
+async function ensureWhoopWebhookSubscriptions(accessToken: string, authConfig: AuthConfig): Promise<boolean> {
+  const baseUrl = new URL(authConfig.whoopOAuth?.defaultRedirectUri ?? process.env.PUBLIC_BASE_URL ?? 'http://localhost:8787').origin;
+  const callbackUrl = `${baseUrl}/connections/whoop/webhook`;
+  const headers = { authorization: `Bearer ${accessToken}`, 'content-type': 'application/json' };
+
+  try {
+    const existingResponse = await fetch('https://api.prod.whoop.com/developer/v2/webhook/subscription', { headers });
+    if (!existingResponse.ok) return false;
+    const existingBody = await existingResponse.json() as Array<Record<string, unknown>> | { subscriptions?: Array<Record<string, unknown>> };
+    const existing = Array.isArray(existingBody) ? existingBody : (existingBody?.subscriptions ?? []);
+
+    for (const eventType of WHOOP_WEBHOOK_EVENT_TYPES) {
+      const found = existing.some(sub => sub.callback_url === callbackUrl && sub.event_type === eventType);
+      if (found) continue;
+      const response = await fetch('https://api.prod.whoop.com/developer/v2/webhook/subscription', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ callback_url: callbackUrl, event_type: eventType }),
+      });
+      if (!response.ok) return false;
+    }
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 // WHOOP webhook receiver. Verifies the HMAC signature over the raw body, then
