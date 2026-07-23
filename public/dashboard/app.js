@@ -1508,7 +1508,9 @@ function geneticConsumerReport(interp, raw) {
   const genes = Array.isArray(raw.genes) ? raw.genes : raw.gene ? [raw.gene] : [];
   const variants = Array.isArray(raw.variants)
     ? raw.variants.map(rsid => typeof rsid === 'string' ? { rsid } : rsid)
-    : raw.rsid ? [{ rsid: raw.rsid, gene: raw.gene, genotype: raw.zygosity, clinical_significance: raw.clinicalSignificance, confidence: raw.confidenceTier || raw.confidenceLabel, review_status: raw.reviewStatus }] : [];
+    : Array.isArray(raw.rsids) && raw.rsids.length
+      ? raw.rsids.map(rsid => (typeof rsid === 'string' ? { rsid } : rsid))
+      : raw.rsid ? [{ rsid: raw.rsid, gene: raw.gene, genotype: raw.zygosity, clinical_significance: raw.clinicalSignificance, confidence: raw.confidenceTier || raw.confidenceLabel, review_status: raw.reviewStatus }] : [];
   const evidence = contract.evidence && typeof contract.evidence === 'object' ? contract.evidence : {};
   return {
     ...contract,
@@ -1521,6 +1523,7 @@ function geneticConsumerReport(interp, raw) {
       ...evidence,
       genes: Array.isArray(evidence.genes) ? evidence.genes : genes,
       variants: Array.isArray(evidence.variants) && evidence.variants.length ? evidence.variants : variants,
+      heritability_pct: evidence.heritability_pct != null ? evidence.heritability_pct : raw.heritability_pct,
       coverage: evidence.coverage || raw.coverage,
       matching: evidence.matching || raw.matching,
       calibration: evidence.calibration || raw.calibration,
@@ -1544,14 +1547,20 @@ function mergeGeneticReports(reports) {
 function geneticEvidence(evidence) {
   const genes = Array.isArray(evidence.genes) ? evidence.genes.filter(Boolean) : [];
   const variants = Array.isArray(evidence.variants) ? evidence.variants.filter(Boolean) : [];
-  if (!genes.length && !variants.length) return '';
+  const heritability = typeof evidence.heritability_pct === 'number' ? evidence.heritability_pct : null;
+  if (!genes.length && !variants.length && heritability == null) return '';
   const rows = variants.map(variant => {
     const record = typeof variant === 'object' ? variant : { rsid: variant };
     const detail = [record.gene, record.genotype, record.clinical_significance].filter(Boolean).join(' · ');
     return `<li><strong>${escapeHtml(String(record.rsid || 'Variant'))}</strong>${detail ? `<span>${escapeHtml(detail)}</span>` : ''}</li>`;
   }).join('');
-  return `<details class="genetic-evidence"><summary>${variants.length} associated variant${variants.length === 1 ? '' : 's'} across ${genes.length} gene${genes.length === 1 ? '' : 's'}</summary>
-    ${genes.length ? `<p><strong>Genes</strong><span>${escapeHtml(genes.join(', '))}</span></p>` : ''}
+  const summaryBits = [];
+  if (variants.length) summaryBits.push(`${variants.length} variant${variants.length === 1 ? '' : 's'}`);
+  if (genes.length) summaryBits.push(`${genes.length} gene${genes.length === 1 ? '' : 's'}`);
+  if (heritability != null) summaryBits.push(`~${heritability}% heritable`);
+  return `<details class="genetic-evidence"><summary>${summaryBits.join(' · ') || 'Evidence'}</summary>
+    ${heritability != null ? `<p><strong>Heritability</strong><span>Genetics explains ~${heritability}% of this trait; the rest is lifestyle, environment, and measured physiology.</span></p>` : ''}
+    ${genes.length ? `<p><strong>Genes analyzed</strong><span>${escapeHtml(genes.join(', '))}</span></p>` : ''}
     ${rows ? `<ul>${rows}</ul>` : ''}
   </details>`;
 }

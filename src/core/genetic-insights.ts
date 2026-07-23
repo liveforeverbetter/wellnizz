@@ -7,7 +7,51 @@
  * health and optimization insights from the completed WGS dashboard.
  */
 
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+
 export const GENETIC_INTERPRETATION_RELEASE = '2026-07-19.3';
+
+// Curated trait catalog (data/genetics/curated-traits.json): analyzed genes,
+// rsIDs, and heritability per trait, extracted from the WGS report corpus. Used
+// to attach the full gene/rsID panel to a finding instead of the handful of
+// hardcoded spotlights, so a whole-genome analysis surfaces the evidence it
+// actually computed. Loaded once, best-effort (missing file degrades silently).
+interface CuratedTraitFacts { genes: string[]; rsids: string[]; heritability_pct: number | null }
+let curatedCatalogCache: Map<string, CuratedTraitFacts> | null | undefined;
+
+function normalizeTraitKey(value: string | undefined): string {
+  return String(value ?? '').toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '');
+}
+
+function curatedCatalog(): Map<string, CuratedTraitFacts> | null {
+  if (curatedCatalogCache !== undefined) return curatedCatalogCache;
+  try {
+    const raw = JSON.parse(readFileSync(resolve(process.cwd(), 'data/genetics/curated-traits.json'), 'utf8')) as { traits?: Record<string, { trait_id?: string; display_name?: string; genes?: string[]; rsids?: string[]; heritability_pct?: number | null }> };
+    const map = new Map<string, CuratedTraitFacts>();
+    for (const trait of Object.values(raw.traits ?? {})) {
+      const facts: CuratedTraitFacts = { genes: trait.genes ?? [], rsids: trait.rsids ?? [], heritability_pct: trait.heritability_pct ?? null };
+      for (const key of [trait.trait_id, trait.display_name]) {
+        const normalized = normalizeTraitKey(key);
+        if (normalized) map.set(normalized, facts);
+      }
+    }
+    curatedCatalogCache = map;
+  } catch {
+    curatedCatalogCache = null;
+  }
+  return curatedCatalogCache;
+}
+
+function curatedFactsFor(...keys: Array<string | undefined>): CuratedTraitFacts | undefined {
+  const catalog = curatedCatalog();
+  if (!catalog) return undefined;
+  for (const key of keys) {
+    const hit = catalog.get(normalizeTraitKey(key));
+    if (hit) return hit;
+  }
+  return undefined;
+}
 
 export type GeneticCalculationState =
   | 'calibrated_absolute_risk'
@@ -71,6 +115,7 @@ export interface GeneticConsumerInsight {
   };
   genes?: string[];
   rsids?: string[];
+  heritability_pct?: number;
   next_measurement?: string;
   limitations: string[];
   reanalysis_recommended: boolean;
@@ -365,6 +410,7 @@ function normalizePolygenicScore(score: Record<string, unknown>): GeneticConsume
     : undefined;
   const riskLabel = percentile == null ? undefined : stringValue(score.riskLabel) ?? stringValue(score.risk_label);
   const spotlight = SPOTLIGHTS.find(item => item.traitIds.includes(traitId));
+  const curated = curatedFactsFor(traitId, spotlight?.displayName, stringValue(score.sourceName));
 
   // Sanitize the legacy engine payload itself so downstream dashboard clients
   // cannot accidentally render an unproven percentile.
@@ -411,6 +457,9 @@ function normalizePolygenicScore(score: Record<string, unknown>): GeneticConsume
       url: stringValue(score.sourceUrl),
       release: stringValue(score.sourceRelease),
     },
+    genes: spotlight?.genes ?? (curated?.genes.length ? curated.genes : undefined),
+    rsids: spotlight?.rsids ?? (curated?.rsids.length ? curated.rsids : undefined),
+    heritability_pct: curated?.heritability_pct ?? undefined,
     next_measurement: spotlight?.nextMeasurement ?? measurementForTrait(traitId),
     limitations: [
       ...(spotlight?.limitations ?? []),
@@ -492,6 +541,7 @@ function directSpotlightInsight(spotlight: SpotlightDefinition, signals: Array<R
     ?? stringValue(signal.annotation)
     ?? stringValue(signal.summary)
     ?? stringValue(signal.label)).filter((value): value is string => Boolean(value)));
+  const curated = curatedFactsFor(spotlight.id, spotlight.displayName, ...spotlight.traitIds);
   return {
     id: `marker:${spotlight.id}`,
     trait_id: spotlight.id,
@@ -504,8 +554,9 @@ function directSpotlightInsight(spotlight: SpotlightDefinition, signals: Array<R
     calculation_state: 'not_applicable',
     result_summary: summaries[0] ?? 'A relevant genotype was observed; interpret it as context rather than a deterministic performance prediction.',
     consumer_value: spotlight.consumerValue,
-    genes,
-    rsids,
+    genes: genes.length ? genes : curated?.genes,
+    rsids: rsids.length ? rsids : curated?.rsids,
+    heritability_pct: curated?.heritability_pct ?? undefined,
     matching: { method: 'rsid' },
     next_measurement: spotlight.nextMeasurement,
     limitations: spotlight.limitations,
