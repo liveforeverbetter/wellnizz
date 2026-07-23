@@ -185,16 +185,6 @@ export async function runGeneticsPipelineWithWriter(
     };
   }
 
-  if (options.annotation_depth === 'full_dbsnp' && !env.HEALTH_ANALYSIS_DBSNP_GRCH37_PATH) {
-    return {
-      status: 'setup_required',
-      summary: 'Full dbSNP analysis was requested, but HEALTH_ANALYSIS_DBSNP_GRCH37_PATH is not configured. Configure the indexed GRCh37 reference, then submit a new analysis for this source.',
-      raw: {
-        annotation_depth_requested: 'full_dbsnp',
-      },
-    };
-  }
-
   // The bundled pipeline reuses an annotated sibling named
   // `<basename>.annotated.vcf.gz` next to the input (parse-vcf analyzeVCF). If a
   // cached annotation exists for this source+depth, restore it there so the run
@@ -217,6 +207,20 @@ export async function runGeneticsPipelineWithWriter(
         error: restoreError instanceof Error ? restoreError.message : String(restoreError),
       }));
     }
+  }
+
+  // A complete full-dbSNP annotation is self-contained. Reanalysing that
+  // cached artifact only needs the lightweight interpretation worker, not the
+  // 26GB reference volume or a 4GB machine. Require the reference only when
+  // there is no cached annotated genome to reuse.
+  if (options.annotation_depth === 'full_dbsnp' && !restoredAnnotation && !env.HEALTH_ANALYSIS_DBSNP_GRCH37_PATH) {
+    return {
+      status: 'setup_required',
+      summary: 'Full dbSNP analysis was requested, but no cached annotated genome or configured GRCh37 dbSNP reference is available. Configure the indexed reference or restore the cached annotation, then submit a new analysis for this source.',
+      raw: {
+        annotation_depth_requested: 'full_dbsnp',
+      },
+    };
   }
 
   const commandArgs = buildGeneticsPipelineArgs(userId, inputPath, outputDir, env, options);
