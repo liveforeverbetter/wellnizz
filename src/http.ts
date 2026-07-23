@@ -85,7 +85,7 @@ interface AgentLoginSession {
 }
 
 const agentLoginSessions = new Map<string, AgentLoginSession>();
-const AGENT_LOGIN_TTL_MS = 300_000;
+const AGENT_LOGIN_TTL_MS = 600_000;
 const AGENT_API_KEY_DEFAULT_TTL_DAYS = 365;
 const AGENT_API_KEY_MIN_TTL_DAYS = 180;
 const AGENT_API_KEY_MAX_TTL_DAYS = 730;
