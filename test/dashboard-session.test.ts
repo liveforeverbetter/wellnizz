@@ -126,7 +126,9 @@ test('dashboard renders only the current analysis and keeps history separate', a
     readFile('public/dashboard/index.html', 'utf8'),
   ]);
 
-  assert.match(app, /analysisParams\.set\('limit', '1'\)/);
+  assert.match(app, /analysisParams\.set\('limit', page === 'genetics' \? '25' : '1'\)/);
+  assert.match(app, /function completedGeneticsAnalysis\(analysis\)/);
+  assert.match(app, /analyses\.find\(completedGeneticsAnalysis\) \|\| analyses\[0\]/);
   assert.match(app, /const full = await apiGet\(`\/analyses\/\$\{current\.id\}`/);
   assert.doesNotMatch(app, /analyses\.slice\(0, 5\)/);
   assert.match(app, /function interpretationSections\(interpretations\)/);
