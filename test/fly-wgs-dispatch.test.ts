@@ -25,6 +25,17 @@ test('starts the configured stopped WGS machine once queue work arrives', async 
   ]);
 });
 
+test('starts a never-launched WGS machine created with skip_launch', async () => {
+  let calls = 0;
+  const outcome = await dispatchQueuedWgsWorker(configured, async () => {
+    calls += 1;
+    return calls === 1 ? Response.json({ state: 'created' }) : Response.json({ previous_state: 'created' });
+  });
+
+  assert.equal(outcome.state, 'started');
+  assert.equal(calls, 2);
+});
+
 test('does not start a second WGS machine when one is already running', async () => {
   let calls = 0;
   const outcome = await dispatchQueuedWgsWorker(configured, async () => {

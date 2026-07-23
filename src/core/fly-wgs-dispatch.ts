@@ -49,7 +49,7 @@ export async function dispatchQueuedWgsWorker(
     if (machine.state === 'started' || machine.state === 'starting') {
       return { state: 'already_running', message: 'A dedicated WGS worker is already preparing queued analysis.' };
     }
-    if (machine.state !== 'stopped' && machine.state !== 'suspended') {
+    if (machine.state !== 'created' && machine.state !== 'stopped' && machine.state !== 'suspended') {
       return capacityUnavailable(409, `The dedicated WGS worker is currently ${machine.state ?? 'unavailable'}.`);
     }
 
