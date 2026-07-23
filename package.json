@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1086.0",
-    "@aws-sdk/s3-request-presigner": "^3.1086.0",
+    "@aws-sdk/s3-request-presigner": "^3.1089.0",
     "@coinbase/x402": "^2.1.0",
     "@x402/core": "^2.18.0",
     "@x402/evm": "^2.18.0",
