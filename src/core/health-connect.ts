@@ -11,6 +11,9 @@ export interface HealthConnectSdkPayload {
   provider?: string;
   sdkVersion?: string;
   syncTimestamp?: string;
+  // IANA timezone of the device (e.g. "Europe/London"). When present, wearable
+  // daily aggregates bucket by the user's local day instead of UTC.
+  timezone?: string;
   data?: HealthConnectSdkData;
 }
 

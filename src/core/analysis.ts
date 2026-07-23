@@ -1,4 +1,4 @@
-import { analyzeBiomarkers, analyzeWearables, type BiomarkerReading, type WearableReading } from './engines.js';
+import { analyzeBiomarkers, analyzeWearables, aggregateWearableReadings, type BiomarkerReading, type WearableReading } from './engines.js';
 import { analyzeBehavioral, type BehavioralEntry } from './behavioral.js';
 import { createId, type HealthStore } from '../store.js';
 import type {
@@ -16,6 +16,9 @@ export interface AnalysisOptions {
   modality?: Extract<SourceCategory, 'biomarkers' | 'wearables' | 'genetics'>;
   operation?: 'analyze' | 'derive';
   annotation_depth?: GeneticsAnnotationDepth;
+  // IANA timezone used to bucket wearable daily aggregates by the user's local
+  // day; falls back to UTC when absent.
+  timezone?: string;
 }
 
 export function runHealthAnalysis(
@@ -65,30 +68,18 @@ export function runHealthAnalysis(
     })));
   }
 
-  // Build readings from the observation's canonical name/value rather than its
-  // raw payload: the mobile SDK path stores the original device record in `raw`
-  // (whose `id` is the record id, not the metric), so keying off raw silently
-  // dropped every SDK wearable signal. `name` is the canonical metric id on both
-  // the file-import and SDK paths.
-  //
-  // Collapse to the latest reading per metric before scoring. Auto-analysis runs
-  // over every wearable source a user has, so many daily syncs would otherwise
-  // produce dozens of duplicate readings for one metric and crowd distinct
-  // signals out of the truncated finding list. "Latest" uses the observation's
-  // own timestamp, falling back to its source's received_at.
+  // Aggregate granular wearable observations into one daily reading per metric.
+  // Read the canonical `name`/`value` rather than the raw payload: the mobile SDK
+  // path stores the original device record in `raw` (whose `id` is the record id,
+  // not the metric), so keying off raw silently dropped every SDK signal. Health
+  // Connect also streams per-interval records, so the aggregator sums cumulative
+  // metrics (steps, sleep), averages instantaneous ones (heart rate), and keeps
+  // the latest point readings, then picks the most recent complete day.
   const wearableReceivedAt = new Map(scopedSources.map(source => [source.id, source.received_at]));
-  const wearableLatest = new Map<string, { at: number; reading: WearableReading }>();
-  for (const obs of scopedObservations) {
-    if (obs.category !== 'wearables' || obs.type !== 'wearable_metric') continue;
-    if (!obs.name || typeof obs.value !== 'number' || !Number.isFinite(obs.value)) continue;
-    const reading: WearableReading = { id: obs.name, value: obs.value, unit: obs.unit };
-    const stamp = obs.observed_at ?? wearableReceivedAt.get(obs.source_id);
-    const at = stamp ? Date.parse(stamp) : Number.NaN;
-    const normalizedAt = Number.isFinite(at) ? at : 0;
-    const previous = wearableLatest.get(reading.id);
-    if (!previous || normalizedAt >= previous.at) wearableLatest.set(reading.id, { at: normalizedAt, reading });
-  }
-  const wearableReadings = Array.from(wearableLatest.values(), entry => entry.reading);
+  const wearableRows = scopedObservations
+    .filter(obs => obs.category === 'wearables' && obs.type === 'wearable_metric' && obs.name && typeof obs.value === 'number')
+    .map(obs => ({ name: obs.name, value: obs.value as number, unit: obs.unit, observed_at: obs.observed_at, fallback_at: wearableReceivedAt.get(obs.source_id) }));
+  const wearableReadings = aggregateWearableReadings(wearableRows, options.timezone);
   if (wearableReadings.length > 0) {
     const summary = analyzeWearables(wearableReadings);
     const wearableSourceIds = scopedSources.filter(source => source.category === 'wearables').map(source => source.id);
@@ -240,9 +231,22 @@ export async function runWearableAutoAnalysis(
   const sources = (await store.listSourcesForUser(userId, organizationIds)).filter(source => source.category === 'wearables');
   if (sources.length === 0) return undefined;
   const observations = await store.getObservations(sources.map(source => source.id));
-  const analysis = runHealthAnalysis(userId, sources, observations, undefined, organizationId, { modality: 'wearables', operation: 'analyze' });
+  const timezone = await resolveWearableTimezone(store, userId, organizationId);
+  const analysis = runHealthAnalysis(userId, sources, observations, undefined, organizationId, { modality: 'wearables', operation: 'analyze', timezone });
   await store.saveAnalysis(analysis);
   return analysis;
+}
+
+// The wearable day boundary follows the user's device timezone when the mobile
+// SDK reports one (stored on the wearable external account). Falls back to UTC.
+export async function resolveWearableTimezone(store: HealthStore, userId: string, organizationId?: string): Promise<string | undefined> {
+  const organizationIds = organizationId ? new Set([organizationId]) : undefined;
+  const accounts = await store.listExternalAccountsForUser(userId, organizationIds);
+  const withTimezone = accounts
+    .filter(account => typeof account.metadata?.timezone === 'string' && account.metadata.timezone)
+    .sort((a, b) => (b.last_synced_at ?? b.updated_at ?? '').localeCompare(a.last_synced_at ?? a.updated_at ?? ''));
+  const timezone = withTimezone[0]?.metadata?.timezone;
+  return typeof timezone === 'string' ? timezone : undefined;
 }
 
 export function summarizeAnalysis(analysis: AnalysisResult) {

@@ -610,24 +610,40 @@ test('a nested Health Connect value object is not dropped', async () => {
   assert.equal(source.normalized_observations.find((observation: any) => observation.name === 'resting_heart_rate')?.value, 55);
 });
 
-test('wearable auto-analysis keeps one finding per metric across repeated imports', async () => {
-  const userId = 'wearable_dedup_user';
+test('wearable analysis aggregates granular Health Connect records into daily signals', async () => {
+  const userId = 'wearable_agg_user';
   const orgId = personalOrganizationId(userId);
-  for (const steps of [6000, 11000]) {
-    await post('/imports/file', {
-      user_id: userId,
-      organization_id: orgId,
-      category: 'wearables',
-      filename: 'steps.csv',
-      content_type: 'text/csv',
-      text: `metric,value,unit\nsteps,${steps},steps\n`,
-    });
-  }
+  const day = '2026-07-20';
+  const stepRecord = (id: string, value: number, t: string) => ({ id, type: 'steps', startDate: `${day}T${t}Z`, endDate: `${day}T${t}Z`, value, unit: 'count' });
+  const hrRecord = (id: string, value: number, t: string) => ({ id, type: 'heartRate', startDate: `${day}T${t}Z`, endDate: `${day}T${t}Z`, value, unit: 'bpm' });
+  const sync = await fetch(`${baseUrl}/api/v1/sdk/users/${userId}/sync`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({
+      provider: 'health_connect', sdkVersion: '0.10.0', syncTimestamp: `${day}T23:00:00Z`,
+      data: {
+        records: [
+          stepRecord('s1', 100, '08:00:00'), stepRecord('s2', 200, '12:00:00'), stepRecord('s3', 300, '18:00:00'),
+          hrRecord('h1', 60, '08:00:00'), hrRecord('h2', 80, '12:00:00'), hrRecord('h3', 100, '18:00:00'),
+          { id: 'rhr1', type: 'restingHeartRate', startDate: `${day}T06:00:00Z`, endDate: `${day}T06:00:00Z`, value: 58, unit: 'bpm' },
+        ],
+        sleep: [], workouts: [],
+      },
+    }),
+  });
+  assert.equal(sync.status, 202);
+
   const list = await get(`/analyses?modality=wearables&user_id=${userId}&organization_id=${orgId}&limit=1`);
   assert.equal(list.analyses.length, 1);
   const analysis = await get(`/analyses/${list.analyses[0].id}`);
-  const stepFindings = analysis.derived_interpretations.filter((item: any) => item.raw?.id === 'steps');
-  assert.equal(stepFindings.length, 1, 'two step imports collapse to a single steps finding');
+  const value = (id: string) => {
+    const rows = analysis.derived_interpretations.filter((item: any) => item.raw?.id === id);
+    assert.equal(rows.length, 1, `exactly one ${id} finding`);
+    return rows[0].raw?.value;
+  };
+  assert.equal(value('steps'), 600, 'granular step intervals sum to a daily total');
+  assert.equal(value('heart_rate'), 80, 'instantaneous heart rate averages');
+  assert.equal(value('resting_heart_rate'), 58, 'point reading keeps its value');
 });
 
 test('retires the legacy wearable pull endpoint', async () => {

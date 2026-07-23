@@ -61,7 +61,14 @@ interface Definition extends Range {
   alt_units?: Record<string, UnitConversion>;
   // Sex-specific ranges override the base range for the matching sex.
   ranges_by_sex?: { male?: Range; female?: Range };
+  // How multiple same-day readings collapse into one daily value. Health Connect
+  // sends granular per-interval records, so cumulative metrics (steps, distance,
+  // energy) must be summed and instantaneous ones (heart rate) averaged. Defaults
+  // to 'latest' (point measurements: resting HR, HRV, weight, recovery score).
+  aggregation?: WearableAggregation;
 }
+
+export type WearableAggregation = 'sum' | 'mean' | 'latest';
 
 // EU labs report many analytes in SI units. Each biomarker declares the canonical
 // unit its thresholds are expressed in, plus factors/functions to convert common
@@ -133,20 +140,20 @@ const BIOMARKERS: Definition[] = [
 ];
 
 const WEARABLES: Definition[] = [
-  { id: 'sleep_duration', aliases: ['sleep hours', 'total sleep', 'asleep duration', 'sleep_duration_seconds', 'sleep_total_duration_minutes'], name: 'Sleep duration', domain: 'sleep_recovery', unit: 'hours', optimal_min: 7, optimal_max: 9, critical_low: 6, critical_high: 10, action_low: 'Increase sleep opportunity by 30-60 minutes and protect a fixed wake time for two weeks.' },
+  { id: 'sleep_duration', aliases: ['sleep hours', 'total sleep', 'asleep duration', 'sleep_duration_seconds', 'sleep_total_duration_minutes'], name: 'Sleep duration', domain: 'sleep_recovery', unit: 'hours', aggregation: 'sum', optimal_min: 7, optimal_max: 9, critical_low: 6, critical_high: 10, action_low: 'Increase sleep opportunity by 30-60 minutes and protect a fixed wake time for two weeks.' },
   { id: 'sleep_efficiency', aliases: ['efficiency_percent', 'sleep efficiency'], name: 'Sleep efficiency', domain: 'sleep_recovery', unit: '%', optimal_min: 85, critical_low: 75, action_low: 'Review sleep fragmentation, alcohol, room conditions, late training, and breathing risk if efficiency remains low.' },
-  { id: 'deep_sleep_minutes', aliases: ['sleep_deep_minutes', 'deep minutes', 'deep sleep'], name: 'Deep sleep', domain: 'sleep_recovery', unit: 'min', optimal_min: 60, critical_low: 35, action_low: 'Use this as a directional signal; prioritize sufficient sleep opportunity, regular timing, and recovery from hard training.' },
-  { id: 'rem_sleep_minutes', aliases: ['sleep_rem_minutes', 'rem minutes', 'rem sleep'], name: 'REM sleep', domain: 'sleep_recovery', unit: 'min', optimal_min: 70, critical_low: 40, action_low: 'Review sleep duration, alcohol, stress, and late caffeine if REM sleep remains compressed.' },
+  { id: 'deep_sleep_minutes', aliases: ['sleep_deep_minutes', 'deep minutes', 'deep sleep'], name: 'Deep sleep', domain: 'sleep_recovery', unit: 'min', aggregation: 'sum', optimal_min: 60, critical_low: 35, action_low: 'Use this as a directional signal; prioritize sufficient sleep opportunity, regular timing, and recovery from hard training.' },
+  { id: 'rem_sleep_minutes', aliases: ['sleep_rem_minutes', 'rem minutes', 'rem sleep'], name: 'REM sleep', domain: 'sleep_recovery', unit: 'min', aggregation: 'sum', optimal_min: 70, critical_low: 40, action_low: 'Review sleep duration, alcohol, stress, and late caffeine if REM sleep remains compressed.' },
   { id: 'sleep_debt_minutes', aliases: ['sleep debt', 'sleep debt minutes'], name: 'Sleep debt', domain: 'sleep_recovery', unit: 'min', optimal_max: 30, critical_high: 90, action_high: 'Repay sleep debt before adding training intensity or interpreting hormonal and glucose signals.' },
   { id: 'recovery_score', aliases: ['whoop recovery', 'oura readiness', 'readiness'], name: 'Recovery/readiness score', domain: 'sleep_recovery', unit: '%', optimal_min: 70, critical_low: 45, action_low: 'Use low-recovery days for lower-intensity training, daylight, hydration, and earlier bedtime.' },
   { id: 'hrv', aliases: ['heart rate variability', 'rmssd', 'heart_rate_variability_rmssd', 'heart_rate_variability_sdnn'], name: 'HRV', domain: 'cardiovascular_recovery', unit: 'ms', optimal_min: 45, critical_low: 25, action_low: 'Interpret against baseline; review sleep debt, alcohol, illness, stress, and training load.' },
   { id: 'resting_heart_rate', aliases: ['rhr', 'resting hr'], name: 'Resting heart rate', domain: 'cardiovascular_recovery', unit: 'bpm', optimal_max: 60, critical_high: 75, action_high: 'If elevated versus baseline, review illness, alcohol, heat, dehydration, sleep debt, and overtraining.' },
-  { id: 'heart_rate', aliases: ['average heart rate', 'avg heart rate', 'mean heart rate'], name: 'Heart rate', domain: 'cardiovascular_recovery', unit: 'bpm', optimal_min: 50, optimal_max: 90, critical_high: 110, action_high: 'A high average heart rate versus baseline can reflect stress, illness, stimulants, dehydration, or low fitness. Review context and the trend rather than a single reading.' },
-  { id: 'respiratory_rate', aliases: ['respiration rate', 'breathing rate'], name: 'Respiratory rate', domain: 'cardiovascular_recovery', unit: 'rpm', optimal_min: 12, optimal_max: 18, critical_high: 22, action_high: 'Watch for illness, altitude, asthma/allergy, or acute stress if this rises above baseline.' },
-  { id: 'skin_temperature', aliases: ['skin temp', 'skin temperature celsius'], name: 'Skin temperature', domain: 'cardiovascular_recovery', unit: 'C', optimal_min: 32, optimal_max: 35, critical_low: 30, critical_high: 37, action_high: 'Treat temperature elevation as illness, heat, alcohol, or cycle-context signal before pushing training.' },
-  { id: 'spo2', aliases: ['oxygen_saturation', 'spo2', 'blood oxygen'], name: 'SpO2', domain: 'cardiovascular_recovery', unit: '%', optimal_min: 95, critical_low: 92, action_low: 'Review device fit and sleep breathing context; persistent low SpO2 should be discussed with a clinician.' },
-  { id: 'steps', aliases: ['daily steps'], name: 'Daily steps', domain: 'activity_training', unit: 'steps', optimal_min: 8000, critical_low: 4000, action_low: 'Raise baseline by 1000-2000 steps per day before adding harder conditioning.' },
-  { id: 'active_energy', aliases: ['energy', 'active calories', 'active_energy', 'active_calories_burned'], name: 'Active energy', domain: 'activity_training', unit: 'kcal', optimal_min: 300, critical_low: 150, action_low: 'Use alongside steps and training load; raise baseline gradually before adding high-intensity work.' },
+  { id: 'heart_rate', aliases: ['average heart rate', 'avg heart rate', 'mean heart rate'], name: 'Heart rate', domain: 'cardiovascular_recovery', unit: 'bpm', aggregation: 'mean', optimal_min: 50, optimal_max: 90, critical_high: 110, action_high: 'A high average heart rate versus baseline can reflect stress, illness, stimulants, dehydration, or low fitness. Review context and the trend rather than a single reading.' },
+  { id: 'respiratory_rate', aliases: ['respiration rate', 'breathing rate'], name: 'Respiratory rate', domain: 'cardiovascular_recovery', unit: 'rpm', aggregation: 'mean', optimal_min: 12, optimal_max: 18, critical_high: 22, action_high: 'Watch for illness, altitude, asthma/allergy, or acute stress if this rises above baseline.' },
+  { id: 'skin_temperature', aliases: ['skin temp', 'skin temperature celsius'], name: 'Skin temperature', domain: 'cardiovascular_recovery', unit: 'C', aggregation: 'mean', optimal_min: 32, optimal_max: 35, critical_low: 30, critical_high: 37, action_high: 'Treat temperature elevation as illness, heat, alcohol, or cycle-context signal before pushing training.' },
+  { id: 'spo2', aliases: ['oxygen_saturation', 'spo2', 'blood oxygen'], name: 'SpO2', domain: 'cardiovascular_recovery', unit: '%', aggregation: 'mean', optimal_min: 95, critical_low: 92, action_low: 'Review device fit and sleep breathing context; persistent low SpO2 should be discussed with a clinician.' },
+  { id: 'steps', aliases: ['daily steps'], name: 'Daily steps', domain: 'activity_training', unit: 'steps', aggregation: 'sum', optimal_min: 8000, critical_low: 4000, action_low: 'Raise baseline by 1000-2000 steps per day before adding harder conditioning.' },
+  { id: 'active_energy', aliases: ['energy', 'active calories', 'active_energy', 'active_calories_burned'], name: 'Active energy', domain: 'activity_training', unit: 'kcal', aggregation: 'sum', optimal_min: 300, critical_low: 150, action_low: 'Use alongside steps and training load; raise baseline gradually before adding high-intensity work.' },
   { id: 'zone2_minutes', aliases: ['zone 2', 'moderate cardio minutes'], name: 'Zone 2 minutes', domain: 'activity_training', unit: 'min/week', optimal_min: 120, critical_low: 60, action_low: 'Build toward 120-180 weekly minutes of conversational aerobic work.' },
   { id: 'vigorous_minutes', aliases: ['vigorous activity', 'zone 4 minutes', 'zone 5 minutes'], name: 'Vigorous minutes', domain: 'activity_training', unit: 'min/week', optimal_min: 30, optimal_max: 120, critical_low: 10, critical_high: 180, action_low: 'Add one short interval or hill session after sleep and injury risk are stable.', action_high: 'Check recovery, injury risk, and HRV/RHR before adding more intensity.' },
   { id: 'workout_count', aliases: ['workouts', 'workout sessions'], name: 'Workout count', domain: 'activity_training', unit: 'sessions/week', optimal_min: 2, optimal_max: 6, critical_low: 1, action_low: 'Add one planned training session once sleep and recovery are stable.' },
@@ -365,6 +372,76 @@ export function analyzeWearables(readings: WearableReading[]): { findings: Engin
       .filter((finding): finding is EngineFinding => Boolean(finding))
       .sort((a, b) => a.score - b.score),
   };
+}
+
+export interface WearableObservationRow {
+  name: string;
+  value: number;
+  unit?: string;
+  observed_at?: string;
+  // Fallback timestamp (the source's received_at) when a record has no observed_at.
+  fallback_at?: string;
+}
+
+// Collapse granular wearable observations into one reading per metric using a
+// metric-appropriate daily aggregation, then pick the most recent complete day.
+// Health Connect streams per-interval records, so cumulative metrics (steps,
+// distance, energy, sleep) must be summed and instantaneous ones (heart rate)
+// averaged; point measurements (resting HR, HRV, weight) keep the latest value.
+// Day boundaries use the supplied IANA timezone when given, else UTC. Readings
+// are keyed by canonical metric id so aliases (oxygen_saturation -> spo2) merge.
+export function aggregateWearableReadings(rows: WearableObservationRow[], timezone?: string): WearableReading[] {
+  interface DailyBucket { sum: number; count: number; latestAt: number; latestValue: number; unit?: string }
+  const byMetric = new Map<string, Map<string, DailyBucket>>();
+  for (const row of rows) {
+    if (!row.name || typeof row.value !== 'number' || !Number.isFinite(row.value)) continue;
+    const key = WEARABLE_LOOKUP.get(normalizeId(row.name))?.id ?? normalizeId(row.name);
+    const stamp = row.observed_at ?? row.fallback_at;
+    const day = dayKey(stamp, timezone);
+    if (!day) continue;
+    const at = stamp ? Date.parse(stamp) : Number.NaN;
+    const atMs = Number.isFinite(at) ? at : 0;
+    let days = byMetric.get(key);
+    if (!days) { days = new Map(); byMetric.set(key, days); }
+    let bucket = days.get(day);
+    if (!bucket) { bucket = { sum: 0, count: 0, latestAt: -Infinity, latestValue: row.value, unit: row.unit }; days.set(day, bucket); }
+    bucket.sum += row.value;
+    bucket.count += 1;
+    if (atMs >= bucket.latestAt) { bucket.latestAt = atMs; bucket.latestValue = row.value; bucket.unit = row.unit; }
+  }
+
+  const today = dayKey(new Date().toISOString(), timezone);
+  const readings: WearableReading[] = [];
+  for (const [key, days] of byMetric) {
+    const def = WEARABLE_LOOKUP.get(normalizeId(key));
+    const mode = def?.aggregation ?? 'latest';
+    const sorted = Array.from(days.keys()).sort();
+    // Prefer the most recent complete day (before today) so an in-progress day
+    // does not report a partial daily total; fall back to the latest day if all
+    // data is from today.
+    const complete = sorted.filter(dayName => dayName < today);
+    const pool = complete.length ? complete : sorted;
+    const bucket = days.get(pool[pool.length - 1]);
+    if (!bucket) continue;
+    const value = mode === 'sum' ? bucket.sum : mode === 'mean' ? bucket.sum / bucket.count : bucket.latestValue;
+    readings.push({ id: def?.id ?? key, value: Math.round(value * 100) / 100, unit: bucket.unit ?? def?.unit });
+  }
+  return readings;
+}
+
+// Resolve the local calendar day (YYYY-MM-DD) for a timestamp. Uses the IANA
+// timezone when provided so "daily" totals bucket by the user's local midnight
+// rather than UTC; invalid zones fall back to UTC.
+function dayKey(iso: string | undefined, timezone?: string): string {
+  if (!iso) return '';
+  const date = new Date(iso);
+  if (!Number.isFinite(date.getTime())) return '';
+  if (timezone) {
+    try {
+      return new Intl.DateTimeFormat('en-CA', { timeZone: timezone, year: 'numeric', month: '2-digit', day: '2-digit' }).format(date);
+    } catch { /* invalid timezone: fall back to UTC */ }
+  }
+  return date.toISOString().slice(0, 10);
 }
 
 function rowToBiomarker(row: Record<string, string>): BiomarkerReading | undefined {
