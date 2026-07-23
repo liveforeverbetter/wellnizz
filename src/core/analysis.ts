@@ -1,6 +1,6 @@
 import { analyzeBiomarkers, analyzeWearables, type BiomarkerReading, type WearableReading } from './engines.js';
 import { analyzeBehavioral, type BehavioralEntry } from './behavioral.js';
-import { createId } from '../store.js';
+import { createId, type HealthStore } from '../store.js';
 import type {
   AnalysisResult,
   DashboardSpec,
@@ -65,10 +65,30 @@ export function runHealthAnalysis(
     })));
   }
 
-  const wearableReadings = scopedObservations
-    .filter(obs => obs.category === 'wearables' && obs.type === 'wearable_metric')
-    .map(obs => obs.raw)
-    .filter((raw): raw is WearableReading => isReading(raw));
+  // Build readings from the observation's canonical name/value rather than its
+  // raw payload: the mobile SDK path stores the original device record in `raw`
+  // (whose `id` is the record id, not the metric), so keying off raw silently
+  // dropped every SDK wearable signal. `name` is the canonical metric id on both
+  // the file-import and SDK paths.
+  //
+  // Collapse to the latest reading per metric before scoring. Auto-analysis runs
+  // over every wearable source a user has, so many daily syncs would otherwise
+  // produce dozens of duplicate readings for one metric and crowd distinct
+  // signals out of the truncated finding list. "Latest" uses the observation's
+  // own timestamp, falling back to its source's received_at.
+  const wearableReceivedAt = new Map(scopedSources.map(source => [source.id, source.received_at]));
+  const wearableLatest = new Map<string, { at: number; reading: WearableReading }>();
+  for (const obs of scopedObservations) {
+    if (obs.category !== 'wearables' || obs.type !== 'wearable_metric') continue;
+    if (!obs.name || typeof obs.value !== 'number' || !Number.isFinite(obs.value)) continue;
+    const reading: WearableReading = { id: obs.name, value: obs.value, unit: obs.unit };
+    const stamp = obs.observed_at ?? wearableReceivedAt.get(obs.source_id);
+    const at = stamp ? Date.parse(stamp) : Number.NaN;
+    const normalizedAt = Number.isFinite(at) ? at : 0;
+    const previous = wearableLatest.get(reading.id);
+    if (!previous || normalizedAt >= previous.at) wearableLatest.set(reading.id, { at: normalizedAt, reading });
+  }
+  const wearableReadings = Array.from(wearableLatest.values(), entry => entry.reading);
   if (wearableReadings.length > 0) {
     const summary = analyzeWearables(wearableReadings);
     const wearableSourceIds = scopedSources.filter(source => source.category === 'wearables').map(source => source.id);
@@ -202,6 +222,27 @@ function findingDomain(item: DerivedInterpretation): string | undefined {
     if (typeof domain === 'string' && domain.length > 0) return domain;
   }
   return undefined;
+}
+
+// Re-run the wearables analysis over every wearable source a user has and store
+// the result, so the dashboard's "latest analysis" reflects freshly synced data
+// without the agent (or a self-hosted caller) manually calling /wearables/analyze.
+// Runs after each wearable ingest. Callers should treat failures as non-fatal:
+// storing the data is the primary operation, refreshing the analysis is a
+// convenience on top. Set WEARABLE_AUTO_ANALYSIS=off to disable.
+export async function runWearableAutoAnalysis(
+  store: HealthStore,
+  userId: string,
+  organizationId?: string,
+): Promise<AnalysisResult | undefined> {
+  if (process.env.WEARABLE_AUTO_ANALYSIS === 'off') return undefined;
+  const organizationIds = organizationId ? new Set([organizationId]) : undefined;
+  const sources = (await store.listSourcesForUser(userId, organizationIds)).filter(source => source.category === 'wearables');
+  if (sources.length === 0) return undefined;
+  const observations = await store.getObservations(sources.map(source => source.id));
+  const analysis = runHealthAnalysis(userId, sources, observations, undefined, organizationId, { modality: 'wearables', operation: 'analyze' });
+  await store.saveAnalysis(analysis);
+  return analysis;
 }
 
 export function summarizeAnalysis(analysis: AnalysisResult) {

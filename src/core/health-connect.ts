@@ -48,8 +48,8 @@ export function normalizeHealthConnectPayload(
 export function healthConnectReadings(data: HealthConnectSdkData): HealthConnectReading[] {
   const readings: HealthConnectReading[] = [];
   for (const record of data.records ?? []) {
-    const value = Number(record.value);
-    if (!Number.isFinite(value)) continue;
+    const value = healthConnectNumericValue(record.value);
+    if (value == null) continue;
     readings.push({
       metric: healthConnectMetricId(String(record.type ?? 'health_connect_metric')),
       value,
@@ -79,6 +79,27 @@ export function healthConnectReadings(data: HealthConnectSdkData): HealthConnect
   }
 
   return readings;
+}
+
+// Extract a numeric reading value. The Flutter health/Health Connect bridges do
+// not all serialize `value` as a bare number: some wrap it in a typed object
+// (`{ numericValue: 58 }`, `{ beatsPerMinute: 58 }`, ...). A bare `Number(...)`
+// on those objects yields NaN and silently drops every non-trivial record, which
+// can leave only step counts surviving. Accept the common shapes instead.
+function healthConnectNumericValue(value: unknown): number | undefined {
+  if (typeof value === 'number') return Number.isFinite(value) ? value : undefined;
+  if (typeof value === 'string') {
+    const parsed = Number(value.trim());
+    return value.trim() && Number.isFinite(parsed) ? parsed : undefined;
+  }
+  if (value && typeof value === 'object') {
+    const record = value as Record<string, unknown>;
+    for (const key of ['numericValue', 'numeric_value', 'value', 'beatsPerMinute', 'count', 'doubleValue', 'longValue']) {
+      const nested = healthConnectNumericValue(record[key]);
+      if (nested != null) return nested;
+    }
+  }
+  return undefined;
 }
 
 function healthConnectTimestamp(record: Record<string, unknown>, fields: string[]): string | undefined {
