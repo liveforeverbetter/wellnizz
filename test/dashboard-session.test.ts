@@ -139,7 +139,9 @@ test('dashboard renders only the current analysis and keeps history separate', a
   assert.match(app, /class="genetic-result-band"/);
   assert.match(app, /function geneticTechnicalReport\(report\)/);
   assert.match(app, /function geneticLimitations\(limitations\)/);
-  assert.match(app, /associated variant\$\{variants\.length/);
+  assert.match(app, /class="genetic-evidence"/);
+  assert.match(app, /Genes analyzed/);
+  assert.match(app, /heritable/);
   assert.match(app, /genes and rsIDs remain available as evidence/i);
   assert.match(app, /kept for trends, not repeated here/i);
   assert.match(app, /Explore all \$\{currentSignals\.length\} current findings by section/);

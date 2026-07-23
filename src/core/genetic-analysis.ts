@@ -226,7 +226,14 @@ function geneticFindingInterpretations(
         const name = stringValue(entry.name);
         if (!name) continue;
         const panelGenes = Array.isArray(entry.panel_genes) ? entry.panel_genes.length : undefined;
+        // The full panel_genes array can be large, so drop it for size, but keep
+        // the matched genes (the ones this genome actually has variants in) as
+        // evidence rather than discarding all gene context.
+        const matchedGenes = Array.isArray(entry.matched_genes)
+          ? (entry.matched_genes as unknown[]).filter((g): g is string => typeof g === 'string' && Boolean(g)).slice(0, 50)
+          : [];
         const { panel_genes: _omitted, ...rest } = entry;
+        if (matchedGenes.length) (rest as Record<string, unknown>).genes = matchedGenes;
         findings.push(base(
           'genetic_condition_catalog_match',
           name,
