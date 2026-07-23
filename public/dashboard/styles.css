@@ -2098,8 +2098,6 @@ code {
   text-align: right;
 }
 
-.source-grid-connections { margin-bottom: 28px; }
-
 .modality-status-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -2122,6 +2120,26 @@ code {
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 14px;
 }
+
+.overview-wearables-list {
+  display: grid;
+  gap: 6px;
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.overview-wearables-list li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.overview-wearables-list .status-dot { width: 7px; height: 7px; }
+.overview-wearables-list small { margin-left: auto; color: var(--ink-muted); font-family: var(--font-mono); font-size: 10px; font-weight: 500; }
 
 .interpretation-section { margin-top: 20px; }
 

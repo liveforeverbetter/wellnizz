@@ -273,7 +273,7 @@
           <section class="source-grid" aria-label="Health data source status">
             <article class="source-card source-card-whoop" data-overview-source="wearables">
               <div class="source-card-top"><span class="source-mark source-mark-whoop">W</span><span id="overview-wearables-status" class="status muted">Checking data</span></div>
-              <h3>Wearables</h3><p>Recovery, HRV, strain, sleep, activity, and respiratory signals.</p><small id="overview-wearables-meta">Checking your connected wearable data.</small>
+              <h3>Wearables</h3><p>Recovery, HRV, strain, sleep, activity, and respiratory signals.</p><small id="overview-wearables-meta">Checking your connected wearable data.</small><ul id="overview-wearables-connections" class="overview-wearables-list" aria-label="Connected wearables"></ul>
             </article>
             <article class="source-card">
               <div class="source-card-top"><span class="source-mark">DNA</span><span id="overview-genetics-status" class="status muted">Checking sources</span></div>
@@ -282,25 +282,6 @@
             <article class="source-card">
               <div class="source-card-top"><span class="source-mark">LAB</span><span id="overview-labs-status" class="status muted">Checking panels</span></div>
               <h3>Lab biomarkers</h3><p>Your newest panel is the current view. Historical panels belong in trends, not a blended result.</p><small id="overview-labs-meta">Checking your uploaded panels.</small>
-            </article>
-          </section>
-
-          <div class="section-heading-row overview-connections-heading">
-            <div><p class="page-eyebrow">Optional integrations</p><h2>Wearable connections</h2></div>
-            <p>WHOOP, Oura, and Health Connect are separate connections.</p>
-          </div>
-          <section class="source-grid source-grid-connections" aria-label="Wearable connection status">
-            <article class="source-card" data-overview-source="whoop">
-              <div class="source-card-top"><span class="source-mark source-mark-whoop">W</span><span id="overview-whoop-status" class="status muted">Not connected</span></div>
-              <h3>WHOOP</h3><p>Recovery, HRV, strain, sleep, and respiratory rate.</p><small id="overview-whoop-meta">Connect when you are ready.</small>
-            </article>
-            <article class="source-card" data-overview-source="oura">
-              <div class="source-card-top"><span class="source-mark">O</span><span id="overview-oura-status" class="status muted">Not connected</span></div>
-              <h3>Oura</h3><p>Sleep, readiness, activity, HRV, resting heart rate, and steps.</p><small id="overview-oura-meta">Connect when you are ready.</small>
-            </article>
-            <article class="source-card" data-overview-source="health_connect">
-              <div class="source-card-top"><span class="source-mark">HC</span><span id="overview-health-connect-status" class="status muted">Not connected</span></div>
-              <h3>Health Connect</h3><p>An optional Android bridge for compatible health sources, separate from WHOOP.</p><small id="overview-health-connect-meta">Connect through the mobile app.</small>
             </article>
           </section>
 
@@ -382,7 +363,7 @@
                   <h3>Android Health Connect</h3>
                   <p class="provider-desc">Bring Fitbit, Samsung Health, Google Fit, and other Android health sources together in Wellnizz Connect.</p>
                   <div class="provider-status"><span id="health-connect-status" class="status muted">Not connected</span></div>
-                  <a href="https://play.google.com/apps/testing/com.foreverbetterhealthconnect.myapp" target="_blank" rel="noopener" class="provider-btn">Install Wellnizz Connect</a>
+                  <a id="health-connect-install-link" href="https://play.google.com/apps/testing/com.foreverbetterhealthconnect.myapp" target="_blank" rel="noopener" class="provider-btn">Install Wellnizz Connect</a>
                 </article>
               </div>
               <div id="wearables-sources"></div>

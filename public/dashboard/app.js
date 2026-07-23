@@ -453,19 +453,6 @@ function renderOverviewGreeting() {
   greeting.textContent = emailName ? `${salutation}, ${emailName}.` : `${salutation}.`;
 }
 
-function setOverviewProvider(provider, connected, automaticUpdates = false) {
-  const status = $(`#overview-${provider}-status`);
-  const meta = $(`#overview-${provider}-meta`);
-  if (!status || !meta) return;
-  status.className = `status ${connected ? 'connected' : 'muted'}`;
-  status.textContent = connected
-    ? automaticUpdates ? 'Connected · auto sync' : 'Connected'
-    : 'Not connected';
-  meta.textContent = connected
-    ? automaticUpdates ? 'Automatic updates are enabled.' : 'Connected - choose when to refresh.'
-    : 'Connect when you are ready.';
-}
-
 function setOverviewModality(modality, connected, statusText, metaText) {
   const status = $(`#overview-${modality}-status`);
   const meta = $(`#overview-${modality}-meta`);
@@ -505,8 +492,7 @@ function refreshOverview() {
   if ($('#overview-connected-count')) $('#overview-connected-count').textContent = String(contextCategoriesReady);
   if ($('#overview-data-count')) $('#overview-data-count').textContent = String(connectedCount);
   if ($('#overview-pipeline-count')) $('#overview-pipeline-count').textContent = String(currentAnalyses);
-  setOverviewProvider('whoop', state.whoopConnected, state.whoopAutomaticUpdates);
-  setOverviewProvider('oura', state.ouraConnected, state.ouraAutomaticUpdates);
+  renderOverviewWearableConnections();
 
   if (!state.overviewLoaded) return;
   const latestWearable = newestFirst(sourcesByCategory.wearables, 'received_at')[0];
@@ -517,10 +503,8 @@ function refreshOverview() {
   setOverviewModality(
     'wearables',
     wearableDataReady,
-    state.whoopConnected ? 'WHOOP connected' : sourcesByCategory.wearables.length ? 'Data ready' : 'No wearable data',
-    state.whoopConnected
-      ? `${pluralize(sourcesByCategory.wearables.length, 'wearable data batch', 'wearable data batches')} received${latestWearable ? ` · latest ${formatRelDate(latestWearable.received_at)}.` : '.'}`
-      : sourcesByCategory.wearables.length ? `${pluralize(sourcesByCategory.wearables.length, 'wearable data batch', 'wearable data batches')} available.` : 'Connect WHOOP, Oura, or Health Connect when you are ready.',
+    connectedCount ? `${pluralize(connectedCount, 'wearable')} connected` : sourcesByCategory.wearables.length ? 'Data ready' : 'No wearable data',
+    sourcesByCategory.wearables.length ? `${pluralize(sourcesByCategory.wearables.length, 'wearable data batch', 'wearable data batches')} received${latestWearable ? ` · latest ${formatRelDate(latestWearable.received_at)}.` : '.'}` : 'Connect WHOOP, Oura, or Health Connect when you are ready.',
   );
   setOverviewModality(
     'genetics',
@@ -538,21 +522,30 @@ function refreshOverview() {
   );
 }
 
+function renderOverviewWearableConnections() {
+  const list = $('#overview-wearables-connections');
+  if (!list) return;
+  const connections = [
+    state.whoopConnected && { name: 'WHOOP', automatic: state.whoopAutomaticUpdates },
+    state.ouraConnected && { name: 'Oura', automatic: state.ouraAutomaticUpdates },
+    state.healthConnectConnected && { name: 'Health Connect', automatic: true },
+  ].filter(Boolean);
+  list.innerHTML = connections.length
+    ? connections.map(connection => `<li><span class="status-dot online"></span><span>${escapeHtml(connection.name)}</span>${connection.automatic ? '<small>Auto sync</small>' : ''}</li>`).join('')
+    : '';
+}
+
 function updateHealthConnectStatus(connection) {
   const connected = connection?.status === 'active' && connection?.mobile_sync_enabled === true;
   state.healthConnectConnected = connected;
   const statusText = connected ? 'Background sync active' : 'Not connected';
-  const metaText = connected
-    ? healthConnectFreshness(connection.last_synced_at)
-    : 'Install Wellnizz Connect to start syncing.';
-  for (const selector of ['#health-connect-status', '#overview-health-connect-status']) {
+  for (const selector of ['#health-connect-status']) {
     const status = $(selector);
     if (!status) continue;
     status.className = `status ${connected ? 'connected' : 'muted'}`;
     status.textContent = statusText;
   }
-  const overviewMeta = $('#overview-health-connect-meta');
-  if (overviewMeta) overviewMeta.textContent = metaText;
+  $('#health-connect-install-link')?.classList.toggle('hidden', connected);
   refreshOverview();
 }
 
@@ -579,17 +572,6 @@ async function loadOverviewData() {
     setOverviewModality('genetics', false, 'Check genetics', 'Open Genetics to view your uploaded data.');
     setOverviewModality('labs', false, 'Check labs', 'Open Labs to view your uploaded panels.');
   }
-}
-
-function healthConnectFreshness(lastSyncedAt) {
-  const timestamp = Date.parse(lastSyncedAt || '');
-  if (!Number.isFinite(timestamp)) return 'Waiting for the first batch.';
-  const minutes = Math.max(0, Math.round((Date.now() - timestamp) / 60_000));
-  if (minutes < 1) return 'Last received just now.';
-  if (minutes < 60) return `Last received ${minutes}m ago.`;
-  const hours = Math.round(minutes / 60);
-  if (hours < 48) return `Last received ${hours}h ago.`;
-  return `Last received ${Math.round(hours / 24)}d ago.`;
 }
 
 $('#copy-key')?.addEventListener('click', () => copyText(state.apiKey, 'Key copied.'));

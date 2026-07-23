@@ -50,7 +50,7 @@ test('dashboard is agent-first with a first-party OTP flow behind a toggle', asy
   assert.match(html, /id="overview-connected-count"/);
   assert.match(html, /sources connected/);
   assert.match(html, /wearable connections/);
-  assert.match(html, /id="overview-whoop-status"/);
+  assert.match(html, /id="overview-wearables-connections"/);
   assert.match(html, /role="tabpanel"/);
   assert.match(app, /ArrowLeft/);
   assert.match(html, /type="email"/);
@@ -80,6 +80,7 @@ test('dashboard is agent-first with a first-party OTP flow behind a toggle', asy
   assert.match(html, /android-logo/);
   assert.match(html, /Bring Fitbit, Samsung Health, Google Fit, and other Android health sources together/);
   assert.match(html, /id="wearables-connect"/);
+  assert.match(html, /id="health-connect-install-link"/);
   assert.match(html, /id="wearables-sources"/);
   assert.match(html, /id="whoop-connect-btn"/);
   assert.match(html, /id="oura-connect-btn"/);
@@ -87,8 +88,11 @@ test('dashboard is agent-first with a first-party OTP flow behind a toggle', asy
   assert.match(html, /Add your data sources across multiple dimensions to customize an action plan and dashboard specific to you\./);
   assert.match(html, /id="overview-genetics-status"/);
   assert.match(html, /id="overview-data-count"/);
-  assert.match(html, /Wearable connections/);
+  assert.doesNotMatch(html, /Optional integrations/);
+  assert.doesNotMatch(html, /aria-label="Wearable connection status"/);
   assert.match(app, /function loadOverviewData\(\)/);
+  assert.match(app, /function renderOverviewWearableConnections\(\)/);
+  assert.match(app, /health-connect-install-link/);
   assert.match(html, /class="genetics-upload-card"/);
   assert.match(html, /id="genetics-sources"/);
   assert.match(html, /id="labs-sources"/);
