@@ -801,6 +801,90 @@ button:disabled {
   50% { opacity: 1; }
 }
 
+/* ---- Inline loading state (shown while an API query is in flight) ---- */
+.loading-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 26px 20px;
+  color: var(--ink-muted);
+  font-size: 14px;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  border-top-color: var(--ink);
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---- File picker (styled to match buttons; hides the native chooser) ---- */
+.file-picker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.file-input-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.file-choose-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ink-muted);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease, box-shadow 180ms ease, transform 120ms ease;
+}
+
+.file-choose-btn:hover {
+  background: var(--bg-hover);
+  color: var(--ink);
+  box-shadow: 0 6px 18px -8px rgba(14, 14, 14, 0.5);
+  transform: translateY(-1px);
+}
+
+.file-input-hidden:focus-visible + .file-choose-btn {
+  outline: 2px solid var(--btn);
+  outline-offset: 2px;
+}
+
+.file-name {
+  font-size: 13px;
+  color: var(--ink-muted);
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-name[data-empty="true"] {
+  font-style: italic;
+  opacity: 0.75;
+}
+
 .ghost {
   background: transparent;
   border-color: var(--line);

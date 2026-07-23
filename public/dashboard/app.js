@@ -714,6 +714,25 @@ async function startFirstPartyConnect(provider) {
 
 // ---- File Uploads (inline on modality pages) ----
 
+// Reflect the chosen filename next to the styled "Choose file" button so the
+// custom picker gives the same feedback the native control would.
+function bindFileNameDisplay(inputSelector, labelSelector) {
+  const input = $(inputSelector);
+  const label = $(labelSelector);
+  if (!input || !label) return;
+  input.addEventListener('change', () => {
+    const file = input.files?.[0];
+    label.textContent = file ? file.name : 'No file selected';
+    label.dataset.empty = file ? 'false' : 'true';
+  });
+}
+
+// Inline loading state shown while an API query is in flight, so users know the
+// dashboard is processing (some analysis reads, e.g. genetics, take a moment).
+function renderLoading(message) {
+  return `<div class="loading-block" role="status" aria-live="polite"><span class="spinner" aria-hidden="true"></span><span>${escapeHtml(message)}</span></div>`;
+}
+
 async function uploadBiomarkerFile() {
   const file = $('#biomarker-file')?.files?.[0];
   if (!file) { showMessage('Choose a biomarker file first.', true); return; }
@@ -926,6 +945,8 @@ async function loadLabsConnectSection(key, params) {
 async function loadModalityInterpretations(page, modality, key, params) {
   const container = $(`#${MODALITY_META[page].interpId}`);
   if (!container) return;
+  const loadingLabels = { wearables: 'wearable', genetics: 'genetics', labs: 'biomarker' };
+  container.innerHTML = renderLoading(`Loading your ${loadingLabels[page] ?? ''} analysis…`);
   try {
     const analysisParams = new URLSearchParams(params);
     // Keep a completed genome browser present while a newer WGS job is still
@@ -1862,6 +1883,8 @@ if (!state.agentLoginCode) loadWearableConnectionStatus();
 // Wire up inline upload buttons
 $('#biomarker-upload-btn')?.addEventListener('click', uploadBiomarkerFile);
 $('#genetics-upload-btn')?.addEventListener('click', uploadGeneticsFile);
+bindFileNameDisplay('#biomarker-file', '#biomarker-file-name');
+bindFileNameDisplay('#genetics-file', '#genetics-file-name');
 whoopBtn?.addEventListener('click', () => {
   if (state.whoopFirstParty) void startFirstPartyConnect('whoop');
 });

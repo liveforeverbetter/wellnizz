@@ -646,6 +646,26 @@ test('wearable analysis aggregates granular Health Connect records into daily si
   assert.equal(value('resting_heart_rate'), 58, 'point reading keeps its value');
 });
 
+test('lists analyses filtered by modality in the store, with an accurate total', async () => {
+  const userId = 'analyses_list_user';
+  const orgId = personalOrganizationId(userId);
+  // One wearables analysis (auto-created on import) and one biomarkers analysis.
+  await post('/imports/file', { user_id: userId, organization_id: orgId, category: 'wearables', filename: 'w.csv', content_type: 'text/csv', text: 'metric,value,unit\nsteps,9000,steps\n' });
+  const bio = await post('/imports/file', { user_id: userId, organization_id: orgId, category: 'biomarkers', filename: 'labs.csv', content_type: 'text/csv', text: 'marker,value,unit\nApoB,118,mg/dL\n' });
+  await post('/biomarkers/analyze', { user_id: userId, organization_id: orgId, source_ids: [bio.source.id] });
+
+  const wearables = await get(`/analyses?modality=wearables&user_id=${userId}&organization_id=${orgId}&limit=1`);
+  assert.equal(wearables.analyses.length, 1);
+  assert.equal(wearables.analyses[0].modality, 'wearables');
+  assert.equal(wearables.total, 1, 'total counts only wearables analyses');
+
+  const biomarkers = await get(`/analyses?modality=biomarkers&user_id=${userId}&organization_id=${orgId}&limit=1`);
+  assert.equal(biomarkers.analyses[0].modality, 'biomarkers');
+
+  const all = await get(`/analyses?user_id=${userId}&organization_id=${orgId}&limit=50`);
+  assert.equal(all.total, 2, 'unfiltered total counts both analyses');
+});
+
 test('retires the legacy wearable pull endpoint', async () => {
   const response = await fetch(`${baseUrl}/connections/wearables/sync`, {
     method: 'POST',

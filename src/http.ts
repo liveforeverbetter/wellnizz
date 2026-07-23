@@ -1139,13 +1139,10 @@ async function route(req: IncomingMessage, res: ServerResponse, store: HealthSto
     const modality = url.searchParams.get('modality') ?? undefined;
     const since = url.searchParams.get('since') ?? undefined;
     const limit = clampLimit(url.searchParams.get('limit'), 50, 200);
-    const analyses = (await store.getAnalysesForUser([], userId, organizationIds))
-      .filter(analysis => modality == null || analysis.modality === modality)
-      .filter(analysis => since == null || analysis.created_at >= since)
-      .sort((a, b) => b.created_at.localeCompare(a.created_at));
-    const summaries = analyses.slice(0, limit).map(summarizeAnalysis);
+    const { analyses, total } = await store.listAnalysisSummaries(userId, organizationIds, { modality, since, limit });
+    const summaries = analyses.map(summarizeAnalysis);
     auditEvent(req, 'success', { route: url.pathname, status: 200, auth });
-    return sendJson(req, res, authConfig, 200, { analyses: summaries, count: summaries.length, total: analyses.length });
+    return sendJson(req, res, authConfig, 200, { analyses: summaries, count: summaries.length, total });
   }
 
   const analysisMatch = url.pathname.match(/^\/analyses\/([^/]+)$/);

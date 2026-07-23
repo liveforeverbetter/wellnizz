@@ -391,8 +391,11 @@
                   <p>Upload a VCF, SNP-array, or 23andMe-style raw export. Larger genome files go directly to private storage and never pass through the dashboard.</p>
                 </div>
                 <div class="genetics-upload-action">
-                  <label for="genetics-file">Choose a genetic file</label>
-                  <input id="genetics-file" type="file" accept=".vcf,.vcf.gz,.txt,.txt.gz,.tsv,.tsv.gz,.csv,.csv.gz,.snp,.snp.gz,.raw,.raw.gz,text/vcf,text/plain,text/csv,text/tab-separated-values,application/gzip">
+                  <div class="file-picker">
+                    <input id="genetics-file" type="file" class="file-input-hidden" accept=".vcf,.vcf.gz,.txt,.txt.gz,.tsv,.tsv.gz,.csv,.csv.gz,.snp,.snp.gz,.raw,.raw.gz,text/vcf,text/plain,text/csv,text/tab-separated-values,application/gzip">
+                    <label for="genetics-file" class="file-choose-btn">Choose file</label>
+                    <span class="file-name" id="genetics-file-name" data-empty="true">No file selected</span>
+                  </div>
                   <button id="genetics-upload-btn" type="button">Upload securely</button>
                   <small>VCF, VCF.GZ, SNP-array, 23andMe, or AncestryDNA export</small>
                 </div>
@@ -418,8 +421,11 @@
               <div class="card modality-placeholder">
                 <div class="card-head"><h2>Upload a biomarker panel</h2></div>
                 <p>Upload a lab report in CSV, JSON, PDF, or plain-text format. We normalize the readings for your agent.</p>
-                <label for="biomarker-file">Biomarker file</label>
-                <input id="biomarker-file" type="file" accept=".csv,.json,.pdf,.txt,text/csv,application/json,application/pdf,text/plain">
+                <div class="file-picker">
+                  <input id="biomarker-file" type="file" class="file-input-hidden" accept=".csv,.json,.pdf,.txt,text/csv,application/json,application/pdf,text/plain">
+                  <label for="biomarker-file" class="file-choose-btn">Choose file</label>
+                  <span class="file-name" id="biomarker-file-name" data-empty="true">No file selected</span>
+                </div>
                 <button id="biomarker-upload-btn" type="button" class="wide">Upload biomarker panel</button>
               </div>
               <div id="labs-sources"></div>

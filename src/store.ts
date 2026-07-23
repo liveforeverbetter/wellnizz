@@ -2,6 +2,12 @@ import { randomUUID } from 'node:crypto';
 import { readFile, writeFile } from 'node:fs/promises';
 import type { AnalysisResult, ConnectorSyncJob, DataExportResult, ExternalAccount, GeneticAnalysisJob, GeneticAnalysisJobStage, GeneticsAnnotationDepth, Goal, NormalizedObservation, OtpChallenge, ProviderToken, RawSourceReference, TombstoneResult, WebhookEvent } from './types.js';
 
+export interface AnalysisListQuery {
+  modality?: string;
+  since?: string;
+  limit: number;
+}
+
 export interface IdempotencyRecord {
   key: string;
   method: string;
@@ -39,6 +45,10 @@ export interface HealthStore {
   saveAnalysisSliceArtifact(analysisId: string, body: Buffer): Promise<void>;
   writeAnalysisSliceArtifactToFile(analysisId: string, destination: string): Promise<boolean>;
   getAnalysesForUser(ids: string[], userId: string, organizationIds?: Set<string>): Promise<AnalysisResult[]>;
+  // Efficient list for the /analyses endpoint: filters, orders, and limits in the
+  // store, and omits the heavy normalized_observations array so a user with large
+  // (genetics/multimodal) analyses does not pay the full-blob load on every call.
+  listAnalysisSummaries(userId: string, organizationIds: Set<string> | undefined, query: AnalysisListQuery): Promise<{ analyses: AnalysisResult[]; total: number }>;
   getIdempotencyRecord(key: string, method: string, route: string, subject: string): Promise<IdempotencyRecord | undefined>;
   saveIdempotencyRecord(record: IdempotencyRecord): Promise<void>;
   createGeneticAnalysisJob(job: GeneticAnalysisJob): Promise<void>;
@@ -249,6 +259,15 @@ export class HealthApiStore implements HealthStore {
       .filter((analysis): analysis is AnalysisResult => Boolean(
         analysis && analysis.user_id === userId && isAllowedOrganization(analysis.organization_id, organizationIds),
       ));
+  }
+
+  async listAnalysisSummaries(userId: string, organizationIds: Set<string> | undefined, query: AnalysisListQuery): Promise<{ analyses: AnalysisResult[]; total: number }> {
+    const matching = (await this.getAnalysesForUser([], userId, organizationIds))
+      .filter(analysis => query.modality == null || analysis.modality === query.modality)
+      .filter(analysis => query.since == null || analysis.created_at >= query.since)
+      .sort((a, b) => b.created_at.localeCompare(a.created_at));
+    const analyses = matching.slice(0, query.limit).map(({ normalized_observations, ...rest }) => rest as AnalysisResult);
+    return { analyses, total: matching.length };
   }
 
   async getIdempotencyRecord(key: string, method: string, route: string, subject: string): Promise<IdempotencyRecord | undefined> {

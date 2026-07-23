@@ -3,7 +3,7 @@ import type pg from 'pg';
 import { getPool } from '../db/pool.js';
 import { createId, geneticCheckpointObjectKey, geneticAnnotationObjectKey } from '../store.js';
 import { configuredPayloadStore, payloadKey, S3PayloadStore, type PayloadStore, type SignedPayloadUpload } from './payload-store.js';
-import type { HealthStore, IdempotencyRecord } from '../store.js';
+import type { AnalysisListQuery, HealthStore, IdempotencyRecord } from '../store.js';
 import type {
   AnalysisResult, ConnectorSyncJob, DataExportResult, ExternalAccount, GeneticAnalysisJob,
   GeneticsAnnotationDepth, Goal, NormalizedObservation, ProviderToken, RawSourceReference, TombstoneResult, WebhookEvent,
@@ -242,6 +242,36 @@ export class PostgresHealthStore implements HealthStore {
     if (ids.length === 0) return analyses;
     const byId = new Map(analyses.map(analysis => [analysis.id, analysis]));
     return ids.map(id => byId.get(id)).filter((analysis): analysis is AnalysisResult => Boolean(analysis));
+  }
+
+  async listAnalysisSummaries(userId: string, organizationIds: Set<string> | undefined, query: AnalysisListQuery): Promise<{ analyses: AnalysisResult[]; total: number }> {
+    // Filter, order, and limit in SQL, and drop the heavy normalized_observations
+    // array from the returned blob. Previously the /analyses list loaded every
+    // full analysis blob for the user into memory, so a user with large genetics
+    // or multimodal analyses paid a multi-second (timeout-prone) load per call.
+    const filters: string[] = ['user_id=$1', 'deleted_at is null'];
+    const params: unknown[] = [userId];
+    if (query.modality != null) { params.push(query.modality); filters.push(`result->>'modality' = $${params.length}`); }
+    if (query.since != null) { params.push(query.since); filters.push(`result->>'created_at' >= $${params.length}`); }
+    const org = orgClause(organizationIds, params.length + 1);
+    const filterSql = `${filters.join(' and ')} ${org}`;
+    const scopedParams = [...params, ...orgParams(organizationIds)];
+
+    const rows = await this.rows(
+      `select result - 'normalized_observations' as result from ${SCHEMA}.analyses
+       where ${filterSql}
+       order by result->>'created_at' desc
+       limit $${scopedParams.length + 1}`,
+      [...scopedParams, Math.max(1, query.limit)],
+    );
+    const countRows = await this.rows(
+      `select count(*)::int as total from ${SCHEMA}.analyses where ${filterSql}`,
+      scopedParams,
+    );
+    return {
+      analyses: rows.map(row => row.result as AnalysisResult),
+      total: Number(countRows[0]?.total ?? rows.length),
+    };
   }
 
   async getIdempotencyRecord(key: string, method: string, route: string, subject: string): Promise<IdempotencyRecord | undefined> {
