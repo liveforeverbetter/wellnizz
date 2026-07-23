@@ -15,6 +15,10 @@ export type WgsDispatchOutcome =
 
 interface FlyMachine {
   state?: string;
+  config?: {
+    image?: string;
+    [key: string]: unknown;
+  };
 }
 
 export async function dispatchQueuedWgsWorker(
@@ -47,6 +51,24 @@ export async function dispatchQueuedWgsWorker(
     }
     if (machine.state !== 'stopped' && machine.state !== 'suspended') {
       return capacityUnavailable(409, `The dedicated WGS worker is currently ${machine.state ?? 'unavailable'}.`);
+    }
+
+    // The worker is intentionally stopped between jobs. Refresh its image while
+    // it is stopped so a normal API deploy cannot leave the next analysis on an
+    // old worker build. Fly's update endpoint requires the complete config.
+    const currentImage = env.FLY_IMAGE_REF;
+    if (currentImage && machine.config && machine.config.image !== currentImage) {
+      const updateResponse = await fetcher(machineUrl, {
+        method: 'POST',
+        headers: { ...headers, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          config: { ...machine.config, image: currentImage },
+          skip_launch: true,
+        }),
+      });
+      if (!updateResponse.ok) {
+        return capacityUnavailable(updateResponse.status, 'The dedicated WGS worker could not be refreshed to the current analysis build.');
+      }
     }
 
     const startResponse = await fetcher(`${machineUrl}/start`, { method: 'POST', headers });

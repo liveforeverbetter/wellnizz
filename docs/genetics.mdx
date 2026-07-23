@@ -101,9 +101,14 @@ relationships, symptoms, or clinical review.
 
 ### Hosted full-dbSNP status and billing contract
 
-The hosted Fly deployment was validated on **July 15, 2026**. It has a 40 GB
-encrypted `dbsnp_refs` volume mounted only on the WGS worker at
-`/data/reference`. The reference is the official NCBI GRCh37 assembly
+The hosted Fly deployment keeps the 40 GB encrypted `dbsnp_refs` volume mounted
+only on an on-demand WGS worker at `/data/reference`. The worker is provisioned
+in its own Fly region, independently from the API and wearable worker, and is
+started only after a durable genetics job is queued. This keeps routine API and
+wearable work available even when WGS capacity is constrained. The worker image
+is refreshed to the current API release before each start.
+
+The reference is the official NCBI GRCh37 assembly
 `GCF_000001405.25.gz` from the NCBI FTP latest-release directory (downloaded
 at the official advertised byte length with its `.md5` and `.tbi` sidecars;
 the sidecars remain on the volume for operator verification).
