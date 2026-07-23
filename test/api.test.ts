@@ -1346,7 +1346,8 @@ test('self-contained email OTP mints a session and rejects bad codes', async () 
     API_KEY_JWT_SECRET: 'otp-test-secret',
   });
   // Review-login bypass is read from the process environment (deployment config).
-  process.env.REVIEW_LOGIN_EMAIL = 'reviewer@example.com';
+  // A comma-separated list lets several reviewer accounts share the fixed code.
+  process.env.REVIEW_LOGIN_EMAIL = 'reviewer@example.com, second-reviewer@example.com';
   process.env.REVIEW_LOGIN_CODE = '424242';
   const otpServer = createHealthApiServer(new HealthApiStore(), { auth: authConfig });
   await new Promise<void>(resolve => otpServer.listen(0, resolve));
@@ -1373,6 +1374,12 @@ test('self-contained email OTP mints a session and rejects bad codes', async () 
     // The minted session token authenticates a subsequent request.
     const caps = await fetch(`${base}/capabilities`, { headers: { authorization: `Bearer ${verified.access_token}` } });
     assert.equal(caps.status, 200);
+
+    // A second listed reviewer email signs in with the same fixed code.
+    const secondStarted = await (await call('/auth/otp/start', { email: 'second-reviewer@example.com' })).json();
+    assert.equal(secondStarted.ok, true);
+    const secondVerify = await call('/auth/otp/verify', { email: 'second-reviewer@example.com', token: '424242' });
+    assert.equal(secondVerify.status, 200);
 
     // Unknown email with a wrong code is rejected.
     await call('/auth/otp/start', { email: 'nobody@example.com' });

@@ -33,13 +33,19 @@ export interface OtpSession {
 }
 
 interface ReviewLoginConfig {
-  email?: string;
+  emails: string[];
   code?: string;
 }
 
+// REVIEW_LOGIN_EMAIL accepts one address or a comma-separated list, so multiple
+// reviewer accounts (e.g. the Play and App Store review inboxes) can share the
+// single fixed code.
 function reviewLoginConfig(env: NodeJS.ProcessEnv = process.env): ReviewLoginConfig {
   return {
-    email: env.REVIEW_LOGIN_EMAIL?.trim().toLowerCase() || undefined,
+    emails: (env.REVIEW_LOGIN_EMAIL ?? '')
+      .split(',')
+      .map((value) => value.trim().toLowerCase())
+      .filter((value) => value.length > 0),
     code: env.REVIEW_LOGIN_CODE?.trim() || undefined,
   };
 }
@@ -48,8 +54,8 @@ function reviewLoginConfig(env: NodeJS.ProcessEnv = process.env): ReviewLoginCon
 // read an inbox. Disabled unless both env vars are set.
 function isReviewLogin(email: string, token?: string): boolean {
   const review = reviewLoginConfig();
-  if (!review.email || !review.code) return false;
-  if (email !== review.email) return false;
+  if (review.emails.length === 0 || !review.code) return false;
+  if (!review.emails.includes(email)) return false;
   if (token !== undefined && token.trim() !== review.code) return false;
   return true;
 }
