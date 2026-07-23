@@ -908,22 +908,12 @@ async function loadWearablesConnectSection(key, params) {
   }
 }
 
-async function loadGeneticsConnectSection(key, params) {
+async function loadGeneticsConnectSection() {
+  // The current genetic file and run history now surface compactly in the
+  // result-lens header, so this standalone "current data" block is intentionally
+  // not rendered.
   const container = $('#genetics-sources');
-  if (!container) return;
-  try {
-    const result = await apiGet(`/sources?category=genetics&${params}`, key);
-    const sources = newestFirst(result.sources || [], 'received_at');
-    if (sources.length) {
-      const [currentSource, ...previousSources] = sources;
-      container.innerHTML = `
-        <div class="section-heading-row"><div><p class="page-eyebrow">Current data</p><h2>Your latest genetic file</h2></div><p>${pluralize(sources.length, 'file')} stored privately</p></div>
-        <div class="modality-sources">${sourceCard(currentSource, 'DNA', 'Current genetic file')}</div>
-        ${sourceHistory(previousSources, 'Earlier genetic files')}`;
-    } else {
-      container.innerHTML = '';
-    }
-  } catch { /* default upload UI is already in HTML */ }
+  if (container) container.innerHTML = '';
 }
 
 async function loadLabsConnectSection(key, params) {
@@ -985,7 +975,9 @@ async function loadModalityInterpretations(page, modality, key, params) {
     // variants; showing a mixed priority feed makes that depth feel noisy and
     // obscures the question a person is trying to answer.
     if (page === 'genetics') {
-      container.innerHTML = renderGeneticsCategoryBrowser(currentSignals, analysisSummary);
+      const references = full.raw_source_references || [];
+      const geneticSource = references.find(ref => ref.category === 'genetics') || references[0];
+      container.innerHTML = renderGeneticsCategoryBrowser(currentSignals, { filename: geneticSource?.filename, updatedAt: current.created_at });
       bindGeneticsCategoryBrowser(container, currentSignals);
       return;
     }
@@ -1090,7 +1082,7 @@ const GENETICS_RESULT_CATEGORIES = [
   },
   {
     id: 'traits',
-    label: 'Traits & wellness',
+    label: 'Traits & Longevity',
     eyebrow: 'Personal context',
     description: 'Your stable, lifestyle-relevant trait interpretations and suggested next measurements.',
     tone: 'leaf',
@@ -1123,15 +1115,19 @@ function geneticResultCategoryGroups(interpretations) {
   return grouped;
 }
 
-function renderGeneticsCategoryBrowser(interpretations, analysisSummary) {
+function renderGeneticsCategoryBrowser(interpretations, meta = {}) {
   const grouped = geneticResultCategoryGroups(interpretations);
   const initial = GENETICS_RESULT_CATEGORIES.find(category => grouped.get(category.id)?.length)?.id || 'analysis';
-  return `${analysisSummary}
+  const fileMeta = meta.filename
+    ? `<div class="genetics-browser-file"><strong title="${escapeHtml(meta.filename)}">${escapeHtml(meta.filename)}</strong>${meta.updatedAt ? `<small>Updated ${escapeHtml(formatRelDate(meta.updatedAt))}</small>` : ''}</div>`
+    : '';
+  return `
     <section class="genetics-browser" aria-labelledby="genetics-browser-heading">
       <div class="genetics-browser-heading">
         <div><p class="page-eyebrow">Genome map</p><h2 id="genetics-browser-heading">Choose a result lens</h2></div>
-        <p>Six calm pathways through your WGS result. Select one to see only the findings that belong there.</p>
+        ${fileMeta}
       </div>
+      <p class="genetics-browser-lede">Six calm pathways through your WGS result. Select one to see only the findings that belong there.</p>
       <div class="genetics-category-grid" role="tablist" aria-label="Genetic result categories">
         ${GENETICS_RESULT_CATEGORIES.map(category => geneticCategoryCard(category, grouped.get(category.id) || [], category.id === initial)).join('')}
       </div>

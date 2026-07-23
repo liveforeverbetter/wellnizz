@@ -2632,9 +2632,40 @@ code {
   gap: 24px;
 }
 
-.genetics-browser-heading { margin-bottom: 18px; }
+.genetics-browser-heading { margin-bottom: 8px; }
 .genetics-browser-heading .page-eyebrow,
 .genetics-category-panel-heading .page-eyebrow { margin: 0 0 4px; }
+
+/* Genetic file + last-updated shown compactly in the result-lens header. */
+.genetics-browser-file {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  gap: 2px;
+  flex-shrink: 0;
+}
+.genetics-browser-file strong {
+  display: block;
+  max-width: 240px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+}
+.genetics-browser-file small { color: var(--ink-muted); font-size: 11px; }
+
+.genetics-browser-lede {
+  position: relative;
+  z-index: 1;
+  max-width: 460px;
+  margin: 0 0 18px;
+  color: var(--ink-muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
 .genetics-browser-heading h2 {
   margin: 0;
   color: var(--ink);
