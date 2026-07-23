@@ -4,7 +4,7 @@ import { readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join as pathJoin } from 'node:path';
 import { URL } from 'node:url';
-import { runHealthAnalysis, queryHealthContext, summarizeAnalysis, runWearableAutoAnalysis, type AnalysisOptions } from './core/analysis.js';
+import { runHealthAnalysis, queryHealthContext, summarizeAnalysis, runWearableAutoAnalysis, resolveWearableTimezone, type AnalysisOptions } from './core/analysis.js';
 import { runAncestryAnalysis, type AncestryAnalysisInput } from './core/ancestry-analysis.js';
 import { buildHealthContext } from './core/health-context.js';
 import { buildHealthTrends } from './core/trends.js';
@@ -1747,6 +1747,7 @@ async function createStoredAnalysis(
   const analysisOptions: AnalysisOptions = {
     ...options,
     ...(input.annotation_depth ? { annotation_depth: input.annotation_depth } : {}),
+    ...(options.modality === 'wearables' ? { timezone: await resolveWearableTimezone(store, input.user_id, organizationId) } : {}),
   };
   const baseAnalysis = runHealthAnalysis(
     input.user_id,
@@ -1963,6 +1964,7 @@ async function ingestHealthConnectSdkPayload(
       mobile_sync_enabled: true,
       last_batch_readings: observations.length,
       last_sync_timestamp: payload.syncTimestamp,
+      ...(typeof payload.timezone === 'string' && payload.timezone ? { timezone: payload.timezone } : {}),
     },
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
