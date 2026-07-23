@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@types/node": "^25.9.1",
-    "@types/nodemailer": "^6.4.24",
+    "@types/nodemailer": "^8.0.1",
     "@types/pg": "^8.20.0",
     "playwright": "^1.61.1",
     "typescript": "^5.9.3"
