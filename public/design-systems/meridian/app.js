@@ -1157,9 +1157,9 @@ function enterAgentLoginMode() {
   oauthCodePanel?.classList.add('hidden');
   authKeyForm?.classList.add('hidden');
   devPanel?.classList.remove('hidden');
-  document.querySelector('.mode-visual-agent')?.classList.add('hidden');
+  document.querySelector('.mode-visual-agent')?.classList.remove('hidden');
   document.querySelector('.mode-visual-dashboard')?.classList.add('hidden');
-  document.querySelector('.mode-visual-agent-login')?.classList.remove('hidden');
+  document.querySelector('.mode-visual-agent-login')?.classList.add('hidden');
   const title = devPanel?.querySelector('.auth-title');
   if (title) title.textContent = 'Sign in to issue an API key for your agent';
   const lede = devPanel?.querySelector('.auth-lede');
