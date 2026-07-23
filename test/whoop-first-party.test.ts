@@ -61,6 +61,10 @@ test('persists first-party WHOOP tokens for webhook sync', async () => {
     if (url.includes('/developer/v2/user/profile/basic')) {
       return new Response(JSON.stringify({ user_id: 987654 }), { status: 200, headers: { 'content-type': 'application/json' } });
     }
+    if (url.includes('/developer/v2/webhook/subscription')) {
+      if (init?.method === 'POST') return new Response(JSON.stringify({ success: true }), { status: 201, headers: { 'content-type': 'application/json' } });
+      return new Response(JSON.stringify([]), { status: 200, headers: { 'content-type': 'application/json' } });
+    }
     return originalFetch(input, init);
   };
   try {
