@@ -79,12 +79,22 @@ test('expands actionable dashboard findings into first-class interpretations', (
   assert.equal(drug.status, 'pharmacogenomic');
   assert.match(String(drug.title), /CYP2C19/);
   assert.match(String(drug.action), /clinician or pharmacist/);
+  const drugReport = (drug.raw as Record<string, any>).consumer_report;
+  assert.equal(drugReport.schema_version, '1.0');
+  assert.equal(drugReport.category, 'genetic_drug_response');
+  assert.equal(drugReport.result.label, 'Reduced clopidogrel activation.');
+  assert.equal(drugReport.evidence.variants[0].rsid, 'rs4244285');
+  assert.equal(drugReport.evidence.variants[0].gene, 'CYP2C19');
+  assert.match(drugReport.action, /clinician or pharmacist/);
 
   const pathogenic = byType('genetic_condition_finding')[0]!;
   assert.equal(pathogenic.status, 'action_recommended');
 
   const prs = byType('genetic_prs_score').find(i => /type 2 diabetes/i.test(i.title))!;
   assert.equal(prs.score, 88);
+  const prsReport = (prs.raw as Record<string, any>).consumer_report;
+  assert.equal(prsReport.category, 'genetic_prs_score');
+  assert.equal(prsReport.evidence.calibration, undefined);
 });
 
 test('condition-catalog interpretations drop the large panel_genes array but keep the count', () => {

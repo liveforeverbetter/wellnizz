@@ -2400,6 +2400,86 @@ code {
   text-transform: uppercase;
 }
 
+/* A genetic finding is an evidence brief: the result is immediately readable,
+   while variant-level and technical context stay available without crowding it. */
+.genetic-finding-card { gap: 12px; border-left-color: #6d5ab3; }
+
+.genetic-context { color: var(--ink-muted); }
+
+.genetic-result-band {
+  display: grid;
+  gap: 5px;
+  padding: 13px 14px;
+  border: 1px solid rgba(109, 90, 179, 0.22);
+  border-radius: 10px;
+  background: linear-gradient(118deg, rgba(109, 90, 179, 0.12), rgba(109, 90, 179, 0.035));
+}
+
+.genetic-result-band > span {
+  color: #5f4ca8;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.genetic-result-band strong { color: var(--ink); font-size: 13px; line-height: 1.45; }
+.genetic-result-band p { margin: 0; color: var(--ink-2); font-size: 12px; line-height: 1.5; }
+
+.genetic-evidence ul,
+.genetic-technical ul,
+.genetic-limitations ul,
+.genetic-references ul {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding: 0 12px 12px;
+  list-style: none;
+}
+
+.genetic-evidence li,
+.genetic-technical li,
+.genetic-limitations li,
+.genetic-references li {
+  display: grid;
+  gap: 2px;
+  color: var(--ink-muted);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.genetic-evidence li strong,
+.genetic-technical li strong {
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.genetic-technical,
+.genetic-limitations,
+.genetic-references {
+  border-top: 1px solid var(--line);
+}
+
+.genetic-technical summary,
+.genetic-limitations summary,
+.genetic-references summary {
+  padding: 10px 0 8px;
+  cursor: pointer;
+  color: var(--ink-2);
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.genetic-technical ul,
+.genetic-limitations ul,
+.genetic-references ul { padding-left: 0; padding-right: 0; }
+.genetic-references a { color: #5f4ca8; text-decoration: none; }
+.genetic-references a:hover { text-decoration: underline; }
+
 /* ---- Prompt Card ---- */
 
 .modality-prompt {
