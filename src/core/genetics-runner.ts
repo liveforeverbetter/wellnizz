@@ -259,6 +259,20 @@ export async function runGeneticsPipelineWithWriter(
     if (await exists(path.join(registryDir, 'manifest.json'))) {
       await options.onProgress?.({ stage: 'polygenic_scoring', progress_pct: 89, progress_message: 'Matching position- and allele-aware consumer performance scores.' });
       try {
+        const dashboardMetadata = isRecord(dashboard.metadata) ? dashboard.metadata : {};
+        // A cached annotation is produced only by this full dbSNP workflow. If
+        // the original VCF omits its reference build, that durable provenance
+        // is enough to score GRCh37 coordinates, but it must never override a
+        // header that explicitly says something else.
+        const rsidAnnotationSource = String(dashboardMetadata.rsid_annotation_source ?? '');
+        const inputGenomeBuildHint = (restoredAnnotation || rsidAnnotationSource === 'dbSNP GRCh37')
+          ? {
+              genomeBuild: 'GRCh37' as const,
+              source: restoredAnnotation
+                ? 'the verified cached full dbSNP GRCh37 annotation'
+                : 'the full dbSNP GRCh37 annotation',
+            }
+          : undefined;
         const calibrationRegistryPath = env.HEALTH_ANALYSIS_PGS_CALIBRATION_PATH
           ?? path.join(registryDir, 'calibration.json');
         const positionScores = await scoreBundledPositionAwarePgs(
@@ -268,9 +282,10 @@ export async function runGeneticsPipelineWithWriter(
           {
             ...(await exists(calibrationRegistryPath) ? { calibrationRegistryPath } : {}),
             populationSimilarity: options.pgsPopulationSimilarity,
+            ...(inputGenomeBuildHint ? { inputGenomeBuildHint } : {}),
           },
         );
-        const metadata = isRecord(dashboard.metadata) ? dashboard.metadata : {};
+        const metadata = dashboardMetadata;
         const existingScores = Array.isArray(metadata.prs_scores) ? metadata.prs_scores : [];
         const replacedIds = new Set(positionScores.scores.map(score => score.sourceId));
         metadata.prs_scores = [
@@ -283,6 +298,9 @@ export async function runGeneticsPipelineWithWriter(
           errors: positionScores.errors,
           matching_method: 'normalized_grch37_position_and_alleles',
           reference_inference_policy: 'dbsnp_reference_plus_variant_only_wgs_assumption',
+          input_genome_build: inputGenomeBuildHint
+            ? { value: inputGenomeBuildHint.genomeBuild, source: inputGenomeBuildHint.source }
+            : 'declared_in_vcf_header',
           calibration_registry: await exists(calibrationRegistryPath) ? calibrationRegistryPath : null,
           population_similarity: options.pgsPopulationSimilarity ?? null,
           percentile_policy: 'empirical_MostSimilarPop_only_when_panel_model_build_coverage_and_population_assignment_match',

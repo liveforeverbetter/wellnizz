@@ -81,7 +81,7 @@ function consumerGeneticInterpretations(
 ): AnalysisResult['derived_interpretations'] {
   const section = consumerGeneticsSection(pipeline.dashboard);
   if (!section) return [];
-  return section.insights.slice(0, 100).map(insight => ({
+  return section.insights.map(insight => ({
     id: createId('der'),
     user_id: analysis.user_id,
     organization_id: analysis.organization_id,

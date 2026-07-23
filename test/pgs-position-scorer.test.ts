@@ -8,6 +8,7 @@ import {
   grch37Contig,
   normalizeChrom,
   parsePgsScoringFile,
+  resolveVcfGenomeBuild,
   scoreWeightRows,
   type BundledPgsManifestEntry,
   type PgsWeightRow,
@@ -97,6 +98,13 @@ test('position-aware scoring requires an explicit compatible genome build', () =
   assert.equal(detectGenomeBuildFromVcfHeader('##contig=<ID=NC_000001.10,length=249250621>'), 'GRCh37');
   assert.equal(detectGenomeBuildFromVcfHeader('##reference=GRCh38\n##contig=<ID=chr1>'), 'GRCh38');
   assert.equal(detectGenomeBuildFromVcfHeader('##fileformat=VCFv4.2\n##contig=<ID=chr1>'), 'unknown');
+});
+
+test('annotation provenance can fill a missing build but can never override an explicit header', () => {
+  const hint = { genomeBuild: 'GRCh37' as const, source: 'verified cached full dbSNP GRCh37 annotation' };
+  assert.equal(resolveVcfGenomeBuild('unknown', hint), 'GRCh37');
+  assert.equal(resolveVcfGenomeBuild('GRCh37', hint), 'GRCh37');
+  assert.throws(() => resolveVcfGenomeBuild('GRCh38', hint), /conflicts with the GRCh37 build/);
 });
 
 test('bundled pulmonary model is pinned and parses all 279 weights', async () => {

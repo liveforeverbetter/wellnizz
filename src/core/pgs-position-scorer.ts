@@ -100,6 +100,16 @@ export interface PositionAwarePgsCalibrationOptions {
   calibrationRegistryPath?: string;
   calibrationRegistry?: PgsCalibrationRegistry;
   populationSimilarity?: PgsPopulationSimilarity;
+  /**
+   * A build established by the annotation workflow rather than the VCF header.
+   * This is intentionally a hint, not an override: a conflicting header still
+   * fails closed. It is for legacy WGS VCFs whose headers omit a build even
+   * though the durable full-dbsNP annotation proves the coordinate system.
+   */
+  inputGenomeBuildHint?: {
+    genomeBuild: 'GRCh37' | 'GRCh38';
+    source: string;
+  };
 }
 
 export async function scoreBundledPositionAwarePgs(
@@ -135,7 +145,10 @@ export async function scoreBundledPositionAwarePgs(
     }
   }
 
-  const inputBuild = await detectVcfGenomeBuild(inputVcf);
+  const inputBuild = resolveVcfGenomeBuild(
+    await detectVcfGenomeBuild(inputVcf),
+    calibrationOptions.inputGenomeBuildHint,
+  );
   if (inputBuild !== 'GRCh37') {
     throw new Error(inputBuild === 'GRCh38'
       ? 'The bundled position-aware score is GRCh37, but the uploaded VCF header identifies GRCh38. Liftover or a GRCh38 score release is required.'
@@ -428,6 +441,20 @@ export function detectGenomeBuildFromVcfHeader(header: string): 'GRCh37' | 'GRCh
   if (/(grch38|hg38|gcf_000001405\.26|nc_000001\.11)/.test(value)) return 'GRCh38';
   if (/(grch37|hg19|human_g1k_v37|hs37d5|gcf_000001405\.25|nc_000001\.10)/.test(value)) return 'GRCh37';
   return 'unknown';
+}
+
+/**
+ * Resolve a VCF build without ever letting workflow provenance contradict an
+ * explicit header. A hint exists solely to recover legacy files with no build
+ * declaration after a verified annotation workflow has established it.
+ */
+export function resolveVcfGenomeBuild(
+  detectedBuild: 'GRCh37' | 'GRCh38' | 'unknown',
+  hint?: PositionAwarePgsCalibrationOptions['inputGenomeBuildHint'],
+): 'GRCh37' | 'GRCh38' | 'unknown' {
+  if (!hint || detectedBuild === hint.genomeBuild) return detectedBuild === 'unknown' ? hint?.genomeBuild ?? 'unknown' : detectedBuild;
+  if (detectedBuild === 'unknown') return hint.genomeBuild;
+  throw new Error(`The uploaded VCF header identifies ${detectedBuild}, which conflicts with the ${hint.genomeBuild} build established by ${hint.source}. Position-aware scoring is withheld.`);
 }
 
 function forEachBcftoolsLine(args: string[], callback: (line: string) => void): Promise<void> {

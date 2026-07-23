@@ -942,6 +942,16 @@ async function loadModalityInterpretations(page, modality, key, params) {
     const condensedCount = Math.max(0, allInterpretations.length - currentSignals.length);
     const analysisSummary = currentAnalysisSummary(page, current, historyCount, currentSignals.length, allInterpretations.length, condensedCount);
 
+    // Genetics is deliberately browsed as six result lenses. Unlike wearable
+    // observations, a genome can legitimately carry hundreds of supporting
+    // variants; showing a mixed priority feed makes that depth feel noisy and
+    // obscures the question a person is trying to answer.
+    if (page === 'genetics') {
+      container.innerHTML = renderGeneticsCategoryBrowser(currentSignals, analysisSummary);
+      bindGeneticsCategoryBrowser(container, currentSignals);
+      return;
+    }
+
     if (!interpretations.length) {
       container.innerHTML = `${analysisSummary}<div class="section-heading-row"><h2>Current interpretation</h2></div>
         <div class="card modality-placeholder">
@@ -1009,6 +1019,139 @@ function currentAnalysisSummary(page, analysis, historyCount, findingCount, rawF
     ? ` ${rawFindingCount} variant-level interpretations are organized into ${findingCount} trait-level findings; genes and rsIDs remain available as evidence.`
     : condensedCount ? ` ${condensedCount} repeated observation${condensedCount === 1 ? ' is' : 's are'} kept for trends, not repeated here.` : '';
   return `<div class="analysis-summary current-analysis-summary"><strong>Current</strong><span>Updated ${escapeHtml(formatRelDate(analysis.created_at))} · ${findingCount} current ${findingCount === 1 ? 'finding' : 'findings'}</span><small>${history} ${geneticsNote}${consolidationNote}</small></div>`;
+}
+
+const GENETICS_RESULT_CATEGORIES = [
+  {
+    id: 'medication',
+    label: 'Medication response',
+    eyebrow: 'Prescribing context',
+    description: 'Drug-response findings and CPIC-backed context to take to a prescriber.',
+    tone: 'violet',
+  },
+  {
+    id: 'clinical',
+    label: 'Clinical findings',
+    eyebrow: 'Condition evidence',
+    description: 'Condition and catalog findings that deserve careful, clinician-aware review.',
+    tone: 'coral',
+  },
+  {
+    id: 'risk',
+    label: 'Risk & predisposition',
+    eyebrow: 'Risk context',
+    description: 'Variant-led risk context, grouped so one trait is not repeated per rsID.',
+    tone: 'amber',
+  },
+  {
+    id: 'polygenic',
+    label: 'Polygenic scores',
+    eyebrow: 'Population context',
+    description: 'Multi-variant scores with coverage, calibration, and evidence limits kept visible.',
+    tone: 'teal',
+  },
+  {
+    id: 'traits',
+    label: 'Traits & wellness',
+    eyebrow: 'Personal context',
+    description: 'Your stable, lifestyle-relevant trait interpretations and suggested next measurements.',
+    tone: 'leaf',
+  },
+  {
+    id: 'analysis',
+    label: 'Analysis & evidence',
+    eyebrow: 'How to read this',
+    description: 'Coverage, analysis scope, and the evidence context behind this WGS interpretation.',
+    tone: 'ink',
+  },
+];
+
+function geneticResultCategoryId(interp) {
+  return ({
+    genetic_drug_response: 'medication',
+    genetic_condition_finding: 'clinical',
+    genetic_condition_catalog_match: 'clinical',
+    genetic_risk_finding: 'risk',
+    genetic_prs_score: 'polygenic',
+    genetic_consumer_insight: 'traits',
+    genetic_pipeline_analysis: 'analysis',
+  })[interp.type] || 'analysis';
+}
+
+function geneticResultCategoryGroups(interpretations) {
+  const grouped = new Map(GENETICS_RESULT_CATEGORIES.map(category => [category.id, []]));
+  for (const interpretation of interpretations) grouped.get(geneticResultCategoryId(interpretation))?.push(interpretation);
+  for (const items of grouped.values()) items.sort((a, b) => geneticTypePriority(a) - geneticTypePriority(b) || interpretationPriority(a) - interpretationPriority(b) || String(a.title || '').localeCompare(String(b.title || '')));
+  return grouped;
+}
+
+function renderGeneticsCategoryBrowser(interpretations, analysisSummary) {
+  const grouped = geneticResultCategoryGroups(interpretations);
+  const initial = GENETICS_RESULT_CATEGORIES.find(category => grouped.get(category.id)?.length)?.id || 'analysis';
+  return `${analysisSummary}
+    <section class="genetics-browser" aria-labelledby="genetics-browser-heading">
+      <div class="genetics-browser-heading">
+        <div><p class="page-eyebrow">Genome map</p><h2 id="genetics-browser-heading">Choose a result lens</h2></div>
+        <p>Six calm pathways through your WGS result. Select one to see only the findings that belong there.</p>
+      </div>
+      <div class="genetics-category-grid" role="tablist" aria-label="Genetic result categories">
+        ${GENETICS_RESULT_CATEGORIES.map(category => geneticCategoryCard(category, grouped.get(category.id) || [], category.id === initial)).join('')}
+      </div>
+      <div class="genetics-category-panel" id="genetics-category-panel" role="tabpanel" tabindex="-1"></div>
+    </section>`;
+}
+
+function geneticCategoryCard(category, items, selected) {
+  const count = items.length;
+  return `<button type="button" class="genetics-category-card tone-${category.tone}${selected ? ' is-selected' : ''}" role="tab" aria-selected="${selected}" aria-controls="genetics-category-panel" data-genetics-category="${category.id}">
+    <span class="genetics-category-icon" aria-hidden="true">${geneticsCategoryIcon(category.id)}</span>
+    <span class="genetics-category-copy"><span class="genetics-category-eyebrow">${escapeHtml(category.eyebrow)}</span><strong>${escapeHtml(category.label)}</strong><small>${escapeHtml(category.description)}</small></span>
+    <span class="genetics-category-count"><b>${count}</b><small>${count === 1 ? 'finding' : 'findings'}</small></span>
+  </button>`;
+}
+
+function bindGeneticsCategoryBrowser(container, interpretations) {
+  const grouped = geneticResultCategoryGroups(interpretations);
+  const panel = container.querySelector('#genetics-category-panel');
+  const renderSelection = (id, focusPanel = false) => {
+    const category = GENETICS_RESULT_CATEGORIES.find(item => item.id === id) || GENETICS_RESULT_CATEGORIES[0];
+    const items = grouped.get(category.id) || [];
+    for (const button of container.querySelectorAll('[data-genetics-category]')) {
+      const selected = button.dataset.geneticsCategory === category.id;
+      button.classList.toggle('is-selected', selected);
+      button.setAttribute('aria-selected', String(selected));
+    }
+    if (panel) {
+      panel.innerHTML = geneticCategoryPanel(category, items);
+      if (focusPanel) panel.focus();
+    }
+  };
+  container.querySelectorAll('[data-genetics-category]').forEach(button => {
+    button.addEventListener('click', () => renderSelection(button.dataset.geneticsCategory, true));
+  });
+  const initial = GENETICS_RESULT_CATEGORIES.find(category => grouped.get(category.id)?.length)?.id || 'analysis';
+  renderSelection(initial);
+}
+
+function geneticCategoryPanel(category, items) {
+  return `<div class="genetics-category-panel-heading tone-${category.tone}">
+      <span class="genetics-panel-icon" aria-hidden="true">${geneticsCategoryIcon(category.id)}</span>
+      <div><p class="page-eyebrow">${escapeHtml(category.eyebrow)}</p><h3>${escapeHtml(category.label)}</h3><p>${escapeHtml(category.description)}</p></div>
+      <span class="genetics-panel-total">${items.length} ${items.length === 1 ? 'finding' : 'findings'}</span>
+    </div>
+    ${items.length ? `<div class="modality-interp-grid genetics-result-grid">${items.map(interpretationCard).join('')}</div>` : `<div class="card modality-placeholder genetics-empty-category"><h2>Nothing surfaced here yet.</h2><p>This lens remains available as the evidence base and interpretation methods expand.</p></div>`}`;
+}
+
+function geneticsCategoryIcon(category) {
+  const paths = {
+    medication: '<path d="M8 5.5a4.5 4.5 0 0 1 6.36 6.36l-5.5 5.5A4.5 4.5 0 1 1 2.5 11l1.2-1.2"/><path d="m6.2 13.8 4-4"/>',
+    clinical: '<path d="M12 20s-7-3.9-7-9.3A3.7 3.7 0 0 1 12 8.7a3.7 3.7 0 0 1 7 2c0 5.4-7 9.3-7 9.3Z"/><path d="M12 6v5m-2.5-2.5h5"/>',
+    risk: '<path d="M12 3 3.7 18h16.6L12 3Z"/><path d="M12 9v4m0 2.8h.01"/>',
+    polygenic: '<path d="M7 4c5 0 5 16 10 16M17 4C12 4 12 20 7 20"/><path d="M8.5 7h7m-7 5h7m-7 5h7"/>',
+    traits: '<path d="M12 20c4.4-2.1 7-5.6 7-10.5C15 9.3 12.7 7.3 12 4 11.3 7.3 9 9.3 5 9.5 5 14.4 7.6 17.9 12 20Z"/><path d="M12 20v-8m0 3c-1.4-1.6-3.1-2.2-4.7-2.2M12 12c1.3-1.6 2.9-2.2 4.5-2.2"/>',
+    analysis: '<circle cx="12" cy="12" r="8"/><path d="M12 8v4l2.7 1.8M8 4.8l1.4 1M16 4.8l-1.4 1"/>',
+  };
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${paths[category] || paths.analysis}</svg>`;
 }
 
 function interpretationPriority(interp) {
