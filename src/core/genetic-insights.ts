@@ -420,11 +420,11 @@ function normalizePolygenicScore(score: Record<string, unknown>): GeneticConsume
   score.calibration = state === 'research_only' ? null : calibration?.publicValue ?? null;
   score.reanalysisRecommended = state === 'raw_score_only' || state === 'insufficient_coverage';
   if (state === 'raw_score_only') {
-    score.description = 'A model-weighted genetic score was calculated, but no compatible population calibration was supplied. No percentile or above/below-average claim is returned.';
+    score.description = 'A genetic score was calculated from your variants. We do not yet have a population reference to compare it against, so we show the trait context and the genes involved instead of a percentile or an above/below-average label.';
   } else if (state === 'insufficient_coverage') {
-    score.description = `Only ${coverage?.matched_variants ?? 0} of ${coverage?.expected_variants ?? 0} configured variants were matched. The model is not interpreted.`;
+    score.description = `Only ${coverage?.matched_variants ?? 0} of ${coverage?.expected_variants ?? 0} of this trait's markers could be read from your file, so the result is not reliable enough to report yet. Reanalysis may recover more.`;
   } else if (state === 'research_only') {
-    score.description = 'A published research model was calculated, but direction, percentile, and trait prediction are intentionally withheld. It must not be used for health or high-impact life decisions.';
+    score.description = 'This is a research-only model, shared for context and provenance. It is not a prediction, percentile, or trait label, and must not be used for health or other high-impact decisions.';
   }
 
   return {
@@ -435,11 +435,11 @@ function normalizePolygenicScore(score: Record<string, unknown>): GeneticConsume
     reporting_policy: reportingPolicy,
     calculation_state: state,
     result_summary: state === 'raw_score_only'
-      ? 'Raw model score available; population comparison withheld until compatible calibration is available.'
+      ? 'Your genetic markers for this trait were read. A population comparison is not available yet, so we show the trait context and the genes involved rather than a percentile.'
       : state === 'insufficient_coverage'
-        ? 'The score was not interpreted because model coverage is below the API safety threshold.'
+        ? 'Not enough of this trait\'s genetic markers could be read from your file to give a reliable result yet.'
         : state === 'research_only'
-          ? 'Research model calculated; direction, percentile, and individual trait prediction are intentionally withheld.'
+          ? 'A research-only model, shared for context rather than as a prediction, percentile, or trait label.'
         : `${riskLabel ?? 'Reference-relative result'}${percentile == null ? '' : ` (${Math.round(percentile)}th percentile)`}.`,
     consumer_value: spotlight?.consumerValue ?? consumerValueForTrait(traitId),
     raw_score: rawScore,

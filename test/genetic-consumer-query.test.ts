@@ -86,5 +86,5 @@ test('research-only cognitive scores remain queryable without percentile or dire
   assert.equal(match.title, 'Fluid-reasoning research score');
   assert.equal(match.status, 'informational');
   assert.equal(match.score, undefined);
-  assert.match(match.summary ?? '', /intentionally withheld/i);
+  assert.match(match.summary ?? '', /research-only|not a prediction|context/i);
 });
